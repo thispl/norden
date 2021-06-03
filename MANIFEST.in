@@ -1,0 +1,18 @@
+include MANIFEST.in
+include requirements.txt
+include *.json
+include *.md
+include *.py
+include *.txt
+recursive-include norden *.css
+recursive-include norden *.csv
+recursive-include norden *.html
+recursive-include norden *.ico
+recursive-include norden *.js
+recursive-include norden *.json
+recursive-include norden *.md
+recursive-include norden *.png
+recursive-include norden *.py
+recursive-include norden *.svg
+recursive-include norden *.txt
+recursive-exclude norden *.pyc
