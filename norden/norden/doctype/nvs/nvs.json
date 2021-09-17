@@ -1,0 +1,533 @@
+{
+ "actions": [],
+ "autoname": "field:type",
+ "creation": "2021-06-17 11:04:50.353603",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "type",
+  "image_upload",
+  "categories",
+  "column_break_2",
+  "model_no",
+  "pages",
+  "section_break_4",
+  "description",
+  "features",
+  "specification",
+  "laser_player",
+  "laser_pb",
+  "usb",
+  "usb_pb",
+  "sd",
+  "sd_pb",
+  "bluetooth",
+  "bluetooth_pb",
+  "radio_function_fmam",
+  "radio_pb",
+  "aux_input",
+  "aux_ip_pb",
+  "aux_output",
+  "aux_op_pb",
+  "mic_input",
+  "mic_pb",
+  "interface",
+  "intreface_pb",
+  "other_specification",
+  "other_pb",
+  "section_break_29",
+  "protection",
+  "power_supply",
+  "outer_packing_dimension_mm",
+  "column_break_33",
+  "machine_dimension_mm",
+  "gross_weight",
+  "net_weight",
+  "section_break_9",
+  "front_panel",
+  "front_pb",
+  "rear_panel",
+  "rear_pb",
+  "software_instructions",
+  "software_pb",
+  "appearance",
+  "appearance_pb",
+  "appearance_image_2",
+  "appearance_img_pb",
+  "connection_diagram",
+  "connection_pb",
+  "column_break_15",
+  "input_connection",
+  "ip_conn_pb",
+  "output_connection",
+  "op_conn_pb",
+  "is_single_image",
+  "freq_response_distortion",
+  "freq_pb",
+  "is_double_image",
+  "freq_response",
+  "freq_response_image",
+  "distortion",
+  "distortion_image",
+  "installation",
+  "installation_pb",
+  "section_break_14",
+  "dimension_image",
+  "dimension",
+  "section_break_17",
+  "ordering_information_section",
+  "ds_order",
+  "page_break",
+  "packing_information_section",
+  "ds_packing",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "type",
+   "fieldtype": "Data",
+   "label": "Part Number",
+   "unique": 1
+  },
+  {
+   "fieldname": "model_no",
+   "fieldtype": "Data",
+   "label": "Description",
+   "unique": 1
+  },
+  {
+   "fieldname": "image_upload",
+   "fieldtype": "Attach Image",
+   "label": "Image upload"
+  },
+  {
+   "fieldname": "features",
+   "fieldtype": "Table",
+   "label": "Features",
+   "options": "DS features table"
+  },
+  {
+   "fieldname": "specification",
+   "fieldtype": "Table",
+   "label": "Specification",
+   "options": "Specification NVS"
+  },
+  {
+   "fieldname": "appearance",
+   "fieldtype": "Attach Image",
+   "label": "Appearance Image 1"
+  },
+  {
+   "fieldname": "dimension_image",
+   "fieldtype": "Attach Image",
+   "label": "Dimension Image"
+  },
+  {
+   "fieldname": "ordering_information_section",
+   "fieldtype": "Section Break",
+   "label": "Ordering Information"
+  },
+  {
+   "fieldname": "ds_order",
+   "fieldtype": "Table",
+   "options": "DS Order"
+  },
+  {
+   "fieldname": "packing_information_section",
+   "fieldtype": "Section Break",
+   "label": "Packing Information"
+  },
+  {
+   "fieldname": "ds_packing",
+   "fieldtype": "Table",
+   "options": "DS Packing"
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_4",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Small Text",
+   "label": "Description"
+  },
+  {
+   "fieldname": "front_panel",
+   "fieldtype": "Attach Image",
+   "label": "Front Panel"
+  },
+  {
+   "fieldname": "rear_panel",
+   "fieldtype": "Attach Image",
+   "label": "Rear Panel"
+  },
+  {
+   "fieldname": "software_instructions",
+   "fieldtype": "Attach Image",
+   "label": "Software Instruction"
+  },
+  {
+   "fieldname": "connection_diagram",
+   "fieldtype": "Attach Image",
+   "label": "Connection Diagram"
+  },
+  {
+   "fieldname": "input_connection",
+   "fieldtype": "Attach Image",
+   "label": "Input Connection"
+  },
+  {
+   "fieldname": "output_connection",
+   "fieldtype": "Attach Image",
+   "label": "Output Connection"
+  },
+  {
+   "fieldname": "section_break_14",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "dimension",
+   "fieldtype": "Small Text",
+   "label": "Dimension"
+  },
+  {
+   "fieldname": "section_break_17",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "installation",
+   "fieldtype": "Small Text",
+   "label": "Installation"
+  },
+  {
+   "fieldname": "section_break_9",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_15",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:doc.is_single_image",
+   "fieldname": "freq_response_distortion",
+   "fieldtype": "Attach Image",
+   "label": "Freq. Response/Distortion"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_single_image",
+   "fieldtype": "Check",
+   "label": "Is Single Image"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_double_image",
+   "fieldtype": "Check",
+   "label": "Is Double Image"
+  },
+  {
+   "depends_on": "eval:doc.is_double_image",
+   "fieldname": "freq_response",
+   "fieldtype": "Data",
+   "label": "Freq. Response"
+  },
+  {
+   "depends_on": "eval:doc.is_double_image",
+   "fieldname": "distortion",
+   "fieldtype": "Data",
+   "label": "Distortion"
+  },
+  {
+   "depends_on": "eval:doc.is_double_image",
+   "fieldname": "freq_response_image",
+   "fieldtype": "Attach Image",
+   "label": "Freq. Response Image"
+  },
+  {
+   "depends_on": "eval:doc.is_double_image",
+   "fieldname": "distortion_image",
+   "fieldtype": "Attach Image",
+   "label": "Distortion Image"
+  },
+  {
+   "fieldname": "laser_player",
+   "fieldtype": "Table",
+   "label": "Laser Player",
+   "options": "NVS Specification"
+  },
+  {
+   "fieldname": "usb",
+   "fieldtype": "Table",
+   "label": "USB",
+   "options": "NVS Specification"
+  },
+  {
+   "fieldname": "sd",
+   "fieldtype": "Table",
+   "label": "SD",
+   "options": "NVS Specification"
+  },
+  {
+   "fieldname": "bluetooth",
+   "fieldtype": "Table",
+   "label": "Bluetooth",
+   "options": "NVS Specification"
+  },
+  {
+   "fieldname": "radio_function_fmam",
+   "fieldtype": "Table",
+   "label": "Radio function (FM/AM)",
+   "options": "NVS Specification"
+  },
+  {
+   "fieldname": "protection",
+   "fieldtype": "Data",
+   "label": "Protection"
+  },
+  {
+   "fieldname": "power_supply",
+   "fieldtype": "Data",
+   "label": "Power supply"
+  },
+  {
+   "fieldname": "outer_packing_dimension_mm",
+   "fieldtype": "Data",
+   "label": "Outer packing dimension (mm)"
+  },
+  {
+   "fieldname": "machine_dimension_mm",
+   "fieldtype": "Data",
+   "label": "Machine dimension (mm)"
+  },
+  {
+   "fieldname": "gross_weight",
+   "fieldtype": "Data",
+   "label": "Gross weight"
+  },
+  {
+   "fieldname": "net_weight",
+   "fieldtype": "Data",
+   "label": "Net weight"
+  },
+  {
+   "fieldname": "aux_input",
+   "fieldtype": "Table",
+   "label": "AUX input",
+   "options": "NVS Specification"
+  },
+  {
+   "fieldname": "aux_output",
+   "fieldtype": "Table",
+   "label": "AUX output",
+   "options": "NVS Specification"
+  },
+  {
+   "fieldname": "mic_input",
+   "fieldtype": "Table",
+   "label": "MIC input",
+   "options": "NVS Specification"
+  },
+  {
+   "fieldname": "interface",
+   "fieldtype": "Table",
+   "label": "Interface",
+   "options": "NVS Specification"
+  },
+  {
+   "fieldname": "other_specification",
+   "fieldtype": "Table",
+   "label": "Other specification",
+   "options": "NVS Specification"
+  },
+  {
+   "default": "0",
+   "fieldname": "laser_pb",
+   "fieldtype": "Check",
+   "label": "Page Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "usb_pb",
+   "fieldtype": "Check",
+   "label": "Page Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "sd_pb",
+   "fieldtype": "Check",
+   "label": "Page Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "bluetooth_pb",
+   "fieldtype": "Check",
+   "label": "Page Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "radio_pb",
+   "fieldtype": "Check",
+   "label": "Page Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "aux_ip_pb",
+   "fieldtype": "Check",
+   "label": "Page Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "aux_op_pb",
+   "fieldtype": "Check",
+   "label": "Page Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "mic_pb",
+   "fieldtype": "Check",
+   "label": "Page Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "intreface_pb",
+   "fieldtype": "Check",
+   "label": "Page Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "other_pb",
+   "fieldtype": "Check",
+   "label": "Page Break"
+  },
+  {
+   "fieldname": "section_break_29",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_33",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "appearance_image_2",
+   "fieldtype": "Attach Image",
+   "label": "Appearance Image 2"
+  },
+  {
+   "default": "0",
+   "fieldname": "front_pb",
+   "fieldtype": "Check",
+   "label": "Page Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "rear_pb",
+   "fieldtype": "Check",
+   "label": "Page Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "software_pb",
+   "fieldtype": "Check",
+   "label": "Page Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "appearance_pb",
+   "fieldtype": "Check",
+   "label": "Page Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "appearance_img_pb",
+   "fieldtype": "Check",
+   "label": "Page Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "connection_pb",
+   "fieldtype": "Check",
+   "label": "Page Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "ip_conn_pb",
+   "fieldtype": "Check",
+   "label": "Page Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "op_conn_pb",
+   "fieldtype": "Check",
+   "label": "Page Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "freq_pb",
+   "fieldtype": "Check",
+   "label": "Page Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "installation_pb",
+   "fieldtype": "Check",
+   "label": "Page Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "categories",
+   "fieldtype": "Data",
+   "label": "Category"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "NVS",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "page_break",
+   "fieldtype": "Check",
+   "label": "Page Break"
+  },
+  {
+   "default": "1",
+   "fieldname": "pages",
+   "fieldtype": "Select",
+   "label": "Pages",
+   "options": "1\n2\n3\n4"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2021-09-14 15:42:53.698985",
+ "modified_by": "Administrator",
+ "module": "Norden",
+ "name": "NVS",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

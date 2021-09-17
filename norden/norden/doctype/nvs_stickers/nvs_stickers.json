@@ -1,0 +1,218 @@
+{
+ "actions": [],
+ "autoname": "field:model",
+ "creation": "2021-09-15 06:20:19.551868",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "width",
+  "column_break_2",
+  "height",
+  "section_break_3",
+  "model",
+  "power_taps1",
+  "power_taps2",
+  "sensitivity",
+  "frequency",
+  "impedance",
+  "black",
+  "red",
+  "description",
+  "quantity",
+  "part_no",
+  "print_based_on",
+  "print_quantity",
+  "product_barcode",
+  "serial_numbers",
+  "column_break_11",
+  "net_weight",
+  "gross_weight",
+  "size",
+  "lot_number",
+  "po",
+  "sn1",
+  "company_name",
+  "logo",
+  "image",
+  "image2"
+ ],
+ "fields": [
+  {
+   "fieldname": "model",
+   "fieldtype": "Data",
+   "label": "Model",
+   "unique": 1
+  },
+  {
+   "fieldname": "power_taps1",
+   "fieldtype": "Data",
+   "label": "Power Taps"
+  },
+  {
+   "fieldname": "power_taps2",
+   "fieldtype": "Data",
+   "label": "Power Taps"
+  },
+  {
+   "fieldname": "sensitivity",
+   "fieldtype": "Data",
+   "label": "Sensitivity"
+  },
+  {
+   "fieldname": "frequency",
+   "fieldtype": "Data",
+   "label": "Frequency"
+  },
+  {
+   "fieldname": "impedance",
+   "fieldtype": "Data",
+   "label": "Impedance"
+  },
+  {
+   "fieldname": "black",
+   "fieldtype": "Data",
+   "label": "Black"
+  },
+  {
+   "fieldname": "red",
+   "fieldtype": "Data",
+   "label": "Red"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Data",
+   "label": "Description"
+  },
+  {
+   "fieldname": "quantity",
+   "fieldtype": "Data",
+   "label": "Quantity"
+  },
+  {
+   "fieldname": "part_no",
+   "fieldtype": "Data",
+   "label": "Part No"
+  },
+  {
+   "fieldname": "net_weight",
+   "fieldtype": "Data",
+   "label": "Net Weight"
+  },
+  {
+   "fieldname": "gross_weight",
+   "fieldtype": "Data",
+   "label": "Gross Weight"
+  },
+  {
+   "fieldname": "size",
+   "fieldtype": "Data",
+   "label": "Size "
+  },
+  {
+   "fieldname": "lot_number",
+   "fieldtype": "Data",
+   "label": "Lot Number"
+  },
+  {
+   "fieldname": "po",
+   "fieldtype": "Data",
+   "label": "PO"
+  },
+  {
+   "fieldname": "sn1",
+   "fieldtype": "Data",
+   "label": "S/N"
+  },
+  {
+   "fieldname": "column_break_11",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "company_name",
+   "fieldtype": "Data",
+   "label": "Company Name"
+  },
+  {
+   "depends_on": "eval:doc.print_based_on == 'Bulk Quantity'",
+   "fieldname": "product_barcode",
+   "fieldtype": "Barcode",
+   "label": "Product Barcode"
+  },
+  {
+   "fieldname": "logo",
+   "fieldtype": "Attach Image",
+   "label": "Logo"
+  },
+  {
+   "fieldname": "image",
+   "fieldtype": "Attach",
+   "label": "Image"
+  },
+  {
+   "fieldname": "image2",
+   "fieldtype": "Attach",
+   "label": "Image2"
+  },
+  {
+   "fieldname": "width",
+   "fieldtype": "Data",
+   "label": "Width (mm)"
+  },
+  {
+   "fieldname": "height",
+   "fieldtype": "Data",
+   "label": "Height (mm)"
+  },
+  {
+   "fieldname": "section_break_3",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "print_based_on",
+   "fieldtype": "Select",
+   "label": "Print Based On",
+   "options": "\nSerial Number\nBulk Quantity"
+  },
+  {
+   "depends_on": "eval:doc.print_based_on == 'Serial Number'",
+   "fieldname": "serial_numbers",
+   "fieldtype": "Table",
+   "label": "Serial Numbers",
+   "options": "NVS Sticker Serial Number"
+  },
+  {
+   "fieldname": "print_quantity",
+   "fieldtype": "Int",
+   "label": "Print Quantity"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2021-09-17 10:45:36.924877",
+ "modified_by": "Administrator",
+ "module": "Norden",
+ "name": "NVS Stickers",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

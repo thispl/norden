@@ -1,0 +1,59 @@
+{
+ "actions": [],
+ "creation": "2021-07-27 16:15:28.654675",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "compliance",
+  "shielding",
+  "outer_jacket",
+  "insulation",
+  "drain_wire",
+  "jacket_color"
+ ],
+ "fields": [
+  {
+   "fieldname": "compliance",
+   "fieldtype": "Data",
+   "label": "Conductor"
+  },
+  {
+   "fieldname": "shielding",
+   "fieldtype": "Data",
+   "label": "Shielding"
+  },
+  {
+   "fieldname": "outer_jacket",
+   "fieldtype": "Data",
+   "label": "Outer Jacket"
+  },
+  {
+   "fieldname": "insulation",
+   "fieldtype": "Data",
+   "label": "Insulation"
+  },
+  {
+   "fieldname": "drain_wire",
+   "fieldtype": "Data",
+   "label": "Drain Wire"
+  },
+  {
+   "fieldname": "jacket_color",
+   "fieldtype": "Data",
+   "label": "Jacket Color"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2021-07-27 16:24:30.583301",
+ "modified_by": "Administrator",
+ "module": "Norden",
+ "name": "CableConstruction",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

@@ -1,0 +1,131 @@
+{
+ "actions": [],
+ "autoname": "field:part_no",
+ "creation": "2021-08-23 13:52:49.475083",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "part_no",
+  "description",
+  "batch_no",
+  "quantity",
+  "date_of_import",
+  "column_break_3",
+  "product_barcode",
+  "section_break_6",
+  "mrp",
+  "address",
+  "column_break_4",
+  "email",
+  "toll_free_no",
+  "amended_from",
+  "logo"
+ ],
+ "fields": [
+  {
+   "fieldname": "part_no",
+   "fieldtype": "Data",
+   "label": "Part No",
+   "unique": 1
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Data",
+   "label": "Description"
+  },
+  {
+   "fieldname": "batch_no",
+   "fieldtype": "Data",
+   "label": "Batch No"
+  },
+  {
+   "fieldname": "quantity",
+   "fieldtype": "Data",
+   "label": "Quantity"
+  },
+  {
+   "fieldname": "product_barcode",
+   "fieldtype": "Barcode",
+   "label": "Product Barcode"
+  },
+  {
+   "fieldname": "mrp",
+   "fieldtype": "Data",
+   "label": "MRP"
+  },
+  {
+   "fieldname": "address",
+   "fieldtype": "Small Text",
+   "label": "Name & Add. of Marketer"
+  },
+  {
+   "fieldname": "email",
+   "fieldtype": "Data",
+   "label": "Email",
+   "options": "Email"
+  },
+  {
+   "fieldname": "toll_free_no",
+   "fieldtype": "Data",
+   "label": "Toll Free No",
+   "options": "Phone"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Norden 2 Sticker",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "logo",
+   "fieldtype": "Attach Image",
+   "label": "logo"
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_6",
+   "fieldtype": "Section Break",
+   "label": "Price Sticker"
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "date_of_import",
+   "fieldtype": "Date",
+   "label": "Date of Import"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2021-09-13 07:14:05.682393",
+ "modified_by": "Administrator",
+ "module": "Norden",
+ "name": "Norden 2 Sticker",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

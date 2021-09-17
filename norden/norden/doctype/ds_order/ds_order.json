@@ -1,0 +1,44 @@
+{
+ "actions": [],
+ "creation": "2021-06-03 13:14:11.020903",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "part_number",
+  "description",
+  "standard_quantity"
+ ],
+ "fields": [
+  {
+   "fieldname": "part_number",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Part Number"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Small Text",
+   "in_list_view": 1,
+   "label": "Description"
+  },
+  {
+   "fieldname": "standard_quantity",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Standard Quantity"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2021-06-16 04:26:32.073376",
+ "modified_by": "Administrator",
+ "module": "Norden",
+ "name": "DS Order",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

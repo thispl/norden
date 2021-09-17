@@ -143,3 +143,24 @@ app_license = "MIT"
 #
 # auto_cancel_exempted_doctypes = ["Auto Repeat"]
 
+jenv = {
+	"methods": [
+		"get_specification:norden.norden.doctype.eyenor_datasheet.eyenor_datasheet.get_specification",
+		"get_header:norden.norden.doctype.eyenor_datasheet.eyenor_datasheet.get_header",
+		"get_order_info:norden.norden.doctype.eyenor_datasheet.eyenor_datasheet.get_order_info",
+		"get_pack_info:norden.norden.doctype.eyenor_datasheet.eyenor_datasheet.get_pack_info",	
+		"get_datasheet_icons:norden.norden.doctype.eyenor_datasheet.eyenor_datasheet.get_datasheet_icons",
+		"get_nvs_specification:norden.norden.doctype.nvs.nvs.get_nvs_specification",
+		"get_nvs_header:norden.norden.doctype.nvs.nvs.get_nvs_header",
+		"get_category_alignment:norden.norden.doctype.nvs.nvs.get_category_alignment",
+		"generate_stickers:norden.norden.doctype.eyenor_stickers.eyenor_stickers.generate_stickers",
+		"get_technical_parameter:norden.norden.doctype.nac_datasheet.nac_datasheet.get_technical_parameter",
+		"get_samplecontent:norden.norden.doctype.eyenor_datasheet.eyenor_datasheet.get_samplecontent",
+		"get_product_info:norden.norden.doctype.cable_datasheet.cable_datasheet.get_product_info",
+		"get_material_info:norden.norden.doctype.cable_datasheet.cable_datasheet.get_material_info",
+		"get_electrical_mechanical_info:norden.norden.doctype.cable_datasheet.cable_datasheet.get_electrical_mechanical_info",
+		"ordering_guide:norden.norden.doctype.cable_datasheet.cable_datasheet.ordering_guide",
+		"get_nordata_desc:norden.norden.doctype.cable_datasheet.cable_datasheet.get_nordata_desc",
+		"get_optidata_desc:norden.norden.doctype.cable_datasheet.cable_datasheet.get_optidata_desc",
+	]
+}

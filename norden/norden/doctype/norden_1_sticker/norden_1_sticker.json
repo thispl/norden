@@ -1,0 +1,108 @@
+{
+ "actions": [],
+ "autoname": "field:part_no",
+ "creation": "2021-08-17 08:17:23.584615",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "description",
+  "part_no",
+  "quantity",
+  "mrp",
+  "date_of_import",
+  "address",
+  "column_break_5",
+  "email",
+  "toll_free_no",
+  "logo",
+  "barcode"
+ ],
+ "fields": [
+  {
+   "fieldname": "description",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Description"
+  },
+  {
+   "fieldname": "part_no",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Part No",
+   "unique": 1
+  },
+  {
+   "fieldname": "quantity",
+   "fieldtype": "Data",
+   "label": "Quantity"
+  },
+  {
+   "fieldname": "mrp",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "MRP"
+  },
+  {
+   "fieldname": "date_of_import",
+   "fieldtype": "Data",
+   "label": "Date of Import"
+  },
+  {
+   "fieldname": "address",
+   "fieldtype": "Small Text",
+   "label": "Name & Address of Marketer"
+  },
+  {
+   "fieldname": "email",
+   "fieldtype": "Data",
+   "label": "Email",
+   "options": "Email"
+  },
+  {
+   "fieldname": "toll_free_no",
+   "fieldtype": "Data",
+   "label": "Toll Free No",
+   "options": "Phone"
+  },
+  {
+   "fieldname": "logo",
+   "fieldtype": "Attach Image",
+   "label": "Logo"
+  },
+  {
+   "fieldname": "barcode",
+   "fieldtype": "Barcode",
+   "label": "Barcode"
+  },
+  {
+   "fieldname": "column_break_5",
+   "fieldtype": "Column Break"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2021-09-12 02:19:05.025417",
+ "modified_by": "Administrator",
+ "module": "Norden",
+ "name": "Norden 1 Sticker",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "title_field": "part_no",
+ "track_changes": 1
+}

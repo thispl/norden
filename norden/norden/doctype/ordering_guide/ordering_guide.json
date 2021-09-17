@@ -1,0 +1,65 @@
+{
+ "actions": [],
+ "creation": "2021-07-19 07:42:00.964181",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "cable_type",
+  "jacket",
+  "fibre_tube",
+  "fibre_count",
+  "fibre_type_fxx",
+  "jacket_colour"
+ ],
+ "fields": [
+  {
+   "fieldname": "cable_type",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Cable Type"
+  },
+  {
+   "fieldname": "jacket",
+   "fieldtype": "Small Text",
+   "in_list_view": 1,
+   "label": "Jacket"
+  },
+  {
+   "fieldname": "fibre_tube",
+   "fieldtype": "Small Text",
+   "in_list_view": 1,
+   "label": "Fibre Tube"
+  },
+  {
+   "fieldname": "fibre_count",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Fibre Count"
+  },
+  {
+   "fieldname": "fibre_type_fxx",
+   "fieldtype": "Small Text",
+   "in_list_view": 1,
+   "label": "Fibre Type (FXX)"
+  },
+  {
+   "fieldname": "jacket_colour",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Jacket Colour (CL)"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2021-07-24 12:13:05.149069",
+ "modified_by": "Administrator",
+ "module": "Norden",
+ "name": "Ordering Guide",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

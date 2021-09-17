@@ -1,0 +1,107 @@
+{
+ "actions": [],
+ "autoname": "NVSD.####",
+ "creation": "2021-06-05 08:38:31.976279",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "nvs_code",
+  "title",
+  "column_break_3",
+  "description",
+  "section_break_3",
+  "features",
+  "specification",
+  "installation",
+  "ordering_information",
+  "packing_information",
+  "item_image"
+ ],
+ "fields": [
+  {
+   "fieldname": "nvs_code",
+   "fieldtype": "Data",
+   "label": "NVS Code"
+  },
+  {
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "label": "Title"
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Small Text",
+   "label": "Description"
+  },
+  {
+   "fieldname": "section_break_3",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "features",
+   "fieldtype": "Table",
+   "label": "Features",
+   "options": "DS features table"
+  },
+  {
+   "fieldname": "ordering_information",
+   "fieldtype": "Table",
+   "label": "Ordering Information",
+   "options": "DS Order"
+  },
+  {
+   "fieldname": "item_image",
+   "fieldtype": "Attach Image",
+   "hidden": 1,
+   "label": "item image"
+  },
+  {
+   "fieldname": "installation",
+   "fieldtype": "Table",
+   "label": "Installation",
+   "options": "NVS Installation"
+  },
+  {
+   "fieldname": "specification",
+   "fieldtype": "Table",
+   "label": "Specification",
+   "options": "NVS Specification"
+  },
+  {
+   "fieldname": "packing_information",
+   "fieldtype": "Table",
+   "label": "Packing Information",
+   "options": "DS Packing"
+  }
+ ],
+ "image_field": "item_image",
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2021-06-05 15:43:56.384914",
+ "modified_by": "Administrator",
+ "module": "Norden",
+ "name": "NVS Datasheet",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

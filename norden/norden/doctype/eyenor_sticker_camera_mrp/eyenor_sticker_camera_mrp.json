@@ -1,0 +1,77 @@
+{
+ "actions": [],
+ "creation": "2021-07-14 05:25:18.682062",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "eyenorlogo",
+  "description",
+  "part_no",
+  "qty",
+  "mrp",
+  "bar_code",
+  "side_bar"
+ ],
+ "fields": [
+  {
+   "fieldname": "eyenorlogo",
+   "fieldtype": "Attach Image",
+   "label": "eyenorlogo"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Data",
+   "label": "Description"
+  },
+  {
+   "fieldname": "part_no",
+   "fieldtype": "Data",
+   "label": "Part No"
+  },
+  {
+   "fieldname": "qty",
+   "fieldtype": "Data",
+   "label": "Qty"
+  },
+  {
+   "fieldname": "mrp",
+   "fieldtype": "Data",
+   "label": "MRP"
+  },
+  {
+   "fieldname": "bar_code",
+   "fieldtype": "Attach Image",
+   "label": "Bar code"
+  },
+  {
+   "fieldname": "side_bar",
+   "fieldtype": "Attach Image",
+   "label": "Side bar"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2021-07-14 05:25:18.682062",
+ "modified_by": "Administrator",
+ "module": "Norden",
+ "name": "Eyenor sticker camera MRP",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

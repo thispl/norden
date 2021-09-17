@@ -1,0 +1,620 @@
+{
+ "actions": [],
+ "allow_import": 1,
+ "allow_rename": 1,
+ "autoname": "format:{ds_item_no}-{country}",
+ "creation": "2021-06-03 12:55:57.699827",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "ds_item_name",
+  "country",
+  "file_upload",
+  "column_break_2",
+  "ds_item_no",
+  "version",
+  "section_break_4",
+  "datasheet_icons",
+  "features",
+  "ds_camera",
+  "camera_pb",
+  "sample_content",
+  "panoramic_camera",
+  "panoramic_camera_pb",
+  "ptz_camera",
+  "ptz_camera_pb",
+  "thermal_camera",
+  "thermal_camera_pb",
+  "thermal_lens",
+  "thermal_lens_pb",
+  "visible_camera",
+  "visible_camera_pb",
+  "visible_lens",
+  "visible_lens_pb",
+  "ds_lens",
+  "lens_pb",
+  "ds_video_and_audio",
+  "video_and_audio_pb",
+  "video",
+  "video_pb",
+  "audio",
+  "audio_pb",
+  "decoding",
+  "decoding_pb",
+  "smart_analytics",
+  "smart_analytics_pb",
+  "alarm_prompt",
+  "alarm_prompt_pb",
+  "image",
+  "image_pb",
+  "temperature",
+  "temperature_pb",
+  "storage",
+  "storage_pb",
+  "ds_network",
+  "ds_network_pb",
+  "ds_interface",
+  "interface_pb",
+  "temperature_detection",
+  "temperature_detection_pb",
+  "face_recognition",
+  "face_recognition_pb",
+  "face_detection",
+  "face_detection_pb",
+  "ptz_function",
+  "ptz_function_pb",
+  "hdd",
+  "hdd_pb",
+  "poe",
+  "poe_pb",
+  "reliability",
+  "reliability_pb",
+  "ds_smart",
+  "smart_pb",
+  "pan_and_tilt",
+  "pan_and_tilt_pb",
+  "hard_disk",
+  "hard_disk_pb",
+  "smart_analytics_and_alarms",
+  "smart_analytics_and_alarms_pb",
+  "ds_general",
+  "general_pb",
+  "section_break_12",
+  "dimension_unit",
+  "dimension_pb",
+  "column_break_17",
+  "dimension_upload",
+  "ordering_information",
+  "ds_order",
+  "ordering_information_pb",
+  "packing_information_section",
+  "table_15",
+  "packing_information_pb",
+  "amended_from",
+  "eyenor_camera_types"
+ ],
+ "fields": [
+  {
+   "fieldname": "ds_item_name",
+   "fieldtype": "Data",
+   "label": "Type"
+  },
+  {
+   "fieldname": "country",
+   "fieldtype": "Data",
+   "label": "Country",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "ds_item_no",
+   "fieldtype": "Data",
+   "label": "Model No."
+  },
+  {
+   "fieldname": "version",
+   "fieldtype": "Data",
+   "label": "Version"
+  },
+  {
+   "fieldname": "section_break_4",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "features",
+   "fieldtype": "Table",
+   "label": "Features",
+   "options": "DS features table"
+  },
+  {
+   "fieldname": "ds_camera",
+   "fieldtype": "Table",
+   "label": "Camera",
+   "options": "DS Camera"
+  },
+  {
+   "fieldname": "ds_lens",
+   "fieldtype": "Table",
+   "label": "Lens",
+   "options": "DS Lens"
+  },
+  {
+   "fieldname": "ds_video_and_audio",
+   "fieldtype": "Table",
+   "label": "Video and Audio",
+   "options": "DS Video and Audio"
+  },
+  {
+   "fieldname": "ds_network",
+   "fieldtype": "Table",
+   "label": "Network",
+   "options": "DS Network"
+  },
+  {
+   "fieldname": "ds_smart",
+   "fieldtype": "Table",
+   "label": "Smart",
+   "options": "DS Smart"
+  },
+  {
+   "fieldname": "ds_interface",
+   "fieldtype": "Table",
+   "label": "Interface",
+   "options": "DS Interface"
+  },
+  {
+   "fieldname": "ds_general",
+   "fieldtype": "Table",
+   "label": "General",
+   "options": "DS General"
+  },
+  {
+   "fieldname": "section_break_12",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "mm",
+   "fieldname": "dimension_unit",
+   "fieldtype": "Data",
+   "label": "Dimension Unit"
+  },
+  {
+   "fieldname": "ordering_information",
+   "fieldtype": "Section Break",
+   "label": "Ordering Information"
+  },
+  {
+   "fieldname": "ds_order",
+   "fieldtype": "Table",
+   "options": "DS Order"
+  },
+  {
+   "fieldname": "packing_information_section",
+   "fieldtype": "Section Break",
+   "label": "Packing Information"
+  },
+  {
+   "fieldname": "table_15",
+   "fieldtype": "Table",
+   "options": "DS Packing"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Eyenor Datasheet",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "dimension_upload",
+   "fieldtype": "Attach",
+   "in_list_view": 1,
+   "label": "Dimension upload"
+  },
+  {
+   "fieldname": "column_break_17",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "panoramic_camera",
+   "fieldtype": "Table",
+   "label": "Panoramic Camera",
+   "options": "DS Panoramic Camera"
+  },
+  {
+   "fieldname": "ptz_camera",
+   "fieldtype": "Table",
+   "label": "PTZ Camera",
+   "options": "DS PTZ Camera"
+  },
+  {
+   "fieldname": "thermal_camera",
+   "fieldtype": "Table",
+   "label": "Thermal Camera",
+   "options": "DS Thermal Camera"
+  },
+  {
+   "fieldname": "thermal_lens",
+   "fieldtype": "Table",
+   "label": "Thermal Lens",
+   "options": "DS Thermal Lens"
+  },
+  {
+   "fieldname": "visible_camera",
+   "fieldtype": "Table",
+   "label": "Visible Camera",
+   "options": "DS Visible Camera"
+  },
+  {
+   "fieldname": "visible_lens",
+   "fieldtype": "Table",
+   "label": "Visible Lens",
+   "options": "DS Visible Lens"
+  },
+  {
+   "fieldname": "video",
+   "fieldtype": "Table",
+   "label": "Video",
+   "options": "DS Video"
+  },
+  {
+   "fieldname": "audio",
+   "fieldtype": "Table",
+   "label": "Audio",
+   "options": "DS Audio"
+  },
+  {
+   "fieldname": "decoding",
+   "fieldtype": "Table",
+   "label": "Decoding",
+   "options": "DS Decoding"
+  },
+  {
+   "fieldname": "smart_analytics",
+   "fieldtype": "Table",
+   "label": "Smart Analytics",
+   "options": "DS Smart Analytics"
+  },
+  {
+   "fieldname": "alarm_prompt",
+   "fieldtype": "Table",
+   "label": "Alarm Prompt",
+   "options": "DS Alarm Prompt"
+  },
+  {
+   "fieldname": "image",
+   "fieldtype": "Table",
+   "label": "Image",
+   "options": "DS Image"
+  },
+  {
+   "fieldname": "temperature",
+   "fieldtype": "Table",
+   "label": "Temperature",
+   "options": "DS Temperature"
+  },
+  {
+   "fieldname": "storage",
+   "fieldtype": "Table",
+   "label": "Storage",
+   "options": "DS Storage"
+  },
+  {
+   "fieldname": "temperature_detection",
+   "fieldtype": "Table",
+   "label": "Temperature Detection",
+   "options": "DS Temperature Detection"
+  },
+  {
+   "fieldname": "face_recognition",
+   "fieldtype": "Table",
+   "label": "Face Recognition",
+   "options": "DS Face Recognition"
+  },
+  {
+   "fieldname": "face_detection",
+   "fieldtype": "Table",
+   "label": "Face Detection",
+   "options": "DS Face Detection"
+  },
+  {
+   "fieldname": "ptz_function",
+   "fieldtype": "Table",
+   "label": "PTZ Function",
+   "options": "DS PTZ Function"
+  },
+  {
+   "fieldname": "hdd",
+   "fieldtype": "Table",
+   "label": "HDD",
+   "options": "DS HDD"
+  },
+  {
+   "fieldname": "poe",
+   "fieldtype": "Table",
+   "label": "PoE",
+   "options": "DS PoE"
+  },
+  {
+   "fieldname": "reliability",
+   "fieldtype": "Table",
+   "label": "Reliability",
+   "options": "DS Reliability"
+  },
+  {
+   "fieldname": "file_upload",
+   "fieldtype": "Attach",
+   "in_list_view": 1,
+   "label": "File upload"
+  },
+  {
+   "default": "0",
+   "fieldname": "camera_pb",
+   "fieldtype": "Check",
+   "label": "Page Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "panoramic_camera_pb",
+   "fieldtype": "Check",
+   "label": "Page Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "ptz_camera_pb",
+   "fieldtype": "Check",
+   "label": "Page Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "thermal_camera_pb",
+   "fieldtype": "Check",
+   "label": "Page Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "lens_pb",
+   "fieldtype": "Check",
+   "label": "Page Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "interface_pb",
+   "fieldtype": "Check",
+   "label": "Page Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "smart_pb",
+   "fieldtype": "Check",
+   "label": "Page Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "general_pb",
+   "fieldtype": "Check",
+   "label": "Page Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "video_and_audio_pb",
+   "fieldtype": "Check",
+   "label": "Page Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "dimension_pb",
+   "fieldtype": "Check",
+   "label": "Page Break"
+  },
+  {
+   "fieldname": "datasheet_icons",
+   "fieldtype": "Table",
+   "label": "Datasheet Icons",
+   "options": "Datasheet Icons Table"
+  },
+  {
+   "default": "0",
+   "fieldname": "thermal_lens_pb",
+   "fieldtype": "Check",
+   "label": "Page Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "visible_camera_pb",
+   "fieldtype": "Check",
+   "label": "Page Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "visible_lens_pb",
+   "fieldtype": "Check",
+   "label": "Page Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "video_pb",
+   "fieldtype": "Check",
+   "label": "Page Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "audio_pb",
+   "fieldtype": "Check",
+   "label": "Page Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "decoding_pb",
+   "fieldtype": "Check",
+   "label": "Page Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "smart_analytics_pb",
+   "fieldtype": "Check",
+   "label": "Page Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "alarm_prompt_pb",
+   "fieldtype": "Check",
+   "label": "Page Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "image_pb",
+   "fieldtype": "Check",
+   "label": "Page Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "temperature_pb",
+   "fieldtype": "Check",
+   "label": "Page Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "storage_pb",
+   "fieldtype": "Check",
+   "label": "Page Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "ds_network_pb",
+   "fieldtype": "Check",
+   "label": "Page Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "temperature_detection_pb",
+   "fieldtype": "Check",
+   "label": "Page Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "face_recognition_pb",
+   "fieldtype": "Check",
+   "label": "Page Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "face_detection_pb",
+   "fieldtype": "Check",
+   "label": "Page Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "ptz_function_pb",
+   "fieldtype": "Check",
+   "label": "Page Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "hdd_pb",
+   "fieldtype": "Check",
+   "label": "Page Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "poe_pb",
+   "fieldtype": "Check",
+   "label": "Page Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "reliability_pb",
+   "fieldtype": "Check",
+   "label": "Page Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "ordering_information_pb",
+   "fieldtype": "Check",
+   "label": "Page Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "packing_information_pb",
+   "fieldtype": "Check",
+   "label": "Page Break"
+  },
+  {
+   "fieldname": "pan_and_tilt",
+   "fieldtype": "Table",
+   "label": "Pan and Tilt",
+   "options": "DS Pan and Tilt"
+  },
+  {
+   "fieldname": "smart_analytics_and_alarms",
+   "fieldtype": "Table",
+   "label": "Smart Analytics and Alarms",
+   "options": "DS Smart Analytics and Alarms"
+  },
+  {
+   "fieldname": "hard_disk",
+   "fieldtype": "Table",
+   "label": "Hard Disk",
+   "options": "DS Hard Disk"
+  },
+  {
+   "fieldname": "eyenor_camera_types",
+   "fieldtype": "Data",
+   "label": "Eyenor Camera Types"
+  },
+  {
+   "fieldname": "sample_content",
+   "fieldtype": "Table",
+   "label": "Sample Content",
+   "options": "Sample Content Child"
+  },
+  {
+   "default": "0",
+   "fieldname": "pan_and_tilt_pb",
+   "fieldtype": "Check",
+   "label": "Page Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "hard_disk_pb",
+   "fieldtype": "Check",
+   "label": "Page Break"
+  },
+  {
+   "fieldname": "smart_analytics_and_alarms_pb",
+   "fieldtype": "Data",
+   "label": "Page Break"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2021-08-16 07:34:22.094637",
+ "modified_by": "Administrator",
+ "module": "Norden",
+ "name": "Eyenor Datasheet",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "title_field": "ds_item_no",
+ "track_changes": 1
+}

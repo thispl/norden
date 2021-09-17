@@ -1,0 +1,226 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:model_no",
+ "creation": "2021-07-19 06:15:40.026062",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "type",
+  "model_no",
+  "cable_construction",
+  "characteristic_image",
+  "column_break_2",
+  "cable_types",
+  "cable_image",
+  "category",
+  "version",
+  "compliance_section",
+  "compliance_image",
+  "cable_compliance",
+  "section_break_4",
+  "description",
+  "section_break_6",
+  "physical_characteristic",
+  "electrical_characteristic",
+  "mechanical_characteristic",
+  "mechanical_and_environmnetal_characteristic",
+  "electrical_and_mechanical_characteristics",
+  "insulation_colour_code",
+  "material_construction_and_design",
+  "product_classification",
+  "transmission_performance",
+  "ordering_information_cable",
+  "ordering_information",
+  "ordering_information_standard",
+  "ordering_guide",
+  "packing_information"
+ ],
+ "fields": [
+  {
+   "fieldname": "description",
+   "fieldtype": "Small Text",
+   "label": "Description"
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "cable_image",
+   "fieldtype": "Attach Image",
+   "label": "Cable image"
+  },
+  {
+   "fieldname": "section_break_4",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "section_break_6",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "compliance_image",
+   "fieldtype": "Attach Image",
+   "label": "Compliance Image"
+  },
+  {
+   "fieldname": "physical_characteristic",
+   "fieldtype": "Table",
+   "label": "Physical Characteristic",
+   "options": "Physical Characteristic"
+  },
+  {
+   "fieldname": "electrical_characteristic",
+   "fieldtype": "Table",
+   "label": "Electrical Characteristic",
+   "options": "Electrical Characteristic"
+  },
+  {
+   "fieldname": "mechanical_characteristic",
+   "fieldtype": "Table",
+   "label": "Mechanical Characteristic",
+   "options": "Mechanical Characteristic"
+  },
+  {
+   "fieldname": "insulation_colour_code",
+   "fieldtype": "Table",
+   "label": "Insulation Colour Code",
+   "options": "Insulation Colour Code"
+  },
+  {
+   "fieldname": "ordering_information",
+   "fieldtype": "Table",
+   "label": "Ordering Information",
+   "options": "Cable Ordering Information"
+  },
+  {
+   "fieldname": "characteristic_image",
+   "fieldtype": "Attach Image",
+   "label": "Characteristic Image"
+  },
+  {
+   "fieldname": "mechanical_and_environmnetal_characteristic",
+   "fieldtype": "Table",
+   "label": "Mechanical and Environmnetal Characteristic",
+   "options": "Mechanical and Environmnetal Characteristic"
+  },
+  {
+   "fieldname": "ordering_information_cable",
+   "fieldtype": "Table",
+   "label": "Ordering Information",
+   "options": "Ordering Information Cable"
+  },
+  {
+   "fieldname": "ordering_guide",
+   "fieldtype": "Table",
+   "label": "Ordering Guide",
+   "options": "Ordering Guide"
+  },
+  {
+   "fieldname": "material_construction_and_design",
+   "fieldtype": "Table",
+   "label": "Material Construction and Design",
+   "options": "Material Construction and design"
+  },
+  {
+   "fieldname": "product_classification",
+   "fieldtype": "Table",
+   "label": "Product Classification",
+   "options": "Product Classification"
+  },
+  {
+   "fieldname": "packing_information",
+   "fieldtype": "Table",
+   "label": "Packing Information",
+   "options": "Packing Information"
+  },
+  {
+   "fieldname": "electrical_and_mechanical_characteristics",
+   "fieldtype": "Table",
+   "label": "Electrical and Mechanical Characteristics",
+   "options": "Electrical and Mechanical Characteristics"
+  },
+  {
+   "fieldname": "transmission_performance",
+   "fieldtype": "Table",
+   "label": "Transmission Performance",
+   "options": "Transmission Performance"
+  },
+  {
+   "fieldname": "ordering_information_standard",
+   "fieldtype": "Table",
+   "label": "Ordering Information",
+   "options": "DS Order"
+  },
+  {
+   "fieldname": "model_no",
+   "fieldtype": "Data",
+   "label": "Model No",
+   "unique": 1
+  },
+  {
+   "fieldname": "cable_construction",
+   "fieldtype": "Table",
+   "label": "Cable Construction",
+   "options": "Cable Construction"
+  },
+  {
+   "fieldname": "type",
+   "fieldtype": "Data",
+   "label": "Type"
+  },
+  {
+   "fieldname": "cable_types",
+   "fieldtype": "Select",
+   "label": "Cable Types",
+   "options": "\nPolynor\nOptinor\nNordata"
+  },
+  {
+   "fieldname": "category",
+   "fieldtype": "Data",
+   "label": "Category"
+  },
+  {
+   "fieldname": "version",
+   "fieldtype": "Data",
+   "label": "Version"
+  },
+  {
+   "fieldname": "compliance_section",
+   "fieldtype": "Section Break",
+   "label": "Compliance"
+  },
+  {
+   "fieldname": "cable_compliance",
+   "fieldtype": "Table",
+   "label": "Cable Compliance",
+   "options": "Cable Compliance"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2021-08-01 20:03:51.134005",
+ "modified_by": "Administrator",
+ "module": "Norden",
+ "name": "Cable Datasheet",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

@@ -1,0 +1,39 @@
+{
+ "actions": [],
+ "creation": "2021-06-15 14:40:03.598009",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "datasheet_icons",
+  "icon_image"
+ ],
+ "fields": [
+  {
+   "fieldname": "datasheet_icons",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Datasheet Icons",
+   "options": "Datasheet Icons"
+  },
+  {
+   "fetch_from": "datasheet_icons.image",
+   "fieldname": "icon_image",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Icon Image"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2021-06-15 14:41:16.077373",
+ "modified_by": "Administrator",
+ "module": "Norden",
+ "name": "Datasheet Icons Table",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

@@ -1,0 +1,153 @@
+{
+ "actions": [],
+ "autoname": "NACD.####",
+ "creation": "2021-06-04 12:14:49.744284",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "type",
+  "model",
+  "column_break_3",
+  "item_image",
+  "version",
+  "section_break_5",
+  "description",
+  "application",
+  "section_break_3",
+  "features",
+  "technical_parameters",
+  "technical_parameter_pb",
+  "led_indicator",
+  "section_break_10",
+  "dimension_upload",
+  "ordering_information",
+  "packing_information",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "description",
+   "fieldtype": "Small Text",
+   "label": "Description"
+  },
+  {
+   "fieldname": "application",
+   "fieldtype": "Small Text",
+   "label": "Application"
+  },
+  {
+   "fieldname": "section_break_3",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "features",
+   "fieldtype": "Table",
+   "label": "Features",
+   "options": "DS features table"
+  },
+  {
+   "fieldname": "technical_parameters",
+   "fieldtype": "Table",
+   "label": "Technical Parameters",
+   "options": "NAC Technical Parameters"
+  },
+  {
+   "fieldname": "ordering_information",
+   "fieldtype": "Table",
+   "label": "Ordering Information",
+   "options": "NAC Order"
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "item_image",
+   "fieldtype": "Attach Image",
+   "label": "item image"
+  },
+  {
+   "fieldname": "led_indicator",
+   "fieldtype": "Table",
+   "label": "LED Indicator",
+   "options": "NAC Technical Parameters"
+  },
+  {
+   "fieldname": "section_break_10",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "dimension_upload",
+   "fieldtype": "Attach Image",
+   "label": "Dimension upload"
+  },
+  {
+   "fieldname": "section_break_5",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "type",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Type"
+  },
+  {
+   "fieldname": "version",
+   "fieldtype": "Data",
+   "label": "Version"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "NAC Datasheet",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "model",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Model"
+  },
+  {
+   "fieldname": "packing_information",
+   "fieldtype": "Table",
+   "label": "Packing information",
+   "options": "DS Packing"
+  },
+  {
+   "default": "0",
+   "fieldname": "technical_parameter_pb",
+   "fieldtype": "Check",
+   "label": "Page Break"
+  }
+ ],
+ "image_field": "item_image",
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2021-09-03 06:00:35.391074",
+ "modified_by": "Administrator",
+ "module": "Norden",
+ "name": "NAC Datasheet",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}
