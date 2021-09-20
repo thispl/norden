@@ -23,7 +23,7 @@
   "part_no",
   "print_based_on",
   "print_quantity",
-  "product_barcode",
+  "sn",
   "serial_numbers",
   "column_break_11",
   "net_weight",
@@ -134,12 +134,6 @@
    "label": "Company Name"
   },
   {
-   "depends_on": "eval:doc.print_based_on == 'Bulk Quantity'",
-   "fieldname": "product_barcode",
-   "fieldtype": "Barcode",
-   "label": "Product Barcode"
-  },
-  {
    "fieldname": "logo",
    "fieldtype": "Attach Image",
    "label": "Logo"
@@ -186,14 +180,21 @@
    "options": "NVS Sticker Serial Number"
   },
   {
+   "depends_on": "eval:doc.print_based_on == 'Bulk Quantity'",
    "fieldname": "print_quantity",
    "fieldtype": "Int",
    "label": "Print Quantity"
+  },
+  {
+   "depends_on": "eval:doc.print_based_on == 'Bulk Quantity'",
+   "fieldname": "sn",
+   "fieldtype": "Data",
+   "label": "sn"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2021-09-17 10:45:36.924877",
+ "modified": "2021-09-19 11:30:06.852934",
  "modified_by": "Administrator",
  "module": "Norden",
  "name": "NVS Stickers",

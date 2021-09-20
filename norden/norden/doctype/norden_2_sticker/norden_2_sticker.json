@@ -6,13 +6,16 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "width",
+  "column_break_2",
+  "height",
+  "section_break_4",
   "part_no",
   "description",
   "batch_no",
+  "column_break_3",
   "quantity",
   "date_of_import",
-  "column_break_3",
-  "product_barcode",
   "section_break_6",
   "mrp",
   "address",
@@ -20,7 +23,12 @@
   "email",
   "toll_free_no",
   "amended_from",
-  "logo"
+  "logo",
+  "print_settings_section",
+  "print_based_on",
+  "sn",
+  "print_quantity",
+  "serial_numbers"
  ],
  "fields": [
   {
@@ -43,11 +51,6 @@
    "fieldname": "quantity",
    "fieldtype": "Data",
    "label": "Quantity"
-  },
-  {
-   "fieldname": "product_barcode",
-   "fieldtype": "Barcode",
-   "label": "Product Barcode"
   },
   {
    "fieldname": "mrp",
@@ -102,11 +105,59 @@
    "fieldname": "date_of_import",
    "fieldtype": "Date",
    "label": "Date of Import"
+  },
+  {
+   "fieldname": "print_settings_section",
+   "fieldtype": "Section Break",
+   "label": "Print Settings"
+  },
+  {
+   "fieldname": "print_based_on",
+   "fieldtype": "Select",
+   "label": "Print Based On",
+   "options": "\nSerial Number\nBulk Quantity"
+  },
+  {
+   "depends_on": "eval:doc.print_based_on == 'Bulk Quantity'",
+   "fieldname": "sn",
+   "fieldtype": "Data",
+   "label": "sn"
+  },
+  {
+   "depends_on": "eval:doc.print_based_on == 'Bulk Quantity'",
+   "fieldname": "print_quantity",
+   "fieldtype": "Int",
+   "label": "Print Quantity"
+  },
+  {
+   "depends_on": "eval:doc.print_based_on == 'Serial Number'",
+   "fieldname": "serial_numbers",
+   "fieldtype": "Table",
+   "label": "Serial Numbers",
+   "options": "Norden Sticker Serial Number"
+  },
+  {
+   "fieldname": "width",
+   "fieldtype": "Int",
+   "label": "Width (mm)"
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "height",
+   "fieldtype": "Int",
+   "label": "Height (mm)"
+  },
+  {
+   "fieldname": "section_break_4",
+   "fieldtype": "Section Break"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2021-09-13 07:14:05.682393",
+ "modified": "2021-09-18 13:26:30.909979",
  "modified_by": "Administrator",
  "module": "Norden",
  "name": "Norden 2 Sticker",

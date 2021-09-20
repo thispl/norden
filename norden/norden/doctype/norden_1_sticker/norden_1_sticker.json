@@ -6,6 +6,10 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "width",
+  "column_break_2",
+  "height",
+  "section_break_4",
   "description",
   "part_no",
   "quantity",
@@ -16,7 +20,11 @@
   "email",
   "toll_free_no",
   "logo",
-  "barcode"
+  "section_break_15",
+  "print_based_on",
+  "print_quantity",
+  "sn",
+  "serial_numbers"
  ],
  "fields": [
   {
@@ -71,18 +79,60 @@
    "label": "Logo"
   },
   {
-   "fieldname": "barcode",
-   "fieldtype": "Barcode",
-   "label": "Barcode"
-  },
-  {
    "fieldname": "column_break_5",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "width",
+   "fieldtype": "Data",
+   "label": "Width"
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "height",
+   "fieldtype": "Data",
+   "label": "Height"
+  },
+  {
+   "fieldname": "section_break_4",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "section_break_15",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "print_based_on",
+   "fieldtype": "Select",
+   "label": "Print Based On",
+   "options": "\nSerial Number\nBulk Quantity"
+  },
+  {
+   "depends_on": "eval:doc.print_based_on == 'Bulk Quantity'",
+   "fieldname": "sn",
+   "fieldtype": "Data",
+   "label": "SN"
+  },
+  {
+   "depends_on": "eval:doc.print_based_on == 'Serial Number'",
+   "fieldname": "serial_numbers",
+   "fieldtype": "Table",
+   "label": "Serial Numbers",
+   "options": "Norden Sticker Serial Number"
+  },
+  {
+   "depends_on": "eval:doc.print_based_on == 'Bulk Quantity'",
+   "fieldname": "print_quantity",
+   "fieldtype": "Int",
+   "label": "Print Quantity"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2021-09-12 02:19:05.025417",
+ "modified": "2021-09-18 08:04:01.404032",
  "modified_by": "Administrator",
  "module": "Norden",
  "name": "Norden 1 Sticker",

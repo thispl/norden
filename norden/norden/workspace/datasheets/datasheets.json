@@ -1,0 +1,55 @@
+{
+ "category": "Modules",
+ "charts": [],
+ "creation": "2021-06-16 09:32:08.288294",
+ "developer_mode_only": 0,
+ "disable_user_customization": 0,
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "extends_another_page": 0,
+ "hide_custom": 0,
+ "idx": 0,
+ "is_default": 0,
+ "is_standard": 1,
+ "label": "Datasheets",
+ "links": [],
+ "modified": "2021-09-20 04:48:51.539038",
+ "modified_by": "Administrator",
+ "module": "Norden",
+ "name": "Datasheets",
+ "owner": "Administrator",
+ "pin_to_bottom": 0,
+ "pin_to_top": 0,
+ "shortcuts": [
+  {
+   "doc_view": "List",
+   "label": "Eyenor Datasheet",
+   "link_to": "Eyenor Datasheet",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "List",
+   "label": "NVS Datasheet",
+   "link_to": "NVS",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "List",
+   "label": "Secnor Datasheet",
+   "link_to": "NAC Datasheet",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "List",
+   "label": "Datasheet Icons",
+   "link_to": "Datasheet Icons",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "List",
+   "label": "Cable Datasheet",
+   "link_to": "Cable Datasheet",
+   "type": "DocType"
+  }
+ ]
+}
