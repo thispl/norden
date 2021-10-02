@@ -21,7 +21,7 @@
    "fieldname": "packing_number",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Packing Number"
+   "label": "Packing Mode"
   },
   {
    "fieldname": "gross_weight",
@@ -39,7 +39,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2021-07-21 10:30:52.460052",
+ "modified": "2021-09-21 06:41:25.222257",
  "modified_by": "Administrator",
  "module": "Norden",
  "name": "DS Packing",

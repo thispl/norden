@@ -1,17 +1,19 @@
 {
  "actions": [],
- "autoname": "field:type",
+ "autoname": "format:{type}-{version}",
  "creation": "2021-06-17 11:04:50.353603",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
   "type",
+  "version",
   "image_upload",
-  "categories",
+  "image_width_mm",
   "column_break_2",
   "model_no",
   "pages",
+  "categories",
   "section_break_4",
   "description",
   "features",
@@ -87,14 +89,12 @@
   {
    "fieldname": "type",
    "fieldtype": "Data",
-   "label": "Part Number",
-   "unique": 1
+   "label": "Part Number"
   },
   {
    "fieldname": "model_no",
    "fieldtype": "Data",
-   "label": "Description",
-   "unique": 1
+   "label": "Description"
   },
   {
    "fieldname": "image_upload",
@@ -504,11 +504,21 @@
    "fieldtype": "Select",
    "label": "Pages",
    "options": "1\n2\n3\n4"
+  },
+  {
+   "fieldname": "version",
+   "fieldtype": "Data",
+   "label": "Version"
+  },
+  {
+   "fieldname": "image_width_mm",
+   "fieldtype": "Int",
+   "label": "Image Width (mm)"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2021-09-14 15:42:53.698985",
+ "modified": "2021-09-21 06:06:30.391421",
  "modified_by": "Administrator",
  "module": "Norden",
  "name": "NVS",

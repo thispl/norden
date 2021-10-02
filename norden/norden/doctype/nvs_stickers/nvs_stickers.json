@@ -1,6 +1,6 @@
 {
  "actions": [],
- "autoname": "field:model",
+ "autoname": "format:{model}-{version}",
  "creation": "2021-09-15 06:20:19.551868",
  "doctype": "DocType",
  "editable_grid": 1,
@@ -11,6 +11,7 @@
   "height",
   "section_break_3",
   "model",
+  "version",
   "power_taps1",
   "power_taps2",
   "sensitivity",
@@ -41,8 +42,7 @@
   {
    "fieldname": "model",
    "fieldtype": "Data",
-   "label": "Model",
-   "unique": 1
+   "label": "Model"
   },
   {
    "fieldname": "power_taps1",
@@ -190,11 +190,16 @@
    "fieldname": "sn",
    "fieldtype": "Data",
    "label": "sn"
+  },
+  {
+   "fieldname": "version",
+   "fieldtype": "Data",
+   "label": "Version"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2021-09-19 11:30:06.852934",
+ "modified": "2021-09-21 06:02:45.211642",
  "modified_by": "Administrator",
  "module": "Norden",
  "name": "NVS Stickers",

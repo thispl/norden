@@ -1,0 +1,182 @@
+{
+ "actions": [],
+ "autoname": "field:part_no",
+ "creation": "2021-09-29 06:28:05.312766",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "width",
+  "column_break_2",
+  "height",
+  "section_break_4",
+  "part_no",
+  "description",
+  "batch_no",
+  "column_break_3",
+  "quantity",
+  "date_of_import",
+  "section_break_6",
+  "mrp",
+  "address",
+  "column_break_4",
+  "email",
+  "toll_free_no",
+  "amended_from",
+  "logo",
+  "print_settings_section",
+  "print_based_on",
+  "sn",
+  "print_quantity",
+  "serial_numbers"
+ ],
+ "fields": [
+  {
+   "fieldname": "width",
+   "fieldtype": "Int",
+   "label": "Width (mm)"
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "height",
+   "fieldtype": "Int",
+   "label": "Height (mm)"
+  },
+  {
+   "fieldname": "section_break_4",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "part_no",
+   "fieldtype": "Data",
+   "label": "Part No",
+   "unique": 1
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Data",
+   "label": "Description"
+  },
+  {
+   "fieldname": "batch_no",
+   "fieldtype": "Data",
+   "label": "Batch No"
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "quantity",
+   "fieldtype": "Data",
+   "label": "Quantity"
+  },
+  {
+   "fieldname": "date_of_import",
+   "fieldtype": "Date",
+   "label": "Date of Import"
+  },
+  {
+   "fieldname": "section_break_6",
+   "fieldtype": "Section Break",
+   "label": "Price Sticker"
+  },
+  {
+   "fieldname": "mrp",
+   "fieldtype": "Data",
+   "label": "MRP"
+  },
+  {
+   "fieldname": "address",
+   "fieldtype": "Small Text",
+   "label": "Name & Add. of Marketer"
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "email",
+   "fieldtype": "Data",
+   "label": "Email",
+   "options": "Email"
+  },
+  {
+   "fieldname": "toll_free_no",
+   "fieldtype": "Data",
+   "label": "Toll Free No",
+   "options": "Phone"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Norden 2 Sticker",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "logo",
+   "fieldtype": "Attach Image",
+   "label": "logo"
+  },
+  {
+   "fieldname": "print_settings_section",
+   "fieldtype": "Section Break",
+   "label": "Print Settings"
+  },
+  {
+   "fieldname": "print_based_on",
+   "fieldtype": "Select",
+   "label": "Print Based On",
+   "options": "\nSerial Number\nBulk Quantity"
+  },
+  {
+   "depends_on": "eval:doc.print_based_on == 'Bulk Quantity'",
+   "fieldname": "sn",
+   "fieldtype": "Data",
+   "label": "sn"
+  },
+  {
+   "depends_on": "eval:doc.print_based_on == 'Bulk Quantity'",
+   "fieldname": "print_quantity",
+   "fieldtype": "Int",
+   "label": "Print Quantity"
+  },
+  {
+   "depends_on": "eval:doc.print_based_on == 'Serial Number'",
+   "fieldname": "serial_numbers",
+   "fieldtype": "Table",
+   "label": "Serial Numbers",
+   "options": "Norden Sticker Serial Number"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2021-09-29 06:28:05.312766",
+ "modified_by": "Administrator",
+ "module": "Norden",
+ "name": "Norden 3 Sticker",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

@@ -1,6 +1,6 @@
 {
  "actions": [],
- "autoname": "NACD.####",
+ "autoname": "format:{model}-{version}",
  "creation": "2021-06-04 12:14:49.744284",
  "doctype": "DocType",
  "editable_grid": 1,
@@ -90,7 +90,7 @@
    "fieldname": "type",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Type"
+   "label": "Product Name"
   },
   {
    "fieldname": "version",
@@ -110,7 +110,7 @@
    "fieldname": "model",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Model"
+   "label": "Part No"
   },
   {
    "fieldname": "packing_information",
@@ -128,7 +128,7 @@
  "image_field": "item_image",
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2021-09-03 06:00:35.391074",
+ "modified": "2021-09-21 06:44:01.269359",
  "modified_by": "Administrator",
  "module": "Norden",
  "name": "NAC Datasheet",
