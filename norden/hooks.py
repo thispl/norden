@@ -164,3 +164,5 @@ jenv = {
 		"get_optidata_desc:norden.norden.doctype.cable_datasheet.cable_datasheet.get_optidata_desc",
 	]
 }
+
+fixtures = ["Client Script","Print Format"]
