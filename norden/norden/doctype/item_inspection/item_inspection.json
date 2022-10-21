@@ -1,0 +1,178 @@
+{
+ "actions": [],
+ "autoname": "IIN.####",
+ "creation": "2022-05-30 14:40:39.034818",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "part_number",
+  "description",
+  "factory__name",
+  "factory__code",
+  "po_number",
+  "inspection_lot_no",
+  "column_break_8",
+  "batch_number",
+  "c_of_c_received",
+  "inspection_date",
+  "lot_quantity",
+  "sampling_ref",
+  "sample_size",
+  "invoice_no",
+  "amended_from",
+  "section_break_16",
+  "visual_aspects",
+  "section_break_18",
+  "dimensional_aspects",
+  "section_break_20",
+  "material",
+  "section_break_22",
+  "functional"
+ ],
+ "fields": [
+  {
+   "fieldname": "part_number",
+   "fieldtype": "Data",
+   "label": "Part Number"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Item Inspection",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Small Text",
+   "label": "Description"
+  },
+  {
+   "fieldname": "factory__name",
+   "fieldtype": "Data",
+   "label": "Factory  Name"
+  },
+  {
+   "fieldname": "factory__code",
+   "fieldtype": "Data",
+   "label": "Factory  Code"
+  },
+  {
+   "fieldname": "po_number",
+   "fieldtype": "Data",
+   "label": "P.O number"
+  },
+  {
+   "fieldname": "inspection_lot_no",
+   "fieldtype": "Data",
+   "label": "Inspection Lot No"
+  },
+  {
+   "fieldname": "batch_number",
+   "fieldtype": "Data",
+   "label": "Batch number"
+  },
+  {
+   "fieldname": "c_of_c_received",
+   "fieldtype": "Data",
+   "label": "C of C Received"
+  },
+  {
+   "fieldname": "inspection_date",
+   "fieldtype": "Date",
+   "label": "Inspection Date"
+  },
+  {
+   "fieldname": "lot_quantity",
+   "fieldtype": "Data",
+   "label": "Lot Quantity"
+  },
+  {
+   "fieldname": "sampling_ref",
+   "fieldtype": "Data",
+   "label": "Sampling ref."
+  },
+  {
+   "fieldname": "sample_size",
+   "fieldtype": "Data",
+   "label": "Sample Size "
+  },
+  {
+   "fieldname": "invoice_no",
+   "fieldtype": "Data",
+   "label": "Invoice no"
+  },
+  {
+   "fieldname": "column_break_8",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_16",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "visual_aspects",
+   "fieldtype": "Table",
+   "label": "VISUAL ASPECTS",
+   "options": "VISUAL ASPECTS"
+  },
+  {
+   "fieldname": "section_break_18",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "dimensional_aspects",
+   "fieldtype": "Table",
+   "label": "DIMENSIONAL ASPECTS",
+   "options": "DIMENSIONAL ASPECTS"
+  },
+  {
+   "fieldname": "section_break_20",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "material",
+   "fieldtype": "Table",
+   "label": "MATERIAL",
+   "options": "MATERIAL"
+  },
+  {
+   "fieldname": "section_break_22",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "functional",
+   "fieldtype": "Table",
+   "label": "FUNCTIONAL",
+   "options": "FUNCTIONAL"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2022-05-31 18:19:34.899220",
+ "modified_by": "Administrator",
+ "module": "Norden",
+ "name": "Item Inspection",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

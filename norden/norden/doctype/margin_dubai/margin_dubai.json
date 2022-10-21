@@ -1,0 +1,103 @@
+{
+ "actions": [],
+ "creation": "2022-08-04 17:15:02.388960",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "item_group",
+  "landing",
+  "incentive",
+  "internal",
+  "distributor",
+  "saudi",
+  "project",
+  "retail",
+  "electra"
+ ],
+ "fields": [
+  {
+   "fieldname": "item_group",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Item Group",
+   "options": "Item Group"
+  },
+  {
+   "columns": 1,
+   "fieldname": "landing",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Landing",
+   "width": "100px"
+  },
+  {
+   "columns": 1,
+   "fieldname": "incentive",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Incentive",
+   "width": "100px"
+  },
+  {
+   "columns": 1,
+   "fieldname": "internal",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Internal",
+   "width": "100px"
+  },
+  {
+   "columns": 1,
+   "fieldname": "distributor",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Distributor",
+   "width": "100px"
+  },
+  {
+   "columns": 1,
+   "fieldname": "saudi",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Saudi",
+   "width": "100px"
+  },
+  {
+   "columns": 1,
+   "fieldname": "project",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Project",
+   "width": "100px"
+  },
+  {
+   "columns": 1,
+   "fieldname": "retail",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Retail",
+   "width": "100px"
+  },
+  {
+   "columns": 1,
+   "fieldname": "electra",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Electra",
+   "width": "100px"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2022-08-04 17:27:36.149734",
+ "modified_by": "Administrator",
+ "module": "Norden",
+ "name": "Margin Dubai",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

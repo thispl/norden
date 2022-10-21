@@ -1,0 +1,52 @@
+{
+ "actions": [],
+ "creation": "2022-04-10 11:19:04.650480",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "item_group",
+  "sales_price",
+  "freight",
+  "internal_cost"
+ ],
+ "fields": [
+  {
+   "fieldname": "item_group",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Item Group",
+   "options": "Item Group"
+  },
+  {
+   "fieldname": "freight",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Freight"
+  },
+  {
+   "fieldname": "internal_cost",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Internal Cost"
+  },
+  {
+   "fieldname": "sales_price",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Sales Price"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2022-06-07 14:42:47.210718",
+ "modified_by": "Administrator",
+ "module": "Norden",
+ "name": "Margin Price Item",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

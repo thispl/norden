@@ -1,0 +1,320 @@
+<html>
+<style>
+    .print-format {
+        font-size: 11px;
+        font-family: 'D-DIN';
+        margin-left: 5px;
+        margin-right: 5px;
+        margin-top: 2px;
+    }
+
+    #rcorners1 {
+        border-radius: 25px;
+        background: lightgray;
+        width: 98%;
+        padding: 8px;
+        height: 100%;
+    }
+
+    #rcorners-poly {
+        border-radius: 25px;
+        background: lightgray;
+        width: 98%;
+        padding: 8px;
+        height: 100%;
+    }
+
+    .wrap {
+        white-space: pre-wrap;
+        /* css-3 */
+        white-space: -moz-pre-wrap;
+        /* Mozilla, since 1999 */
+        white-space: -pre-wrap;
+        /* Opera 4-6 */
+        white-space: -o-pre-wrap;
+        /* Opera 7 */
+        word-wrap: break-word;
+        /* Internet Explorer 5.5+ */
+    }
+
+    .row {
+        display: table;
+    }
+
+    .row [class*="col-"] {
+        float: none;
+        display: table-cell;
+        vertical-align: top;
+    }
+
+    .table-border>thead>tr>th,
+    .table-border>tbody>tr>th,
+    .table-border>tfoot>tr>th,
+    .table-border>thead>tr>td,
+    .table-border>tbody>tr>td,
+    .table-border>tfoot>tr>td {
+        padding-top: 1px !important;
+        padding-bottom: 1px !important;
+        padding-right: 1px !important;
+        padding-left: 8px !important;
+        border: 0.5px solid #E95328;
+    }
+
+    .table-border1>thead>tr>th,
+    .table-border1>tbody>tr>th,
+    .table-border1>tfoot>tr>th,
+    .table-border1>thead>tr>td,
+    .table-border1>tbody>tr>td,
+    .table-border1>tfoot>tr>td {
+        border-collapse: collapse;
+        border: 1px solid #732E85;
+        position: static;
+        margin-left: auto;
+        margin-right: auto;
+        padding-top: 1px !important;
+        padding-bottom: 1px !important;
+        padding-right: 1px !important;
+        padding-left: 8px !important;
+    }
+
+    .container1 {
+        position: right;
+        top: 8px;
+        padding-right: 1px;
+        font-size: 18px;
+        width: 210px;
+    }
+
+    .container2 {
+        position: right;
+        top: 8px;
+        padding-right: 8px;
+        font-size: 18px;
+        width: 210px;
+    }
+
+    .table-condensed.th {
+        font-weight: bold;
+    }
+
+    .table-condensed>thead>tr>th,
+    .table-condensed>tbody>tr>th,
+    .table-condensed>tfoot>tr>th,
+    .table-condensed>thead>tr>td,
+    .table-condensed>tbody>tr>td,
+    .table-condensed>tfoot>tr>td {
+        padding-top: 2px !important;
+        padding-bottom: 2px !important;
+        padding-right: 5px !important;
+        padding-left: 5px !important;
+
+
+    }
+
+    .table-condensed tr:nth-child(even) {
+        background-color: #DFEDDB;
+    }
+
+    .table-condensed tr:nth-child(odd) {
+        background-color: #FF7F50;
+
+    }
+
+    #bottom-left {
+        vertical-align: bottom;
+        margin-left: auto;
+        margin-right: auto;
+    }
+</style>
+
+<body>
+    <meta name="pdfkit-orientation" content="Portrait" />
+    <div class="container">
+
+        {% if doc.cable_types =="Polynor" %}
+
+        {% if doc.cable_construction %}
+        <p style="color:#732E85;font-size:15px;font-weight:600">CABLE CONSTRUCTION</p>
+        <img src="/files/cable_constr.png" width="100%" />
+        {% endif %}
+
+
+        {% if doc.physical_characteristic %}
+        <p style="color:#732E85;font-size:15px;font-weight:600">PHYSICAL CHARACTERISTICS</p>
+        <table class="table-border1" style="width:100%">
+            <tr>
+                <td colspan="6" style="border-right:0.5px solid white;background-color:#732E85;color:white;">
+                    Characteristic</td>
+                <td colspan="6" style="background-color:#732E85;color:white;">Value </td>
+            </tr>
+            {% for row in doc.physical_characteristic %}
+            <tr>
+                <td colspan="6" style="color:#4D4D4F">{{row.characteristic}}</td>
+                <td colspan="6" style="color:#4D4D4F">{{row.value}} </td>
+            </tr>
+            {% endfor %}
+        </table>
+        <br>
+        {% endif %}
+        {% if doc.electrical_characteristic %}
+        <p style="color:#732E85;font-size:15px;font-weight:600">ELECTRICAL CHARACTERISTICS</p>
+        <table class="table-border1" style="width:100%">
+            <tr>
+                <td colspan="6" style="border-right:0.5px solid white;background-color:#732E85;color:white;">
+                    Characteristic</td>
+                <td colspan="6" style="border-right:0.5px solid white;background-color:#732E85;color:white;">Unit </td>
+                <td colspan="6" style="background-color:#732E85;color:white;">Value </td>
+            </tr>
+            {% for row in doc.electrical_characteristic %}
+            <tr>
+                <td colspan="6" style="color:#4D4D4F">{{row.characteristic}}</td>
+                <td colspan="6" style="color:#4D4D4F">{{row.unit}} </td>
+                <td colspan="6" style="color:#4D4D4F">{{row.value}} </td>
+            </tr>
+            {% endfor %}
+        </table>
+        <br>
+        {% endif %}
+        {% if doc.mechanical_characteristic %}
+        <p style="color:#732E85;font-size:15px;font-weight:600">MECHANICAL CHARACTERISTICS</p>
+        <table class="table-border1" style="width:100%">
+            <tr>
+                <td colspan="6" style="border-right:0.5px solid white;background-color:#732E85;color:white;">
+                    Characteristic</td>
+                <td colspan="6" style="background-color:#732E85;color:white;">Value </td>
+            </tr>
+            {% for row in doc.mechanical_characteristic %}
+            <tr>
+                <td colspan="6" style="color:#4D4D4F">{{row.characteristic}}</td>
+                <td colspan="6" style="color:#4D4D4F">{{row.value}} </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <br>
+    {% endif %}
+
+    {% if doc.insulation_colour_code %}
+    <br>
+
+    <p style="color:#732E85;font-size:15px;font-weight:600">INSULATION COLOUR CODE</p>
+    <table class="table-border1" style="width:90%">
+        <tr>
+            <td colspan="3"
+                style="border-right:0.5px solid white;background-color:#732E85;color:white;font-weight:900;"> Individual
+                Pair</td>
+            <td colspan="3" style="background-color:#732E85;color:white;font-weight:900;">Colour </td>
+        </tr>
+        {% for row in doc.insulation_colour_code %}
+        <tr>
+            <td colspan="3" style="color:#4D4D4F">{{row.individual_pair}}</td>
+            <td colspan="3" style="color:#4D4D4F">{{row.colour}} </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <br>
+    {% endif %}
+
+    {% endif %}
+
+    {% if doc.cable_types =="Optinor" %}
+
+    {% if doc.mechanical_and_environmnetal_characteristic %}
+    <div class="row">
+        <div class="col-xs-12">
+            <p style="color:#E95328;font-size:16px;padding-bottom:10px;font-weight:900">MECHANICAL & ENVIRONMENTAL
+                CHARACTERISTICS</p>
+            <table class="table-border" style="width:100%;">
+                <tr>
+                    <td
+                        style="border:0.5px solid #E95328;border-right:0.5px solid white;background-color:#E95328;color:white;font-size:12px;font-weight:500">
+                        <b style="color:white;"> Characteristic </b></td>
+                    <td
+                        style="border:0.5px solid #E95328;border-right:0.5px solid white;background-color:#E95328;color:white;font-size:12px;font-weight:500">
+                        <b style="color:white;">Short Term </b></td>
+                    <td
+                        style="border:0.5px solid #E95328;background-color:#E95328;color:white;font-size:12px;font-weight:500">
+                        <b style="color:white;">Long Term </b></td>
+                </tr>
+                {% for row in doc.mechanical_and_environmnetal_characteristic %}
+                <tr>
+                    <td style="border:0.5px solid #E95328;color:#5B5B5B">{{row.characteristic}}</td>
+                    <td style="border:0.5px solid #E95328;color:#5B5B5B">{{row.value or ''}} </td>
+                    <td style="border:0.5px solid #E95328;color:#5B5B5B">{{row.long_term or ''}} </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+    {% endif %}
+    {% endif %}
+
+
+    {% if doc.cable_types =="Nordata" %}
+
+    <br>
+    <p style="color:#21A43E;font-size:17px;font-weight:bold;padding-bottom: 9px;">PRODUCT CLASSIFICATION</p>
+
+    <table class="table-condensed" style="width:100%;border: 1px solid transparent;border-spacing: 150px;">
+        {% set data = get_product_info(doc) %}
+        {{data}}
+    </table>
+    <br>
+    <p style="color:#21A43E;font-size:17px;font-weight:600;padding-bottom:10px">MATERIAL CONSTRUCTION & DESIGN</p>
+
+    <table class="table-condensed" style="width:100%;border: 1px solid transparent">
+        {% set data = get_material_info(doc) %}
+        {{data}}
+    </table>
+    <br><br>
+    <p style="color:#21A43E;font-size:17px;font-weight:600;padding-bottom: 9px">ELECTRICAL & MECHANICAL CHARACTERISTICS
+    </p>
+    <table class="table-condensed" style="width:100%;border: 1px solid transparent">
+        {% set data = get_electrical_mechanical_info(doc) %}
+        {{data}}
+    </table>
+    <br>
+    <p style="color:#21A43E;font-size:17px;font-weight:600;padding-bottom: 7px"> TRANSMISSION PERFORMANCE</p>
+
+    <span style="color:#4D4D4F;font-size:10px"> *Cat. 6 Screened Pair Horizontal Cables* </span>
+    <table class="table-border" style="width:100%">
+        <tr>
+            <td colspan="2"
+                style="border:0.5px solid #21A43E;border-right:0.5px solid white;font-weight: bold;background-color:#21A43E;color:white;">
+                Freq.<br>MHz</td>
+            <td colspan="2"
+                style="border:0.5px solid #21A43E;border-right:0.5px solid white;font-weight: bold;background-color:#21A43E;color:white;">
+                Attenuation<br>dB/100m@20ºC </td>
+            <td colspan="2"
+                style="border:0.5px solid #21A43E;border-right:0.5px solid white;font-weight: bold;background-color:#21A43E;color:white;">
+                NEXT<br>dB </td>
+            <td colspan="2"
+                style="border:0.5px solid #21A43E;border-right:0.5px solid white;font-weight: bold;background-color:#21A43E;color:white;">
+                PSNEXT<br>dB</td>
+            <td colspan="2"
+                style="border:0.5px solid #21A43E;border-right:0.5px solid white;font-weight: bold;background-color:#21A43E;color:white;">
+                RL<br>dB</td>
+            <td colspan="2"
+                style="border:0.5px solid #21A43E;border-right:0.5px solid white;font-weight: bold;background-color:#21A43E;color:white;">
+                ELFEXT<br>dB </td>
+            <td colspan="2" style="border:0.5px solid #21A43E;background-color:#21A43E;color:white;font-weight: bold;">
+                PSELFEXT<br>dB</td>
+        </tr>
+        {% for row in doc.transmission_performance %}
+        <tr>
+            <td colspan="2" style="border:0.5px solid #21A43E;color:#4D4D4F">{{row.freq}}</td>
+            <td colspan="2" style="border:0.5px solid #21A43E;color:#4D4D4F">{{row.attenuation or ''}} </td>
+            <td colspan="2" style="border:0.5px solid #21A43E;color:#4D4D4F">{{row.next or ''}} </td>
+            <td colspan="2" style="border:0.5px solid #21A43E;color:#4D4D4F">{{row.psnext or ''}}</td>
+            <td colspan="2" style="border:0.5px solid #21A43E;color:#4D4D4F">{{row.rl or ''}} </td>
+            <td colspan="2" style="border:0.5px solid #21A43E;color:#4D4D4F">{{row.elfext or ''}} </td>
+            <td colspan="2" style="border:0.5px solid #21A43E;color:#4D4D4F">{{row.pselfext or ''}} </td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+
+
+</body>
+
+</html>

@@ -1,0 +1,268 @@
+{
+ "actions": [],
+ "allow_copy": 1,
+ "creation": "2022-04-10 10:42:36.139704",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "singapore_section",
+  "singapore",
+  "update_singapore",
+  "philippines_section",
+  "philippines",
+  "update_philippines",
+  "malaysia_section",
+  "malaysia",
+  "update_malaysia",
+  "indonesia_section",
+  "indonesia",
+  "update_indonesia",
+  "vietnam_section",
+  "vietnam",
+  "update_vietnam",
+  "combodia_section",
+  "combodia",
+  "update_combodia",
+  "bangladesh_section",
+  "bangladesh",
+  "update_bangladesh",
+  "srilanka_section",
+  "srilanka",
+  "update_srilanka",
+  "india_section",
+  "india",
+  "update_india",
+  "update_uk_section",
+  "uk",
+  "update_uk",
+  "africa_section",
+  "africa",
+  "update_africa",
+  "dubai_section",
+  "dubai",
+  "update_dubai"
+ ],
+ "fields": [
+  {
+   "fieldname": "singapore",
+   "fieldtype": "Table",
+   "options": "Margin Price Item"
+  },
+  {
+   "fieldname": "update_singapore",
+   "fieldtype": "Button",
+   "label": "Update Singapore"
+  },
+  {
+   "fieldname": "philippines",
+   "fieldtype": "Table",
+   "options": "Margin Price Item"
+  },
+  {
+   "fieldname": "update_philippines",
+   "fieldtype": "Button",
+   "label": "Update Philippines"
+  },
+  {
+   "fieldname": "indonesia",
+   "fieldtype": "Table",
+   "options": "Margin Price Item"
+  },
+  {
+   "fieldname": "update_indonesia",
+   "fieldtype": "Button",
+   "label": "Update Indonesia"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "indonesia_section",
+   "fieldtype": "Section Break",
+   "label": "Indonesia"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "singapore_section",
+   "fieldtype": "Section Break",
+   "label": "Singapore"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "philippines_section",
+   "fieldtype": "Section Break",
+   "label": "Philippines"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "vietnam_section",
+   "fieldtype": "Section Break",
+   "label": "Vietnam"
+  },
+  {
+   "fieldname": "vietnam",
+   "fieldtype": "Table",
+   "options": "Margin Price Item"
+  },
+  {
+   "fieldname": "update_vietnam",
+   "fieldtype": "Button",
+   "label": "Update Vietnam"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "combodia_section",
+   "fieldtype": "Section Break",
+   "label": "Combodia"
+  },
+  {
+   "fieldname": "combodia",
+   "fieldtype": "Table",
+   "options": "Margin Price Item"
+  },
+  {
+   "fieldname": "update_combodia",
+   "fieldtype": "Button",
+   "label": "Update Combodia"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "bangladesh_section",
+   "fieldtype": "Section Break",
+   "label": "Bangladesh"
+  },
+  {
+   "fieldname": "bangladesh",
+   "fieldtype": "Table",
+   "options": "Margin Price Item"
+  },
+  {
+   "fieldname": "update_bangladesh",
+   "fieldtype": "Button",
+   "label": "Update Bangladesh"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "srilanka_section",
+   "fieldtype": "Section Break",
+   "label": "Srilanka"
+  },
+  {
+   "fieldname": "srilanka",
+   "fieldtype": "Table",
+   "options": "Margin Price Item"
+  },
+  {
+   "fieldname": "update_srilanka",
+   "fieldtype": "Button",
+   "label": "Update Srilanka"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "malaysia_section",
+   "fieldtype": "Section Break",
+   "label": "Malaysia"
+  },
+  {
+   "fieldname": "malaysia",
+   "fieldtype": "Table",
+   "options": "Margin Price Item"
+  },
+  {
+   "fieldname": "update_malaysia",
+   "fieldtype": "Button",
+   "label": "Update Malaysia"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "india_section",
+   "fieldtype": "Section Break",
+   "label": "India"
+  },
+  {
+   "fieldname": "india",
+   "fieldtype": "Table",
+   "label": "India",
+   "options": "Margin India"
+  },
+  {
+   "fieldname": "update_india",
+   "fieldtype": "Button",
+   "label": "Update India"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "update_uk_section",
+   "fieldtype": "Section Break",
+   "label": "UK"
+  },
+  {
+   "fieldname": "uk",
+   "fieldtype": "Table",
+   "label": "UK",
+   "options": "Margin UK"
+  },
+  {
+   "fieldname": "update_uk",
+   "fieldtype": "Button",
+   "label": "Update UK"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "africa_section",
+   "fieldtype": "Section Break",
+   "label": "Africa"
+  },
+  {
+   "fieldname": "africa",
+   "fieldtype": "Table",
+   "label": "Africa",
+   "options": "Margin Africa"
+  },
+  {
+   "fieldname": "update_africa",
+   "fieldtype": "Button",
+   "label": "Update Africa"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "dubai_section",
+   "fieldtype": "Section Break",
+   "label": "Dubai"
+  },
+  {
+   "fieldname": "dubai",
+   "fieldtype": "Table",
+   "label": "Dubai",
+   "options": "Margin Dubai"
+  },
+  {
+   "fieldname": "update_dubai",
+   "fieldtype": "Button",
+   "label": "Update Dubai"
+  }
+ ],
+ "hide_toolbar": 1,
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2022-08-04 17:28:31.656059",
+ "modified_by": "Administrator",
+ "module": "Norden",
+ "name": "Margin Price Tool",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

@@ -1,0 +1,88 @@
+{
+ "actions": [],
+ "creation": "2022-04-10 11:45:40.993758",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "item_group",
+  "landing",
+  "spc",
+  "ltp",
+  "dtp",
+  "stp",
+  "mop",
+  "mrp"
+ ],
+ "fields": [
+  {
+   "columns": 2,
+   "fieldname": "item_group",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Item Group",
+   "options": "Item Group"
+  },
+  {
+   "columns": 1,
+   "fieldname": "landing",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Landing"
+  },
+  {
+   "columns": 1,
+   "fieldname": "spc",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "SPC"
+  },
+  {
+   "columns": 1,
+   "fieldname": "ltp",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "LTP"
+  },
+  {
+   "columns": 1,
+   "fieldname": "dtp",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "DTP"
+  },
+  {
+   "columns": 1,
+   "fieldname": "stp",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "STP"
+  },
+  {
+   "columns": 1,
+   "fieldname": "mop",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "MOP"
+  },
+  {
+   "columns": 1,
+   "fieldname": "mrp",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "MRP"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2022-06-07 15:03:17.435986",
+ "modified_by": "Administrator",
+ "module": "Norden",
+ "name": "Margin India",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

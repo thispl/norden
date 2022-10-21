@@ -9,6 +9,22 @@
   "width",
   "column_break_2",
   "height",
+  "column_column",
+  "font",
+  "col_column",
+  "image_size",
+  "colum_column",
+  "barcode_width",
+  "price_sticker_section",
+  "price_width",
+  "column_break_6",
+  "price_height",
+  "column_break_8",
+  "price_font",
+  "column_break_10",
+  "price_image_size",
+  "column_break_12",
+  "price_barcode_width",
   "section_break_4",
   "part_no",
   "description",
@@ -153,11 +169,84 @@
    "fieldtype": "Table",
    "label": "Serial Numbers",
    "options": "Norden Sticker Serial Number"
+  },
+  {
+   "fieldname": "price_sticker_section",
+   "fieldtype": "Section Break",
+   "label": "Price Sticker"
+  },
+  {
+   "fieldname": "price_width",
+   "fieldtype": "Data",
+   "label": "Width(mm)"
+  },
+  {
+   "fieldname": "column_break_6",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "price_height",
+   "fieldtype": "Data",
+   "label": "Height(mm)"
+  },
+  {
+   "fieldname": "column_break_8",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "price_font",
+   "fieldtype": "Data",
+   "label": "Font"
+  },
+  {
+   "fieldname": "column_break_10",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "price_image_size",
+   "fieldtype": "Data",
+   "label": "Image Size"
+  },
+  {
+   "fieldname": "column_break_12",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "price_barcode_width",
+   "fieldtype": "Data",
+   "label": "Barcode Width"
+  },
+  {
+   "fieldname": "column_column",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "font",
+   "fieldtype": "Data",
+   "label": "Font"
+  },
+  {
+   "fieldname": "col_column",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "image_size",
+   "fieldtype": "Data",
+   "label": "Image Size"
+  },
+  {
+   "fieldname": "colum_column",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "barcode_width",
+   "fieldtype": "Data",
+   "label": "Barcode Width"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2021-09-29 06:28:05.312766",
+ "modified": "2021-11-25 21:06:01.141059",
  "modified_by": "Administrator",
  "module": "Norden",
  "name": "Norden 3 Sticker",

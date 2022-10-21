@@ -1,0 +1,119 @@
+<html>
+<style>
+    p {
+        text-align: justify;
+    }
+
+    .print-format {
+        font-family: 'gisha';
+    }
+
+    div {
+        font-size: 12px;
+    }
+
+    .table-condensed>thead>tr>th,
+    .table-condensed>tbody>tr>th,
+    .table-condensed>tfoot>tr>th,
+    .table-condensed>thead>tr>td,
+    .table-condensed>tbody>tr>td,
+    .table-condensed>tfoot>tr>td {
+        padding-bottom: 1px !important;
+        padding-top: 1px !important;
+
+    }
+
+    .table-border>thead>tr>th,
+    .table-border>tbody>tr>th,
+    .table-border>tfoot>tr>th,
+    .table-border>thead>tr>td,
+    .table-border>tbody>tr>td,
+    .table-border>tfoot>tr>td {
+        padding-top: 1px !important;
+        padding-bottom: 1px !important;
+    }
+
+    .table-border tr:first-child td {
+        background-color: orange;
+    }
+
+    .table-border tr {
+        border-left: 0.5px solid orange;
+    }
+
+    .table-border td:last-child {
+        border-right: 0.5px solid orange;
+    }
+
+    .table-border tr:last-child {
+        border-bottom: 0.5px solid orange;
+    }
+
+    .center {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%;
+    }
+
+    /* .technical_parameters {
+        word-wrap: normal;
+    } */
+
+    table.technical_parameters tr:nth-child(even) td {
+        background-color: #fff;
+    }
+
+    table.technical_parameters tr:nth-child(odd) td {
+        background-color: #e6e6e6;
+    }
+
+    .icon {
+        padding-left: 0px;
+        float: left;
+    }
+
+    .footer-html {
+        top: -35px;
+    }
+</style>
+
+<body>
+    <div class="container">
+    <b>
+        <p style="color:orange;font-size:25px;">Application </p>
+    </b>
+    <p style="font-size: 20px;">{{doc.application}}</p>
+</div>
+
+    {% if doc.features %}
+    <div class="container">
+    <br>
+    <b>
+        <p style="color:orange;font-size:25px;">Features </p>
+    </b>
+    <ul style="font-size: 20px;">
+        {% for row in doc.features %}
+        <li style="font-size: 20px;">{{row.features}}</li>
+        {% endfor %}
+    </ul>
+</div>
+    {% endif %}
+    <br>
+    <b>
+        <p style="color:orange;font-size:25px;"> Technical Parameters </p>
+    </b>
+    <br>
+    <table class="technical_parameters table-condensed" style="width:100%;font-size:20px">
+        {% for row in doc.technical_parameters %}
+        <tr>
+            <td colspan="6">{{row.title}} </td>
+            <td>{{row.description}} </td>
+        </tr>
+        {% endfor %}
+
+    </table>
+
+</body>
+
+</html>

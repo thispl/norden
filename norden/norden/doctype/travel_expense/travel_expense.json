@@ -1,0 +1,30 @@
+{
+ "actions": [],
+ "creation": "2022-08-10 12:57:58.984623",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "data"
+],
+ "fields": [
+  {
+   "fieldname": "data",
+   "fieldtype": "Data",
+   "label": "Data"
+
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2022-08-10 12:57:58.984623",
+ "modified_by": "Administrator",
+ "module": "Norden",
+ "name": "Travel Expense",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

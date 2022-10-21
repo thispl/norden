@@ -1,0 +1,194 @@
+<html>
+<style>
+     @media (max-width: 768px) {
+
+/* use the max to specify at each container level */
+.specifictd {
+    width: 360px;
+    /* adjust to desired wrapping */
+    display: table;
+    white-space: pre-wrap;
+    /* css-3 */
+    white-space: -moz-pre-wrap;
+    /* Mozilla, since 1999 */
+    white-space: -pre-wrap;
+    /* Opera 4-6 */
+    white-space: -o-pre-wrap;
+    /* Opera 7 */
+    word-wrap: break-word;
+    /* Internet Explorer 5.5+ */
+}
+}
+
+.divider {
+margin: 0em;
+height: 0.5px;
+}
+
+.row {
+margin-left: 0mm;
+}
+
+.col-xs-5 {
+margin-left: -10px;
+/*float: none !important;*/
+}
+
+.print-format {
+font-size: 9px;
+font-family: 'Frutiger-Light';
+margin-left: 5px;
+margin-right: 5px;
+}
+
+.table-border tr:first-child td {
+background-color: #7dba33;
+color: #404040;
+font-family: 'Frutiger-Light';
+width: 40px;
+}
+
+
+.table-border tr td {
+border: 0.5px solid #566573;
+border-color: #D1D0CE;
+margin: 0 auto;
+color: #404040;
+font-family: 'Frutiger-Light';
+font-size: 9px;
+}
+
+.table-condensed>thead>tr>th,
+.table-condensed>tbody>tr>th,
+.table-condensed>tfoot>tr>th,
+.table-condensed>thead>tr>td,
+.table-condensed>tbody>tr>td,
+.table-condensed>tfoot>tr>td {
+padding-top: 1px !important;
+padding-bottom: 1px !important;
+border-style: hidden;
+}
+
+.table-border>thead>tr>th,
+.table-border>tbody>tr>th,
+.table-border>tfoot>tr>th,
+.table-border>thead>tr>td,
+.table-border>tbody>tr>td,
+.table-border>tfoot>tr>td {
+padding-top: 2px !important;
+padding-bottom: 1px !important;
+}
+
+.top {
+position: absolute;
+top: 70px;
+font-size: 18px;
+font-size: 3.2vw;
+line-height: 0.75em;
+margin-right: 150px;
+white-space: nowrap;
+font-family: 'Frutiger Bold';
+
+}
+
+.top-left {
+position: absolute;
+top: 50px;
+font-size: 18px;
+font-size: 3.2vw;
+line-height: 0.95em;
+margin-right: 150px;
+
+font-family: 'Frutiger Bold';
+
+}
+
+.bottom-left {
+position: absolute;
+bottom: 25px;
+left: 66px;
+font-size: 13px;
+font-family: 'Frutiger Bold';
+}
+
+.footer-html {
+top: -35px;
+}
+
+tr {
+page-break-inside: avoid;
+page-break-after: auto;
+}
+
+.icons {
+padding: 2px !important;
+}
+</style>
+<body>
+    <div class="container">
+        <!-- <div class="row">
+            <p style="font-size:35px;color:#505050;font-weight: 700;font-family:'Frutiger Bold';">SPECIFICATION </p>
+        </div> -->
+
+        <div class="row">
+            <div class="col-xs-6">
+                <table class="table-condensed specifictd" style="width:100%;font-size:16px">
+                    <thead class="thead">
+                        {% set data = get_html_header(doc) %}
+                        {{data}}
+                    </thead>
+
+                    {% set data =
+                    get_html_specification(doc,[(doc.ds_camera,'CAMERA',doc.camera_pb),
+                    (doc.panoramic_camera,'PANORAMIC CAMERA',doc.panoramic_camera_pb),
+                    (doc.ptz_camera,'PTZ CAMERA',doc.ptz_camera_pb),
+                    (doc.thermal_camera,'THERMAL CAMERA',doc.thermal_camera_pb),
+                    (doc.thermal_lens,'THERMAL LENS',doc.thermal_lens_pb),
+                    (doc.visible_camera,'VISIBLE CAMERA',doc.visible_camera_pb),
+                    (doc.visible_lens,'VISIBLE LENS',doc.visible_lens_pb),
+                    (doc.ds_lens,'LENS',doc.lens_pb),
+                    (doc.recording,'RECORDING',doc.recording_pb),
+                    (doc.ds_video_and_audio,'VIDEO & AUDIO',doc.video_and_audio_pb),
+                    (doc.video,'VIDEO',doc.video_pb),
+                    (doc.audio,'AUDIO',doc.audio_pb),
+                    (doc.perfomance,'PERFORMANCE',doc.perfomance_pb),
+                    (doc.screen,'SCREEN',doc.screen_pb),
+                    (doc.ports,'PORTS',doc.ports_pb),
+                    (doc.battery,'BATTERY',doc.battery_pb),
+                    (doc.data_management,'DATA MANAGEMENT',doc.data_management_pb),
+                    (doc.device_management,'DEVICE MANAGEMENT',doc.device_management_pb),
+                    (doc.decoding,'DECODING',doc.decoding_pb),
+                    (doc.smart_analytics,'SMART',doc.smart_analytics_pb),
+                    (doc.alarm_prompt,'ALARM PROMPT',doc.alarm_prompt_pb),
+                    (doc.image,'IMAGE',doc.image_pb),
+                    (doc.temperature,'TEMPARATURE',doc.temperature_pb),
+                    (doc.storage,'STORAGE',doc.storage_pb),
+                    (doc.ds_network,'NETWORK',doc.ds_network_pb),
+                    (doc.ds_interface,'INTERFACE',doc.interface_pb),
+                    (doc.appearance,'APPEARANCE',doc.appearance_pb),
+                    (doc.temperature_detection,'TEMPARATURE DETECTION',doc.temperature_detection_pb),
+                    (doc.face_recognition,'FACE RECOGNITION',doc.face_recognition_pb),
+                    (doc.face_detection,'FACE DETECTION',doc.face_detection_pb),
+                    (doc.ptz_function,'PTZ FUNCTION',doc.ptz_function_pb),
+                    (doc.hdd,'HDD',doc.hdd_pb),
+                    (doc.poe,'POE',doc.poe_pb),
+                    (doc.reliability,'RELIABILITY',doc.reliability_pb),
+                    (doc.function_list,'FUNCTION LIST',functionlist_pb),
+                    (doc.operation_mangement,'OPERATION MANAGEMENT',operation_mangement),
+                    (doc.maintenance,'MAINTENANCE',doc.maintenance_pb),
+                    (doc.security,'SECURITY',doc.security_pb),
+                    (doc.software,'SOFTWARE',doc.software_pb),
+                    (doc.application,'APPLICATION',doc.application_pb),
+                    (doc.ds_smart,'SMART',doc.smart_pb),
+                    (doc.pan_and_tilt,'PAN AND TILT',doc.pan_and_tilt_pb),
+                    (doc.hard_disk,'HARD DISK',doc.hard_disk_pb),
+                    (doc.smart_analytics_and_alarms,'SMART ANALYTICS AND ALARMS',doc.smart_analytics_and_alarms_pb),
+                    (doc.ds_general,'GENERAL',doc.general_pb)])
+                    %}
+                    {{data}}
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,72 @@
+{
+ "actions": [],
+ "creation": "2022-06-22 18:33:20.124642",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "type",
+  "document",
+  "document_type",
+  "purchase_invoice",
+  "amount",
+  "remarks"
+ ],
+ "fields": [
+  {
+   "fieldname": "type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Type",
+   "options": "\nPurchase Invoice\nAdvance\nGeneral"
+  },
+  {
+   "fieldname": "document",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Document",
+   "options": "DocType"
+  },
+  {
+   "columns": 1,
+   "fieldname": "purchase_invoice",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Purchase Invoice",
+   "options": "Purchase Invoice"
+  },
+  {
+   "fieldname": "document_type",
+   "fieldtype": "Dynamic Link",
+   "in_list_view": 1,
+   "label": "Document Type",
+   "options": "document"
+  },
+  {
+   "fetch_from": "purchase_invoice.base_grand_total",
+   "fieldname": "amount",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Amount"
+  },
+  {
+   "columns": 1,
+   "fieldname": "remarks",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Remarks"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2022-06-22 20:21:21.146974",
+ "modified_by": "Administrator",
+ "module": "Norden",
+ "name": "Internal Payment",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

@@ -1,0 +1,145 @@
+<html>
+<style>
+    @media (max-width: 768px) {
+
+        /* use the max to specify at each container level */
+        .specifictd {
+            width: 360px;
+            /* adjust to desired wrapping */
+            display: table;
+            white-space: pre-wrap;
+            /* css-3 */
+            white-space: -moz-pre-wrap;
+            /* Mozilla, since 1999 */
+            white-space: -pre-wrap;
+            /* Opera 4-6 */
+            white-space: -o-pre-wrap;
+            /* Opera 7 */
+            word-wrap: break-word;
+            /* Internet Explorer 5.5+ */
+        }
+    }
+
+    .divider {
+        margin: 0em;
+        height: 0.5px;
+    }
+
+    .row {
+        margin-left: 0mm;
+    }
+
+    .col-xs-5 {
+        margin-left: -10px;
+        /*float: none !important;*/
+    }
+
+    .print-format {
+        font-size: 9px;
+        font-family: 'Frutiger-Light';
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+
+    .table-border tr:first-child td {
+        background-color: #7dba33;
+        color: #404040;
+        font-family: 'Frutiger-Light';
+        width: 40px;
+    }
+
+
+    .table-border tr td {
+        border: 0.5px solid #566573;
+        border-color: #D1D0CE;
+        margin: 0 auto;
+        color: #404040;
+        font-family: 'Frutiger-Light';
+        font-size: 9px;
+    }
+
+    .table-condensed>thead>tr>th,
+    .table-condensed>tbody>tr>th,
+    .table-condensed>tfoot>tr>th,
+    .table-condensed>thead>tr>td,
+    .table-condensed>tbody>tr>td,
+    .table-condensed>tfoot>tr>td {
+        padding-top: 1px !important;
+        padding-bottom: 1px !important;
+        border-style: hidden;
+    }
+
+    .table-border>thead>tr>th,
+    .table-border>tbody>tr>th,
+    .table-border>tfoot>tr>th,
+    .table-border>thead>tr>td,
+    .table-border>tbody>tr>td,
+    .table-border>tfoot>tr>td {
+        padding-top: 2px !important;
+        padding-bottom: 1px !important;
+    }
+
+    .top {
+        position: absolute;
+        top: 70px;
+        font-size: 18px;
+        font-size: 3.2vw;
+        line-height: 0.75em;
+        margin-right: 150px;
+        white-space: nowrap;
+        font-family: 'Frutiger Bold';
+
+    }
+
+    .top-left {
+        position: absolute;
+        top: 50px;
+        font-size: 18px;
+        font-size: 3.2vw;
+        line-height: 0.95em;
+        margin-right: 150px;
+
+        font-family: 'Frutiger Bold';
+
+    }
+
+    .bottom-left {
+        position: absolute;
+        bottom: 25px;
+        left: 66px;
+        font-size: 13px;
+        font-family: 'Frutiger Bold';
+    }
+
+    .footer-html {
+        top: -35px;
+    }
+
+    tr {
+        page-break-inside: avoid;
+        page-break-after: auto;
+    }
+
+    .icons {
+        padding: 2px !important;
+    }
+</style>
+
+<body>
+    <div class="container">
+
+        {% if doc['ds_order'] %}
+        <table class="table-border"  style="width:100%;font-size:35px">
+            {% set data = get_html_order_info(doc) %}
+            {{data}}
+        </table>
+        {% endif %}
+        {% if doc['ordering_information_pb'] == 1%}
+        <p style="page-break-before: always;">&nbsp;</p>
+        {% endif %}
+
+    </div>
+
+</body>
+
+</html>

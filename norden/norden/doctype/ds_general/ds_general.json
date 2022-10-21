@@ -6,7 +6,8 @@
  "engine": "InnoDB",
  "field_order": [
   "title",
-  "specification"
+  "specification",
+  "page_break"
  ],
  "fields": [
   {
@@ -20,12 +21,18 @@
    "fieldtype": "Small Text",
    "in_list_view": 1,
    "label": "Specification"
+  },
+  {
+   "default": "0",
+   "fieldname": "page_break",
+   "fieldtype": "Check",
+   "label": "Page Break"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2021-06-23 07:06:31.914935",
+ "modified": "2022-02-08 19:56:50.811775",
  "modified_by": "Administrator",
  "module": "Norden",
  "name": "DS General",

@@ -1,0 +1,91 @@
+{
+ "actions": [],
+ "allow_copy": 1,
+ "creation": "2022-04-04 12:34:45.944053",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "price_list",
+  "column_break_2",
+  "from_currency",
+  "column_break_4",
+  "convert_to",
+  "column_break_6",
+  "download",
+  "section_break_6",
+  "html_7"
+ ],
+ "fields": [
+  {
+   "fieldname": "price_list",
+   "fieldtype": "Link",
+   "label": "Price List",
+   "options": "Price List"
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "convert_to",
+   "fieldtype": "Link",
+   "label": "Convert To",
+   "options": "Currency"
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "By clicking Dowlaod Excel Sheet",
+   "fieldname": "download",
+   "fieldtype": "Button",
+   "label": "Download"
+  },
+  {
+   "fieldname": "section_break_6",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "html_7",
+   "fieldtype": "HTML"
+  },
+  {
+   "fetch_from": "price_list.currency",
+   "fieldname": "from_currency",
+   "fieldtype": "Data",
+   "in_preview": 1,
+   "label": "From Currency",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_6",
+   "fieldtype": "Column Break"
+  }
+ ],
+ "hide_toolbar": 1,
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2022-04-06 11:01:01.266597",
+ "modified_by": "Administrator",
+ "module": "Norden",
+ "name": "Item Currency Conversion",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

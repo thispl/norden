@@ -6,9 +6,32 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "product_sticker_section",
   "width",
   "column_break_2",
   "height",
+  "column_break_4",
+  "header_font",
+  "column_break_6",
+  "font",
+  "column_break_8",
+  "barcode_width",
+  "column_break_11",
+  "icons_size",
+  "image_size",
+  "price_sticker_section",
+  "price_width",
+  "column_break_16",
+  "price_height",
+  "column_break_18",
+  "price_header",
+  "column_break_20",
+  "price_font",
+  "column_break_23",
+  "price_barcode_width",
+  "column_break_24",
+  "price_icon_size",
+  "price_image_size",
   "section_break_4",
   "pricing_logo",
   "header",
@@ -32,18 +55,19 @@
   "power",
   "output",
   "power_output",
+  "adapter_icon_width",
   "column_break_22",
   "hazardous_area",
   "indoor_use_only",
   "caution",
   "safety_mark",
   "adapter_icons_section",
-  "sticker_icons",
   "pricing_section",
   "qty",
   "description",
   "column_break_30",
   "mrp",
+  "sticker_icons",
   "general_details_section",
   "name_address",
   "compliant_cell_section",
@@ -178,9 +202,8 @@
   },
   {
    "fieldname": "sticker_icons",
-   "fieldtype": "Table",
-   "label": "Sticker Icons",
-   "options": "Sticker Icons Table"
+   "fieldtype": "Attach",
+   "label": "Sticker Icons"
   },
   {
    "fieldname": "pricing_section",
@@ -275,11 +298,122 @@
    "fieldtype": "Table",
    "label": "Serial Nos",
    "options": "Eyenor Sticker Serial Number"
+  },
+  {
+   "fieldname": "icons_size",
+   "fieldtype": "Int",
+   "label": "Icons Size"
+  },
+  {
+   "fieldname": "font",
+   "fieldtype": "Int",
+   "label": "Font"
+  },
+  {
+   "fieldname": "barcode_width",
+   "fieldtype": "Int",
+   "label": "Barcode Width"
+  },
+  {
+   "fieldname": "image_size",
+   "fieldtype": "Int",
+   "label": "Image Size"
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_6",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_8",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "price_sticker_section",
+   "fieldtype": "Section Break",
+   "label": "Price Sticker"
+  },
+  {
+   "fieldname": "header_font",
+   "fieldtype": "Data",
+   "label": "Header Font"
+  },
+  {
+   "fieldname": "column_break_11",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "product_sticker_section",
+   "fieldtype": "Section Break",
+   "label": "Product Sticker"
+  },
+  {
+   "fieldname": "price_width",
+   "fieldtype": "Data",
+   "label": "Width(mm)"
+  },
+  {
+   "fieldname": "column_break_16",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "price_height",
+   "fieldtype": "Data",
+   "label": "Height(mm)"
+  },
+  {
+   "fieldname": "column_break_18",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "price_header",
+   "fieldtype": "Data",
+   "label": "Header Font"
+  },
+  {
+   "fieldname": "column_break_20",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "price_font",
+   "fieldtype": "Data",
+   "label": "Font"
+  },
+  {
+   "fieldname": "price_barcode_width",
+   "fieldtype": "Data",
+   "label": "Barcode Width"
+  },
+  {
+   "fieldname": "column_break_23",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_24",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "price_icon_size",
+   "fieldtype": "Data",
+   "label": "Icon Size"
+  },
+  {
+   "fieldname": "price_image_size",
+   "fieldtype": "Data",
+   "label": "Image Size"
+  },
+  {
+   "fieldname": "adapter_icon_width",
+   "fieldtype": "Data",
+   "label": "Adapter Icon Width"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2021-09-19 13:23:05.505182",
+ "modified": "2021-12-21 12:27:33.809644",
  "modified_by": "Administrator",
  "module": "Norden",
  "name": "Eyenor Stickers",

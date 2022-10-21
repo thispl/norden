@@ -1,0 +1,60 @@
+{
+ "actions": [],
+ "creation": "2022-07-16 12:01:19.429165",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "hsn",
+  "total",
+  "state_tax",
+  "central_tax",
+  "amount"
+ ],
+ "fields": [
+  {
+   "columns": 2,
+   "fieldname": "hsn",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "HSN"
+  },
+  {
+   "fieldname": "state_tax",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "State Tax"
+  },
+  {
+   "fieldname": "central_tax",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Central Tax"
+  },
+  {
+   "columns": 1,
+   "fieldname": "amount",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Amount "
+  },
+  {
+   "fieldname": "total",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Total"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2022-08-23 19:03:22.888538",
+ "modified_by": "Administrator",
+ "module": "Norden",
+ "name": "Sales Invoice HSN",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

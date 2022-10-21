@@ -1,0 +1,314 @@
+{
+ "actions": [],
+ "allow_import": 1,
+ "autoname": "ESSP.####",
+ "creation": "2022-07-04 11:43:02.154975",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "employee_details_section",
+  "employee",
+  "employee_name",
+  "company",
+  "department",
+  "designation",
+  "email_id",
+  "reports_to",
+  "section_break_7",
+  "level",
+  "grade",
+  "location",
+  "bank_name",
+  "bank_ac_no",
+  "epf_uan_no",
+  "revised_salary_structure_section",
+  "basic",
+  "hra",
+  "conveyance",
+  "vehicle_and_fuel_allowance",
+  "special_allowance",
+  "total_employer_contribution",
+  "arrears",
+  "gift",
+  "internet",
+  "ctc",
+  "total_earnings_rs",
+  "net_pay_rs",
+  "column_break_12",
+  "esi",
+  "epf",
+  "professional_tax",
+  "tds",
+  "lwf",
+  "salary_advance_deduction",
+  "other_deduction",
+  "total_deduction",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "basic",
+   "fieldtype": "Currency",
+   "label": "Basic",
+   "options": "Company:company:default_currency"
+  },
+  {
+   "fieldname": "hra",
+   "fieldtype": "Currency",
+   "label": "HRA",
+   "options": "Company:company:default_currency"
+  },
+  {
+   "fieldname": "conveyance",
+   "fieldtype": "Currency",
+   "label": "Conveyance",
+   "options": "Company:company:default_currency"
+  },
+  {
+   "fieldname": "special_allowance",
+   "fieldtype": "Currency",
+   "label": "SA",
+   "options": "Company:company:default_currency"
+  },
+  {
+   "fieldname": "arrears",
+   "fieldtype": "Currency",
+   "label": "Arrears",
+   "options": "Company:company:default_currency"
+  },
+  {
+   "fieldname": "gift",
+   "fieldtype": "Currency",
+   "label": "Gift",
+   "options": "Company:company:default_currency"
+  },
+  {
+   "fieldname": "internet",
+   "fieldtype": "Currency",
+   "label": "Internet",
+   "options": "Company:company:default_currency"
+  },
+  {
+   "fieldname": "ctc",
+   "fieldtype": "Currency",
+   "label": "CTC",
+   "options": "Company:company:default_currency"
+  },
+  {
+   "fieldname": "total_earnings_rs",
+   "fieldtype": "Currency",
+   "label": "Total Earnings",
+   "options": "Company:company:default_currency"
+  },
+  {
+   "fieldname": "net_pay_rs",
+   "fieldtype": "Currency",
+   "label": "Net Pay ",
+   "options": "Company:company:default_currency"
+  },
+  {
+   "fieldname": "column_break_12",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "esi",
+   "fieldtype": "Currency",
+   "label": "ESI",
+   "options": "Company:company:default_currency"
+  },
+  {
+   "default": "0",
+   "fieldname": "epf",
+   "fieldtype": "Currency",
+   "label": "EPF",
+   "options": "Company:company:default_currency"
+  },
+  {
+   "default": "0",
+   "fieldname": "professional_tax",
+   "fieldtype": "Currency",
+   "label": "Professional Tax",
+   "options": "Company:company:default_currency"
+  },
+  {
+   "default": "0",
+   "fieldname": "tds",
+   "fieldtype": "Currency",
+   "label": "TDS",
+   "options": "Company:company:default_currency"
+  },
+  {
+   "default": "0",
+   "fieldname": "lwf",
+   "fieldtype": "Currency",
+   "label": "LWF",
+   "options": "Company:company:default_currency"
+  },
+  {
+   "fieldname": "salary_advance_deduction",
+   "fieldtype": "Currency",
+   "label": "SA Deduction",
+   "options": "Company:company:default_currency"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Employee Salary Structure Preview",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "revised_salary_structure_section",
+   "fieldtype": "Section Break",
+   "label": "Revised Salary Structure"
+  },
+  {
+   "fieldname": "employee_details_section",
+   "fieldtype": "Section Break",
+   "label": "Employee Details"
+  },
+  {
+   "fetch_from": "employee.first_name",
+   "fieldname": "employee_name",
+   "fieldtype": "Data",
+   "label": "Employee Name",
+   "unique": 1
+  },
+  {
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "label": "Employee",
+   "options": "Employee"
+  },
+  {
+   "fetch_from": "employee.company",
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "employee.department",
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "label": "Department",
+   "options": "Department"
+  },
+  {
+   "fetch_from": "employee.designation",
+   "fieldname": "designation",
+   "fieldtype": "Data",
+   "label": "Designation"
+  },
+  {
+   "fetch_from": "employee.level",
+   "fieldname": "level",
+   "fieldtype": "Data",
+   "label": "Level"
+  },
+  {
+   "fetch_from": "employee.grade",
+   "fieldname": "grade",
+   "fieldtype": "Data",
+   "label": "Grade"
+  },
+  {
+   "fetch_from": "employee.employee_location",
+   "fieldname": "location",
+   "fieldtype": "Data",
+   "label": "Location"
+  },
+  {
+   "fetch_from": "employee.bank_name",
+   "fieldname": "bank_name",
+   "fieldtype": "Data",
+   "label": "Bank Name"
+  },
+  {
+   "fetch_from": "employee.bank_ac_no",
+   "fieldname": "bank_ac_no",
+   "fieldtype": "Data",
+   "label": "Bank A/C No"
+  },
+  {
+   "fieldname": "section_break_7",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "employee.epf_uan",
+   "fieldname": "epf_uan_no",
+   "fieldtype": "Data",
+   "label": "EPF UAN No"
+  },
+  {
+   "fieldname": "email_id",
+   "fieldtype": "Data",
+   "label": "Email ID",
+   "options": "Email"
+  },
+  {
+   "fieldname": "vehicle_and_fuel_allowance",
+   "fieldtype": "Currency",
+   "label": "VFA",
+   "options": "Company:company:default_currency"
+  },
+  {
+   "fieldname": "other_deduction",
+   "fieldtype": "Currency",
+   "label": "Other Deduction",
+   "options": "Company:company:default_currency"
+  },
+  {
+   "fieldname": "total_deduction",
+   "fieldtype": "Currency",
+   "label": "Total Deduction",
+   "options": "Company:company:default_currency"
+  },
+  {
+   "fieldname": "reports_to",
+   "fieldtype": "Data",
+   "label": "Reports to"
+  },
+  {
+   "default": "0",
+   "fieldname": "total_employer_contribution",
+   "fieldtype": "Currency",
+   "label": "Total Employer Contribution",
+   "options": "Company:company:default_currency"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2022-07-29 10:25:02.657953",
+ "modified_by": "Administrator",
+ "module": "Norden",
+ "name": "Employee Salary Structure Preview",
+ "name_case": "Title Case",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "select": 1,
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "title_field": "employee_name",
+ "track_changes": 1
+}

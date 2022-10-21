@@ -1,0 +1,58 @@
+{
+ "actions": [],
+ "creation": "2021-11-01 13:09:11.527926",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "lens",
+  "detect",
+  "observe",
+  "recognize",
+  "identify"
+ ],
+ "fields": [
+  {
+   "fieldname": "lens",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Lens(mm)"
+  },
+  {
+   "fieldname": "detect",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Detect(m)"
+  },
+  {
+   "fieldname": "observe",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Observe(m)"
+  },
+  {
+   "fieldname": "recognize",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Recognize(m)"
+  },
+  {
+   "fieldname": "identify",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "identify(m)"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2021-11-01 15:04:22.468099",
+ "modified_by": "Administrator",
+ "module": "Norden",
+ "name": "DS DORI Distance",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

@@ -1,0 +1,259 @@
+<html>
+<style>
+    .print-format {
+        font-size: 11px;
+        font-family: 'D-DIN';
+        margin-left: 5px;
+        margin-right: 5px;
+        margin-top: 2px;
+    }
+
+    #rcorners1 {
+        border-radius: 25px;
+        background: lightgray;
+        width: 98%;
+        padding: 8px;
+        height: 100%;
+    }
+
+    #rcorners-poly {
+        border-radius: 25px;
+        background: lightgray;
+        width: 98%;
+        padding: 8px;
+        height: 100%;
+    }
+
+    .wrap {
+        white-space: pre-wrap;
+        /* css-3 */
+        white-space: -moz-pre-wrap;
+        /* Mozilla, since 1999 */
+        white-space: -pre-wrap;
+        /* Opera 4-6 */
+        white-space: -o-pre-wrap;
+        /* Opera 7 */
+        word-wrap: break-word;
+        /* Internet Explorer 5.5+ */
+    }
+
+    .row {
+        display: table;
+    }
+
+    .row [class*="col-"] {
+        float: none;
+        display: table-cell;
+        vertical-align: top;
+    }
+
+    .table-border>thead>tr>th,
+    .table-border>tbody>tr>th,
+    .table-border>tfoot>tr>th,
+    .table-border>thead>tr>td,
+    .table-border>tbody>tr>td,
+    .table-border>tfoot>tr>td {
+        padding-top: 1px !important;
+        padding-bottom: 1px !important;
+        padding-right: 1px !important;
+        padding-left: 8px !important;
+        border: 0.5px solid #E95328;
+    }
+
+    .table-border1>thead>tr>th,
+    .table-border1>tbody>tr>th,
+    .table-border1>tfoot>tr>th,
+    .table-border1>thead>tr>td,
+    .table-border1>tbody>tr>td,
+    .table-border1>tfoot>tr>td {
+        border-collapse: collapse;
+        border: 1px solid #732E85;
+        position: static;
+        margin-left: auto;
+        margin-right: auto;
+        padding-top: 1px !important;
+        padding-bottom: 1px !important;
+        padding-right: 1px !important;
+        padding-left: 8px !important;
+    }
+
+    .container1 {
+        position: right;
+        top: 8px;
+        padding-right: 1px;
+        font-size: 18px;
+        width: 210px;
+    }
+
+    .container2 {
+        position: right;
+        top: 8px;
+        padding-right: 8px;
+        font-size: 18px;
+        width: 210px;
+    }
+
+    .table-condensed.th {
+        font-weight: bold;
+    }
+
+    .table-condensed>thead>tr>th,
+    .table-condensed>tbody>tr>th,
+    .table-condensed>tfoot>tr>th,
+    .table-condensed>thead>tr>td,
+    .table-condensed>tbody>tr>td,
+    .table-condensed>tfoot>tr>td {
+        padding-top: 2px !important;
+        padding-bottom: 2px !important;
+        padding-right: 5px !important;
+        padding-left: 5px !important;
+
+
+    }
+
+    .table-condensed tr:nth-child(even) {
+        background-color: #DFEDDB;
+    }
+
+    .table-condensed tr:nth-child(odd) {
+        background-color: #FF7F50;
+
+    }
+
+    #bottom-left {
+        vertical-align: bottom;
+        margin-left: auto;
+        margin-right: auto;
+    }
+</style>
+
+<body>
+    <meta name="pdfkit-orientation" content="Portrait" />
+    <div class="container">
+
+
+        {% if doc.cable_types =="Polynor" %}
+
+        {% if doc.ordering_information %}
+        <p style="color:#732E85;font-size:15px;font-weight:600">ORDERING INFORMATION</p>
+        <table class="table-border1" style="width:100%" align="center">
+            <tr>
+                <td colspan="4"
+                    style="border-right:0.5px solid white;background-color:#732E85;color:white;font-weight:900;"> Part
+                    Number</td>
+                <td colspan="4"
+                    style="border-right:0.5px solid white;background-color:#732E85;color:white;font-weight:900;">
+                    Description </td>
+                <td colspan="4" style="background-color:#732E85;color:white;font-weight:900;">Net Weight (Kg/Km) </td>
+            </tr>
+            {% for row in doc.ordering_information %}
+            <tr>
+                <td colspan="4" style="color:#4D4D4F">{{row.part_number}}</td>
+                <td colspan="4" style="color:#4D4D4F">{{row.description}} </td>
+                <td colspan="4" style="color:#4D4D4F">{{row.net_weight}} </td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% endif %}
+        {% endif %}
+
+        {% if doc.cable_types =="Optinor" %}
+
+
+        {% if doc.ordering_information_cable %}P
+        <div class="row">
+            <div class="col-xs-12">
+                <br>
+                <p style="color:#E95328;font-size:16px;padding-bottom:1px;font-weight:900">ORDERING INFORMATION</p>
+                <br>
+                <table class="table-border" style="width:100%">
+                    <tr>
+                        <td colspan="2" rowspan="2"
+                            style="border:0.5px solid #E95328;border-right:0.5px solid white;background-color:#E95328;font-size:12px;">
+                            <b style="color:white;"> Part Number </b></td>
+                        <td colspan="2" rowspan="2"
+                            style="border:0.5px solid #E95328;border-right:0.5px solid white;background-color:#E95328;font-size:12px;">
+                            <b style="color:white;">Fibre Count </b></td>
+                        <td colspan="2" rowspan="2"
+                            style="border:0.5px solid #E95328;border-right:0.5px solid white;background-color:#E95328;font-size:12px;">
+                            <b style="color:white;">Outer Diameter<br>(mm) </b> </td>
+                        <td colspan="2" rowspan="2"
+                            style="border:0.5px solid #E95328;border-right:0.5px solid white;background-color:#E95328;font-size:12px;">
+                            <b style="color:white;">Loose Tube Diameter <br>(mm)</b></td>
+                        <td colspan="2" rowspan="2"
+                            style="border:0.5px solid #E95328;border-right:0.5px solid white;background-color:#E95328;font-size:12px;">
+                            <b style="color:white;">Cable Weight <br>(kg/km)</b></td>
+                        <td colspan="4"
+                            style="border:0.5px solid #E95328;border-right:0.5px solid white;border-bottom:0.5px solid white;background-color:#E95328;font-size:12px;">
+                            <b style="color:white;">Bend radius </b> </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"
+                            style="border:0.5px solid #E95328;border-right:0.5px solid white;background-color:#E95328;color:white;font-size:12px;font-weight:900">
+                            <b style="color:white;">short <br>(mm) </b> </td>
+                        <td colspan="2"
+                            style="border:0.5px solid #E95328;background-color:#E95328;color:white;font-size:12px;font-weight:900">
+                            <b style="color:white;">Long <br>(mm)</b> </td>
+                    </tr>
+                    {% for row in doc.ordering_information_cable %}
+                    <tr>
+                        <td colspan="2" style="border:0.5px solid #E95328;color:#5B5B5B">{{row.part_number}}</td>
+                        <td colspan="2" style="border:0.5px solid #E95328;color:#5B5B5B">{{row.fibre_count or ''}} </td>
+                        <td colspan="2" style="border:0.5px solid #E95328;color:#5B5B5B">{{row.outer_diameter or ''}}
+                        </td>
+                        <td colspan="2" style="border:0.5px solid #E95328;color:#5B5B5B">{{row.loose_tube_diameter or
+                            ''}}</td>
+                        <td colspan="2" style="border:0.5px solid #E95328;color:#5B5B5B">{{row.cable_weight or ''}}
+                        </td>
+                        <td colspan="2" style="border:0.5px solid #E95328;color:#5B5B5B">{{row.bend_radius_short or ''}}
+                        </td>
+                        <td colspan="2" style="border:0.5px solid #E95328;color:#5B5B5B">{{row.bend_radius_long or ''}}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+
+        </div>
+        <br>
+
+        {% endif %}
+
+        {% endif %}
+
+        {% if doc.cable_types =="Nordata" %}
+        {% if doc.ordering_information %}
+
+        <p style="color:#21A43E;font-size:17px;font-weight:600;padding-bottom: 9px;">ORDERING INFORMATION</p>
+
+        <table class="table-border" style="width:100%">
+            <tr>
+                <td colspan="2"
+                    style="border:0.5px solid #21A43E;border-right:0.5px solid white;font-weight: bold;background-color:#21A43E;color:white;">
+                    Part Number</td>
+                <td colspan="2"
+                    style="border:0.5px solid #21A43E;border-right:0.5px solid white;font-weight: bold;background-color:#21A43E;color:white;">
+                    Description</td>
+                <td colspan="2"
+                    style="border:0.5px solid #21A43E;border-right:0.5px solid white;font-weight: bold;background-color:#21A43E;color:white;">
+                    Standard Length</td>
+            </tr>
+            {% for row in doc.ordering_information_standard %}
+            <tr>
+                <td colspan="2" style="border:0.5px solid #21A43E;color:#4D4D4F">{{row.part_number}}</td>
+                <td colspan="2" style="border:0.5px solid #21A43E;color:#4D4D4F">{{row.description or ''}} </td>
+                <td colspan="2" style="border:0.5px solid #21A43E;color:#4D4D4F">{{row.standard_quantity}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    {% endif %}
+    {% endif %}
+
+
+
+
+
+</body>
+
+</html>

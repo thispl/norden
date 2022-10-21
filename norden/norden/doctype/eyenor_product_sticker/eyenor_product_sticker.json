@@ -1,0 +1,388 @@
+{
+ "actions": [],
+ "autoname": "field:model",
+ "creation": "2021-12-21 10:17:22.306754",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "product_sticker_section",
+  "width",
+  "image_size",
+  "column_break_2",
+  "height",
+  "column_break_4",
+  "header_font",
+  "column_break_6",
+  "font",
+  "column_break_8",
+  "barcode_width",
+  "column_break_11",
+  "icons_size",
+  "section_break_4",
+  "model",
+  "pricing_logo",
+  "subtittle",
+  "image",
+  "column_break_20",
+  "header",
+  "qr_code",
+  "company_name",
+  "product_specification_section",
+  "power_supply",
+  "sn",
+  "batch_no",
+  "column_break_19",
+  "user",
+  "password",
+  "ip",
+  "section_break_27",
+  "print_based_on",
+  "print_quantity",
+  "serial_numbers",
+  "column_break_7",
+  "adapter_section",
+  "input",
+  "power",
+  "output",
+  "power_output",
+  "adapter_icon_width",
+  "column_break_22",
+  "hazardous_area",
+  "indoor_use_only",
+  "caution",
+  "safety_mark",
+  "adapter_icons_section",
+  "pricing_section",
+  "qty",
+  "description",
+  "column_break_30",
+  "mrp",
+  "sticker_icons",
+  "general_details_section",
+  "name_address",
+  "compliant_cell_section",
+  "email",
+  "column_break_34",
+  "toll_free"
+ ],
+ "fields": [
+  {
+   "fieldname": "product_sticker_section",
+   "fieldtype": "Section Break",
+   "label": "Sticker Sizing"
+  },
+  {
+   "fieldname": "width",
+   "fieldtype": "Data",
+   "label": "Width (mm)"
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "height",
+   "fieldtype": "Data",
+   "label": "Height (mm)"
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "header_font",
+   "fieldtype": "Data",
+   "label": "Header Font"
+  },
+  {
+   "fieldname": "column_break_6",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "font",
+   "fieldtype": "Int",
+   "label": "Font"
+  },
+  {
+   "fieldname": "column_break_8",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "barcode_width",
+   "fieldtype": "Int",
+   "label": "Barcode Width"
+  },
+  {
+   "fieldname": "column_break_11",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "icons_size",
+   "fieldtype": "Int",
+   "label": "Icons Size"
+  },
+  {
+   "fieldname": "image_size",
+   "fieldtype": "Int",
+   "label": "Image Size"
+  },
+  {
+   "fieldname": "section_break_4",
+   "fieldtype": "Section Break",
+   "label": "Sticker Components"
+  },
+  {
+   "fieldname": "pricing_logo",
+   "fieldtype": "Attach Image",
+   "label": "Eyenor Logo"
+  },
+  {
+   "fieldname": "header",
+   "fieldtype": "Attach Image",
+   "hidden": 1,
+   "label": "Header"
+  },
+  {
+   "fieldname": "subtittle",
+   "fieldtype": "Data",
+   "label": "subtittle"
+  },
+  {
+   "fieldname": "model",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Model",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "power_supply",
+   "fieldtype": "Data",
+   "label": "Power Supply"
+  },
+  {
+   "default": "Bulk Quantity",
+   "fieldname": "print_based_on",
+   "fieldtype": "Select",
+   "label": "Print Based On",
+   "options": "\nBulk Quantity\nSerial Number"
+  },
+  {
+   "depends_on": "eval:doc.print_based_on == 'Bulk Quantity'",
+   "fieldname": "sn",
+   "fieldtype": "Data",
+   "label": "SN"
+  },
+  {
+   "depends_on": "eval:doc.print_based_on == 'Bulk Quantity'",
+   "fieldname": "print_quantity",
+   "fieldtype": "Int",
+   "label": "No of Stickers"
+  },
+  {
+   "depends_on": "eval:doc.print_based_on == 'Serial Number'",
+   "fieldname": "serial_numbers",
+   "fieldtype": "Table",
+   "label": "Serial Nos",
+   "options": "Eyenor Sticker Serial Number"
+  },
+  {
+   "fieldname": "column_break_7",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "user",
+   "fieldtype": "Data",
+   "label": "User"
+  },
+  {
+   "fieldname": "password",
+   "fieldtype": "Data",
+   "label": "Password"
+  },
+  {
+   "fieldname": "ip",
+   "fieldtype": "Data",
+   "label": "IP"
+  },
+  {
+   "fieldname": "batch_no",
+   "fieldtype": "Data",
+   "label": "Batch No"
+  },
+  {
+   "fieldname": "company_name",
+   "fieldtype": "Data",
+   "label": "Company Name"
+  },
+  {
+   "fieldname": "image",
+   "fieldtype": "Attach",
+   "label": "Certification Logo"
+  },
+  {
+   "fieldname": "qr_code",
+   "fieldtype": "Attach",
+   "label": "QR Code"
+  },
+  {
+   "fieldname": "adapter_section",
+   "fieldtype": "Section Break",
+   "label": "Adapter"
+  },
+  {
+   "fieldname": "input",
+   "fieldtype": "Data",
+   "label": "Input"
+  },
+  {
+   "fieldname": "power",
+   "fieldtype": "Data",
+   "label": "Power"
+  },
+  {
+   "fieldname": "output",
+   "fieldtype": "Data",
+   "label": "Output"
+  },
+  {
+   "fieldname": "power_output",
+   "fieldtype": "Attach",
+   "label": "Power Output"
+  },
+  {
+   "fieldname": "adapter_icon_width",
+   "fieldtype": "Data",
+   "label": "Adapter Icon Width"
+  },
+  {
+   "fieldname": "column_break_22",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "hazardous_area",
+   "fieldtype": "Attach",
+   "label": "Hazardous Area"
+  },
+  {
+   "fieldname": "indoor_use_only",
+   "fieldtype": "Attach",
+   "label": "Indoor Use Only"
+  },
+  {
+   "fieldname": "caution",
+   "fieldtype": "Attach",
+   "label": "Caution"
+  },
+  {
+   "fieldname": "safety_mark",
+   "fieldtype": "Attach",
+   "label": "Safety Mark"
+  },
+  {
+   "fieldname": "adapter_icons_section",
+   "fieldtype": "Section Break",
+   "label": "Adapter Icons"
+  },
+  {
+   "fieldname": "pricing_section",
+   "fieldtype": "Section Break",
+   "label": "Pricing"
+  },
+  {
+   "fieldname": "qty",
+   "fieldtype": "Data",
+   "label": "Qty"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Data",
+   "label": "Description"
+  },
+  {
+   "fieldname": "column_break_30",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "mrp",
+   "fieldtype": "Currency",
+   "label": "MRP"
+  },
+  {
+   "fieldname": "sticker_icons",
+   "fieldtype": "Attach",
+   "label": "Sticker Icons"
+  },
+  {
+   "fieldname": "general_details_section",
+   "fieldtype": "Section Break",
+   "label": "General Details"
+  },
+  {
+   "fieldname": "name_address",
+   "fieldtype": "Small Text",
+   "label": "Name and Address"
+  },
+  {
+   "fieldname": "compliant_cell_section",
+   "fieldtype": "Section Break",
+   "label": "Compliant Cell"
+  },
+  {
+   "fieldname": "email",
+   "fieldtype": "Data",
+   "label": "Email"
+  },
+  {
+   "fieldname": "column_break_34",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "toll_free",
+   "fieldtype": "Data",
+   "label": "Toll Free"
+  },
+  {
+   "fieldname": "product_specification_section",
+   "fieldtype": "Section Break",
+   "label": "Product Specification"
+  },
+  {
+   "fieldname": "column_break_19",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_27",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_20",
+   "fieldtype": "Column Break"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2021-12-22 15:56:31.927262",
+ "modified_by": "Administrator",
+ "module": "Norden",
+ "name": "Eyenor Product Sticker",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

@@ -83,24 +83,82 @@ app_license = "MIT"
 # ---------------
 # Override standard doctype classes
 
-# override_doctype_class = {
-# 	"ToDo": "custom_app.overrides.CustomToDo"
-# }
+override_doctype_class = {
+	"Leave Application":"norden.overrides.CustomLeaveApplication",
+	"Expense Claim":"norden.overrides.CustomExpenseClaim",
+	"Attendance Request":"norden.overrides.CustomAttendanceRequest",
+
+}
 
 # Document Events
 # ---------------
 # Hook on document methods and events
 
 doc_events = {
-	"Opportunity": {
-		"after_insert": "opportunity_creation_alert",
-	}
-}
+	# "Opportunity": {
+	# 	"after_insert": "norden.email_alerts.opportunity_creation_alert",
+	# },
+	# "Quotation": {
+	# 	"on_update": "norden.email_alerts.quotation_creation_alert",
+	# },
+	"Landed Cost Voucher": {
+		"on_submit": "norden.custom.create_lcv_je",
+	},
+	"Purchase Receipt": {
+		"after_submit": "norden.custom.create_lcv",
+		# "on_submit": "norden.custom.check_pr",
+	},
+	"Logistics Request": {
+		"on_submit": "norden.custom.create_landed_cost_voucher",
+	},
 
+	"Material Request": {
+		"validate": "norden.custom.create_file_number_mr",
+	},
+	"Sales Order": {
+		"on_submit": "norden.norden.doctype.project_reference.project_reference.create_project_reference",
+		# "on_update": "norden.custom.so_status"
+	},
+	"Quotation": {
+
+		"before_submit":[
+		"norden.custom.check_discount_percent",
+		"norden.custom.check_internal_cost",
+		],
+		# "before_save":[
+		
+		# ],
+
+		"validate":[
+			"norden.custom.internal_margin_calculation",
+			"norden.custom.create_file_number",
+			
+		],
+
+		
+},
+	"Purchase Order": {
+		"after_insert": [
+			"norden.custom.batch_number",
+			"norden.custom.get_po_no",
+		]
+},
+
+# 	"Delivery Note": {
+# 		"on_submit": "norden.custom.dn_status",
+# },
+
+# 	"Sales Invoice": {
+# 		"on_submit": "norden.custom.si_status",
+# },
+
+
+
+}
 # Scheduled Tasks
 # ---------------
 
-# scheduler_events = {
+scheduler_events = {
 # 	"all": [
 # 		"norden.tasks.all"
 # 	],
@@ -115,8 +173,13 @@ doc_events = {
 # 	]
 # 	"monthly": [
 # 		"norden.tasks.monthly"
-# 	]
-# }
+# 	],
+"cron":{
+	"0 9 * * *":[
+		"norden.email_alerts.send_birthday_alert"
+	]
+}
+}
 
 # Testing
 # -------
@@ -144,9 +207,13 @@ doc_events = {
 jenv = {
 	"methods": [
 		"get_specification:norden.norden.doctype.eyenor_datasheet.eyenor_datasheet.get_specification",
+		"get_html_specification:norden.norden.doctype.eyenor_datasheet.eyenor_datasheet_html.get_html_specification",
+		"get_html_header:norden.norden.doctype.eyenor_datasheet.eyenor_datasheet_html.get_html_header",
 		"get_header:norden.norden.doctype.eyenor_datasheet.eyenor_datasheet.get_header",
+		"get_html_order_info:norden.norden.doctype.eyenor_datasheet.eyenor_datasheet_html.get_html_order_info",
 		"get_order_info:norden.norden.doctype.eyenor_datasheet.eyenor_datasheet.get_order_info",
 		"get_pack_info:norden.norden.doctype.eyenor_datasheet.eyenor_datasheet.get_pack_info",	
+		"get_thermal_image:norden.norden.doctype.eyenor_datasheet.eyenor_datasheet.get_thermal_image",	
 		"get_datasheet_icons:norden.norden.doctype.eyenor_datasheet.eyenor_datasheet.get_datasheet_icons",
 		"get_nvs_specification:norden.norden.doctype.nvs.nvs.get_nvs_specification",
 		"get_nvs_header:norden.norden.doctype.nvs.nvs.get_nvs_header",
@@ -160,7 +227,10 @@ jenv = {
 		"ordering_guide:norden.norden.doctype.cable_datasheet.cable_datasheet.ordering_guide",
 		"get_nordata_desc:norden.norden.doctype.cable_datasheet.cable_datasheet.get_nordata_desc",
 		"get_optidata_desc:norden.norden.doctype.cable_datasheet.cable_datasheet.get_optidata_desc",
+        "get_dori_distance:norden.norden.doctype.eyenor_datasheet.eyenor_datasheet.get_dori_distance",
+        "get_leave_balance:norden.custom.get_leave_balance",
 	]
+
 }
 
 fixtures = ["Client Script","Print Format"]

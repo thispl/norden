@@ -6,9 +6,43 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "nvs_product_sticker_section",
   "width",
   "column_break_2",
   "height",
+  "column_break_4",
+  "font",
+  "column_break_6",
+  "image_size",
+  "column_break_8",
+  "barcode_width",
+  "column_break_10",
+  "qr_width",
+  "nvs_pack_sticker_section",
+  "pack_width",
+  "column_break_7",
+  "pack_height",
+  "column_break_9",
+  "pack_font",
+  "column_break_18",
+  "pack_image_size",
+  "column_break_13",
+  "pack_barcode_width",
+  "column_break_15",
+  "pack_qr_width",
+  "nvs_box_sticker_section",
+  "box_width",
+  "box_icon_size",
+  "column_break_27",
+  "box_height",
+  "column_break_29",
+  "box_font",
+  "column_break_31",
+  "box_image_size",
+  "column_break_33",
+  "box_barcode_width",
+  "column_break_35",
+  "box_qr_width",
   "section_break_3",
   "model",
   "version",
@@ -22,10 +56,6 @@
   "description",
   "quantity",
   "part_no",
-  "print_based_on",
-  "print_quantity",
-  "sn",
-  "serial_numbers",
   "column_break_11",
   "net_weight",
   "gross_weight",
@@ -36,7 +66,14 @@
   "company_name",
   "logo",
   "image",
-  "image2"
+  "image2",
+  "section_break_28",
+  "table_29",
+  "section_break_30",
+  "print_based_on",
+  "print_quantity",
+  "sn",
+  "serial_numbers"
  ],
  "fields": [
   {
@@ -195,11 +232,180 @@
    "fieldname": "version",
    "fieldtype": "Data",
    "label": "Version"
+  },
+  {
+   "fieldname": "section_break_30",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "section_break_28",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "table_29",
+   "fieldtype": "Table",
+   "options": "NVS Product Details"
+  },
+  {
+   "fieldname": "qr_width",
+   "fieldtype": "Int",
+   "label": "QR width"
+  },
+  {
+   "fieldname": "nvs_pack_sticker_section",
+   "fieldtype": "Section Break",
+   "label": "NVS Pack Sticker"
+  },
+  {
+   "fieldname": "pack_width",
+   "fieldtype": "Data",
+   "label": "Width(mm)"
+  },
+  {
+   "fieldname": "column_break_7",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "pack_height",
+   "fieldtype": "Data",
+   "label": "Height(mm)"
+  },
+  {
+   "fieldname": "column_break_9",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_10",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "pack_font",
+   "fieldtype": "Data",
+   "label": "Font"
+  },
+  {
+   "fieldname": "pack_image_size",
+   "fieldtype": "Data",
+   "label": "Image Size"
+  },
+  {
+   "fieldname": "column_break_13",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "pack_barcode_width",
+   "fieldtype": "Data",
+   "label": "Barcode Width"
+  },
+  {
+   "fieldname": "column_break_15",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "pack_qr_width",
+   "fieldtype": "Data",
+   "label": "QR Width"
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "font",
+   "fieldtype": "Data",
+   "label": "Font"
+  },
+  {
+   "fieldname": "column_break_6",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "image_size",
+   "fieldtype": "Data",
+   "label": "Image Size"
+  },
+  {
+   "fieldname": "column_break_8",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "barcode_width",
+   "fieldtype": "Data",
+   "label": "Barcode Width"
+  },
+  {
+   "fieldname": "column_break_18",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "nvs_product_sticker_section",
+   "fieldtype": "Section Break",
+   "label": "NVS Product Sticker"
+  },
+  {
+   "fieldname": "nvs_box_sticker_section",
+   "fieldtype": "Section Break",
+   "label": "NVS Box Sticker"
+  },
+  {
+   "fieldname": "box_width",
+   "fieldtype": "Data",
+   "label": "Width(mm)"
+  },
+  {
+   "fieldname": "column_break_27",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "box_height",
+   "fieldtype": "Data",
+   "label": "Height(mm)"
+  },
+  {
+   "fieldname": "column_break_29",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "box_font",
+   "fieldtype": "Data",
+   "label": "Font"
+  },
+  {
+   "fieldname": "column_break_31",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "box_image_size",
+   "fieldtype": "Data",
+   "label": "Image Size"
+  },
+  {
+   "fieldname": "column_break_33",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "box_barcode_width",
+   "fieldtype": "Data",
+   "label": "Barcode Width"
+  },
+  {
+   "fieldname": "column_break_35",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "box_qr_width",
+   "fieldtype": "Data",
+   "label": "QR Width"
+  },
+  {
+   "fieldname": "box_icon_size",
+   "fieldtype": "Data",
+   "label": "Icon Size"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2021-09-21 06:02:45.211642",
+ "modified": "2021-11-25 17:49:14.718160",
  "modified_by": "Administrator",
  "module": "Norden",
  "name": "NVS Stickers",

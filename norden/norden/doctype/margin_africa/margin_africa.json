@@ -1,0 +1,70 @@
+{
+ "actions": [],
+ "creation": "2022-08-03 19:36:22.315992",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "item_group",
+  "landing",
+  "margin",
+  "sales_price",
+  "dealer_price",
+  "customer_price"
+ ],
+ "fields": [
+  {
+   "fieldname": "item_group",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Item Group",
+   "options": "Item Group"
+  },
+  {
+   "columns": 1,
+   "fieldname": "landing",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Landing "
+  },
+  {
+   "columns": 1,
+   "fieldname": "margin",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Margin"
+  },
+  {
+   "columns": 1,
+   "fieldname": "sales_price",
+   "fieldtype": "Float",
+   "label": "Sales Price"
+  },
+  {
+   "columns": 1,
+   "fieldname": "dealer_price",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Dealer Price"
+  },
+  {
+   "columns": 1,
+   "fieldname": "customer_price",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Customer Price"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2022-10-11 20:47:38.375784",
+ "modified_by": "Administrator",
+ "module": "Norden",
+ "name": "Margin Africa",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

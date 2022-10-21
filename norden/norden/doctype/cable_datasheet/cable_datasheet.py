@@ -3,8 +3,10 @@
 # For license information, please see license.txt
 
 from __future__ import unicode_literals
-import frappe
+import frappe,json
+from frappe.utils import cstr
 from frappe.model.document import Document
+import requests
 
 class CableDatasheet(Document):
     pass
@@ -97,3 +99,32 @@ def get_optidata_desc(doc):
             data += '<br>'
     frappe.errprint(data)
     return data
+
+@frappe.whitelist()
+def datasheet_api(doc):
+    doc = json.loads(doc)
+    nac_doc = frappe.get_doc('Cable Datasheet', doc['name'])
+    url = "https://www.nordencommunication.com/api/products/save"
+    # specs = frappe.get_print(doc['doctype'], doc['name'], doc=nac_doc, print_format='NAC Datasheet Specification HTML').replace('\n',"").replace('\t',"")
+    specs = frappe.render_template("norden/norden/doctype/cable_datasheet/cable_ds_specification.html",{"doc": doc})
+    ordering_info = frappe.render_template("norden/norden/doctype/cable_datasheet/cable_ds_ordering_information.html",{"doc": doc})
+    payload = {
+        "name": doc['type'],
+        "overview": doc['description'],
+        "specification": specs,
+        "ordering_information": ordering_info,
+        "purchase_informations": "Integer posuere at tellus vitae luctus. Sed non molestie nunc. Sed faucibus orci a magna blandit vestibulum. Quisque augue ante, tincidunt sit amet suscipit a, pharetra vitae magna.",
+        "category_id": doc['category_id'],
+        "default_part_number": doc['part_number'],
+    	"part_numbers": doc['part_number'],
+    	"status":1,
+        "image": 'https://erp.nordencommunication.com/doc' + doc['compliance_image'],
+        "data_sheet": "https://samplewebsite/documents/data-sheet.pdf"
+    }
+    # frappe.errprint(payload)
+    headers = {
+        'Authorization': 'Bearer qhMbf0bCwdUVysowooeGdQoz8BTI4nv5iZgWj8CM',
+        'Content-Type': 'application/x-www-form-urlencoded'
+    }
+    response = requests.request("POST", url, data=payload,headers=headers)
+    frappe.errprint(response.content)

@@ -1,0 +1,44 @@
+{
+ "actions": [],
+ "creation": "2021-11-02 12:39:59.460945",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "low_mm",
+  "mid_mm",
+  "high_mm"
+ ],
+ "fields": [
+  {
+   "fieldname": "low_mm",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "25mm"
+  },
+  {
+   "fieldname": "mid_mm",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "50mm"
+  },
+  {
+   "fieldname": "high_mm",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "75mm"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2021-11-02 12:51:22.508965",
+ "modified_by": "Administrator",
+ "module": "Norden",
+ "name": "DS Angle of View",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

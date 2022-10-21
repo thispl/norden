@@ -1,0 +1,44 @@
+{
+ "actions": [],
+ "creation": "2022-07-06 18:27:40.270540",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "title",
+  "specification",
+  "page_break"
+ ],
+ "fields": [
+  {
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": " Title"
+  },
+  {
+   "fieldname": "specification",
+   "fieldtype": "Small Text",
+   "in_list_view": 1,
+   "label": " Specification"
+  },
+  {
+   "default": "0",
+   "fieldname": "page_break",
+   "fieldtype": "Check",
+   "label": " Page Break"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2022-07-06 18:33:35.090433",
+ "modified_by": "Administrator",
+ "module": "Norden",
+ "name": "DS CALIBRATION",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

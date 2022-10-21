@@ -6,9 +6,30 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "product_sticker_section",
   "width",
   "column_break_2",
   "height",
+  "column_break_5",
+  "header_font",
+  "column_break_7",
+  "font",
+  "column_break_9",
+  "image_size",
+  "column_break_11",
+  "barcode_width",
+  "price_sticker_section",
+  "price_width",
+  "column_break_6",
+  "price_height",
+  "column_break_8",
+  "price_header",
+  "column_break_10",
+  "price_font",
+  "column_break_12",
+  "price_image_size",
+  "column_break_14",
+  "price_barcode_width",
   "section_break_4",
   "part_no",
   "description",
@@ -153,11 +174,107 @@
   {
    "fieldname": "section_break_4",
    "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "price_sticker_section",
+   "fieldtype": "Section Break",
+   "label": "Price Sticker"
+  },
+  {
+   "fieldname": "price_width",
+   "fieldtype": "Data",
+   "label": "Width(mm)"
+  },
+  {
+   "fieldname": "column_break_6",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "price_height",
+   "fieldtype": "Data",
+   "label": "Height(mm)"
+  },
+  {
+   "fieldname": "column_break_8",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "price_header",
+   "fieldtype": "Data",
+   "label": "Header Font"
+  },
+  {
+   "fieldname": "column_break_10",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "price_font",
+   "fieldtype": "Data",
+   "label": "Font"
+  },
+  {
+   "fieldname": "column_break_12",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "price_image_size",
+   "fieldtype": "Data",
+   "label": "Image Size"
+  },
+  {
+   "fieldname": "column_break_14",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "price_barcode_width",
+   "fieldtype": "Data",
+   "label": "barcode width"
+  },
+  {
+   "fieldname": "product_sticker_section",
+   "fieldtype": "Section Break",
+   "label": "Product Sticker"
+  },
+  {
+   "fieldname": "column_break_5",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "header_font",
+   "fieldtype": "Data",
+   "label": "Header Font"
+  },
+  {
+   "fieldname": "column_break_7",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "font",
+   "fieldtype": "Data",
+   "label": "Font"
+  },
+  {
+   "fieldname": "column_break_9",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "image_size",
+   "fieldtype": "Data",
+   "label": "Image Size"
+  },
+  {
+   "fieldname": "column_break_11",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "barcode_width",
+   "fieldtype": "Data",
+   "label": "Barcode Width"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2021-09-18 13:26:30.909979",
+ "modified": "2021-11-25 12:58:51.612464",
  "modified_by": "Administrator",
  "module": "Norden",
  "name": "Norden 2 Sticker",

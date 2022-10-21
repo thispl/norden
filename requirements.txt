@@ -1,1 +1,3 @@
 frappe
+forex-python==1.6
+requests

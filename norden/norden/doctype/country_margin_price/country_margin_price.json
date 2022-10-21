@@ -1,0 +1,71 @@
+{
+ "actions": [],
+ "autoname": "CMP.#####",
+ "creation": "2022-05-24 22:08:08.226165",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "country",
+  "item_group",
+  "freight",
+  "internal",
+  "sales"
+ ],
+ "fields": [
+  {
+   "fieldname": "country",
+   "fieldtype": "Link",
+   "label": "Country",
+   "options": "Country"
+  },
+  {
+   "fieldname": "item_group",
+   "fieldtype": "Link",
+   "label": "Item Group",
+   "options": "Item Group"
+  },
+  {
+   "default": "0",
+   "fieldname": "freight",
+   "fieldtype": "Percent",
+   "label": "Freight"
+  },
+  {
+   "default": "0",
+   "fieldname": "internal",
+   "fieldtype": "Percent",
+   "label": "Internal"
+  },
+  {
+   "default": "0",
+   "fieldname": "sales",
+   "fieldtype": "Percent",
+   "label": "Sales"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2022-05-26 21:41:13.363840",
+ "modified_by": "Administrator",
+ "module": "Norden",
+ "name": "Country Margin Price",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

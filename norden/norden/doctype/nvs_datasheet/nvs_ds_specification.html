@@ -1,0 +1,475 @@
+<html>
+<style>
+    @media screen {
+        .print-format-gutter {
+            background-color: white;
+            padding: 30px 0px;
+        }
+
+        .print-format {
+            background-color: white;
+            border-radius: 8px;
+            max-width: 8.3in;
+            min-height: 11.69in;
+            padding: 0.75in;
+            margin: auto;
+            color: var(--gray-900);
+        }
+
+        .body {
+            font-size: 30px;
+        }
+
+        .print-format.landscape {
+            max-width: 11.69in;
+            padding: 0.2in;
+        }
+
+        .page-break {
+            /* padding: 15px 0px; */
+            border-bottom: 1px dashed #888;
+        }
+
+        /* .page-break:first-child {
+		padding-top: 0px;
+	} */
+
+        .page-break:last-child {
+            border-bottom: 0px;
+        }
+
+
+        body:last-child .print-format td img {
+            width: 100% !important;
+        }
+
+        @media print {
+            .print-format {
+                padding: 0.2in;
+            }
+        }
+
+
+        @media print {
+            .print-format p {
+                margin-left: 1px;
+                margin-right: 1px;
+            }
+        }
+
+        .disabled-check {
+            color: #eee;
+        }
+
+        .data-field {
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+
+        .data-field .value {
+            word-wrap: break-word;
+        }
+
+        .important .value {
+            font-size: 120%;
+            font-weight: bold;
+        }
+
+        .important label {
+            line-height: 1.8;
+            margin: 0px;
+        }
+
+        .table {
+            font-size: inherit;
+            margin: 20px 0px;
+        }
+
+        .square-image {
+            width: 100%;
+            height: 0;
+            padding: 50% 0;
+            background-size: contain;
+            /*background-size: cover;*/
+            background-repeat: no-repeat !important;
+            background-position: center center;
+            border-radius: 4px;
+        }
+
+        .print-item-image {
+            object-fit: contain;
+        }
+
+        .pdf-variables,
+        .pdf-variable,
+        .visible-pdf {
+            display: none !important;
+        }
+
+        .print-format {
+            font-size: 30px !important;
+            font-family: Inter, "Helvetica Neue", Helvetica, Arial, "Open Sans", sans-serif;
+            -webkit-print-color-adjust: exact;
+        }
+
+        .page-break {
+            page-break-after: always;
+        }
+
+        .print-heading {
+            border-bottom: 1px solid #aaa;
+            margin-bottom: 10px;
+        }
+
+        .print-heading h2 {
+            margin: 0px;
+        }
+
+        .print-heading h4 {
+            margin-top: 5px;
+        }
+
+        table.no-border,
+        table.no-border td {
+            border: 0px;
+        }
+
+        .print-format label {
+            /* wkhtmltopdf breaks label into multiple lines when it is inline-block */
+            display: block;
+            font-weight: 700;
+        }
+
+        .print-format img {
+            max-width: 100%;
+        }
+
+        .print-format table td>.primary:first-child {
+            font-weight: bold;
+        }
+
+        .print-format td,
+        .print-format th {
+            vertical-align: top !important;
+            padding: 6px !important;
+        }
+
+        .print-format p {
+            margin: 3px 0px 3px;
+        }
+
+        .print-format table td pre {
+            white-space: normal;
+            word-break: normal;
+        }
+
+        table td div {
+
+            /* needed to avoid partial cutting of text between page break in wkhtmltopdf */
+            page-break-inside: avoid !important;
+
+        }
+
+        /* hack for webkit specific browser */
+        @media (-webkit-min-device-pixel-ratio:0) {
+
+            thead,
+            tfoot {
+                display: table-header-group;
+            }
+        }
+
+        [document-status] {
+            margin-bottom: 5mm;
+        }
+
+        .signature-img {
+            background: #fff;
+            border-radius: 3px;
+            margin-top: 5px;
+            max-height: 150px;
+        }
+
+        .print-format-preview [data-fieldtype="Table"] {
+            overflow: auto;
+        }
+
+        .print-heading {
+            text-align: right;
+            text-transform: uppercase;
+            color: #666;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #d1d8dd;
+        }
+
+        .print-heading h2 {
+            font-size: 24px;
+        }
+
+        .print-format th {
+            background-color: #eee !important;
+            border-bottom: 0px !important;
+        }
+
+        .print-format .primary.compact-item {
+            font-weight: bold;
+        }
+
+        /* modern format: for-test */
+
+        p {
+            text-align: justify;
+        }
+
+        p1 {
+            text-align: justify;
+            text-justify: inter-word;
+        }
+
+        .header-cat {
+            margin-top: 72px;
+        }
+
+
+        .container {
+            margin: 60px;
+        }
+
+        div#left1-cat {
+            position: fixed !important;
+            top: 100px;
+            margin-left: -5px;
+            z-index: auto;
+        }
+
+        div#left2-cat {
+            position: fixed;
+            top: 1757px;
+            margin-left: -5px;
+            z-index: auto;
+        }
+
+        .right-cat {
+            position: fixed;
+            top: 300px;
+            margin-left: -150px;
+            z-index: auto;
+        }
+
+        .col-xs-11 {
+            margin-left: 40px;
+            float: none !important;
+        }
+
+        .print-format {
+            font-size: 10px;
+            font-family: 'Soleto';
+            margin-top: 5px;
+            margin-left: 0mm;
+            margin-right: 0mm;
+
+        }
+
+        .table-spec>thead>tr>th,
+        .table-spec>tbody>tr>th,
+        .table-spec>tfoot>tr>th,
+        .table-spec>thead>tr>td,
+        .table-spec>tbody>tr>td,
+        .table-spec>tfoot>tr>td {
+            padding-top: 1px !important;
+            padding-bottom: 1px !important;
+            border: 0.5px solid #4d004d;
+
+        }
+
+        .table-spec tr:first-child {
+            border-left: 0px;
+        }
+
+        .table-spec td:first-child {
+            border-left: 0px;
+        }
+
+        .table-spec td:last-child {
+            border-right: 0px;
+        }
+
+        .table-spec tr:last-child {
+            border-bottom: 0.5px solid #4d004d;
+        }
+
+        .table-striped>tr:nth-child(2n+1)>td,
+        .table-striped>tr:nth-child(2n+1)>th {
+            background-color: #e6e6e6;
+        }
+
+        .table-condensed>thead>tr>th,
+        .table-condensed>tbody>tr>th,
+        .table-condensed>tfoot>tr>th,
+        .table-condensed>thead>tr>td,
+        .table-condensed>tbody>tr>td,
+        .table-condensed>tfoot>tr>td {
+            padding: 1px !important;
+            padding-left: 5px;
+            border-left: 0px;
+            border-right: 0px;
+        }
+
+        .table-condensed {
+            border-left: 0px;
+            border-right: 0px;
+            border-collapse: collapse;
+            border-style: hidden;
+            border-bottom: 0.5px solid #4d004d;
+        }
+
+        .table-border>thead>tr>th,
+        .table-border>tbody>tr>th,
+        .table-border>tfoot>tr>th,
+        .table-border>thead>tr>td,
+        .table-border>tbody>tr>td,
+        .table-border>tfoot>tr>td {
+            padding-left: 5px;
+            padding-top: 1px !important;
+            padding-bottom: 1px !important;
+            border: 0.5px solid #4d004d;
+
+        }
+
+        .table-border tr:first-child {
+            border-left: 0px;
+        }
+
+        .table-border td:first-child {
+            border-left: 0px;
+        }
+
+        .table-border td:last-child {
+            border-right: 0px;
+        }
+
+        .table-border tr:last-child {
+            border-bottom: 0.5px solid #4d004d;
+        }
+
+
+        .column {
+            float: left;
+            width: 100%;
+            padding: 5px;
+        }
+
+        .row::before {
+            padding-top: 0px;
+        }
+
+        .row::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+    }
+</style>
+
+<body>
+    <meta name="pdfkit-orientation" content="Portrait" />
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                {% if doc.specification %}
+                <table class=" table-condensed" style="font-size:30px;width:170%">
+                    {%set data = get_nvs_header(doc) %}
+                    {{data}}
+                    {% for row in doc.specification %}
+                    <tr>
+                        <td style="font-size:30px"> {{row.title}}</td>
+                        <td style="font-size:30px;border-left:0.5px solid #4d004d;"> {{row.specification}}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                <br><br>
+                {% endif %}
+                {% if not doc.specification %}
+                <table class=" table-condensed" style="font-size:25px;width:170%">
+                    {%set data = get_nvs_header(doc) %}
+                    {{data}}
+                    {%set data = get_nvs_specification(doc,doc.laser_player,"Laser Player",doc.laser_pb) %}
+                    {{data}}
+                    {%set data = get_nvs_specification(doc,doc.usb,"USB",doc.usb_pb) %}
+                    {{data}}
+                    {%set data = get_nvs_specification(doc,doc.sd,"SD",doc.sd_pb) %}
+                    {{data}}
+                    {%set data = get_nvs_specification(doc,doc.bluetooth,"Bluetooth",doc.bluetooth_pb) %}
+                    {{data}}
+                    {%set data = get_nvs_specification(doc,doc.radio_function_fmam,"Radio function
+                    (FM/AM)",doc.radio_pb) %}
+                    {{data}}
+                    {%set data = get_nvs_specification(doc,doc.aux_input,"AUX input",doc.aux_ip_pb) %}
+                    {{data}}
+                    {%set data = get_nvs_specification(doc,doc.aux_output,"AUX output",doc.aux_op_pb) %}
+                    {{data}}
+                    {%set data = get_nvs_specification(doc,doc.mic_input,"MIC input",doc.mic_pb) %}
+                    {{data}}
+                    {%set data = get_nvs_specification(doc,doc.interface,"Interface",doc.intreface_pb) %}
+                    {{data}}
+                    {%set data = get_nvs_specification(doc,doc.other_specification,"Other specification",doc.other_pb)
+                    %}
+                    {{data}}
+                    {% endif %}
+                    {% if doc.protection %}
+                    <tr>
+                        <td> Protection</td>
+                        <td colspan="2">
+                            <center> {{doc.protection}}</center>
+                        </td>
+                    </tr>
+                    {% endif %}
+                    {% if doc.power_supply %}
+                    <tr>
+                        <td> Power supply</td>
+                        <td colspan="2">
+                            <center> {{doc.power_supply}}</center>
+                        </td>
+                    </tr>
+                    {% endif %}
+                    {% if doc.outer_packing_dimension_mm %}
+                    <tr>
+                        <td> Outer packing dimension (mm)</td>
+                        <td colspan="2">
+                            <center> {{doc.outer_packing_dimension_mm}}</center>
+                        </td>
+                    </tr>
+                    {% endif %}
+                    {% if doc.machine_dimension_mm %}
+                    <tr>
+                        <td> Machine dimension (mm)</td>
+                        <td colspan="2">
+                            <center> {{doc.machine_dimension_mm}}</center>
+                        </td>
+                    </tr>
+                    {% endif %}
+                    {% if doc.gross_weight %}
+                    <tr>
+                        <td> Gross weight</td>
+                        <td colspan="2">
+                            <center> {{doc.gross_weight}}</center>
+                        </td>
+                    </tr>
+                    {% endif %}
+                    {% if doc.net_weight %}
+                    <tr>
+                        <td> Net weight</td>
+                        <td colspan="2">
+                            <center> {{doc.net_weight}}</center>
+                        </td>
+                    </tr>
+                    {% endif %}
+                </table>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

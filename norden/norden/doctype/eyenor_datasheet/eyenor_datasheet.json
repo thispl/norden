@@ -14,10 +14,14 @@
   "column_break_2",
   "ds_item_no",
   "version",
+  "generated_pdf",
   "section_break_4",
+  "overview",
+  "section_break_9",
   "datasheet_icons",
   "features",
   "ds_camera",
+  "ds_angle_of_view",
   "camera_pb",
   "sample_content",
   "panoramic_camera",
@@ -28,6 +32,8 @@
   "thermal_camera_pb",
   "thermal_lens",
   "thermal_lens_pb",
+  "calibration",
+  "calibration_pb",
   "visible_camera",
   "visible_camera_pb",
   "visible_lens",
@@ -118,7 +124,8 @@
   {
    "fieldname": "version",
    "fieldtype": "Data",
-   "label": "Version"
+   "label": "Version",
+   "reqd": 1
   },
   {
    "fieldname": "section_break_4",
@@ -590,11 +597,44 @@
    "fieldname": "smart_analytics_and_alarms_pb",
    "fieldtype": "Data",
    "label": "Page Break"
+  },
+  {
+   "fieldname": "overview",
+   "fieldtype": "Small Text",
+   "label": "Overview",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_9",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "ds_angle_of_view",
+   "fieldtype": "Table",
+   "label": "Angle of View",
+   "options": "DS Angle of View"
+  },
+  {
+   "fieldname": "generated_pdf",
+   "fieldtype": "Attach",
+   "label": "Generated PDF"
+  },
+  {
+   "fieldname": "calibration",
+   "fieldtype": "Table",
+   "label": "Calibrator",
+   "options": "DS CALIBRATION"
+  },
+  {
+   "default": "0",
+   "fieldname": "calibration_pb",
+   "fieldtype": "Check",
+   "label": "Page Break"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2021-08-16 07:34:22.094637",
+ "modified": "2022-07-07 13:23:15.445038",
  "modified_by": "Administrator",
  "module": "Norden",
  "name": "Eyenor Datasheet",

@@ -1,0 +1,147 @@
+{
+ "actions": [],
+ "autoname": "field:project_name",
+ "creation": "2022-04-06 16:40:38.353344",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "project_name",
+  "end_client_user_name",
+  "end_client_user_industry",
+  "column_break_5",
+  "customer_contractor",
+  "consultant_company",
+  "consultant_name",
+  "section_break_9",
+  "items_table",
+  "section_break_11",
+  "sales_order",
+  "sales_person_name",
+  "so_submitted_date",
+  "company",
+  "column_break_16",
+  "so_status_live",
+  "remarks",
+  "attach_file"
+ ],
+ "fields": [
+  {
+   "fieldname": "project_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Project Name/Reference",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "consultant_company",
+   "fieldtype": "Data",
+   "label": "Consultant Company"
+  },
+  {
+   "fieldname": "consultant_name",
+   "fieldtype": "Data",
+   "label": "Consultant Name"
+  },
+  {
+   "fieldname": "so_submitted_date",
+   "fieldtype": "Date",
+   "label": "SO Submitted Date"
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Small Text",
+   "label": "Remarks"
+  },
+  {
+   "fieldname": "attach_file",
+   "fieldtype": "Attach",
+   "label": "Attach File"
+  },
+  {
+   "fieldname": "so_status_live",
+   "fieldtype": "Data",
+   "label": "SO Status_Live"
+  },
+  {
+   "fieldname": "sales_person_name",
+   "fieldtype": "Data",
+   "label": "Sales Person Name"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Data",
+   "label": "Company"
+  },
+  {
+   "fieldname": "sales_order",
+   "fieldtype": "Data",
+   "label": "Sales Order"
+  },
+  {
+   "fieldname": "items_table",
+   "fieldtype": "Table",
+   "label": "Items Table",
+   "options": "Items Table"
+  },
+  {
+   "fieldname": "column_break_5",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_9",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "section_break_11",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_16",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "End Client.end_client__user_name",
+   "fieldname": "end_client_user_name",
+   "fieldtype": "Data",
+   "label": "End Client / User Name"
+  },
+  {
+   "fetch_from": "End Client.industry_type",
+   "fieldname": "end_client_user_industry",
+   "fieldtype": "Data",
+   "label": "End Client / User Industry"
+  },
+  {
+   "fieldname": "customer_contractor",
+   "fieldtype": "Data",
+   "label": "Customer / Contractor"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2022-08-09 20:31:56.907323",
+ "modified_by": "Administrator",
+ "module": "Norden",
+ "name": "Project Reference",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

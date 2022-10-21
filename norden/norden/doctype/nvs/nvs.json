@@ -14,6 +14,7 @@
   "model_no",
   "pages",
   "categories",
+  "category_id",
   "section_break_4",
   "description",
   "features",
@@ -514,11 +515,16 @@
    "fieldname": "image_width_mm",
    "fieldtype": "Int",
    "label": "Image Width (mm)"
+  },
+  {
+   "fieldname": "category_id",
+   "fieldtype": "Data",
+   "label": "Category ID"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2021-09-21 06:06:30.391421",
+ "modified": "2021-10-28 15:33:50.130781",
  "modified_by": "Administrator",
  "module": "Norden",
  "name": "NVS",

@@ -1,0 +1,50 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:end_client",
+ "creation": "2022-06-03 19:21:57.243549",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "end_client",
+  "user_industry"
+ ],
+ "fields": [
+  {
+   "fieldname": "end_client",
+   "fieldtype": "Data",
+   "label": "End Client",
+   "unique": 1
+  },
+  {
+   "fieldname": "user_industry",
+   "fieldtype": "Data",
+   "label": "User Industry"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2022-08-08 16:02:14.506478",
+ "modified_by": "Administrator",
+ "module": "Norden",
+ "name": "End Client",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}
