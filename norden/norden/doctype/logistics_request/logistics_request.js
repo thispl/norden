@@ -86,6 +86,15 @@ frappe.ui.form.on('Logistics Request', {
 		})
 	},
 	onload: function (frm) {
+	
+		// if (!frm.doc.__islocal){
+		// 	if(frm.doc.company == "Norden Communication UK Limited"){
+		// 		frm.set_df_property('custom_duty', 'hidden', 1);
+		// 	}
+		// }
+
+		
+	
 		if(frm.doc.workflow_state == "Draft"){
 			frm.set_df_property('section_break_28', 'hidden', 1);
 			frm.set_df_property('documents_status_section', 'hidden', 1);
@@ -105,7 +114,7 @@ frappe.ui.form.on('Logistics Request', {
 		// 	frm.set_df_property('delivery_section', 'hidden', 0);
 		// }
 
-		if(frm.doc.workflow_state == "Draft" || frm.doc.workflow_state == "Logistics OPS" || frm.doc.workflow_state == "Pending for HOD" || frm.doc.workflow_state == "Pending for CEO" || frm.doc.workflow_state == "Attach Supporting Document" || frm.doc.workflow_state == "Pending for Confirmation" || frm.doc.workflow_state == "Document Review" || frm.doc.workflow_state == "Payment & Customs Clearance" || frm.doc.workflow_state == "Delivery"){
+		if(frm.doc.workflow_state == "Draft" || frm.doc.workflow_state == "Logistics OPS" || frm.doc.workflow_state == "Pending for HOD" || frm.doc.workflow_state == "Pending for COO" || frm.doc.workflow_state == "Attach Supporting Document" || frm.doc.workflow_state == "Pending for Confirmation" || frm.doc.workflow_state == "Document Review" || frm.doc.workflow_state == "Payment & Customs Clearance" || frm.doc.workflow_state == "Delivery"){
 			frm.set_df_property('section_break_74', 'hidden', 1);
 			// frm.set_df_property('section_break_59', 'hidden', 1);
 			// frm.set_df_property('logistic_type', 'read_only', 1);
@@ -113,13 +122,13 @@ frappe.ui.form.on('Logistics Request', {
 			
 		}
 
-		if(frm.doc.workflow_state == "Draft" || frm.doc.workflow_state == "Logistics OPS" || frm.doc.workflow_state == "Pending for HOD" || frm.doc.workflow_state == "Pending for CEO" || frm.doc.workflow_state == "Attach Supporting Document" || frm.doc.workflow_state == "Pending for Confirmation" || frm.doc.workflow_state == "Document Review" ){
+		if(frm.doc.workflow_state == "Draft" || frm.doc.workflow_state == "Logistics OPS" || frm.doc.workflow_state == "Pending for HOD" || frm.doc.workflow_state == "Pending for COO" || frm.doc.workflow_state == "Attach Supporting Document" || frm.doc.workflow_state == "Pending for Confirmation" || frm.doc.workflow_state == "Document Review" ){
 			frm.set_df_property('section_break_59', 'hidden', 1);
 		
 			
 		}
 
-		if(frm.doc.workflow_state == "Logistics OPS" || frm.doc.workflow_state == "Pending for HOD" || frm.doc.workflow_state == "Pending for CEO" || frm.doc.workflow_state == "Attach Supporting Document" || frm.doc.workflow_state == "Pending for Confirmation" || frm.doc.workflow_state == "E-Way Bill" || frm.doc.workflow_state == "Create Purchase Receipt" || frm.doc.workflow_state == "Document Review" || frm.doc.workflow_state == "Payment & Customs Clearance" || frm.doc.workflow_state == "Delivery" || frm.doc.workflow_state == "Create Purchase Receipt"){
+		if(frm.doc.workflow_state == "Logistics OPS" || frm.doc.workflow_state == "Pending for HOD" || frm.doc.workflow_state == "Pending for COO" || frm.doc.workflow_state == "Attach Supporting Document" || frm.doc.workflow_state == "Pending for Confirmation" || frm.doc.workflow_state == "E-Way Bill" || frm.doc.workflow_state == "Create Purchase Receipt" || frm.doc.workflow_state == "Document Review" || frm.doc.workflow_state == "Payment & Customs Clearance" || frm.doc.workflow_state == "Delivery" || frm.doc.workflow_state == "Create Purchase Receipt"){
 			frm.set_df_property('logistic_type', 'read_only', 1);
 			frm.set_df_property('po_so', 'read_only', 1);
 			frm.set_df_property('order_no', 'read_only', 1);
@@ -127,7 +136,6 @@ frappe.ui.form.on('Logistics Request', {
 			frm.set_df_property('company', 'read_only', 1);
 			frm.set_df_property('supplier', 'read_only', 1);
 			frm.set_df_property('country', 'read_only', 1);
-			frm.set_df_property('cargo_type', 'read_only', 1);
 			frm.set_df_property('inventory_destination', 'read_only', 1);
 			frm.set_df_property('grand_total', 'read_only', 1);
 			frm.set_df_property('project', 'read_only', 1);
@@ -135,12 +143,7 @@ frappe.ui.form.on('Logistics Request', {
 			frm.set_df_property('requester_name', 'read_only', 1);
 			frm.set_df_property('custom_duty', 'read_only', 1);
 			frm.set_df_property('product_description', 'read_only', 1);
-			frm.set_df_property('courier__awb__bl_number__container', 'read_only', 1);
-			frm.set_df_property('dimensions', 'read_only', 1);
-			frm.set_df_property('gross_wt', 'read_only', 1);
-			frm.set_df_property('net_wt', 'read_only', 1);
-			frm.set_df_property('uom', 'read_only', 1);
-			frm.set_df_property('box_pallet_count', 'read_only', 1);
+			
 			var df = frappe.meta.get_docfield("Attach Documents","title", frm.doc.name);
 			df.read_only = 1;
 			var ss = frappe.meta.get_docfield("Attach Documents","description", frm.doc.name);
@@ -149,7 +152,19 @@ frappe.ui.form.on('Logistics Request', {
 			
 		}
 
-		if(frm.doc.workflow_state == "Pending for HOD" || frm.doc.workflow_state == "Pending for CEO" || frm.doc.workflow_state == "Attach Supporting Document" || frm.doc.workflow_state == "E-Way Bill" || frm.doc.workflow_state == "Pending for Confirmation" || frm.doc.workflow_state == "Document Review" || frm.doc.workflow_state == "Payment & Customs Clearance" || frm.doc.workflow_state == "Delivery" || frm.doc.workflow_state == "Create Purchase Receipt"){
+		if(frm.doc.workflow_state == "Pending for HOD" || frm.doc.workflow_state == "Pending for COO" || frm.doc.workflow_state == "Attach Supporting Document" || frm.doc.workflow_state == "Pending for Confirmation" || frm.doc.workflow_state == "E-Way Bill" || frm.doc.workflow_state == "Create Purchase Receipt" || frm.doc.workflow_state == "Document Review" || frm.doc.workflow_state == "Payment & Customs Clearance" || frm.doc.workflow_state == "Delivery" || frm.doc.workflow_state == "Create Purchase Receipt"){
+		frm.set_df_property('cargo_type', 'read_only', 1);
+		}
+		if(frm.doc.workflow_state == "Pending for HOD" || frm.doc.workflow_state == "Pending for COO" || frm.doc.workflow_state == "Attach Supporting Document" || frm.doc.workflow_state == "Pending for Confirmation" || frm.doc.workflow_state == "E-Way Bill" || frm.doc.workflow_state == "Create Purchase Receipt" || frm.doc.workflow_state == "Document Review" || frm.doc.workflow_state == "Payment & Customs Clearance" || frm.doc.workflow_state == "Delivery" || frm.doc.workflow_state == "Create Purchase Receipt"){
+			frm.set_df_property('courier__awb__bl_number__container', 'read_only', 1);
+			frm.set_df_property('dimensions', 'read_only', 1);
+			frm.set_df_property('gross_wt', 'read_only', 1);
+			frm.set_df_property('net_wt', 'read_only', 1);
+			frm.set_df_property('uom', 'read_only', 1);
+			frm.set_df_property('box_pallet_count', 'read_only', 1);
+		}
+
+		if(frm.doc.workflow_state == "Pending for HOD" || frm.doc.workflow_state == "Pending for COO" || frm.doc.workflow_state == "Attach Supporting Document" || frm.doc.workflow_state == "E-Way Bill" || frm.doc.workflow_state == "Pending for Confirmation" || frm.doc.workflow_state == "Document Review" || frm.doc.workflow_state == "Payment & Customs Clearance" || frm.doc.workflow_state == "Delivery" || frm.doc.workflow_state == "Create Purchase Receipt"){
 
 			frm.set_df_property('norden_inco_terms', 'read_only', 1);
 			frm.set_df_property('supplier_inco_terms', 'read_only', 1);
@@ -194,7 +209,7 @@ frappe.ui.form.on('Logistics Request', {
 			frm.set_df_property('attach_bills_section', 'hidden', 1);
 		}
 
-		if(frm.doc.workflow_state == "Draft" || frm.doc.workflow_state == "Logistics OPS" || frm.doc.workflow_state == "Pending for HOD" || frm.doc.workflow_state == "Pending for CEO" || frm.doc.workflow_state == "Attach Supporting Document" || frm.doc.workflow_state == "Payment & Customs Clearance" || frm.doc.workflow_state == "Delivery" || frm.doc.workflow_state == "Pending for Confirmation" || frm.doc.workflow_state == "Document Review" ){
+		if(frm.doc.workflow_state == "Draft" || frm.doc.workflow_state == "Logistics OPS" || frm.doc.workflow_state == "Pending for HOD" || frm.doc.workflow_state == "Pending for COO" || frm.doc.workflow_state == "Attach Supporting Document" || frm.doc.workflow_state == "Payment & Customs Clearance" || frm.doc.workflow_state == "Delivery" || frm.doc.workflow_state == "Pending for Confirmation" || frm.doc.workflow_state == "Document Review" ){
 			if(!frm.doc.vehicle_number){
 				// frm.set_df_property('product_description', 'hidden', 1);
 			}
@@ -202,14 +217,14 @@ frappe.ui.form.on('Logistics Request', {
 		}
 
 
-		if(frm.doc.workflow_state == "Draft" || frm.doc.workflow_state == "Logistics OPS" || frm.doc.workflow_state == "Pending for HOD" || frm.doc.workflow_state == "Pending for CEO" || frm.doc.workflow_state == "Attach Supporting Document" || frm.doc.workflow_state == "Delivery" || frm.doc.workflow_state == "Pending for Confirmation"){
+		if(frm.doc.workflow_state == "Draft" || frm.doc.workflow_state == "Logistics OPS" || frm.doc.workflow_state == "Pending for HOD" || frm.doc.workflow_state == "Pending for COO" || frm.doc.workflow_state == "Attach Supporting Document" || frm.doc.workflow_state == "Delivery" || frm.doc.workflow_state == "Pending for Confirmation"){
 			if(!frm.doc.vehicle_number){
 				frm.set_df_property('document_for_payment_clearance_section', 'hidden', 1);
 			}
 		
 		}
 
-		if(frm.doc.workflow_state == "Draft" || frm.doc.workflow_state == "Logistics OPS" || frm.doc.workflow_state == "Pending for HOD" || frm.doc.workflow_state == "Pending for CEO" ){
+		if(frm.doc.workflow_state == "Draft" || frm.doc.workflow_state == "Logistics OPS" || frm.doc.workflow_state == "Pending for HOD" || frm.doc.workflow_state == "Pending for COO" ){
 			frm.set_df_property('support_doc', 'hidden', 1);
 			
 		}
@@ -233,15 +248,15 @@ frappe.ui.form.on('Logistics Request', {
 			}
 		}
 		
-		if (frm.doc.__islocal) {
-			var documents_list = ['Invoice', 'Packing List', 'COO', 'Airway or Courier Bill', 'Bill of Lading (BL)', 'Check List for Accounts', 'Bill of Entry']
-			$.each(documents_list, function (i, v) {
-				frm.add_child('support_documents', {
-					document_type: v
-				})
-				frm.refresh_fields('support_documents')
-			})
-		}
+		// if (frm.doc.__islocal) {
+			// var documents_list = ['Invoice', 'Packing List', 'COO', 'Airway or Courier Bill', 'Bill of Lading (BL)', 'Check List for Accounts', 'Bill of Entry']
+			// $.each(documents_list, function (i, v) {
+			// 	frm.add_child('support_documents', {
+			// 		document_type: v
+			// 	})
+			// 	frm.refresh_fields('support_documents')
+			// })
+		// }
 		frm.set_query("ffw", function () {
 			return {
 				filters: {
@@ -256,20 +271,21 @@ frappe.ui.form.on('Logistics Request', {
 				}
 			}
 		})
-		frm.set_query("pol_seaportairport", function () {
-			return {
-				filters: {
-					"cargo_type": frm.doc.cargo_type
-				}
-			}
-		})
-		frm.set_query("pod_seaportairport", function () {
-			return {
-				filters: {
-					"cargo_type": frm.doc.cargo_type
-				}
-			}
-		})
+		// frm.set_query("pol_seaportairport", function () {
+		// 	return {
+		// 		filters: {
+		// 			"cargo_type": frm.doc.cargo_type
+		// 		}
+		// 	}
+		// })
+		// frm.set_query("pod_seaportairport", function () {
+		// 	return {
+		// 		filters: {
+		// 			"cargo_type": frm.doc.cargo_type,
+		// 			// "pod'_seaportairport" : 
+		// 		}
+		// 	}
+		// })
 
 		if (frm.doc.__islocal) {
 			if (frm.doc.order_no) {
@@ -286,6 +302,7 @@ frappe.ui.form.on('Logistics Request', {
 						frm.set_value('custom_duty', r.message.grand_total * 0.45)
 						frm.set_value('supplier', r.message.supplier)
 						frm.set_value('company', r.message.company)
+						frm.set_value('country', r.message.country)
 						// frm.set_value('file_number', r.message.file_number)
 						frm.set_value('ffw', r.message.supplier)
 						frm.set_value('consignment_type', r.message.consignment_type)

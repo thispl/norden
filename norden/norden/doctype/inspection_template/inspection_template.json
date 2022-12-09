@@ -1,0 +1,112 @@
+{
+ "actions": [],
+ "autoname": "IT-.####",
+ "creation": "2022-11-29 18:18:05.523726",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "visual_aspects",
+  "material_aspects",
+  "dimensional_aspects",
+  "functional_aspects",
+  "section_break_5",
+  "visual_aspects_table",
+  "dimensional_aspects_table",
+  "material_aspects_table",
+  "functional_aspects_table",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "default": "0",
+   "fieldname": "visual_aspects",
+   "fieldtype": "Check",
+   "label": "Visual Aspects"
+  },
+  {
+   "default": "0",
+   "fieldname": "material_aspects",
+   "fieldtype": "Check",
+   "label": "Material Aspects"
+  },
+  {
+   "default": "0",
+   "fieldname": "dimensional_aspects",
+   "fieldtype": "Check",
+   "label": "Dimensional Aspects"
+  },
+  {
+   "default": "0",
+   "fieldname": "functional_aspects",
+   "fieldtype": "Check",
+   "label": "Functional Aspects"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Inspection Template",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_5",
+   "fieldtype": "Section Break"
+  },
+  {
+   "depends_on": "eval:doc.visual_aspects == 1",
+   "fieldname": "visual_aspects_table",
+   "fieldtype": "Table MultiSelect",
+   "label": "Visual Aspects",
+   "options": "Visual Aspects Table"
+  },
+  {
+   "depends_on": "eval:doc.dimensional_aspects == 1",
+   "fieldname": "dimensional_aspects_table",
+   "fieldtype": "Table MultiSelect",
+   "label": "Dimensional Aspects ",
+   "options": "Dimensional Aspects Table"
+  },
+  {
+   "depends_on": "eval:doc.material_aspects==1",
+   "fieldname": "material_aspects_table",
+   "fieldtype": "Table MultiSelect",
+   "label": "Material Aspects Table",
+   "options": "Material Aspects Table"
+  },
+  {
+   "depends_on": "eval:doc.functional_aspects==1",
+   "fieldname": "functional_aspects_table",
+   "fieldtype": "Table MultiSelect",
+   "label": "Functional Aspects Table",
+   "options": "Functional Aspects Table"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2022-11-29 20:48:01.585469",
+ "modified_by": "Administrator",
+ "module": "Norden",
+ "name": "Inspection Template",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

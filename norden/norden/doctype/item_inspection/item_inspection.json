@@ -6,21 +6,13 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "part_number",
-  "description",
-  "factory__name",
-  "factory__code",
+  "item_code",
   "po_number",
-  "inspection_lot_no",
+  "pr_number",
   "column_break_8",
-  "batch_number",
-  "c_of_c_received",
-  "inspection_date",
-  "lot_quantity",
-  "sampling_ref",
-  "sample_size",
-  "invoice_no",
-  "amended_from",
+  "sample",
+  "section_break_15",
+  "item_aspects_and_specifications",
   "section_break_16",
   "visual_aspects",
   "section_break_18",
@@ -28,82 +20,15 @@
   "section_break_20",
   "material",
   "section_break_22",
-  "functional"
+  "functional",
+  "amended_from"
  ],
  "fields": [
   {
-   "fieldname": "part_number",
-   "fieldtype": "Data",
-   "label": "Part Number"
-  },
-  {
-   "fieldname": "amended_from",
-   "fieldtype": "Link",
-   "label": "Amended From",
-   "no_copy": 1,
-   "options": "Item Inspection",
-   "print_hide": 1,
-   "read_only": 1
-  },
-  {
-   "fieldname": "description",
-   "fieldtype": "Small Text",
-   "label": "Description"
-  },
-  {
-   "fieldname": "factory__name",
-   "fieldtype": "Data",
-   "label": "Factory  Name"
-  },
-  {
-   "fieldname": "factory__code",
-   "fieldtype": "Data",
-   "label": "Factory  Code"
-  },
-  {
    "fieldname": "po_number",
-   "fieldtype": "Data",
-   "label": "P.O number"
-  },
-  {
-   "fieldname": "inspection_lot_no",
-   "fieldtype": "Data",
-   "label": "Inspection Lot No"
-  },
-  {
-   "fieldname": "batch_number",
-   "fieldtype": "Data",
-   "label": "Batch number"
-  },
-  {
-   "fieldname": "c_of_c_received",
-   "fieldtype": "Data",
-   "label": "C of C Received"
-  },
-  {
-   "fieldname": "inspection_date",
-   "fieldtype": "Date",
-   "label": "Inspection Date"
-  },
-  {
-   "fieldname": "lot_quantity",
-   "fieldtype": "Data",
-   "label": "Lot Quantity"
-  },
-  {
-   "fieldname": "sampling_ref",
-   "fieldtype": "Data",
-   "label": "Sampling ref."
-  },
-  {
-   "fieldname": "sample_size",
-   "fieldtype": "Data",
-   "label": "Sample Size "
-  },
-  {
-   "fieldname": "invoice_no",
-   "fieldtype": "Data",
-   "label": "Invoice no"
+   "fieldtype": "Link",
+   "label": "Purchase Order Number",
+   "options": "Purchase Order"
   },
   {
    "fieldname": "column_break_8",
@@ -116,6 +41,7 @@
   {
    "fieldname": "visual_aspects",
    "fieldtype": "Table",
+   "hidden": 1,
    "label": "VISUAL ASPECTS",
    "options": "VISUAL ASPECTS"
   },
@@ -126,6 +52,7 @@
   {
    "fieldname": "dimensional_aspects",
    "fieldtype": "Table",
+   "hidden": 1,
    "label": "DIMENSIONAL ASPECTS",
    "options": "DIMENSIONAL ASPECTS"
   },
@@ -136,6 +63,7 @@
   {
    "fieldname": "material",
    "fieldtype": "Table",
+   "hidden": 1,
    "label": "MATERIAL",
    "options": "MATERIAL"
   },
@@ -146,14 +74,58 @@
   {
    "fieldname": "functional",
    "fieldtype": "Table",
+   "hidden": 1,
    "label": "FUNCTIONAL",
    "options": "FUNCTIONAL"
+  },
+  {
+   "fieldname": "item_aspects_and_specifications",
+   "fieldtype": "Table",
+   "hidden": 1,
+   "label": "Item Aspects and Specifications",
+   "options": "Item Aspects and Specifications"
+  },
+  {
+   "fieldname": "section_break_15",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Item Inspection",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "sample",
+   "fieldtype": "Int",
+   "label": "No of Samples"
+  },
+  {
+   "fieldname": "pr_number",
+   "fieldtype": "Link",
+   "label": "Purchase Receipt Number",
+   "options": "Purchase Receipt"
+  },
+  {
+   "fieldname": "item_code",
+   "fieldtype": "Link",
+   "label": "Item code",
+   "options": "Item"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
- "links": [],
- "modified": "2022-05-31 18:19:34.899220",
+ "links": [
+  {
+   "group": "Quality",
+   "link_doctype": "Inspection Sample",
+   "link_fieldname": "item_inspection"
+  }
+ ],
+ "modified": "2022-12-08 12:11:13.619431",
  "modified_by": "Administrator",
  "module": "Norden",
  "name": "Item Inspection",

@@ -41,6 +41,15 @@ def get_columns(filters):
 			"options": "Item Group",
 			"width": 120
 		},
+
+		{
+			"label": _("Item sub Group"),
+			"fieldtype": "Link",
+			"fieldname": "item_group",
+			"options": "Item Group",
+			"width": 120
+		},
+
 		{
 			"label": _("Description"),
 			"fieldtype": "Data",
@@ -158,6 +167,7 @@ def get_data(filters):
 			"item_code": record.item_code,
 			"item_name": item_record.item_name,
 			"item_group": item_record.item_group,
+			"item_sub_group": item_record.item_sub_group,
 			"description": record.description,
 			"quantity": record.qty,
 			"uom": record.uom,
@@ -182,6 +192,9 @@ def get_conditions(filters):
 	conditions = ''
 	if filters.get('item_group'):
 		conditions += "AND so_item.item_group = %s" %frappe.db.escape(filters.item_group)
+
+	if filters.get('item_sub_group'):
+		conditions += "AND so_item.item_sub_group = %s" %frappe.db.escape(filters.item_sub_group)
 
 	if filters.get('from_date'):
 		conditions += "AND so.transaction_date >= '%s'" %filters.from_date
@@ -213,12 +226,13 @@ def get_customer_details():
 
 def get_item_details():
 	details = frappe.db.get_all("Item",
-		fields=["item_code", "item_name", "item_group"])
+		fields=["item_code", "item_name", "item_group",'item_sub_group'])
 	item_details = {}
 	for d in details:
 		item_details.setdefault(d.item_code, frappe._dict({
 			"item_name": d.item_name,
-			"item_group": d.item_group
+			"item_group": d.item_group,
+			"item_sub_group": d.item_sub_group
 		}))
 	return item_details
 

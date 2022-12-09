@@ -1,32 +1,34 @@
 {
  "actions": [],
- "creation": "2022-05-30 16:18:15.530251",
+ "autoname": "field:price_type",
+ "creation": "2022-12-08 16:27:21.752176",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "specification",
-  "title"
+  "price_type",
+  "territory"
  ],
  "fields": [
   {
-   "fieldname": "specification",
-   "fieldtype": "Link",
-   "label": "Specification",
-   "options": "Specification"
+   "fieldname": "price_type",
+   "fieldtype": "Data",
+   "label": "Price Type",
+   "unique": 1
   },
   {
-   "fieldname": "title",
-   "fieldtype": "Data",
-   "label": "Title"
+   "fieldname": "territory",
+   "fieldtype": "Link",
+   "label": "Territory",
+   "options": "Territory"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2022-05-30 17:17:55.775691",
+ "modified": "2022-12-08 16:29:43.603595",
  "modified_by": "Administrator",
  "module": "Norden",
- "name": "Item Inspection Specification",
+ "name": "Price List based on Territory",
  "owner": "Administrator",
  "permissions": [
   {

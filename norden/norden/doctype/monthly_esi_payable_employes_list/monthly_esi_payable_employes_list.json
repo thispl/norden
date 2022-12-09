@@ -1,0 +1,94 @@
+{
+ "actions": [],
+ "creation": "2022-11-10 12:20:20.910721",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "select_payroll_date",
+  "employee_details_section",
+  "total_no_of_employees",
+  "employees_contribution",
+  "employers_contribution",
+  "column_break_6",
+  "total",
+  "total_wages",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "employee_details_section",
+   "fieldtype": "Section Break",
+   "label": "Employee Contribution Details"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Monthly ESI Payable Employes List",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "select_payroll_date",
+   "fieldtype": "Date",
+   "label": "Select Payroll Date"
+  },
+  {
+   "fieldname": "total_no_of_employees",
+   "fieldtype": "Int",
+   "label": "Total No of Employees"
+  },
+  {
+   "fieldname": "employees_contribution",
+   "fieldtype": "Currency",
+   "label": "Employe's Contribution"
+  },
+  {
+   "fieldname": "employers_contribution",
+   "fieldtype": "Currency",
+   "label": "Employer's Contribution"
+  },
+  {
+   "fieldname": "total",
+   "fieldtype": "Currency",
+   "label": "Total Contribution"
+  },
+  {
+   "fieldname": "total_wages",
+   "fieldtype": "Currency",
+   "label": "Total Wages"
+  },
+  {
+   "fieldname": "column_break_6",
+   "fieldtype": "Column Break"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2022-11-10 19:31:00.965226",
+ "modified_by": "Administrator",
+ "module": "Norden",
+ "name": "Monthly ESI Payable Employes List",
+ "name_case": "Title Case",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

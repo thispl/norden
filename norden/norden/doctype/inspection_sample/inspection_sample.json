@@ -1,0 +1,136 @@
+{
+ "actions": [],
+ "autoname": "Sample-.####",
+ "creation": "2022-11-30 15:22:03.578324",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "item",
+  "po_number",
+  "pr_number",
+  "inspection_template",
+  "item_inspection",
+  "amended_from",
+  "section_break_6",
+  "visual_aspects",
+  "section_break_8",
+  "dimensional_aspects",
+  "section_break_10",
+  "material_aspects",
+  "section_break_12",
+  "functional_aspects"
+ ],
+ "fields": [
+  {
+   "fieldname": "item",
+   "fieldtype": "Link",
+   "label": "Item",
+   "options": "Item"
+  },
+  {
+   "fieldname": "po_number",
+   "fieldtype": "Link",
+   "label": "Po Number",
+   "options": "Purchase Order"
+  },
+  {
+   "fieldname": "pr_number",
+   "fieldtype": "Link",
+   "label": "Pr Number",
+   "options": "Purchase Receipt"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Inspection Sample",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "inspection_template",
+   "fieldtype": "Link",
+   "label": "Inspection Template",
+   "options": "Inspection Template"
+  },
+  {
+   "fieldname": "section_break_6",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "visual_aspects",
+   "fieldtype": "Table",
+   "label": "Visual Aspects",
+   "options": "Visual Aspects Sample"
+  },
+  {
+   "fieldname": "section_break_8",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "dimensional_aspects",
+   "fieldtype": "Table",
+   "label": "Dimensional Aspects",
+   "options": "Dimensional Aspects Sample"
+  },
+  {
+   "fieldname": "section_break_10",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "material_aspects",
+   "fieldtype": "Table",
+   "label": "Material Aspects",
+   "options": "Material Aspects Sample"
+  },
+  {
+   "fieldname": "section_break_12",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "functional_aspects",
+   "fieldtype": "Table",
+   "label": "Functional Aspects",
+   "options": "Functional Aspects Sample"
+  },
+  {
+   "fieldname": "item_inspection",
+   "fieldtype": "Link",
+   "label": "Item Inspection",
+   "options": "Item Inspection"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [
+  {
+   "group": "Quality ",
+   "link_doctype": "Item Inspection",
+   "link_fieldname": "pr_number"
+  }
+ ],
+ "modified": "2022-12-08 12:22:56.781010",
+ "modified_by": "Administrator",
+ "module": "Norden",
+ "name": "Inspection Sample",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

@@ -51,7 +51,7 @@ class MarginPriceTool(Document):
 
 @frappe.whitelist()
 def enqueue_update_item_price(table,country):
-    enqueue(update_item_price, queue='default', timeout=6000, event='updating_margin_sales_price',table=table,country=country)
+    enqueue(update_item_price, queue='default', timeout=6000, event='updating_margin_sales_price',at_front=True,table=table,country=country)
 
 @frappe.whitelist()
 def update_item_price(table,country):
@@ -370,6 +370,9 @@ def update_item_price_india(table):
         for i in items:
             factory_price = frappe.db.get_value('Item Price',{'price_list':'STANDARD BUYING-USD','item_code':i.name},'price_list_rate')
             if factory_price:
+                from erpnext.setup.utils import get_exchange_rate
+                fp_conversion = get_exchange_rate("USD","INR")
+                factory_price = fp_conversion * factory_price
                 if row["landing"] and row["landing"] > 0:
                     landing = factory_price * row["landing"]
                     existing_ip = frappe.db.exists('Item Price',{'price_list': 'India Landing','item_code':i.name})
@@ -378,6 +381,7 @@ def update_item_price_india(table):
                         doc = frappe.new_doc("Item Price")
                         doc.item_code = i.name
                         doc.price_list = price_list
+                        doc.currency = "INR"
                         doc.selling = 1
                         doc.buying = 1
                         doc.valid_from = '2022-01-01'
@@ -387,6 +391,7 @@ def update_item_price_india(table):
                     else:
                         frappe.db.set_value("Item Price",existing_ip,'price_list_rate',landing)
                         frappe.db.set_value("Item Price",existing_ip,'valid_from','2022-01-01')
+                        frappe.db.set_value("Item Price",existing_ip,'currency',"INR")
                         
                 if row["spc"] and row["spc"] > 0:
                     existing_ip = frappe.db.exists('Item Price',{'price_list': 'India SPC','item_code':i.name})
@@ -396,6 +401,7 @@ def update_item_price_india(table):
                         doc = frappe.new_doc("Item Price")
                         doc.item_code = i.name
                         doc.price_list = price_list
+                        doc.currency = "INR"
                         doc.selling = 1
                         doc.buying = 1
                         doc.valid_from = '2022-01-01'
@@ -405,6 +411,7 @@ def update_item_price_india(table):
                     else:
                         frappe.db.set_value("Item Price",existing_ip,'price_list_rate',spc)
                         frappe.db.set_value("Item Price",existing_ip,'valid_from','2022-01-01')
+                        frappe.db.set_value("Item Price",existing_ip,'currency',"INR")
 
                 if row["ltp"] and row["ltp"] > 0:
                     existing_ip = frappe.db.exists('Item Price',{'price_list': 'India LTP','item_code':i.name})
@@ -414,6 +421,7 @@ def update_item_price_india(table):
                         doc = frappe.new_doc("Item Price")
                         doc.item_code = i.name
                         doc.price_list = price_list
+                        doc.currency = "INR"
                         doc.selling = 1
                         doc.buying = 1
                         doc.valid_from = '2022-01-01'
@@ -423,6 +431,7 @@ def update_item_price_india(table):
                     else:
                         frappe.db.set_value("Item Price",existing_ip,'price_list_rate',ltp)
                         frappe.db.set_value("Item Price",existing_ip,'valid_from','2022-01-01')
+                        frappe.db.set_value("Item Price",existing_ip,'currency',"INR")
 
                 if row["dtp"] and row["dtp"] > 0:
                     existing_ip = frappe.db.exists('Item Price',{'price_list': 'India DTP','item_code':i.name})
@@ -432,6 +441,7 @@ def update_item_price_india(table):
                         doc = frappe.new_doc("Item Price")
                         doc.item_code = i.name
                         doc.price_list = price_list
+                        doc.currency = "INR"
                         doc.selling = 1
                         doc.buying = 1
                         doc.valid_from = '2022-01-01'
@@ -441,6 +451,7 @@ def update_item_price_india(table):
                     else:
                         frappe.db.set_value("Item Price",existing_ip,'price_list_rate',dtp)
                         frappe.db.set_value("Item Price",existing_ip,'valid_from','2022-01-01')
+                        frappe.db.set_value("Item Price",existing_ip,'currency',"INR")
 
                 if row["stp"] and row["stp"] > 0:
                     existing_ip = frappe.db.exists('Item Price',{'price_list': 'India STP','item_code':i.name})
@@ -450,6 +461,7 @@ def update_item_price_india(table):
                         doc = frappe.new_doc("Item Price")
                         doc.item_code = i.name
                         doc.price_list = price_list
+                        doc.currency = "INR"
                         doc.selling = 1
                         doc.buying = 1
                         doc.valid_from = '2022-01-01'
@@ -459,6 +471,7 @@ def update_item_price_india(table):
                     else:
                         frappe.db.set_value("Item Price",existing_ip,'price_list_rate',stp)
                         frappe.db.set_value("Item Price",existing_ip,'valid_from','2022-01-01')
+                        frappe.db.set_value("Item Price",existing_ip,'currency',"INR")
 
                 if row["mop"] and row["mop"] > 0:
                     existing_ip = frappe.db.exists('Item Price',{'price_list': 'India MOP','item_code':i.name})
@@ -468,6 +481,7 @@ def update_item_price_india(table):
                         doc = frappe.new_doc("Item Price")
                         doc.item_code = i.name
                         doc.price_list = price_list
+                        doc.currency = "INR"
                         doc.selling = 1
                         doc.buying = 1
                         doc.valid_from = '2022-01-01'
@@ -477,6 +491,7 @@ def update_item_price_india(table):
                     else:
                         frappe.db.set_value("Item Price",existing_ip,'price_list_rate',mop)
                         frappe.db.set_value("Item Price",existing_ip,'valid_from','2022-01-01')
+                        frappe.db.set_value("Item Price",existing_ip,'currency',"INR")
 
                 if row["mrp"] and row["mrp"] > 0:
                     existing_ip = frappe.db.exists('Item Price',{'price_list': 'India MRP','item_code':i.name})
@@ -486,6 +501,7 @@ def update_item_price_india(table):
                         doc = frappe.new_doc("Item Price")
                         doc.item_code = i.name
                         doc.price_list = price_list
+                        doc.currency = "INR"
                         doc.selling = 1
                         doc.buying = 1
                         doc.valid_from = '2022-01-01'
@@ -495,6 +511,7 @@ def update_item_price_india(table):
                     else:
                         frappe.db.set_value("Item Price",existing_ip,'valid_from','2022-01-01')
                         frappe.db.set_value("Item Price",existing_ip,'price_list_rate',mrp)
+                        frappe.db.set_value("Item Price",existing_ip,'currency',"INR")
 
 
 @frappe.whitelist()
@@ -826,6 +843,8 @@ def update_item_price_dubai(table):
         for i in items:
             factory_price = frappe.db.get_value('Item Price',{'price_list':'STANDARD BUYING-USD','item_code':i.name},'price_list_rate')
             if factory_price:
+                from erpnext.setup.utils import get_exchange_rate
+                fp_conversion = get_exchange_rate("USD","AED")
                 if row["landing"] and row["landing"] > 0:
                     existing_ip = frappe.db.exists('Item Price',{'price_list':'Dubai Landing Cost','item_code':i.name})
                     rate = factory_price * row["landing"]

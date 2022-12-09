@@ -33,6 +33,20 @@ frappe.query_reports["Item-wise Sales Report"] = {
 			fieldtype: "Link",
 			options: "Item Group"
 		},
+
+		{
+			fieldname:"item_sub_group",
+			label: __("Item Sub Group"),
+			fieldtype: "Link",
+			options: "Item Sub Group",
+			"get_query": function() {
+				const is_group = frappe.query_report.get_filter_value('is_group');
+				return {
+					filters: { 'is_group': is_group }
+				}
+			}
+		},
+
 		{
 			fieldname:"item_code",
 			label: __("Item"),
@@ -56,7 +70,9 @@ frappe.query_reports["Item-wise Sales Report"] = {
 			label: __("Territory"),
 			fieldtype: "Link",
 			options: "Territory"
-		}
+		},
+
+		
 
 
 	],
@@ -69,5 +85,7 @@ frappe.query_reports["Item-wise Sales Report"] = {
 			value = "<span style='color:green;'>" + value + "</span>";
 		}
 		return value;
-	}
+	},
+
+	
 };

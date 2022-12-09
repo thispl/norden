@@ -1,0 +1,47 @@
+{
+ "actions": [],
+ "creation": "2022-11-14 16:41:59.371428",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "item_code",
+  "aspects",
+  "specification"
+ ],
+ "fields": [
+  {
+   "fieldname": "item_code",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Item Code",
+   "options": "Item"
+  },
+  {
+   "fieldname": "aspects",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Aspects",
+   "options": "Inspection Aspects"
+  },
+  {
+   "fieldname": "specification",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Specification",
+   "options": "Specification"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2022-11-29 17:15:50.073074",
+ "modified_by": "Administrator",
+ "module": "Norden",
+ "name": "Item Aspects and Specifications",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

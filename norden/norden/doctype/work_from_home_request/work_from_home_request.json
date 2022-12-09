@@ -12,6 +12,7 @@
   "column_break_3",
   "department",
   "designation",
+  "grade",
   "section_break_6",
   "approver",
   "column_break_8",
@@ -113,12 +114,18 @@
    "fieldtype": "Link",
    "label": "Employee User ID",
    "options": "User"
+  },
+  {
+   "fetch_from": "employee.grade",
+   "fieldname": "grade",
+   "fieldtype": "Data",
+   "label": "Grade"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2022-10-21 15:24:21.090281",
+ "modified": "2022-11-02 19:06:55.259087",
  "modified_by": "Administrator",
  "module": "Norden",
  "name": "Work From Home Request",

@@ -101,6 +101,7 @@ doc_events = {
 	# "Quotation": {
 	# 	"on_update": "norden.email_alerts.quotation_creation_alert",
 	# },
+	
 	"Landed Cost Voucher": {
 		"on_submit": "norden.custom.create_lcv_je",
 	},
@@ -116,7 +117,7 @@ doc_events = {
 		"validate": "norden.custom.create_file_number_mr",
 	},
 	"Sales Order": {
-		"on_submit": "norden.norden.doctype.project_reference.project_reference.create_project_reference",
+		# "on_submit": "norden.norden.doctype.project_reference.project_reference.create_project_reference",
 		# "on_update": "norden.custom.so_status"
 	},
 	"Quotation": {
@@ -137,6 +138,12 @@ doc_events = {
 
 		
 },
+# "Customer":{
+# 	"validate":[
+# 		"norden.utils.get_customer_det",
+# 		"norden.utils.get_address_det"
+# ]
+# },
 	"Purchase Order": {
 		"after_insert": [
 			"norden.custom.batch_number",
@@ -162,9 +169,9 @@ scheduler_events = {
 # 	"all": [
 # 		"norden.tasks.all"
 # 	],
-# 	"daily": [
-# 		"norden.tasks.daily"
-# 	],
+	"daily": [
+		"norden.norden.doctype.logistics_request.logistics_request.pending_for_payments"
+	],
 # 	"hourly": [
 # 		"norden.tasks.hourly"
 # 	],
@@ -233,4 +240,4 @@ jenv = {
 
 }
 
-fixtures = ["Client Script","Print Format"]
+fixtures = ["Client Script","Print Format","Custom Field","Report","Workspace"]

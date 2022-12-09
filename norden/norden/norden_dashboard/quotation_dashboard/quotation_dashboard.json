@@ -1,0 +1,29 @@
+{
+ "cards": [],
+ "charts": [
+  {
+   "chart": "Quotation Countrywise",
+   "width": "Full"
+  },
+  {
+   "chart": "Quotation Status",
+   "width": "Full"
+  },
+  {
+   "chart": "Quotation Leadwise",
+   "width": "Full"
+  }
+ ],
+ "creation": "2022-12-02 19:48:53.905000",
+ "dashboard_name": "Quotation Dashboard",
+ "docstatus": 0,
+ "doctype": "Dashboard",
+ "idx": 0,
+ "is_default": 0,
+ "is_standard": 1,
+ "modified": "2022-12-08 17:39:06.026293",
+ "modified_by": "Administrator",
+ "module": "Norden",
+ "name": "Quotation Dashboard",
+ "owner": "Administrator"
+}

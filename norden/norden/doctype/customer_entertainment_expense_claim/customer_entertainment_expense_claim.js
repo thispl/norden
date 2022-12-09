@@ -12,6 +12,21 @@ frappe.ui.form.on('Customer Entertainment Expense Claim', {
     })
         }
          
+    },
+    employee(frm){
+        frm.set_value('admin_mail_id','aiswarya@nordencommunication.com')
+        frm.set_value('hrm_mail_id','kareem@nordencommunication.com')
+        frm.set_value('accounts_mail_id','topson@nordencommunication.com')
+        frm.set_value('cfo_mail_id','vijay@nordencommunication.com')
+        frm.set_value('finance_mail_id','sabidha@nordencommunication.com')
+        
+        if(frm.doc.company == 'Norden Communication Pvt Ltd'){
+            frm.set_value('finance_verifier_mail_id','salini@nordencommunication.com')
+        }
+        else if(frm.doc.company == 'Norden Research and Innovation Centre (OPC) Pvt. Ltd'){
+            frm.set_value('finance_verifier_mail_id','lakshmi.devi@norden.co.uk')
+        }
+        
     }
  
  

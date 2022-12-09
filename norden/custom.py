@@ -2,7 +2,7 @@ from datetime import datetime
 from lib2to3.pytree import convert
 import frappe
 import erpnext
-from frappe.utils import date_diff, add_months, today, add_days, nowdate
+from frappe.utils import date_diff, add_months, today, add_days, nowdate,formatdate
 from frappe.utils.csvutils import read_csv_content
 from frappe.utils.file_manager import get_file
 import json
@@ -103,21 +103,25 @@ def stock_popup(item_code):
 
 
 @frappe.whitelist()
-def po_popup(item_code):
-    item = frappe.get_value('Item',{'item_name':item_code},'item_code')
+def po_popup(item_code,company,name):
+    item = frappe.get_value('Item',{'item_code':item_code},["item_code"])
+    frappe.errprint(item)
     data = ''
-    pos = frappe.db.sql("""select `tabPurchase Order Item`.item_code as item_code,`tabPurchase Order Item`.item_name as item_name,`tabPurchase Order`.supplier as supplier,`tabPurchase Order Item`.qty as qty,`tabPurchase Order Item`.amount as amount,`tabPurchase Order`.transaction_date as date,`tabPurchase Order`.name as po from `tabPurchase Order`
+    data_1 = ''
+    pos = frappe.db.sql("""select `tabPurchase Order Item`.item_code as item_code,`tabPurchase Order Item`.item_name as item_name,`tabPurchase Order`.supplier as supplier,`tabPurchase Order Item`.qty as qty,`tabPurchase Order Item`.amount as amount,`tabPurchase Order`.transaction_date as date,`tabPurchase Order`.name as po,`tabPurchase Order`.company as company from `tabPurchase Order`
     left join `tabPurchase Order Item` on `tabPurchase Order`.name = `tabPurchase Order Item`.parent
-    where `tabPurchase Order Item`.item_code = '%s' and `tabPurchase Order`.docstatus != 2 """ % (item), as_dict=True)
+    where `tabPurchase Order`.company = '%s' and `tabPurchase Order Item`.item_code = '%s' and `tabPurchase Order`.name != '%s' and `tabPurchase Order`.docstatus != 2 order by date desc """ % (company,item,name), as_dict=True)
     data += '<table class="table table-bordered"><tr><th style="padding:1px;border: 1px solid black" colspan=6><center>Previous Purchase Order</center></th></tr>'
-    data += '<tr><td style="padding:1px;border: 1px solid black"><b>Item Code</b></td><td style="padding:1px;border: 1px solid black"><b>Item Name</b></td><td style="padding:1px;border: 1px solid black"><b>Supplier</b></td><td style="padding:1px;border: 1px solid black"><b>QTY</b></td><td style="padding:1px;border: 1px solid black"><b>PO Date</b></td><td style="padding:1px;border: 1px solid black"><b>Amount</b></td></tr>'
-    for po in pos[:5]:
-        data += '<tr><td style="padding:1px;border: 1px solid black">%s</td><td style="padding:1px;border: 1px solid black">%s</td><td style="padding:1px;border: 1px solid black">%s</td><td style="padding:1px;border: 1px solid black">%s</td><td style="padding:1px;border: 1px solid black">%s</td><td style="padding:1px;border: 1px solid black">%s</td></tr>' % (
-            po.item_code, po.item_name, po.supplier, po.qty, po.date, po.amount)
+    data += '<tr><td style="padding:1px;border: 1px solid black"><b>Item Code</b></td><td style="padding:1px;border: 1px solid black"><b>PO Number</b></td><td style="padding:1px;border: 1px solid black"><b>Supplier</b></td><td style="padding:1px;border: 1px solid black"><b>QTY</b></td><td style="padding:1px;border: 1px solid black"><b>PO Date</b></td><td style="padding:1px;border: 1px solid black"><b>Amount</b></td></tr>'
+    frappe.errprint(pos)
+    for po in pos[:3]:
+        data += '<tr><td style="padding:1px;border: 1px solid black">%s</td><td style="padding:1px;border: 1px solid black"><a href="https://erp.nordencommunication.com/app/purchase-order/%s">%s</td><td style="padding:1px;border: 1px solid black">%s</td><td style="padding:1px;border: 1px solid black">%s</td><td style="padding:1px;border: 1px solid black">%s</td><td style="padding:1px;border: 1px solid black">%s</td></tr>' %(po.item_code, po.po,po.po, po.supplier, po.qty,formatdate(str(po.date)), po.amount/po.qty)
     data += '</table>'
-    if pos:
+    if not pos == []:
         return data
-
+    else:
+        data_1 += '<table class="table table-bordered"><tr><th style="padding:1px;border: 1px solid black;color:#FF3131;" colspan=6><center>Previous Purchase Order Not Found</center></th></tr>'
+        return data_1
 
 @frappe.whitelist()
 def out_qty_popup(item):
@@ -550,15 +554,17 @@ def get_margin_details(item_details,company,exchange_rate,currency,name):
     item_details = json.loads(item_details)
     data_4 = ''
     if "Sales Manager" in frappe.get_roles(frappe.session.user):
-        data_4 += '<table class="table"><tr><th style="padding:1px;border: 1px solid black;font-size:14px;background-color:#32CD32;color:white;" colspan=16><center><b>STOCK STATUS  &  INTERNAL COST</b></center></th></tr>'
+        data_4 += '<table class="table"><tr><th style="padding:1px;border: 1px solid black;font-size:14px;background-color:#32CD32;color:white;" colspan=20><center><b>STOCK STATUS  &  INTERNAL COST</b></center></th></tr>'
     
-        data_4+='<tr><td colspan=3 style="border: 0.5px solid black;font-size:11px;"><b>ITEM</b></td><td colspan=3 style="border: 0.5px solid black;font-size:11px;width:50%;"><b>ITEM NAME</b><td colspan=3 style="border: 0.5px solid black;font-size:11px;"><b><center>IN WAREHOUSE</center></b></td><td colspan=3 style="border: 0.5px solid black;font-size:11px;"><b><center>IN TRANSIT</center></b></td><td colspan=3 style="border: 0.5px solid black;font-size:11px;"><b><center>TOTAL</center></b></td></td><td colspan=3 style="border: 0.5px solid black;font-size:11px;"><b><center>INTERNAL COST</center></b></td></tr>'
+        data_4+='<tr><td colspan=5 style="border: 0.5px solid black;font-size:11px;"><b>ITEM</b></td><td colspan=2 style="border: 0.5px solid black;font-size:11px;width:50%;"><b>ITEM NAME</b><td colspan=3 style="border: 0.5px solid black;font-size:11px;"><b><center>IN WAREHOUSE</center></b></td><td colspan=3 style="border: 0.5px solid black;font-size:11px;"><b><center>IN TRANSIT</center></b></td><td colspan=3 style="border: 0.5px solid black;font-size:11px;"><b><center>TOTAL</center></b></td></td><td colspan=3 style="border: 0.5px solid black;font-size:11px;"><b><center>QTY</center></b></td><td colspan=3 style="border: 0.5px solid black;font-size:11px;"><b><center>INTERNAL COST</center></b></td></tr>'
     total_internal_cost = 0
+    total_qty = 0
     total_selling_price = 0
     total_warehouse = 0
     total_in_transit = 0
     sum_of_total_stock = 0
     for i in item_details:
+        total_qty = total_qty + i["qty"]
         country = frappe.get_value("Company",{"name":company},["country"])
         warehouse_stock = frappe.db.sql("""
             select sum(b.actual_qty) as qty from `tabBin` b 
@@ -590,6 +596,7 @@ def get_margin_details(item_details,company,exchange_rate,currency,name):
             if not company == "Norden Communication Middle East FZE":
                 ep = get_exchange_rate('USD',currency)
                 i["rate"] = round(i["rate"]/ep,1)
+
         total_selling_price =  (i["rate"] * i["qty"]) + total_selling_price
         valuation_rate = frappe.get_value("Item",{"name":i["item_code"]},["valuation_rate"])
         if not valuation_rate:
@@ -616,7 +623,7 @@ def get_margin_details(item_details,company,exchange_rate,currency,name):
                 internal = 0
         total_internal_cost = internal*i["qty"] + total_internal_cost
         if "Sales Manager" in frappe.get_roles(frappe.session.user):
-            data_4+='<tr style="height:5px;"><td colspan=3 style="border: 1px solid black;font-size:11px;padding:0px; margin:0px;">%s</td><td colspan=3 style="border: 1px solid black;font-size:11px;">%s</td><td colspan=3 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=3 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=3 align = "right"style="border: 1px solid black;font-size:11px;">%s</td><td colspan=3 align = "right" style="border: 1px solid black;font-size:11px;">%s</td></tr>'%(i["item_code"],i["description"],warehouse_stock["qty"],in_transit,total_stock,round(total_internal_cost,2))      
+            data_4+='<tr style="height:5px;"><td colspan=3 style="border: 1px solid black;font-size:11px;padding-top:10px; margin:0px;"><center>%s</center></td><td colspan=3 style="border: 1px solid black;font-size:11px;">%s</td><td colspan=3 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=3 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=3 align = "right"style="border: 1px solid black;font-size:11px;">%s</td><td colspan=3 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=3 align = "right" style="border: 1px solid black;font-size:11px;">%s</td></tr>'%(i["item_code"],i["description"],warehouse_stock["qty"],in_transit,total_stock,i["qty"],round((internal*i["qty"]),2))      
     frappe.errprint(total_internal_cost)
     if total_internal_cost == 0:
         total_margin_internal = (total_selling_price - total_internal_cost)/100
@@ -625,23 +632,24 @@ def get_margin_details(item_details,company,exchange_rate,currency,name):
         total_margin_internal = ((total_selling_price - total_internal_cost )/total_selling_price)*100
 
     if "Sales Manager" in frappe.get_roles(frappe.session.user):
-        data_4 += '<tr style="line-height:0.4;"><th style="padding-top:12px;border: 1px solid black;font-size:12px" colspan=6><center><b>TOTAL MARGIN</b></center></th><td align = "right" colspan=3 style="border: 1px solid black;font-size:12px;"><b>%s</b></td><td colspan=3 align = "right" style="border: 1px solid black;font-size:12px;"><b>%s</b></td><td colspan=3 align = "right" style="border: 1px solid black;font-size:12px;"><b>%s</b></td><td colspan=3 align = "right" style="border: 1px solid black;font-size:12px;"><b>%s</b></td></tr>'%(total_warehouse,total_in_transit,sum_of_total_stock,round(total_margin_internal,2))
+        data_4 += '<tr style="line-height:0.4;"><th style="padding-top:12px;border: 1px solid black;font-size:12px" colspan=6><center><b>TOTAL MARGIN BASED ON INTERNAL COST :  %s</b></center></th><td colspan=9 align = "right" style="border: 1px solid black;font-size:12px;"><b>%s</b></td><td colspan=3 align = "right" style="border: 1px solid black;font-size:12px;"><b>%s</b></td><td colspan=9 align = "right" style="border: 1px solid black;font-size:12px;"><b>%s</b></td></tr>'%(round(total_margin_internal,2),'',total_qty,round(total_internal_cost,2))
     data_4+='</table>'
 
 
     data_5 = ''
-    if "CFO" in frappe.get_roles(frappe.session.user) or "COO" in frappe.get_roles(frappe.session.user) or "HOD" in frappe.get_roles(frappe.session.user):
+    if "CFO" in frappe.get_roles(frappe.session.user) or "COO" in frappe.get_roles(frappe.session.user) or "HOD" in frappe.get_roles(frappe.session.user) or "Accounts User" in frappe.get_roles(frappe.session.user):
         data_5 += '<table class="table"><tr><th style="padding:1px;border: 1px solid black;font-size:14px;background-color:#32CD32;color:white;" colspan=16><center><b>MARGIN BY VALUE & MARGIN BY PERCENTAGE</b></center></th></tr>'
         spl = 0
         for i in item_details:
             if i["special_cost"] > 0:
                 spl = spl + 1
         if spl == 0:
-            data_5+='<tr><td colspan=3 style="border:1px solid black;font-size:11px;"><b>ITEM</b></td><td colspan=2 style="border: 1px solid black;font-size:11px;width:40%;"><b>ITEM NAME</b></td><td colspan=1 style="border: 0.5px solid black;font-size:11px;"><b><center>IN WAREHOUSE</center></b></td><td colspan=1 style="border: 0.5px solid black;font-size:11px;"><b><center>IN TRANSIT</center></b></td><td colspan=1 style="border: 0.5px solid black;font-size:11px;"><b><center>TOTAL</center></b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>COST</b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>COST %</b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>STOCK PRICE</b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b> STOCK PRICE %</b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>INTERNAL COST</b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>INTERNAL COST %</b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>SELLING PRICE</b></td></tr>'
+            data_5+='<tr><td colspan=4 style="border:1px solid black;font-size:11px;"><b>ITEM</b></td><td colspan=2 style="border: 1px solid black;font-size:11px;width:40%;"><b>ITEM NAME</b></td><td colspan=1 style="border: 0.5px solid black;font-size:11px;"><b><center>IN WAREHOUSE</center></b></td><td colspan=1 style="border: 0.5px solid black;font-size:11px;"><b><center>IN TRANSIT</center></b></td><td colspan=1 style="border: 0.5px solid black;font-size:11px;"><b><center>TOTAL</center></b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>QTY</b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>COST</b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>COST %</b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>INTERNAL COST</b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>INTERNAL COST %</b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>SELLING PRICE</b></td></tr>'
         else:
-            data_5+='<tr><td colspan=3 style="border:1px solid black;font-size:11px;"><b>ITEM</b></td><td colspan=2 style="border: 1px solid black;font-size:11px;width:40%;"><b>ITEM NAME</b></td><td colspan=1 style="border: 0.5px solid black;font-size:11px;"><b><center>IN WAREHOUSE</center></b></td><td colspan=1 style="border: 0.5px solid black;font-size:11px;"><b><center>IN TRANSIT</center></b></td><td colspan=1 style="border: 0.5px solid black;font-size:11px;"><b><center>TOTAL</center></b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>COST</b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>COST %</b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>STOCK PRICE</b><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>STOCK PRICE %</b></td></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>INTERNAL COST</b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>INTERNAL COST %</b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>SPECIAL PRICE</b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>SELLING PRICE</b></td></tr>'
+            data_5+='<tr><td colspan=4 style="border:1px solid black;font-size:11px;"><b>ITEM</b></td><td colspan=2 style="border: 1px solid black;font-size:11px;width:40%;"><b>ITEM NAME</b></td><td colspan=1 style="border: 0.5px solid black;font-size:11px;"><b><center>IN WAREHOUSE</center></b></td><td colspan=1 style="border: 0.5px solid black;font-size:11px;"><b><center>IN TRANSIT</center></b></td><td colspan=1 style="border: 0.5px solid black;font-size:11px;"><b><center>TOTAL</center></b><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>QTY</b></td></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>COST</b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>COST %</b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>INTERNAL COST</b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>INTERNAL COST %</b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>SPECIAL PRICE</b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>SELLING PRICE</b></td></tr>'
 
     total_internal_cost = 0
+    total_qty = 0
     total_special_price = 0
     total_selling_price = 0
     cost_total = 0
@@ -651,6 +659,7 @@ def get_margin_details(item_details,company,exchange_rate,currency,name):
     total_in_transit = 0
     sum_of_total_stock = 0
     for i in item_details:
+        total_qty = total_qty + i["qty"]
         country = frappe.get_value("Company",{"name":company},["country"])
         warehouse_stock = frappe.db.sql("""
             select sum(b.actual_qty) as qty from `tabBin` b 
@@ -706,8 +715,10 @@ def get_margin_details(item_details,company,exchange_rate,currency,name):
         if not buying_cost:
             bc_margin = 0
         if buying_cost:
-            bc_margin = (((i["rate"] * i["qty"]) - (buying_cost * i["qty"]))/(i["rate"] * i["qty"]))*100
-        frappe.errprint(bc_margin)
+            from erpnext.setup.utils import get_exchange_rate
+            buying_cost_conversion = get_exchange_rate("USD",currency)
+            buying_cost = buying_cost * buying_cost_conversion
+            bc_margin = (i["rate"] - buying_cost)/i["rate"]*100
         stock_price = frappe.get_value("Item",{"name":i["item_code"]},["valuation_rate"])
         if not stock_price:
             stock_margin = 0
@@ -720,23 +731,27 @@ def get_margin_details(item_details,company,exchange_rate,currency,name):
             valuation_rate = 0
         total_valuation_rate = (valuation_rate * i["qty"]) + total_valuation_rate
         standard_buying_usd = frappe.get_value("Item Price",{"item_code":i["item_code"],"price_list":"STANDARD BUYING-USD"},["price_list_rate"])
+        from erpnext.setup.utils import get_exchange_rate
+        base_cost_conversion = get_exchange_rate("USD",currency)
         if not standard_buying_usd:
             standard_buying_usd = 0
+        else:
+            standard_buying_usd =  base_cost_conversion * standard_buying_usd
         cost_total = (standard_buying_usd * i["qty"]) + cost_total
         country = frappe.get_value("Company",{"name":company},["country"])
         
         total_internal_cost = internal*i["qty"] + total_internal_cost
         total_special_price =(i["special_cost"] * i["qty"]) + total_special_price
 
-        if "CFO" in frappe.get_roles(frappe.session.user) or "COO" in frappe.get_roles(frappe.session.user) or "HOD" in frappe.get_roles(frappe.session.user):
+        if "CFO" in frappe.get_roles(frappe.session.user) or "COO" in frappe.get_roles(frappe.session.user) or "HOD" in frappe.get_roles(frappe.session.user) or "Accounts User" in frappe.get_roles(frappe.session.user):
             if i["special_cost"] > 0:
-                data_5+='<tr><td colspan=3 style="border: 1px solid black;font-size:11px;">%s</td><td colspan=2 style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td></tr>'%(i["item_code"],i["description"],warehouse_stock["qty"],in_transit,total_stock,standard_buying_usd*i["qty"],"{:.2f}".format(bc_margin),round(valuation_rate*i["qty"],2),round(stock_margin,2),round(internal*i["qty"],2),round(i_margin,2),round(i["special_cost"]*i["qty"],2),round(i["rate"]*i["qty"],2))
+                data_5+='<tr><td colspan=4 style="border: 1px solid black;font-size:11px;">%s</td><td colspan=2 style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td></tr>'%(i["item_code"],i["description"],warehouse_stock["qty"],in_transit,total_stock,i["qty"],standard_buying_usd,"{:.2f}".format(bc_margin),round(internal,2),round(i_margin,2),round(i["special_cost"],2),round((i["rate"]*i["qty"]),2))
             else:
-                data_5+='<tr><td colspan=3 style="border: 1px solid black;font-size:11px;">%s</td><td colspan=2 style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1  align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td></tr>'%(i["item_code"],i["description"],warehouse_stock["qty"],in_transit,total_stock,round(standard_buying_usd*i["qty"],2),round(bc_margin,2),round(valuation_rate*i["qty"],2),round(stock_margin,2),round(internal*i["qty"],2),round(i_margin,2),round(i["rate"]*i["qty"],2))
+                data_5+='<tr><td colspan=4 style="border: 1px solid black;font-size:11px;">%s</td><td colspan=2 style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1  align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td></tr>'%(i["item_code"],i["description"],warehouse_stock["qty"],in_transit,total_stock,i["qty"],round((standard_buying_usd*i["qty"]),2),round(bc_margin,2),round((internal*i["qty"]),2),round(i_margin,2),round((i["rate"]*i["qty"]),2))
     if cost_total == 0:
         total_margin_cost = (total_selling_price - cost_total)/100
     else:
-        total_margin_cost = ((total_selling_price - cost_total)/total_selling_price)*100
+        total_margin_cost = (total_selling_price - cost_total)/total_selling_price*100
     
     if total_valuation_rate == 0:
         total_margin_valuation= (total_selling_price - total_valuation_rate)/100
@@ -752,11 +767,11 @@ def get_margin_details(item_details,company,exchange_rate,currency,name):
         total_margin_special = (total_selling_price - total_special_price)/100
     else:
         total_margin_special = ((total_selling_price - total_special_price)/total_selling_price)*100
-    if "CFO" in frappe.get_roles(frappe.session.user) or "COO" in frappe.get_roles(frappe.session.user) or "HOD" in frappe.get_roles(frappe.session.user):
+    if "CFO" in frappe.get_roles(frappe.session.user) or "COO" in frappe.get_roles(frappe.session.user) or "HOD" in frappe.get_roles(frappe.session.user) or "Accounts User" in frappe.get_roles(frappe.session.user):
         if spcl == 0:
-            data_5 += '<tr style="line-height:0.6;"><th style="padding-top:12px;border: 1px solid black;font-size:11px" colspan=5><center><b>TOTAL MARGIN</b></center></th><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;"><b>%s %% </b><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;"><b>%s</b></td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;"><b>%s %% </b></td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;"><b>%s</b></td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td></tr>'%(total_warehouse,total_in_transit,sum_of_total_stock,round(total_margin_cost,2),'',round(total_margin_valuation,2),'',round(total_margin_internal,2),'','')
+            data_5 += '<tr style="line-height:0.6;"><th style="padding-top:12px;border: 1px solid black;font-size:11px" colspan=6><center><b>TOTAL MARGIN BASED ON INTERNAL COST : %s </b></center></th><td colspan=3 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;"><b>%s</b></td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;"><b>%s</b></td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;"><b>%s<b></td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;"><b>%s</b><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;"><b>%s</b></td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;"><b>%s</b></td></tr>'%(round(total_margin_internal,2),'',total_qty,round(cost_total,2),round(total_margin_cost,2),round(total_internal_cost,2),round(total_margin_internal,2),round(total_selling_price,2))
         else:
-            data_5 += '<tr style="line-height:0.6;"><th style="padding-top:12px;border: 1px solid black;font-size:11px" colspan=5><center><b>TOTAL MARGIN</b></center></th><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;"><b>%s %% </b><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;"><b>%s</b></td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;"><b>%s %% </b></td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;"><b>%s</b></td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;"><b>%s</b></td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td></tr>'%(total_warehouse,total_in_transit,sum_of_total_stock,round(total_margin_cost,2),round(total_margin_valuation,2),'',round(total_margin_internal,2),'',round(total_margin_special,2),'','')
+            data_5 += '<tr style="line-height:0.6;"><th style="padding-top:12px;border: 1px solid black;font-size:11px" colspan=6><center><b>TOTAL MARGIN BASED ON INTERNAL COST : %s </b></center></th><td colspan=3 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;"><b>%s</b></td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;"><b>%s</b></td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;"><b>%s</b><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;"><b>%s</b></td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;"><b>%s</b></td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;"><b>%s</b></td></td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;"><b>%s</b></td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;"><b>%s</b></td></tr>'%(round(total_margin_internal,2),'',total_qty,round(cost_total,2),round(total_internal_cost,2),round(total_margin_internal,2),round(total_margin_special,2),'',round(total_selling_price,2))
     data_5+='</table>'
 
 
@@ -955,8 +970,38 @@ def get_margin_details(item_details,company,exchange_rate,currency,name):
 
 @frappe.whitelist()
 def fetch_file_number(order_no):
-    po = frappe.get_value("Purchase Order",{"name":order_no},["file_number"])
+    po = frappe.get_value("Purchase Order",{"name":order_no},["delivery_term"])
     return po
+
+
+
+@frappe.whitelist()
+def inco_terms(order_no):
+    material = frappe.db.sql("""select `tabPurchase Order Item`.material_request as material_request  
+                            from `tabPurchase Order` left join `tabPurchase Order Item`
+                            on `tabPurchase Order`.name = `tabPurchase Order Item`.parent 
+                            where `tabPurchase Order`.docstatus !=2 and `tabPurchase Order`.name = '%s' """%(order_no),as_dict=True)[0]
+    mat_no = material['material_request']
+    sale = frappe.db.sql("""select `tabPurchase Order Item`.sales_order as sales_order  
+                            from `tabPurchase Order` left join `tabPurchase Order Item`
+                            on `tabPurchase Order`.name = `tabPurchase Order Item`.parent 
+                            where `tabPurchase Order`.docstatus !=2 and `tabPurchase Order`.name = '%s' """%(order_no),as_dict=True)[0]
+    sale_no = sale['sales_order']
+    frappe.errprint(sale_no)
+    if sale_no:
+        so_no = frappe.get_value("Sales Order",{"name":sale_no},["delivery"])
+        frappe.errprint(so_no)
+        return so_no
+    elif mat_no: 
+        so = frappe.get_value("Material Request",{"name":mat_no},["sales_order_number"])
+        if so:
+            po = frappe.get_value("Sales Order",{"name":so},["delivery"])
+            frappe.errprint(po)
+
+
+            return po
+
+       
 
 @frappe.whitelist()
 def create_altair(supplier,requester,series,company,date,required,consignment_type,country,cargo_type,items,name,set_warehouse,tax_category,taxes_and_charges):
@@ -1123,15 +1168,17 @@ def get_item_margin(item_details,company,currency,exchange_rate,user):
 
     data_4 = ''
     if "Sales Manager" in frappe.get_roles(frappe.session.user):
-        data_4 += '<table class="table"><tr><th style="padding:1px;border: 1px solid black;font-size:14px;background-color:#FF4500;color:white;" colspan=16><center><b>STOCK STATUS  &  INTERNAL COST</b></center></th></tr>'
+        data_4 += '<table class="table"><tr><th style="padding:1px;border: 1px solid black;font-size:14px;background-color:#FF4500;color:white;" colspan=20><center><b>STOCK STATUS  &  INTERNAL COST</b></center></th></tr>'
     
-        data_4+='<tr><td colspan=3 style="border: 0.5px solid black;font-size:11px;"><b>ITEM</b></td><td colspan=3 style="border: 0.5px solid black;font-size:11px;width:50%;"><b>ITEM NAME</b><td colspan=3 style="border: 0.5px solid black;font-size:11px;"><b><center>IN WAREHOUSE</center></b></td><td colspan=3 style="border: 0.5px solid black;font-size:11px;"><b><center>IN TRANSIT</center></b></td><td colspan=3 style="border: 0.5px solid black;font-size:11px;"><b><center>TOTAL</center></b></td></td><td colspan=3 style="border: 0.5px solid black;font-size:11px;"><b><center>INTERNAL COST</center></b></td></tr>'
+        data_4+='<tr><td colspan=3 style="border: 0.5px solid black;font-size:11px;"><b>ITEM</b></td><td colspan=3 style="border: 0.5px solid black;font-size:11px;width:30%;"><b>ITEM NAME</b><td colspan=3 style="border: 0.5px solid black;font-size:11px;"><b><center>IN WAREHOUSE</center></b></td><td colspan=3 style="border: 0.5px solid black;font-size:11px;"><b><center>IN TRANSIT</center></b></td><td colspan=3 style="border: 0.5px solid black;font-size:11px;"><b><center>TOTAL</center></b></td></td><td colspan=3 style="border: 0.5px solid black;font-size:11px;"><b><center>QTY</center></b></td><td colspan=3 style="border: 0.5px solid black;font-size:11px;"><b><center>INTERNAL COST</center></b></td></tr>'
     total_internal_cost = 0
     total_selling_price = 0
     total_warehouse = 0
     total_in_transit = 0
+    total_qty = 0
     sum_of_total_stock = 0
     for i in item_details:
+        total_qty = total_qty + i["qty"]
         country = frappe.get_value("Company",{"name":company},["country"])
         warehouse_stock = frappe.db.sql("""
             select sum(b.actual_qty) as qty from `tabBin` b 
@@ -1159,11 +1206,11 @@ def get_item_margin(item_details,company,currency,exchange_rate,user):
         total_in_transit = in_transit + total_in_transit 
         sum_of_total_stock = total_stock + sum_of_total_stock 
         from erpnext.setup.utils import get_exchange_rate
-        if not currency == "USD":
-            if not company == "Norden Communication Middle East FZE":
-                ep = get_exchange_rate('USD',currency)
-                i["rate"] = round(i["rate"]/ep,1)
-        total_selling_price =  (i["rate"] * i["qty"]) + total_selling_price
+        # if not currency == "USD":
+        #     if not company == "Norden Communication Middle East FZE":
+        #         ep = get_exchange_rate('USD',currency)
+        #         i["rate"] = round(i["rate"]/ep,1)
+        total_selling_price =  (i["rate"]*i["qty"]) + total_selling_price
         valuation_rate = frappe.get_value("Item",{"name":i["item_code"]},["valuation_rate"])
         if not valuation_rate:
             valuation_rate = 0
@@ -1171,31 +1218,33 @@ def get_item_margin(item_details,company,currency,exchange_rate,user):
         if not standard_buying_usd:
             standard_buying_usd = 0
         country = frappe.get_value("Company",{"name":company},["country"])
-        total_internal_cost = i["internal_cost"] + total_internal_cost
+        total_internal_cost = (i["internal_cost"]*i["qty"]) + total_internal_cost
+        frappe.errprint(total_internal_cost)
+        frappe.errprint(total_selling_price)
         if "Sales Manager" in frappe.get_roles(frappe.session.user):
-            data_4+='<tr style="height:5px;"><td colspan=3 style="border: 1px solid black;font-size:11px;padding:0px; margin:0px;">%s</td><td colspan=3 style="border: 1px solid black;font-size:11px;">%s</td><td colspan=3 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=3 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=3 align = "right"style="border: 1px solid black;font-size:11px;">%s</td><td colspan=3 align = "right" style="border: 1px solid black;font-size:11px;">%s</td></tr>'%(i["item_code"],i["description"],warehouse_stock["qty"],in_transit,total_stock,round(i["internal_cost"],2))      
-    frappe.errprint(total_internal_cost)
+            data_4+='<tr style="height:5px;"><td colspan=3 style="border: 1px solid black;font-size:11px;padding:0px; margin:0px;"><center>%s</center></td><td colspan=3 style="border: 1px solid black;font-size:11px;">%s</td><td colspan=3 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=3 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=3 align = "right"style="border: 1px solid black;font-size:11px;">%s</td><td colspan=3 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=3 align = "right" style="border: 1px solid black;font-size:11px;">%s</td></tr>'%(i["item_code"],i["description"],warehouse_stock["qty"],in_transit,total_stock,i["qty"],round((i["internal_cost"]*i["qty"]),2))      
     if total_internal_cost == 0:
         total_margin_internal = (total_selling_price - total_internal_cost)/100
         # total_margin_internal = ((total_selling_price - total_internal_cost )/ total_internal_cost)*100
     else:
-        total_margin_internal = ((total_selling_price - total_internal_cost )/total_selling_price)*100
+        total_margin_internal = (total_selling_price - total_internal_cost )/(total_selling_price)*100
+    frappe.errprint(total_margin_internal)
 
     if "Sales Manager" in frappe.get_roles(frappe.session.user):
-        data_4 += '<tr style="line-height:0.4;"><th style="padding-top:12px;border: 1px solid black;font-size:12px" colspan=6><center><b>TOTAL MARGIN</b></center></th><td align = "right" colspan=3 style="border: 1px solid black;font-size:12px;"><b>%s</b></td><td colspan=3 align = "right" style="border: 1px solid black;font-size:12px;"><b>%s</b></td><td colspan=3 align = "right" style="border: 1px solid black;font-size:12px;"><b>%s</b></td><td colspan=3 align = "right" style="border: 1px solid black;font-size:12px;"><b>%s</b></td></tr>'%(total_warehouse,total_in_transit,sum_of_total_stock,round(total_margin_internal,2))
+        data_4 += '<tr style="line-height:0.4;"><th style="padding-top:12px;border: 1px solid black;font-size:12px" colspan=6><center><b>TOTAL MARGIN BASED ON INTERNAL COST: %s </b></center></th><td align = "right" colspan=7 style="border: 1px solid black;font-size:12px;"><b>%s</b></td><td colspan=3 align = "right" style="border: 1px solid black;font-size:12px;"><b>%s</b></td><td colspan=3 align = "right" style="border: 1px solid black;font-size:12px;"><b>%s</b></td></tr>'%(round(total_margin_internal,2),'',total_qty,round(total_internal_cost,2))
     data_4+='</table>'
 
     data_5 = ''
-    if "CFO" in frappe.get_roles(frappe.session.user) or "COO" in frappe.get_roles(frappe.session.user) or "HOD" in frappe.get_roles(frappe.session.user):
-        data_5 += '<table class="table"><tr><th style="padding:1px;border: 1px solid black;font-size:14px;background-color:#FF4500;color:white;" colspan=16><center><b>MARGIN BY VALUE & MARGIN BY PERCENTAGE</b></center></th></tr>'
+    if "CFO" in frappe.get_roles(frappe.session.user) or "COO" in frappe.get_roles(frappe.session.user) or "HOD" in frappe.get_roles(frappe.session.user) or "Accounts User" in frappe.get_roles(frappe.session.user):
+        data_5 += '<table class="table"><tr><th style="padding:1px;border: 1px solid black;font-size:14px;background-color:#FF4500;color:white;" colspan=18><center><b>MARGIN BY VALUE & MARGIN BY PERCENTAGE</b></center></th></tr>'
         spl = 0
         for i in item_details:
             if i["special_cost"] > 0:
                 spl = spl + 1
         if spl == 0:
-            data_5+='<tr><td colspan=3 style="border:1px solid black;font-size:11px;"><b>ITEM</b></td><td colspan=2 style="border: 1px solid black;font-size:11px;width:40%;"><b>ITEM NAME</b></td><td colspan=1 style="border: 0.5px solid black;font-size:11px;"><b><center>IN WAREHOUSE</center></b></td><td colspan=1 style="border: 0.5px solid black;font-size:11px;"><b><center>IN TRANSIT</center></b></td><td colspan=1 style="border: 0.5px solid black;font-size:11px;"><b><center>TOTAL</center></b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>COST</b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>COST %</b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>STOCK PRICE</b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b> STOCK PRICE %</b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>INTERNAL COST</b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>INTERNAL COST %</b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>SELLING PRICE</b></td></tr>'
+            data_5+='<tr><td colspan=3 style="border:1px solid black;font-size:11px;width:20%;"><center><b>ITEM</b></center></td><td colspan=2 style="border: 1px solid black;font-size:11px;width:30%;"><center><b>ITEM NAME</b></center></td><td colspan=1 style="border: 0.5px solid black;font-size:11px;"><b><center>IN WAREHOUSE</center></b></td><td colspan=1 style="border: 0.5px solid black;font-size:11px;"><b><center>IN TRANSIT</center></b></td><td colspan=1 style="border: 0.5px solid black;font-size:11px;"><b><center>TOTAL</center></b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>QTY</b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>COST</b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>COST %</b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>INTERNAL COST</b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>INTERNAL COST %</b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>SELLING PRICE</b></td></tr>'
         else:
-            data_5+='<tr><td colspan=3 style="border:1px solid black;font-size:11px;"><b>ITEM</b></td><td colspan=2 style="border: 1px solid black;font-size:11px;width:40%;"><b>ITEM NAME</b></td><td colspan=1 style="border: 0.5px solid black;font-size:11px;"><b><center>IN WAREHOUSE</center></b></td><td colspan=1 style="border: 0.5px solid black;font-size:11px;"><b><center>IN TRANSIT</center></b></td><td colspan=1 style="border: 0.5px solid black;font-size:11px;"><b><center>TOTAL</center></b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>COST</b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>COST %</b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>STOCK PRICE</b><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>STOCK PRICE %</b></td></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>INTERNAL COST</b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>INTERNAL COST %</b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>SPECIAL PRICE</b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>SELLING PRICE</b></td></tr>'
+            data_5+='<tr><td colspan=3 style="border:1px solid black;font-size:11px;width:20%;"><center><b>ITEM</b></center></td><td colspan=2 style="border: 1px solid black;font-size:11px;width:30%;"><center><b>ITEM NAME</b></center></td><td colspan=1 style="border: 0.5px solid black;font-size:11px;"><b><center>IN WAREHOUSE</center></b></td><td colspan=1 style="border: 0.5px solid black;font-size:11px;"><b><center>IN TRANSIT</center></b></td><td colspan=1 style="border: 0.5px solid black;font-size:11px;"><b><center>TOTAL</center></b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>QTY</b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>COST</b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>COST %</b></td></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>INTERNAL COST</b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>INTERNAL COST %</b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>SPECIAL PRICE</b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>SELLING PRICE</b></td></tr>'
 
     total_internal_cost = 0
     total_special_price = 0
@@ -1205,8 +1254,11 @@ def get_item_margin(item_details,company,currency,exchange_rate,user):
     spcl = 0
     total_warehouse = 0
     total_in_transit = 0
+    total_stock = 0
     sum_of_total_stock = 0
     for i in item_details:
+        frappe.errprint(i["rate"])
+        frappe.errprint("------------")
         country = frappe.get_value("Company",{"name":company},["country"])
         warehouse_stock = frappe.db.sql("""
             select sum(b.actual_qty) as qty from `tabBin` b 
@@ -1230,6 +1282,7 @@ def get_item_margin(item_details,company,currency,exchange_rate,user):
             purchase_receipt["qty"] = 0
         in_transit = purchase_order["qty"] - purchase_receipt["qty"]
         total_in_transit = in_transit + total_in_transit 
+        total_stock =  warehouse_stock["qty"] + in_transit
         sum_of_total_stock = total_stock + sum_of_total_stock 
         if i["special_cost"] > 0:
             spcl = spcl + 1
@@ -1240,43 +1293,49 @@ def get_item_margin(item_details,company,currency,exchange_rate,user):
         if i["internal_cost"] == 0:
             i_margin = 0
         if i["internal_cost"] > 0:
-            i_margin = (((i["rate"] * i["qty"]) - i["internal_cost"])/ (i["rate"] * i["qty"]))*100
+            i_margin = (i["rate"]*i["qty"] - i["internal_cost"]*i["qty"])/(i["rate"]*i["qty"])*100
         buying_cost = frappe.get_value("Item Price",{"item_code":i["item_code"],"price_list":"STANDARD BUYING-USD"},["price_list_rate"])
         if not buying_cost:
             bc_margin = 0
         if buying_cost:
-            bc_margin = (((i["rate"] * i["qty"]) - (buying_cost * i["qty"]))/(i["rate"]*i["qty"]))*100
-        frappe.errprint(bc_margin)
-        frappe.errprint("--------")
+            from erpnext.setup.utils import get_exchange_rate
+            buying_cost_conversion = get_exchange_rate("USD",currency)
+            buying_cost =  buying_cost *  buying_cost_conversion
+            bc_margin = (i["rate"]*i["qty"] - buying_cost*i["qty"])/(i["rate"]*i["qty"])*100
+            
         stock_price = frappe.get_value("Item",{"name":i["item_code"]},["valuation_rate"])
         if not stock_price:
             stock_margin = 0
         if stock_price:
             stock_margin = (((i["rate"] * i["qty"]) - (stock_price * i["qty"]))/(i["rate"]*i["qty"]))*100
 
-        total_selling_price =  (i["rate"] * i["qty"]) + total_selling_price
+        total_selling_price =  i["rate"]*i["qty"] + total_selling_price
         valuation_rate = frappe.get_value("Item",{"name":i["item_code"]},["valuation_rate"])
         if not valuation_rate:
             valuation_rate = 0
         total_valuation_rate = (valuation_rate * i["qty"]) + total_valuation_rate
         standard_buying_usd = frappe.get_value("Item Price",{"item_code":i["item_code"],"price_list":"STANDARD BUYING-USD"},["price_list_rate"])
+        from erpnext.setup.utils import get_exchange_rate
+        base_cost_conversion = get_exchange_rate("USD",currency)
         if not standard_buying_usd:
             standard_buying_usd = 0
-        cost_total = (standard_buying_usd * i["qty"]) + cost_total
+        else:
+            standard_buying_usd =  base_cost_conversion * standard_buying_usd
+        cost_total = standard_buying_usd*i["qty"] + cost_total
         country = frappe.get_value("Company",{"name":company},["country"])
         
-        total_internal_cost = i["internal_cost"] + total_internal_cost
+        total_internal_cost = i["internal_cost"]*i["qty"] + total_internal_cost
         total_special_price =(i["special_cost"] * i["qty"]) + total_special_price
 
-        if "CFO" in frappe.get_roles(frappe.session.user) or "COO" in frappe.get_roles(frappe.session.user) or "HOD" in frappe.get_roles(frappe.session.user):
+        if "CFO" in frappe.get_roles(frappe.session.user) or "COO" in frappe.get_roles(frappe.session.user) or "HOD" in frappe.get_roles(frappe.session.user) or "Accounts User" in frappe.get_roles(frappe.session.user):
             if i["special_cost"] > 0:
-                data_5+='<tr><td colspan=3 style="border: 1px solid black;font-size:11px;">%s</td><td colspan=2 style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td></tr>'%(i["item_code"],i["description"],warehouse_stock["qty"],in_transit,total_stock,standard_buying_usd,"{:.2f}".format(bc_margin),round(valuation_rate,2),round(stock_margin,2),round(i["internal_cost"],2),round(i_margin,2),round(i["special_cost"],2),round(i["rate"]*i["qty"],2))
+                data_5+='<tr><td colspan=3 align = "right" style="border: 1px solid black;font-size:11px;"><center>%s<center></td><td colspan=2 align = "right" style="border: 1px solid black;font-size:11px;"><center>%s<center></td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td></tr>'%(i["item_code"],i["description"],warehouse_stock["qty"],in_transit,i["qty"],total_stock,round((standard_buying_usd*i["qty"]),2),"{:.2f}".format(bc_margin),round(i["internal_cost"],2),round(i_margin,2),round(i["special_cost"],2),round((i["rate"]*i["qty"]),2))
             else:
-                data_5+='<tr><td colspan=3 style="border: 1px solid black;font-size:11px;">%s</td><td colspan=2 style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1  align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td></tr>'%(i["item_code"],i["description"],warehouse_stock["qty"],in_transit,total_stock,round(standard_buying_usd * i["qty"],2),round(bc_margin,2),round(valuation_rate * i["qty"],2),round(stock_margin,2),round(i["internal_cost"],2),round(i_margin,2),round(i["rate"]*i["qty"],2))
+                data_5+='<tr><td colspan=3 align = "right" style="border: 1px solid black;font-size:11px;"><center>%s<center></td><td colspan=2 align = "right" style="border: 1px solid black;font-size:11px;"><center>%s<center></td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1  align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td></tr>'%(i["item_code"],i["description"],warehouse_stock["qty"],in_transit,total_stock,i["qty"],round((standard_buying_usd*i["qty"]),2),round(bc_margin,2),round((i["internal_cost"]*i["qty"]),2),round(i_margin,2),round((i["rate"]*i["qty"]),2))
     if cost_total == 0:
         total_margin_cost = (total_selling_price - cost_total)/100
     else:
-        total_margin_cost = ((total_selling_price - cost_total)/ total_selling_price)*100
+        total_margin_cost = (total_selling_price - cost_total)/ total_selling_price*100
     
     if total_valuation_rate == 0:
         total_margin_valuation= (total_selling_price - total_valuation_rate)/100
@@ -1286,17 +1345,17 @@ def get_item_margin(item_details,company,currency,exchange_rate,user):
         total_margin_internal = (total_selling_price - total_internal_cost)/100
         # total_margin_internal = ((total_selling_price - total_internal_cost )/ total_internal_cost)*100
     else:
-        total_margin_internal = ((total_selling_price - total_internal_cost )/total_selling_price )*100
+        total_margin_internal = (total_selling_price - total_internal_cost )/total_selling_price*100
     
     if total_special_price == 0:
         total_margin_special = (total_selling_price - total_special_price)/100
     else:
         total_margin_special = ((total_selling_price - total_special_price)/total_selling_price)*100
-    if "CFO" in frappe.get_roles(frappe.session.user) or "COO" in frappe.get_roles(frappe.session.user) or "HOD" in frappe.get_roles(frappe.session.user):
+    if "CFO" in frappe.get_roles(frappe.session.user) or "COO" in frappe.get_roles(frappe.session.user) or "HOD" in frappe.get_roles(frappe.session.user) or "Accounts User" in frappe.get_roles(frappe.session.user):
         if spcl == 0:
-            data_5 += '<tr style="line-height:0.6;"><th style="padding-top:12px;border: 1px solid black;font-size:11px" colspan=5><center><b>TOTAL MARGIN</b></center></th><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;"><b>%s<b></td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;"><b>%s<b></td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;"><b>%s<b></td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;"><b>%s %% </b><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;"><b>%s</b></td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;"><b>%s %% </b></td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;"><b>%s</b></td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td></tr>'%(total_warehouse,total_in_transit,sum_of_total_stock,round(total_margin_cost,2),'',round(total_margin_valuation,2),'',round(total_margin_internal,2),'','')
+            data_5 += '<tr style="line-height:0.6;"><th style="padding-top:12px;border: 1px solid black;font-size:11px" colspan=5><center><b>TOTAL MARGIN BASED ON INTERNAL COST : %s</b></center></th><td colspan=4 align = "right" style="border: 1px solid black;font-size:11px;"><b>%s<b></td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;"><b>%s</b></td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;"><b>%s</b><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;"><b>%s</b></td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;"><b>%s</b></td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;"><b>%s</b></td></tr>'%(round(total_margin_internal,2),'',round(cost_total,2),round(total_margin_cost,2),round(total_internal_cost,2),round(total_margin_internal,2),round(total_selling_price,2))
         else:
-            data_5 += '<tr style="line-height:0.6;"><th style="padding-top:12px;border: 1px solid black;font-size:11px" colspan=5><center><b>TOTAL MARGIN</b></center></th><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;"><b>%s<b></td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;"><b>%s %% </b><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;"><b>%s</b></td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;"><b>%s %% </b></td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;"><b>%s</b></td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;"><b>%s</b></td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td></tr>'%(total_warehouse,total_in_transit,sum_of_total_stock,round(total_margin_cost,2),round(total_margin_valuation,2),'',round(total_margin_internal,2),'',round(total_margin_special,2),'','')
+            data_5 += '<tr style="line-height:0.6;"><th style="padding-top:12px;border: 1px solid black;font-size:11px" colspan=5><center><b>TOTAL MARGIN BASED ON INTERNAL COST : %s</b></center></th><td colspan=4 align = "right" style="border: 1px solid black;font-size:11px;"><b>%s<b></td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;"><b>%s</b></td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;"><b>%s</b><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;"><b>%s</b></td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;"><b>%s</b></td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;"><b>%s</b></td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;"><b>%s</b></td></tr>'%(round(total_margin_internal,2),'',round(cost_total,2),round(total_margin_cost,2),round(total_internal_cost,2),round(total_margin_special,2),'',round(total_selling_price,2))
     data_5+='</table>'
 
 
@@ -1305,6 +1364,7 @@ def get_item_margin(item_details,company,currency,exchange_rate,user):
     if "CFO" in frappe.get_roles(frappe.session.user) or "COO" in frappe.get_roles(frappe.session.user) or "HOD" in frappe.get_roles(frappe.session.user):
         data_1 += '<table class="table table-bordered"><tr><th style="padding:1px;border: 1px solid black;font-size:14px;background-color:#FF4500;color:white;" colspan=9><center><b>MARGIN BY PERCENTAGE</b></center></th></tr>'
         data_1+='<tr><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>ITEM</b></td><td colspan=1 style="border: 1px solid black;font-size:11px;width:50%"><b>ITEM NAME</b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>COST</b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>STOCK PRICE</b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>INTERNAL COST</b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>SPECIAL PRICE</b></td></tr>'
+    internal = 0
     for item in item_details:
         # c = CurrencyRates()
         # if not currency == "USD":
@@ -1400,6 +1460,7 @@ def get_item_margin(item_details,company,currency,exchange_rate,user):
 @frappe.whitelist()
 def get_internal_cost(company,item_code):
     country = frappe.get_value("Company",{"name":company},["country"])
+    internal = 0
     if country == "Singapore":
         internal = frappe.get_value("Item Price",{'item_code':item_code,'price_list':"Singapore Internal Cost"},['price_list_rate'])
         if not internal:
@@ -1597,6 +1658,7 @@ def dn_status(doc,method):
 
 @frappe.whitelist()
 def create_file_number(doc,method):
+    
     code = 'F-Q-' + doc.abbr
     doc_no = doc.name[-5:]
     file_no = code + '-' + doc_no
@@ -1725,3 +1787,389 @@ def create_file_number_mr(doc,method):
         file_no = code + '-' + doc_no
         doc.file_number = file_no
 
+# @frappe.whitelist()
+# def get_sub_heading(item_detail):
+#     item_detail = json.loads(item_detail)
+#     l1 = []
+#     l2 = []
+#     for i in item_detail:
+#         if i['item_sub_heading'] not in l1:
+#             l1.append(i["item_sub_heading"])
+#         else:
+#             l2.append(i["item_sub_heading"])
+#     return l1
+
+
+
+@frappe.whitelist()
+def get_item_heading(item_details):
+    item_details = json.loads(item_details)
+    l1 = []
+    l2 = []
+    for i in item_details:
+        if i['item_heading'] not in l1:
+            l1.append(i["item_heading"])
+        else:
+            l2.append(i["item_heading"])
+    return l1
+
+
+@frappe.whitelist()
+def get_duplicate_item(item_details):
+    item_details = json.loads(item_details)
+    l1 = []
+    l2 = []
+    for i in item_details:
+        if i['item_code'] not in l1:
+            l1.append(i["item_code"])
+        else:
+            l2.append(i["item_code"])
+    return l1
+
+@frappe.whitelist()
+def get_item_details(company,name,currency,so_no,item_details,supplier):
+    item_details = json.loads(item_details)
+    so_currency = frappe.get_value("Sales Order",{"name":so_no},["currency"])
+    data = ''
+    data+='<table class = table table-bordered >' 
+    data += '<table class="table table-bordered"><tr rowspan = 2 ><th style="padding:1px;border: 1px solid black;width:100%;" colspan=16><center><b>Item Details</b></center></th></tr>'
+    so_cust = frappe.get_value("Sales Order",{"name":so_no},["customer_name"])
+    so_pt = frappe.get_value("Sales Order",{"name":so_no},["payment_terms_template"])
+    po_pt = frappe.get_value("Purchase Order",{"name":name},["payment_terms_template"])
+    data += '<tr rowspan = 2 ><td style="padding:1px;border: 1px solid black;" colspan=3><b>Customer</b></td><td style="padding:1px;border: 1px solid black;" colspan=4>%s</td><td style="padding:1px;border: 1px solid black;" colspan = 3><b>Supplier</b></td><td style="padding:1px;border: 1px solid black;" colspan=5 >%s</td></tr>'%(so_cust,supplier)
+    data += '<tr rowspan = 2 ><td style="padding:1px;border: 1px solid black;" colspan=3><b>Payment Terms</b></td><td style="padding:1px;border: 1px solid black;" colspan=4>%s</td><td style="padding:1px;border: 1px solid black;" colspan = 3><b>Payment Terms</b></td><td style="padding:1px;border: 1px solid black;" colspan=5 >%s</td></tr>'%(so_pt,po_pt or '')
+    data += '<tr rowspan = 2 ><td style="padding:1px;border: 1px solid black;width:100px;" colspan=2><b>Item Code</b></td><td style="padding:1px;border: 1px solid black;" colspan=2><b>Description</b></td><td style="padding:1px;border: 1px solid black;" colspan=1><b>Qty</b></td><td style="padding:1px;border: 1px solid black;" colspan=1><b>Rate</b></td><td style="padding:1px;border: 1px solid black;" colspan=1><b>Prv PO</b></td><td style="padding:1px;border: 1px solid black;" colspan=1><b>Selling Rate</b></td><td style="padding:1px;border: 1px solid black;" colspan=2><b>Margin%</b></td><td style="padding:1px;border: 1px solid black;" colspan=2><b>Stock</b></td><td style="padding:1px;border: 1px solid black;" colspan=2><b>In transit</b></td><td style="padding:1px;border: 1px solid black;" colspan=2><b>Currency</b></td></tr>'
+    for i in item_details:
+        frappe.errprint(i["item_code"])
+        from erpnext.setup.utils import get_exchange_rate
+        mr_ex = get_exchange_rate(currency,so_currency)
+        i["rate"] = mr_ex * i["rate"] 
+        i["rate"] = round( i["rate"],3)
+        s_rate = frappe.db.sql(""" select `tabSales Order Item`.rate as rate from `tabSales Order`
+            left join `tabSales Order Item` on `tabSales Order`.name = `tabSales Order Item`.parent 
+            where `tabSales Order`.name = '%s' and `tabSales Order Item`.item_code = '%s' """ %(so_no,i["item_code"]),as_dict = True)
+        if s_rate:
+            if i["rate"] == 0:
+                margin = (s_rate[0]["rate"] - i["rate"])*100
+            else:
+                margin = (s_rate[0]["rate"] - i["rate"])/i["rate"]*100
+        pos = frappe.db.sql(""" select `tabPurchase Order Item`.item_code as item_code,
+        `tabPurchase Order Item`.item_name as item_name,
+        `tabPurchase Order`.supplier as supplier,`tabPurchase Order Item`.qty as qty,
+        `tabPurchase Order Item`.amount as amount,
+         `tabPurchase Order Item`.rate as rate,
+        `tabPurchase Order`.transaction_date as date,
+        `tabPurchase Order`.name as po,
+        `tabPurchase Order`.company as company,
+        `tabPurchase Order`.currency as currency from 
+        `tabPurchase Order`
+        left join `tabPurchase Order Item` on `tabPurchase Order`.name = `tabPurchase Order Item`.parent
+        where `tabPurchase Order`.company = '%s' and 
+        `tabPurchase Order Item`.item_code = '%s' and
+        `tabPurchase Order`.name != '%s' and  
+        `tabPurchase Order`.docstatus != 2 order by date desc """ % (company,i["item_code"],name), as_dict=True) 
+        ppo = 0
+        if pos:
+            from erpnext.setup.utils import get_exchange_rate
+            pos_ex = get_exchange_rate(pos[0]["currency"],so_currency)
+            pos[0]["rate"] = pos_ex * pos[0]["rate"]
+            pos[0]["rate"] = round(pos[0]["rate"],3)
+            ppo = pos[0]["rate"]
+        # frappe.errprint(pos[0]["rate"])
+        # if not pos:
+        # if not pos:
+        #     pos[""] = 0
+        purchase_order = frappe.db.sql("""select sum(`tabPurchase Order Item`.qty) as qty from `tabPurchase Order`
+            left join `tabPurchase Order Item` on `tabPurchase Order`.name = `tabPurchase Order Item`.parent
+            where `tabPurchase Order Item`.item_code = '%s' and `tabPurchase Order`.docstatus != 2 and `tabPurchase Order`.company = '%s' """%(i["item_code"],company),as_dict=True)[0] or 0 
+        if not purchase_order["qty"]:
+            purchase_order["qty"] = 0
+        purchase_receipt = frappe.db.sql("""select sum(`tabPurchase Receipt Item`.qty) as qty from `tabPurchase Receipt`
+                left join `tabPurchase Receipt Item` on `tabPurchase Receipt`.name = `tabPurchase Receipt Item`.parent
+                where `tabPurchase Receipt Item`.item_code = '%s' and `tabPurchase Receipt`.docstatus = 1 and `tabPurchase Receipt`.company = '%s' """%(i["item_code"],company),as_dict=True)[0] or 0 
+        if not purchase_receipt["qty"]:
+            purchase_receipt["qty"] = 0
+        in_transit = purchase_order["qty"] - purchase_receipt["qty"]
+        country = frappe.get_value("Company",{"name":company},["country"])
+        warehouse_stock = frappe.db.sql("""
+            select sum(b.actual_qty) as qty from `tabBin` b 
+            join `tabWarehouse` wh on wh.name = b.warehouse
+            join `tabCompany` c on c.name = wh.company
+            where c.country = '%s' and b.item_code = '%s' and wh.company = '%s'
+            """ % (country,i["item_code"],company),as_dict=True)[0]
+        if not warehouse_stock["qty"]:
+            warehouse_stock["qty"] = 0
+        # if pos:
+        #     data += '<tr rowspan = 2 ><td style="padding:1px;border: 1px solid black;" colspan=1>%s</td><td style="padding:1px;border: 1px solid black;" colspan=3>%s</td><td style="padding:1px;border: 1px solid black;" colspan=1>%s</td><td style="padding:1px;border: 1px solid black;" colspan=1>%s</td><td style="padding:1px;border: 1px solid black;" colspan=1 >%s</td><td style="padding:1px;border: 1px solid black;" colspan=1 >%s</td><td style="padding:1px;border: 1px solid black;" colspan=2 >%s</td><td style="padding:1px;border: 1px solid black;" colspan=2 >%s</td><td style="padding:1px;border: 1px solid black;" colspan=2 >%s</td><td style="padding:1px;border: 1px solid black;" colspan=2 >%s</td></tr>'%(i["item_code"],i["description"],i["qty"],i["rate"],pos["amount"]/pos["qty"],s_rate["rate"],round(margin,2),warehouse_stock["qty"],in_transit,currency)
+        # else:
+        data += '<tr rowspan = 2 ><td style="padding:1px;border: 1px solid black;width:150px;" colspan=2>%s</td><td style="padding:1px;border: 1px solid black;width:150px;" colspan=2>%s</td><td style="padding:1px;border: 1px solid black;" colspan=1>%s</td><td style="padding:1px;border:1px solid black;width:80px;" colspan=1>%s</td><td style="padding:1px;border: 1px solid black;" colspan=1>%s</td><td style="padding:1px;border: 1px solid black;" colspan=1 >%s</td><td style="padding:1px;border: 1px solid black;" colspan=2 >%s</td><td style="padding:1px;border: 1px solid black;" colspan=2 >%s</td><td style="padding:1px;border: 1px solid black;" colspan=2 >%s</td><td style="padding:1px;border: 1px solid black;" colspan=2 >%s</td></tr>'%(i["item_code"],i["description"],i["qty"],i["rate"],ppo,s_rate[0]["rate"],round(margin,2),warehouse_stock["qty"],in_transit,so_currency)   
+    data+='</table>'
+    return data
+
+
+@frappe.whitelist()
+def get_item_details_frm_mr(mat_rq,company,name,currency,item_details,supplier):
+    if mat_rq:
+        item_details = json.loads(item_details)
+        # mr = frappe.get_doc("Material Request",mat_rq)
+        mr_currency = frappe.get_value("Material Request",{"name":mat_rq},["project_currency"])
+        data = ''
+        data+='<table class = table table-bordered >' 
+        data += '<table class="table table-bordered"><tr rowspan = 2 ><th style="padding:1px;border: 1px solid black;width:100%;" colspan=18><center><b>Item Details</b></center></th></tr>'
+        mr_cust = frappe.get_value("Material Request",{"name":mat_rq},["customers"])
+        po_pt = frappe.get_value("Purchase Order",{"name":name},["payment_terms_template"])
+        data += '<tr rowspan = 2 ><td style="padding:1px;border: 1px solid black;" colspan=4><b>Customer</b></td><td style="padding:1px;border: 1px solid black;" colspan=4>%s</td><td style="padding:1px;border: 1px solid black;" colspan = 4><b>Supplier</b></td><td style="padding:1px;border: 1px solid black;" colspan=5 >%s</td></tr>'%(mr_cust,supplier)
+        data += '<tr rowspan = 2 ><td style="padding:1px;border: 1px solid black;" colspan=4><b>Payment Terms</b></td><td style="padding:1px;border: 1px solid black;" colspan=4>%s</td><td style="padding:1px;border: 1px solid black;" colspan = 4><b>Payment Terms</b></td><td style="padding:1px;border: 1px solid black;" colspan=5 >%s</td></tr>'%('',po_pt or '')
+        data += '<tr rowspan = 2 ><td style="padding:1px;border: 1px solid black;" colspan=3><b>Item Code</b></td><td style="padding:1px;border: 1px solid black;" colspan=2><b>Description</b></td><td style="padding:1px;border: 1px solid black;" colspan=1><b>Qty</b></td><td style="padding:1px;border: 1px solid black;" colspan=1><b>Rate</b></td><td style="padding:1px;border: 1px solid black;" colspan=2><b>Prv Po</b></td><td style="padding:1px;border: 1px solid black;" colspan=1><b>Selling Rate</b></td><td style="padding:1px;border: 1px solid black;" colspan=2><b>Margin%</b></td><td style="padding:1px;border: 1px solid black;" colspan=2><b>Stock</b></td><td style="padding:1px;border: 1px solid black;" colspan=2><b>In transit</b></td><td style="padding:1px;border: 1px solid black;" colspan=2><b>Currency</b></td></tr>'
+        for i in item_details:
+            frappe.errprint(i["item_code"])
+            from erpnext.setup.utils import get_exchange_rate
+            mr_ex = get_exchange_rate(currency,mr_currency)
+            i["rate"] = mr_ex * i["rate"] 
+            i["rate"] = round(i["rate"],3)
+            m_rate = frappe.db.sql(""" select `tabMaterial Request Item`.Sales_price as sales_price ,`tabMaterial Request`.currency as currency from `tabMaterial Request`
+                left join `tabMaterial Request Item` on `tabMaterial Request`.name = `tabMaterial Request Item`.parent 
+                where `tabMaterial Request`.name = '%s' and `tabMaterial Request Item`.item_code = '%s' """ %(mat_rq,i["item_code"]),as_dict = True)[0]
+            if i["rate"] == 0:
+                margin = (m_rate["sales_price"] - i["rate"])*100
+            else:
+                margin = (m_rate["sales_price"] - i["rate"])/i["rate"]*100
+            pos = frappe.db.sql("""select `tabPurchase Order Item`.item_code as item_code,
+            `tabPurchase Order Item`.item_name as item_name,
+            `tabPurchase Order`.supplier as supplier,
+            `tabPurchase Order Item`.qty as qty,
+            `tabPurchase Order Item`.amount as amount,
+            `tabPurchase Order Item`.rate as rate,
+            `tabPurchase Order`.transaction_date as date,
+            `tabPurchase Order`.name as po,
+            `tabPurchase Order`.company as company,
+            `tabPurchase Order`.currency as currency from `tabPurchase Order`
+            left join `tabPurchase Order Item` on `tabPurchase Order`.name = `tabPurchase Order Item`.parent
+            where `tabPurchase Order`.company = '%s' and 
+            `tabPurchase Order Item`.item_code = '%s' and 
+            `tabPurchase Order`.name != '%s' and 
+            `tabPurchase Order`.docstatus != 2 order by date desc """ % (company,i["item_code"],name), as_dict=True)
+            ppo = 0
+            if pos:
+                frappe.errprint(pos[0]["rate"])
+                from erpnext.setup.utils import get_exchange_rate
+                pos_ex = get_exchange_rate(pos[0]["currency"],mr_currency)
+                pos[0]["rate"] = pos_ex * pos[0]["rate"]
+                pos[0]["rate"] = round(pos[0]["rate"],3)
+                ppo = pos[0]["rate"]
+            frappe.errprint(ppo)
+            # if not pos:
+            #     pos = 123
+            # if pos:
+            #     frappe.errprint(pos)
+                # from erpnext.setup.utils import get_exchange_rate
+                # pos_ex = get_exchange_rate(pos["currency"],mr_currency)
+                # pos["amount"] = pos_ex * pos["amount"]
+                # pos["amount"] = round(pos["amount"],3)
+            
+            purchase_order = frappe.db.sql("""select sum(`tabPurchase Order Item`.qty) as qty from `tabPurchase Order`
+                left join `tabPurchase Order Item` on `tabPurchase Order`.name = `tabPurchase Order Item`.parent
+                where `tabPurchase Order Item`.item_code = '%s' and `tabPurchase Order`.docstatus != 2 and `tabPurchase Order`.company = '%s' and `tabPurchase Order`.name != '%s' """%(i["item_code"],company,name),as_dict=True)[0] or 0 
+            if not purchase_order["qty"]:
+                purchase_order["qty"] = 0
+            purchase_receipt = frappe.db.sql("""select sum(`tabPurchase Receipt Item`.qty) as qty from `tabPurchase Receipt`
+                    left join `tabPurchase Receipt Item` on `tabPurchase Receipt`.name = `tabPurchase Receipt Item`.parent
+                    where `tabPurchase Receipt Item`.item_code = '%s' and `tabPurchase Receipt`.docstatus = 1 and `tabPurchase Receipt`.company = '%s' """%(i["item_code"],company),as_dict=True)[0] or 0 
+            if not purchase_receipt["qty"]:
+                purchase_receipt["qty"] = 0
+            in_transit = purchase_order["qty"] - purchase_receipt["qty"]
+            country = frappe.get_value("Company",{"name":company},["country"])
+            warehouse_stock = frappe.db.sql("""
+                select sum(b.actual_qty) as qty from `tabBin` b 
+                join `tabWarehouse` wh on wh.name = b.warehouse
+                join `tabCompany` c on c.name = wh.company
+                where c.country = '%s' and b.item_code = '%s' and wh.company = '%s'
+                """ % (country,i["item_code"],company),as_dict=True)[0]
+            if not warehouse_stock["qty"]:
+                warehouse_stock["qty"] = 0
+            data += '<tr rowspan = 2 ><td colspan=3 style="padding:1px;border: 1px solid black;";>%s</td><td style="padding:1px;border: 1px solid black;" colspan=2>%s</td><td style="padding:1px;border: 1px solid black;" colspan=1>%s</td><td style="padding:1px;border: 1px solid black;" colspan=1>%s</td><td style="padding:1px;border: 1px solid black;" colspan=1 >%s</td><td style="padding:1px;border: 1px solid black;" colspan=2 >%s</td><td style="padding:1px;border: 1px solid black;" colspan=2 >%s</td><td style="padding:1px;border: 1px solid black;" colspan=2 >%s</td><td style="padding:1px;border: 1px solid black;" colspan=2 >%s</td><td style="padding:1px;border: 1px solid black;" colspan=2 >%s</td></tr>'%(i["item_code"],i["description"],i["qty"],round(i["rate"],2),ppo,m_rate["sales_price"],round(margin,2),warehouse_stock["qty"],in_transit,mr_currency)
+        data+='</table>'
+        return data
+
+    else:
+        data_1 = ''
+        data_1+='<table class = table table-bordered >' 
+        data_1+= '<table class="table table-bordered"><tr rowspan = 2 ><th style="padding:1px;border: 1px solid black;width:100%;" colspan=16><center><b>No Data Found</b></center></th></tr>'
+        data_1+='</table>'
+        return data_1
+
+
+# @frappe.whitelist()
+# def update_sales_order(import_file):
+#     filepath = get_file(import_file)
+#     pps = read_csv_content(filepath[1])
+#     for pp in pps:
+#         if frappe.db.exists('Sales Order',{'name':pp[2]}):
+#             c = frappe.get_value("Sales Order",{"name":pp[2]},["docstatus"])
+#             if c == 0 or c == 1:
+#                 print(pp[2])
+#                 doc = frappe.get_doc("Sales Order",pp[2])
+#                 doc.prepared_by =  pp[6]
+#                 doc.sale_person =  pp[7]
+#                 doc.territory =  pp[8]
+#                 doc.save(ignore_permissions=True)
+#                 # frappe.db.set_value("Sales Order", pp[2], "prepared_by", pp[6])
+#                 # frappe.db.set_value("Sales Order", pp[2], "sale_person", pp[7])
+#                 # frappe.db.set_value("Sales Order", pp[2], "territory", pp[8])
+#                 so = frappe.db.sql(""" update `tabSales Order` set territory = '%s',sale_person = '%s',prepared_by = '%s' where name = '%s' """%(pp[8],pp[7],pp[6],pp[2]))
+#                 print(so)
+        # if frappe.db.exists('Salary Structure Assignment',{'employee':pp[0]}):
+        #     if pp[0] != "Employee":
+        #         doj = frappe.db.get_value('Employee',{'employee':pp[0]},['date_of_joining'])
+        #         if doj:
+        #             if pd.to_datetime(pp[3]).date() > doj: 
+        #                 company = frappe.db.get_value("Employee",{'employee':pp[0]},['company'])
+        #                 print(company)
+        #                 if company:
+        #                     doc = frappe.new_doc("Additional Salary")
+        #                     doc.employee = pp[0]
+        #                     doc.company = company
+        #                     doc.salary_component = pp[1]
+        #                     doc.amount = int(str(pp[2]).replace(',',''))
+        #                     doc.payroll_date = '2022-02-16'
+        #                     doc.save(ignore_permissions = True)
+        #                     doc.submit
+
+
+# @frappe.whitelist()
+# def check_so_items(so_no):
+#     item = frappe.db.sql(""" select sum(`tabMaterial Request Item`.qty) as qty,sum(`tabaterial Request Item`.amount) as amount from `tabMaterial Request` where `tabMaterial Request`.sales_order_number = %s """%(so_no),as_dict = True)
+#     frappe.errprint(item)
+#     return "hi"
+
+# @frappe.whitelist()
+# def so_update():
+#     so = frappe.db.sql(""" update `tabSales Order` set territory = '%s',sale_person = '%s',prepared_by = '%s' where name = '%s' """%("Vietnam","leminhthe@norden.com.sg","deepa@nordencommunication.com","SO-NSPL-2022-00055"))
+
+
+@frappe.whitelist()
+def get_credit_days(supplier,self):
+    sup_name = frappe.get_value("Supplier",{"name":supplier},["payment_terms"])
+    if sup_name:
+        crd_days = frappe.db.sql("""select `tabPayment Terms Template Detail`.credit_days as credit_days
+                             from `tabPayment Terms Template` left join `tabPayment Terms Template Detail` on `tabPayment Terms Template`.name = `tabPayment Terms Template Detail`.parent 
+                             where `tabPayment Terms Template`.docstatus !=2 """,as_dict= 1)[0]
+        
+        return crd_days['credit_days']
+
+    # url = get_url_to_form("Logistics Request", self.name)
+    # 	frappe.sendmail(
+    # 		recipients='karthikeyan.s@groupteampro.com',
+    # 		subject=_("Logistics OPS Request"),
+    # 		header=_("Logistics OPS Request"),
+    # 		message = """<p style='font-size:18px'>Logistics OPS Request has been raised for Purchase Order - (<b>%s</b>).</p><br><br>
+    # 		<form action="%s">
+    # 		<input type="submit" value="Open Logistics Request" />
+    # 		</form>
+    # 		"""%(self.order_no,url)
+    # 	)
+
+
+
+
+@frappe.whitelist()
+def change_territory(customer,territory):
+    quotation = frappe.get_all("Quotation",{"customer_name":customer,"docstatus":"draft"})
+    sale_order = frappe.get_all("Sales Order",{"customer":customer,"docstatus":"draft"})
+    sale_invoice = frappe.get_all("Sales Invoice",{"customer":customer,"docstatus":"draft"})
+    delivery_note = frappe.get_all("Delivery Note",{"customer":customer,"docstatus":"draft"})
+    for q in quotation:
+        frappe.db.set_value("Quotation",q.name,"territory",territory)
+    for s in sale_order:
+        frappe.db.set_value("Sales Order",s.name,"territory",territory)
+    for si in sale_invoice:
+        frappe.db.set_value("Sales Invoice",si.name,"territory",territory)
+    for d in delivery_note:
+        frappe.db.set_value("Delivery Note",d.name,"territory",territory)
+
+
+@frappe.whitelist()
+def margin(item_details,company,currency,exchange_rate,user,price_list):
+    item_details = json.loads(item_details)
+    data = ''
+    if "CFO" in frappe.get_roles(frappe.session.user) or "COO" in frappe.get_roles(frappe.session.user) or "HOD" in frappe.get_roles(frappe.session.user) or "Accounts User" in frappe.get_roles(frappe.session.user):
+        data+= '<table class="table"><tr><th style="padding:1px;border: 1px solid black;font-size:14px;" colspan=18><center><b>MARGIN BY VALUE & MARGIN BY PERCENTAGE</b></center></th></tr>'
+        spl = 0
+        for i in item_details:
+            if i["special_cost"] > 0:
+                spl = spl + 1
+        if spl == 0:
+            if price_list == "Internal Cost":
+                data+='<tr><td colspan=3 style="border:1px solid black;font-size:11px;width:20%;"><center><b>ITEM</b></center></td><td colspan=2 style="border: 1px solid black;font-size:11px;width:30%;"><center><b>ITEM NAME</b></center></td><td colspan=1 style="border: 0.5px solid black;font-size:11px;"><b><center>IN WAREHOUSE</center></b></td><td colspan=1 style="border: 0.5px solid black;font-size:11px;"><b><center>IN TRANSIT</center></b></td><td colspan=1 style="border: 0.5px solid black;font-size:11px;"><b><center>TOTAL</center></b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>QTY</b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>COST</b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>COST %</b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>INTERNAL COST</b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>INTERNAL COST %</b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>SELLING PRICE</b></td></tr>'
+            if price_list == "Freight":
+                data+='<tr><td colspan=3 style="border:1px solid black;font-size:11px;width:20%;"><center><b>ITEM</b></center></td><td colspan=2 style="border: 1px solid black;font-size:11px;width:30%;"><center><b>ITEM NAME</b></center></td><td colspan=1 style="border: 0.5px solid black;font-size:11px;"><b><center>IN WAREHOUSE</center></b></td><td colspan=1 style="border: 0.5px solid black;font-size:11px;"><b><center>IN TRANSIT</center></b></td><td colspan=1 style="border: 0.5px solid black;font-size:11px;"><b><center>TOTAL</center></b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>QTY</b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>COST</b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>COST %</b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>FREIGHT</b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>FREIGHT %</b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>SELLING PRICE</b></td></tr>'
+            if price_list == "Sales Price":
+                data+='<tr><td colspan=3 style="border:1px solid black;font-size:11px;width:20%;"><center><b>ITEM</b></center></td><td colspan=2 style="border: 1px solid black;font-size:11px;width:30%;"><center><b>ITEM NAME</b></center></td><td colspan=1 style="border: 0.5px solid black;font-size:11px;"><b><center>IN WAREHOUSE</center></b></td><td colspan=1 style="border: 0.5px solid black;font-size:11px;"><b><center>IN TRANSIT</center></b></td><td colspan=1 style="border: 0.5px solid black;font-size:11px;"><b><center>TOTAL</center></b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>QTY</b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>COST</b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>COST %</b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>SALES PRICE</b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>SALES PRICE %</b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>SELLING PRICE</b></td></tr>'
+        else:
+            data+='<tr><td colspan=3 style="border:1px solid black;font-size:11px;width:20%;"><center><b>ITEM</b></center></td><td colspan=2 style="border: 1px solid black;font-size:11px;width:30%;"><center><b>ITEM NAME</b></center></td><td colspan=1 style="border: 0.5px solid black;font-size:11px;"><b><center>IN WAREHOUSE</center></b></td><td colspan=1 style="border: 0.5px solid black;font-size:11px;"><b><center>IN TRANSIT</center></b></td><td colspan=1 style="border: 0.5px solid black;font-size:11px;"><b><center>TOTAL</center></b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>QTY</b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>COST</b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>COST %</b></td></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>INTERNAL COST</b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>INTERNAL COST %</b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>SPECIAL PRICE</b></td><td colspan=1 style="border: 1px solid black;font-size:11px;"><b>SELLING PRICE</b></td></tr>'
+
+    total_internal_cost = 0
+    total_special_price = 0
+    total_selling_price = 0
+    cost_total = 0
+    total_valuation_rate = 0
+    spcl = 0
+    total_warehouse = 0
+    total_in_transit = 0
+    total_stock = 0
+    sum_of_total_stock = 0
+    for i in item_details:
+        frappe.errprint(i["rate"])
+        frappe.errprint("------------")
+        country = frappe.get_value("Company",{"name":company},["country"])
+        warehouse_stock = frappe.db.sql("""
+            select sum(b.actual_qty) as qty from `tabBin` b 
+            join `tabWarehouse` wh on wh.name = b.warehouse
+            join `tabCompany` c on c.name = wh.company
+            where c.country = '%s' and b.item_code = '%s' and wh.company = '%s'
+            """ % (country,i["item_code"],company),as_dict=True)[0]
+        if not warehouse_stock["qty"]:
+            warehouse_stock["qty"] = 0
+        total_warehouse = total_warehouse + warehouse_stock["qty"]
+
+        purchase_order = frappe.db.sql("""select sum(`tabPurchase Order Item`.qty) as qty from `tabPurchase Order`
+                left join `tabPurchase Order Item` on `tabPurchase Order`.name = `tabPurchase Order Item`.parent
+                where `tabPurchase Order Item`.item_code = '%s' and `tabPurchase Order`.docstatus != 2 and `tabPurchase Order`.company = '%s'  """%(i["item_code"],company),as_dict=True)[0] or 0 
+        if not purchase_order["qty"]:
+            purchase_order["qty"] = 0
+        purchase_receipt = frappe.db.sql("""select sum(`tabPurchase Receipt Item`.qty) as qty from `tabPurchase Receipt`
+                left join `tabPurchase Receipt Item` on `tabPurchase Receipt`.name = `tabPurchase Receipt Item`.parent
+                where `tabPurchase Receipt Item`.item_code = '%s' and `tabPurchase Receipt`.docstatus = 1 and  `tabPurchase Receipt`.company = '%s' """%(i["item_code"],company),as_dict=True)[0] or 0 
+        if not purchase_receipt["qty"]:
+            purchase_receipt["qty"] = 0
+        in_transit = purchase_order["qty"] - purchase_receipt["qty"]
+        total_in_transit = in_transit + total_in_transit 
+        total_stock =  warehouse_stock["qty"] + in_transit
+        sum_of_total_stock = total_stock + sum_of_total_stock 
+        if i["special_cost"] > 0:
+            spcl = spcl + 1
+
+        sbu = frappe.get_value("Item Price",{'item_code':i["item_code"],'price_list':'STANDARD BUYING-USD'},["price_list_rate"])
+        value = frappe.db.get_value("Margin Price Tool")
+        frappe.errprint(value)
+        # for i in ic.singapore:
+        #     frappe.errprint(i)
+
+        
+        if "CFO" in frappe.get_roles(frappe.session.user) or "COO" in frappe.get_roles(frappe.session.user) or "HOD" in frappe.get_roles(frappe.session.user) or "Accounts User" in frappe.get_roles(frappe.session.user):
+            if i["special_cost"] > 0:
+                data+='<tr><td colspan=3 align = "right" style="border: 1px solid black;font-size:11px;"><center>%s<center></td><td colspan=2 align = "right" style="border: 1px solid black;font-size:11px;"><center>%s<center></td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td></tr>'%(i["item_code"],i["description"],warehouse_stock["qty"],in_transit,i["qty"],total_stock,'','','','','','')
+            else:
+                data+='<tr><td colspan=3 align = "right" style="border: 1px solid black;font-size:11px;"><center>%s<center></td><td colspan=2 align = "right" style="border: 1px solid black;font-size:11px;"><center>%s<center></td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1  align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;">%s</td></tr>'%(i["item_code"],i["description"],warehouse_stock["qty"],in_transit,total_stock,i["qty"],sbu,'','','','')
+   
+    if "CFO" in frappe.get_roles(frappe.session.user) or "COO" in frappe.get_roles(frappe.session.user) or "HOD" in frappe.get_roles(frappe.session.user) or "Accounts User" in frappe.get_roles(frappe.session.user):
+        if spcl == 0:
+            data += '<tr style="line-height:0.6;"><th style="padding-top:12px;border: 1px solid black;font-size:11px" colspan=5><center><b>TOTAL MARGIN BASED ON INTERNAL COST : %s</b></center></th><td colspan=4 align = "right" style="border: 1px solid black;font-size:11px;"><b>%s<b></td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;"><b>%s</b></td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;"><b>%s</b><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;"><b>%s</b></td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;"><b>%s</b></td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;"><b>%s</b></td></tr>'%('','','','','','','')
+        else:
+            data += '<tr style="line-height:0.6;"><th style="padding-top:12px;border: 1px solid black;font-size:11px" colspan=5><center><b>TOTAL MARGIN BASED ON INTERNAL COST : %s</b></center></th><td colspan=4 align = "right" style="border: 1px solid black;font-size:11px;"><b>%s<b></td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;"><b>%s</b></td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;"><b>%s</b><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;"><b>%s</b></td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;"><b>%s</b></td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;"><b>%s</b></td><td colspan=1 align = "right" style="border: 1px solid black;font-size:11px;"><b>%s</b></td></tr>'%('','','','','')
+    data+='</table>'
+    return data
+
+
+        
+   

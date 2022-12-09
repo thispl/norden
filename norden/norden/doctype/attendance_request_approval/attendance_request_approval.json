@@ -1,0 +1,58 @@
+{
+ "actions": [],
+ "creation": "2022-12-03 18:18:24.553844",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "for_employee",
+  "employee_name",
+  "from_date",
+  "to_date",
+  "reason"
+ ],
+ "fields": [
+  {
+   "fieldname": "for_employee",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "From Employee"
+  },
+  {
+   "fieldname": "employee_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Employee Name"
+  },
+  {
+   "fieldname": "from_date",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "From date"
+  },
+  {
+   "fieldname": "to_date",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "To date"
+  },
+  {
+   "fieldname": "reason",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Reason"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2022-12-03 18:22:24.835013",
+ "modified_by": "Administrator",
+ "module": "Norden",
+ "name": "Attendance Request Approval",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

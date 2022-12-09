@@ -15,9 +15,11 @@
   "column_break_4",
   "cargo_type",
   "supplier",
+  "credit_days",
   "seacontainertype",
   "inventory_destination",
   "naming_series",
+  "alert_date",
   "section_break_12",
   "product_description",
   "section_break_14",
@@ -53,8 +55,8 @@
   "column_break_42",
   "pod_country",
   "carrier_name",
-  "eta",
   "etd",
+  "eta",
   "transit_time",
   "document_dispatch_list",
   "documents_status_section",
@@ -106,7 +108,7 @@
    "fieldtype": "Select",
    "in_list_view": 1,
    "label": "Logistic Type",
-   "options": "\nImport\nExport"
+   "options": "\nImport\nExport\nLocal\nCross Trade"
   },
   {
    "fieldname": "po_so",
@@ -125,6 +127,7 @@
    "fieldname": "company",
    "fieldtype": "Link",
    "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Company",
    "options": "Company"
   },
@@ -139,12 +142,7 @@
    "fieldname": "inventory_destination",
    "fieldtype": "Select",
    "label": "Inventory destination ",
-   "options": "\nSEZ\nNormal\nWarehouse Bonded"
-  },
-  {
-   "fieldname": "cargo_type",
-   "fieldtype": "Data",
-   "label": "Cargo Type"
+   "options": "\nSEZ\nNormal\nWarehouse Bonded\nDirect to Customer"
   },
   {
    "depends_on": "eval:doc.cargo_type == \"SEA\"",
@@ -203,6 +201,7 @@
    "label": "Grand Total "
   },
   {
+   "depends_on": "eval:doc.company != \"Norden Communication UK Limited\"",
    "fieldname": "custom_duty",
    "fieldtype": "Currency",
    "label": "Forecast \u2013 Customs Duty Amount"
@@ -550,13 +549,13 @@
    "fieldname": "supplier_inco_terms",
    "fieldtype": "Select",
    "label": "Supplier INCO Terms",
-   "options": "\nEx. Work\nFOB\nCIF"
+   "options": "\nEX Works\nFOB\nCFR\nCIF\nDAP\nDDP\nBy Road\nBy Air\nBy Sea\nBy Courier\nFCA"
   },
   {
    "fieldname": "norden_inco_terms",
    "fieldtype": "Select",
    "label": "Norden INCO Terms",
-   "options": "\nEx. Work\nFOB\nCIF"
+   "options": "EX Works\nFOB\nCFR"
   },
   {
    "fieldname": "naming_series",
@@ -627,12 +626,28 @@
    "fieldtype": "Table",
    "label": "Payment Clearance",
    "options": "Payment Clearance"
+  },
+  {
+   "fieldname": "alert_date",
+   "fieldtype": "Date",
+   "label": "Alert Date"
+  },
+  {
+   "fieldname": "credit_days",
+   "fieldtype": "Int",
+   "label": "Credit Days"
+  },
+  {
+   "fieldname": "cargo_type",
+   "fieldtype": "Select",
+   "label": "Cargo Type",
+   "options": "\nAir\nSea\nCourier\nOwn Transport"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2022-10-13 15:59:29.872585",
+ "modified": "2022-12-05 17:02:04.441514",
  "modified_by": "Administrator",
  "module": "Norden",
  "name": "Logistics Request",
@@ -649,9 +664,23 @@
    "role": "System Manager",
    "share": 1,
    "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Logistics User",
+   "select": 1,
+   "share": 1,
+   "write": 1
   }
  ],
  "sort_field": "modified",
  "sort_order": "DESC",
+ "title_field": "order_no",
  "track_changes": 1
 }

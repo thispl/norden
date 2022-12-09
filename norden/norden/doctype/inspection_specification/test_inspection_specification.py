@@ -4,5 +4,5 @@
 # import frappe
 import unittest
 
-class TestItemInspectionSpecification(unittest.TestCase):
+class TestInspectionSpecification(unittest.TestCase):
 	pass

@@ -7,15 +7,15 @@ from frappe import _
 
 
 class CustomLeaveApplication(LeaveApplication):
-    def validate(self):
+    def before_save(self):
         self.status = 'Approved'
 
 class CustomExpenseClaim(ExpenseClaim):
-    def validate(self):
+    def before_save(self):
         self.approval_status = 'Approved'
 
 class CustomAttendanceRequest(AttendanceRequest):
-    def validate(self):
+    def before_save(self):
         wfh = frappe.db.get_value('Work From Home Request',{'employee':self.employee,'work_from_date':self.from_date},['workflow_state'])
         if wfh != 'Approved':
             frappe.throw(_(' Employee %s Work From Home Request is Not Approved by %s'%(self.employee,self.from_date)))

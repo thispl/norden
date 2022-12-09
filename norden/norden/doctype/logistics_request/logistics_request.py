@@ -7,6 +7,12 @@ from frappe.model.document import Document
 from frappe.utils import get_url_to_form, today, add_days, nowdate
 
 class LogisticsRequest(Document):
+	def on_update(self):
+		if self.workflow_state == "Pending for Confirmation":
+			# day = formatdate(today())
+			frappe.db.set_value("Logistics Request",self.name,"alert_date",today())
+			# frappe.errprint(day)
+
 	@frappe.whitelist()
 	def compare_po_items(self):
 		if self.po_so == 'Purchase Order':
@@ -54,3 +60,23 @@ class LogisticsRequest(Document):
 			</form>
 			"""%(self.order_no,url)
 		)
+	
+
+	# @frappe.whitelist()
+	# def pending_for_payments(self):
+	# 	url = get_url_to_form("Logistics Request", self.name)
+	# 	crt_dys = frappe.db.get_value('Logistics Request',{'credit_days':self.credit_days,'alert_date':self.alert_date})
+	# 	trigger_date = add_days(alert_date, + credit_days)
+	# 	if trigger_date:
+	# 		frappe.sendmail(
+	# 			recipients='karthikeyan.s@groupteampro.com',
+	# 			subject=_("Payment Remainder in Logistics Request"),
+	# 			header=_("Payment Remainder in Logistics Request"),
+	# 			message = """<p style='font-size:18px'>Logistics Request has been raised for Purchase Order - (<b>%s</b>).</p><br><br>
+	# 			<form action="%s">
+	# 			<input type="submit" value="Open Logistics Request" />
+	# 			</form>
+	# 			"""%(self.order_no,url)
+	# 		)
+	
+	

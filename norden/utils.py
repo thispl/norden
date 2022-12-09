@@ -6,6 +6,13 @@ from frappe import _
 import json
 from frappe.utils.background_jobs import enqueue
 from norden.custom import employee
+from frappe.utils import flt
+
+@frappe.whitelist()
+def update_company_currency(account_currency,company_currency):
+    from erpnext.setup.utils import get_exchange_rate
+    return get_exchange_rate(company_currency,account_currency)
+
 
 @frappe.whitelist(allow_guest=True)
 def download_pdf(doctype, name, format=None, doc=None, no_letterhead=0):
@@ -18,15 +25,19 @@ def download_pdf(doctype, name, format=None, doc=None, no_letterhead=0):
 def get_series(company,doctype):
     company_series = frappe.db.get_value("Company Series",{'company':company,'document_type':doctype},'series')
     return company_series
+
+@frappe.whitelist()
+def get_series_with_tax(company,doctype):
+    company_series = frappe.db.get_value("Company Series",{'company':company,'document_type':doctype,'with_tax':1},'series')
+    return company_series
     
 @frappe.whitelist()
 def email_salary_slip():
-    ss = frappe.get_all("Salary Slip",{'start_date':'2022-09-01'},['employee','name'])
+    ss = frappe.get_all("Salary Slip",{'start_date':'2022-11-01'},['employee','name'])
     for s in ss:
         doc = frappe.get_doc("Salary Slip",s['name'])
         # receiver = 'hrd@nordencommunication.com'
         receiver = frappe.db.get_value("Employee", doc.employee, "company_email")
-        # receiver = 'jagadeesan.a@groupteampro.com'
         payroll_settings = frappe.get_single("Payroll Settings")
         message = "Please Find the attachment"
         password = None
@@ -199,3 +210,85 @@ def set_territory():
 def get_user_id_travel_request(reports_to):
     employee = frappe.db.get_value('Employee',{'status':'Active','employee_number':reports_to},['employee_name','user_id'])
     return employee
+
+@frappe.whitelist()
+def get_user_id():
+    user_login =  frappe.db.get_value('Employee',{'user_id':frappe.session.user},['user_id'])
+    return user_login
+
+
+
+@frappe.whitelist()
+def get_empl(doc,method):
+    salary_slip = frappe.db.sql("""select * from `tabSalary Slip` where status = 'Draft' and start_date between '2022-10-01' and '2022-10-31' """,as_dict=1)
+    for esi in salary_slip:
+        get=frappe.get_doc('Salary Slip',{'name':esi.name})
+        frappe.errprint(get.earnings.salary_component)
+
+@frappe.whitelist()
+def get_customer_det(doc,method):
+    # frappe.errprint("hi")
+    if doc.first_name:
+        cus = frappe.new_doc("Contact")
+        cus.first_name = doc.first_name
+        cus.last_name = doc.last_name
+        cus.designation = doc.designation
+        cus.status = doc.status
+        cus.append("links", {
+            "link_doctype": "Customer",
+            "link_name":doc.name
+            })
+        cus.flags.ignore_mandatory = True    
+        cus.save(ignore_permissions= True)
+
+@frappe.whitelist()
+def get_address_det(doc,method):
+    # frappe.errprint("hi")
+    if doc.address_title:
+        addr = frappe.new_doc("Address")
+        addr.address_title = doc.address_title
+        addr.address_line1 = doc.address_line1
+        addr.address_line2 = doc.address_line2
+        addr.city = doc.city
+        addr.country = doc.country
+        addr.email_idl = doc.email_id
+        addr.phone = doc.phone
+        addr.append("links", {
+            "link_doctype": "Customer",
+            "link_name":doc.name
+            })
+        addr.flags.ignore_mandatory = True    
+        addr.save(ignore_permissions= True)
+
+@frappe.whitelist()
+def create_sample_inspection(sample,item,po,pr,name):
+    # s = int(sample) - 1
+    it = frappe.get_value("Item",{"name":item},["inspection_template"])
+    for i in range(int(sample)):
+        doc = frappe.new_doc("Inspection Sample")
+        doc.item = item
+        doc.po_number = po
+        doc.pr_number = pr
+        doc.inspection_template = it
+        doc.item_inspection = name
+        doc.save(ignore_permissions = True)
+       
+@frappe.whitelist()
+def add_specification(template):
+    # frappe.errprint(template)
+    it = frappe.get_doc("Inspection Template",template)
+    # frappe.errprint(it.functional_aspects_table)
+    return it.functional_aspects_table,it.visual_aspects_table,it.material_aspects_table,it.dimensional_aspects_table
+    # frappe.errprint(it.dimensional_aspects_table)
+    # for i in it.dimensional_aspects_table:
+    #     frappe.errprint()
+    # frappe.errprint(it.material_aspects_table)
+    # frappe.errprint(it.functional_aspects_table)
+
+
+
+@frappe.whitelist()
+def update_company_currency_in_payments(account_currency,company_currency):
+    from erpnext.setup.utils import get_exchange_rate
+    return get_exchange_rate(company_currency,account_currency)
+
