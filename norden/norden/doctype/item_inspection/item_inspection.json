@@ -7,10 +7,20 @@
  "engine": "InnoDB",
  "field_order": [
   "item_code",
+  "description",
+  "factory_name",
+  "factory_code",
   "po_number",
   "pr_number",
+  "inspection_lot_no",
+  "batch_number",
   "column_break_8",
+  "c_of_c",
+  "inspection_date",
   "sample",
+  "sample_reference",
+  "sample_size",
+  "invoice_no",
   "section_break_15",
   "item_aspects_and_specifications",
   "section_break_16",
@@ -81,7 +91,6 @@
   {
    "fieldname": "item_aspects_and_specifications",
    "fieldtype": "Table",
-   "hidden": 1,
    "label": "Item Aspects and Specifications",
    "options": "Item Aspects and Specifications"
   },
@@ -114,6 +123,57 @@
    "fieldtype": "Link",
    "label": "Item code",
    "options": "Item"
+  },
+  {
+   "fetch_from": "item_code.description",
+   "fieldname": "description",
+   "fieldtype": "Data",
+   "label": "Description"
+  },
+  {
+   "fieldname": "factory_name",
+   "fieldtype": "Data",
+   "label": "Factory Name"
+  },
+  {
+   "fieldname": "factory_code",
+   "fieldtype": "Data",
+   "label": "Factory Code"
+  },
+  {
+   "fieldname": "inspection_lot_no",
+   "fieldtype": "Data",
+   "label": "Inspection Lot No"
+  },
+  {
+   "fieldname": "batch_number",
+   "fieldtype": "Data",
+   "label": "Batch Number"
+  },
+  {
+   "fieldname": "c_of_c",
+   "fieldtype": "Data",
+   "label": "C of C Received"
+  },
+  {
+   "fieldname": "inspection_date",
+   "fieldtype": "Date",
+   "label": "Inspection Date"
+  },
+  {
+   "fieldname": "sample_reference",
+   "fieldtype": "Data",
+   "label": "Sample Reference"
+  },
+  {
+   "fieldname": "sample_size",
+   "fieldtype": "Data",
+   "label": "Sample Size"
+  },
+  {
+   "fieldname": "invoice_no",
+   "fieldtype": "Data",
+   "label": "Invoice No"
   }
  ],
  "index_web_pages_for_search": 1,
@@ -125,10 +185,11 @@
    "link_fieldname": "item_inspection"
   }
  ],
- "modified": "2022-12-08 12:11:13.619431",
+ "modified": "2022-12-17 16:11:00.129451",
  "modified_by": "Administrator",
  "module": "Norden",
  "name": "Item Inspection",
+ "naming_rule": "Expression (old style)",
  "owner": "Administrator",
  "permissions": [
   {
@@ -146,5 +207,6 @@
  ],
  "sort_field": "modified",
  "sort_order": "DESC",
+ "states": [],
  "track_changes": 1
 }

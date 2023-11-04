@@ -1,0 +1,29 @@
+{
+ "cards": [],
+ "charts": [
+  {
+   "chart": "Expense Claim",
+   "width": "Full"
+  },
+  {
+   "chart": "Expense Claim against Approval Status",
+   "width": "Full"
+  },
+  {
+   "chart": "Expense claim against company",
+   "width": "Full"
+  }
+ ],
+ "creation": "2022-12-19 14:59:49.239598",
+ "dashboard_name": "Expense Dashboard",
+ "docstatus": 0,
+ "doctype": "Dashboard",
+ "idx": 0,
+ "is_default": 1,
+ "is_standard": 1,
+ "modified": "2022-12-19 15:30:08.246687",
+ "modified_by": "Administrator",
+ "module": "Norden",
+ "name": "Expense Dashboard",
+ "owner": "Administrator"
+}

@@ -1,0 +1,127 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2023-05-19 19:48:05.474170",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "item_code",
+  "column_break_2",
+  "company",
+  "column_break_4",
+  "description",
+  "allocated_item_details_section",
+  "allocated_item_details",
+  "po_details_section",
+  "po_details",
+  "so_details_section",
+  "so_details",
+  "price_list_details_section",
+  "price_list_details"
+ ],
+ "fields": [
+  {
+   "fieldname": "item_code",
+   "fieldtype": "Link",
+   "label": "Item Code",
+   "options": "Item"
+  },
+  {
+   "fieldname": "allocated_item_details",
+   "fieldtype": "Table",
+   "label": "Allocated Item Details",
+   "options": "Allocated Item Details",
+   "read_only": 1
+  },
+  {
+   "fieldname": "allocated_item_details_section",
+   "fieldtype": "Section Break",
+   "label": "Allocated Item Details"
+  },
+  {
+   "fieldname": "column_break_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "item_code.description",
+   "fetch_if_empty": 1,
+   "fieldname": "description",
+   "fieldtype": "Read Only",
+   "label": "Description"
+  },
+  {
+   "fieldname": "po_details_section",
+   "fieldtype": "Section Break",
+   "label": "PO Details"
+  },
+  {
+   "fieldname": "po_details",
+   "fieldtype": "Table",
+   "label": "PO Details",
+   "options": "PO Details",
+   "read_only": 1
+  },
+  {
+   "fieldname": "so_details_section",
+   "fieldtype": "Section Break",
+   "label": "SO Details"
+  },
+  {
+   "fieldname": "so_details",
+   "fieldtype": "Table",
+   "label": "SO Details",
+   "options": "SO Details",
+   "read_only": 1
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "ignore_user_permissions": 1,
+   "label": "Company",
+   "options": "Company",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "price_list_details_section",
+   "fieldtype": "Section Break",
+   "label": "Price List Details"
+  },
+  {
+   "fieldname": "price_list_details",
+   "fieldtype": "Table",
+   "label": "Price List Details",
+   "options": "Price List Details",
+   "read_only": 1
+  }
+ ],
+ "hide_toolbar": 1,
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2023-06-15 16:53:46.328420",
+ "modified_by": "Administrator",
+ "module": "Norden",
+ "name": "Allocation Details",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

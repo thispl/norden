@@ -95,9 +95,28 @@ override_doctype_class = {
 # Hook on document methods and events
 
 doc_events = {
-	# "Opportunity": {
-	# 	"after_insert": "norden.email_alerts.opportunity_creation_alert",
+	"Item":{
+		"after_insert": "norden.utils.item_default_wh",
+	},
+
+	"Stock Entry":{
+		"on_submit": ["norden.utils.create_sti","norden.utils.update_sn"],
+		"before_submit":"norden.utils.add_itemwise_additional_cost",
+		"before_cancel":"norden.utils.reversing_se",
+		# "on_cancel":"norden.custom.cancel_stock_entry_name"
+	},
+
+	# "Serial No":{
+	# 	"after_insert":[
+	# 	"norden.utils.update_sn",],
+		# "validate": "norden.custom.get_foc_item",
+		
 	# },
+	
+	"Opportunity": {
+		# "after_insert": "norden.email_alerts.opportunity_creation_alert",
+		"validate" : "norden.custom.create_opp_file_number",
+	},
 	# "Quotation": {
 	# 	"on_update": "norden.email_alerts.quotation_creation_alert",
 	# },
@@ -106,25 +125,71 @@ doc_events = {
 		"on_submit": "norden.custom.create_lcv_je",
 	},
 	"Purchase Receipt": {
-		"after_submit": "norden.custom.create_lcv",
+		"on_update_after_submit":"norden.utils.create_stock_transfer_india",
+		"after_submit": ["norden.custom.create_lcv",
+		],
+		# 'on_submit':'norden.utils.create_stock_transfer_india',
+		# "on_submit": "norden.custom.update_sn_pr",
+
 		# "on_submit": "norden.custom.check_pr",
+		# 'validate':'norden.utils.create_product_testing',
+		
+		"on_submit": [
+      	# "norden.custom.check_item_inspection",
+		"norden.custom.get_foc_item_pr",
+		"norden.utils.update_sn_pr", 
+		"norden.custom.create_mrb",
+		"norden.utils.create_stock_transfer_india",
+		
+		],
+        "before_cancel":"norden.utils.reverse_sti_pr"
 	},
 	"Logistics Request": {
 		"on_submit": "norden.custom.create_landed_cost_voucher",
+		# "after_insert":"norden.utils.set_requester_name"
 	},
+
+	# "MRB": {
+		# "validate": "norden.utils.transfer_to_scrap",
+	# },
 
 	"Material Request": {
 		"validate": "norden.custom.create_file_number_mr",
 	},
-	"Sales Order": {
-		# "on_submit": "norden.norden.doctype.project_reference.project_reference.create_project_reference",
-		# "on_update": "norden.custom.so_status"
+	"Employee Promotion": {
+		"on_update": "norden.custom.update_appraisal_template",
 	},
+	"Sales Order": {
+		"on_submit": "norden.custom.update_marcom",
+	},
+	"Sales Invoice": {
+        "after_insert":"norden.custom.update_invoice_number",
+		"on_submit": "norden.norden.doctype.project_reference.project_reference.create_project_reference",
+
+	},
+	"Travel Request":{
+		"on_submit": "norden.custom.create_employee_advance",
+
+	},
+	# "Appraisal Template":{
+	# 	"on_update": "norden.custom.get_appraisal_kra"
+	# },
+	"Appraisal":{
+		"on_update": "norden.custom.get_appraisal"
+	},
+
+    
+	"Appraisal Template":{
+		"on_update": "norden.custom.get_appraisal_template"
+		# "validate": "norden.custom.get_appraisal_kra"
+	},
+
 	"Quotation": {
 
 		"before_submit":[
 		"norden.custom.check_discount_percent",
 		"norden.custom.check_internal_cost",
+		"norden.custom.check_user_roles"
 		],
 		# "before_save":[
 		
@@ -133,9 +198,12 @@ doc_events = {
 		"validate":[
 			"norden.custom.internal_margin_calculation",
 			"norden.custom.create_file_number",
+			"norden.utils.quotation_workflow_alert",
+			# "norden.utils.item_allocation",
 			
 		],
 
+	
 		
 },
 # "Customer":{
@@ -144,16 +212,34 @@ doc_events = {
 # 		"norden.utils.get_address_det"
 # ]
 # },
+
 	"Purchase Order": {
 		"after_insert": [
 			"norden.custom.batch_number",
 			"norden.custom.get_po_no",
-		]
-},
+		],
 
-# 	"Delivery Note": {
-# 		"on_submit": "norden.custom.dn_status",
-# },
+		"validate": "norden.custom.batch_number",
+		# "validate": "norden.utils.check_uom",
+},
+    "Batch":{
+        "after_insert":[
+            "norden.custom.update_company",
+		]
+	},
+    "ToDo":{
+        "after_insert":[
+            "norden.custom.update_todo",
+		]
+	},
+
+	"Delivery Note": {
+		# "on_submit": "norden.custom.dn_status",
+        "validate":"norden.custom.on_dn_submission",
+		"on_submit":["norden.utils.check_item_inspection_dn",
+		"norden.custom.get_foc_item_dn",
+		],
+},
 
 # 	"Sales Invoice": {
 # 		"on_submit": "norden.custom.si_status",
@@ -170,7 +256,13 @@ scheduler_events = {
 # 		"norden.tasks.all"
 # 	],
 	"daily": [
-		"norden.norden.doctype.logistics_request.logistics_request.pending_for_payments"
+		"norden.norden.doctype.logistics_request.logistics_request.pending_for_payments",
+		"norden.utils.return_blocked_items",
+		"norden.custom.internship_end_date",
+		"norden.custom.date_of_joining"
+
+
+		
 	],
 # 	"hourly": [
 # 		"norden.tasks.hourly"
@@ -178,13 +270,18 @@ scheduler_events = {
 # 	"weekly": [
 # 		"norden.tasks.weekly"
 # 	]
-# 	"monthly": [
+	"monthly": [
+		"norden.utils.update_previous_leave_allocation_manually",
 # 		"norden.tasks.monthly"
-# 	],
+
+	],
 "cron":{
 	"0 9 * * *":[
 		"norden.email_alerts.send_birthday_alert"
-	]
+	],
+	# "0 0 */15 * *":[
+	# 	"norden.utils.return_blocked_items"
+	# ]
 }
 }
 
@@ -196,9 +293,9 @@ scheduler_events = {
 # Overriding Methods
 # ------------------------------
 #
-# override_whitelisted_methods = {
-# 	"frappe.desk.doctype.event.event.get_events": "norden.event.get_events"
-# }
+override_whitelisted_methods = {
+	"frappe.utils.pdf.get_pdf":"norden.pdf_overrides.get_pdf"
+}
 #
 # each overriding function accepts a `data` argument;
 # generated from the base implementation of the doctype dashboard,
@@ -211,33 +308,44 @@ scheduler_events = {
 #
 # auto_cancel_exempted_doctypes = ["Auto Repeat"]
 
-jenv = {
+jinja = {
 	"methods": [
-		"get_specification:norden.norden.doctype.eyenor_datasheet.eyenor_datasheet.get_specification",
-		"get_html_specification:norden.norden.doctype.eyenor_datasheet.eyenor_datasheet_html.get_html_specification",
-		"get_html_header:norden.norden.doctype.eyenor_datasheet.eyenor_datasheet_html.get_html_header",
-		"get_header:norden.norden.doctype.eyenor_datasheet.eyenor_datasheet.get_header",
-		"get_html_order_info:norden.norden.doctype.eyenor_datasheet.eyenor_datasheet_html.get_html_order_info",
-		"get_order_info:norden.norden.doctype.eyenor_datasheet.eyenor_datasheet.get_order_info",
-		"get_pack_info:norden.norden.doctype.eyenor_datasheet.eyenor_datasheet.get_pack_info",	
-		"get_thermal_image:norden.norden.doctype.eyenor_datasheet.eyenor_datasheet.get_thermal_image",	
-		"get_datasheet_icons:norden.norden.doctype.eyenor_datasheet.eyenor_datasheet.get_datasheet_icons",
-		"get_nvs_specification:norden.norden.doctype.nvs.nvs.get_nvs_specification",
-		"get_nvs_header:norden.norden.doctype.nvs.nvs.get_nvs_header",
-		"get_category_alignment:norden.norden.doctype.nvs.nvs.get_category_alignment",
-		"generate_stickers:norden.norden.doctype.eyenor_stickers.eyenor_stickers.generate_stickers",
-		"get_technical_parameter:norden.norden.doctype.nac_datasheet.nac_datasheet.get_technical_parameter",
-		"get_samplecontent:norden.norden.doctype.eyenor_datasheet.eyenor_datasheet.get_samplecontent",
-		"get_product_info:norden.norden.doctype.cable_datasheet.cable_datasheet.get_product_info",
-		"get_material_info:norden.norden.doctype.cable_datasheet.cable_datasheet.get_material_info",
-		"get_electrical_mechanical_info:norden.norden.doctype.cable_datasheet.cable_datasheet.get_electrical_mechanical_info",
-		"ordering_guide:norden.norden.doctype.cable_datasheet.cable_datasheet.ordering_guide",
-		"get_nordata_desc:norden.norden.doctype.cable_datasheet.cable_datasheet.get_nordata_desc",
-		"get_optidata_desc:norden.norden.doctype.cable_datasheet.cable_datasheet.get_optidata_desc",
-        "get_dori_distance:norden.norden.doctype.eyenor_datasheet.eyenor_datasheet.get_dori_distance",
-        "get_leave_balance:norden.custom.get_leave_balance",
+		"norden.norden.doctype.eyenor_datasheet.eyenor_datasheet.get_specification",
+		"norden.norden.doctype.eyenor_datasheet.eyenor_datasheet_html.get_html_specification",
+		"norden.norden.doctype.eyenor_datasheet.eyenor_datasheet_html.get_html_header",
+		"norden.norden.doctype.eyenor_datasheet.eyenor_datasheet.get_header",
+		"norden.norden.doctype.eyenor_datasheet.eyenor_datasheet_html.get_html_order_info",
+		"norden.norden.doctype.eyenor_datasheet.eyenor_datasheet.get_order_info",
+		"norden.norden.doctype.eyenor_datasheet.eyenor_datasheet.get_pack_info",	
+		"norden.norden.doctype.eyenor_datasheet.eyenor_datasheet.get_thermal_image",	
+		"norden.norden.doctype.eyenor_datasheet.eyenor_datasheet.get_datasheet_icons",
+		"norden.norden.doctype.nvs.nvs.get_nvs_specification",
+		"norden.norden.doctype.nvs.nvs.get_nvs_header",
+		"norden.norden.doctype.nvs.nvs.get_category_alignment",
+		"norden.norden.doctype.eyenor_stickers.eyenor_stickers.generate_stickers",
+		"norden.norden.doctype.nac_datasheet.nac_datasheet.get_technical_parameter",
+		"norden.norden.doctype.eyenor_datasheet.eyenor_datasheet.get_samplecontent",
+		"norden.norden.doctype.cable_datasheet.cable_datasheet.get_product_info",
+		"norden.norden.doctype.cable_datasheet.cable_datasheet.get_material_info",
+		"norden.norden.doctype.cable_datasheet.cable_datasheet.get_electrical_mechanical_info",
+		"norden.norden.doctype.cable_datasheet.cable_datasheet.ordering_guide",
+		"norden.norden.doctype.cable_datasheet.cable_datasheet.get_nordata_desc",
+		"norden.norden.doctype.cable_datasheet.cable_datasheet.get_optidata_desc",
+        "norden.norden.doctype.eyenor_datasheet.eyenor_datasheet.get_dori_distance",
+        "norden.custom.get_leave_balance",
+		"norden.utils.get_visual",
+		"norden.utils.get_dimensional",
+		"norden.utils.get_material",
+		"norden.utils.get_functional",
+		"norden.utils.india_quotation",
+		"norden.utils.opportunity_india",
+        "norden.custom.return_total_amt",
+        "norden.custom.get_stock_details",
+        "norden.custom.get_stock",
+        "norden.utils.stock_detail",
+        "norden.custom.return_tax_html"
 	]
 
 }
 
-fixtures = ["Client Script","Print Format","Custom Field","Report","Workspace"]
+fixtures = ["Client Script","Print Format","Report","Workspace"]

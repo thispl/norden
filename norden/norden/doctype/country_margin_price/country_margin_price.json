@@ -1,5 +1,6 @@
 {
  "actions": [],
+ "allow_import": 1,
  "autoname": "CMP.#####",
  "creation": "2022-05-24 22:08:08.226165",
  "doctype": "DocType",
@@ -10,7 +11,28 @@
   "item_group",
   "freight",
   "internal",
-  "sales"
+  "sales",
+  "dubai_section",
+  "landing",
+  "incentive",
+  "distributor",
+  "saudi",
+  "project",
+  "retail",
+  "electra",
+  "uk_section",
+  "destination_charges",
+  "installer",
+  "africa_section",
+  "dealer_price",
+  "customer_price",
+  "india_section",
+  "spc",
+  "ltp",
+  "dtp",
+  "stp",
+  "mop",
+  "mrp"
  ],
  "fields": [
   {
@@ -28,28 +50,134 @@
   {
    "default": "0",
    "fieldname": "freight",
-   "fieldtype": "Percent",
+   "fieldtype": "Float",
    "label": "Freight"
   },
   {
    "default": "0",
    "fieldname": "internal",
-   "fieldtype": "Percent",
+   "fieldtype": "Float",
    "label": "Internal"
   },
   {
    "default": "0",
    "fieldname": "sales",
-   "fieldtype": "Percent",
+   "fieldtype": "Float",
    "label": "Sales"
+  },
+  {
+   "fieldname": "dubai_section",
+   "fieldtype": "Section Break",
+   "label": "Dubai"
+  },
+  {
+   "fieldname": "landing",
+   "fieldtype": "Float",
+   "label": "Landing"
+  },
+  {
+   "fieldname": "incentive",
+   "fieldtype": "Float",
+   "label": "Incentive"
+  },
+  {
+   "fieldname": "distributor",
+   "fieldtype": "Float",
+   "label": "Distributor"
+  },
+  {
+   "fieldname": "saudi",
+   "fieldtype": "Float",
+   "label": "Saudi"
+  },
+  {
+   "fieldname": "project",
+   "fieldtype": "Float",
+   "label": "Project"
+  },
+  {
+   "fieldname": "retail",
+   "fieldtype": "Float",
+   "label": "Retail"
+  },
+  {
+   "fieldname": "electra",
+   "fieldtype": "Float",
+   "label": "Electra"
+  },
+  {
+   "fieldname": "uk_section",
+   "fieldtype": "Section Break",
+   "label": "UK"
+  },
+  {
+   "fieldname": "destination_charges",
+   "fieldtype": "Float",
+   "label": "Destination Charges"
+  },
+  {
+   "fieldname": "installer",
+   "fieldtype": "Float",
+   "label": "Installer"
+  },
+  {
+   "fieldname": "africa_section",
+   "fieldtype": "Section Break",
+   "label": "Africa"
+  },
+  {
+   "fieldname": "dealer_price",
+   "fieldtype": "Float",
+   "label": "Dealer Price"
+  },
+  {
+   "fieldname": "customer_price",
+   "fieldtype": "Float",
+   "label": "Customer Price"
+  },
+  {
+   "fieldname": "india_section",
+   "fieldtype": "Section Break",
+   "label": "India"
+  },
+  {
+   "fieldname": "spc",
+   "fieldtype": "Float",
+   "label": "SPC"
+  },
+  {
+   "fieldname": "ltp",
+   "fieldtype": "Float",
+   "label": "LTP"
+  },
+  {
+   "fieldname": "dtp",
+   "fieldtype": "Float",
+   "label": "DTP"
+  },
+  {
+   "fieldname": "stp",
+   "fieldtype": "Float",
+   "label": "STP"
+  },
+  {
+   "fieldname": "mop",
+   "fieldtype": "Float",
+   "label": "MOP"
+  },
+  {
+   "fieldname": "mrp",
+   "fieldtype": "Float",
+   "label": "MRP"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2022-05-26 21:41:13.363840",
+ "modified": "2022-12-23 20:49:41.391287",
  "modified_by": "Administrator",
  "module": "Norden",
  "name": "Country Margin Price",
+ "naming_rule": "Expression (old style)",
  "owner": "Administrator",
  "permissions": [
   {
@@ -67,5 +195,6 @@
  ],
  "sort_field": "modified",
  "sort_order": "DESC",
+ "states": [],
  "track_changes": 1
 }

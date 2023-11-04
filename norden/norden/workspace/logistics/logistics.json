@@ -1,31 +1,39 @@
 {
- "category": "Modules",
  "charts": [],
- "creation": "2022-07-04 12:21:03.743830",
- "developer_mode_only": 0,
- "disable_user_customization": 0,
+ "content": "[{\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Logistics Request</b></span>\",\"col\":12}},{\"type\":\"spacer\",\"data\":{\"col\":12}},{\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Shortcuts</b></span>\",\"col\":12}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Logistics Request\",\"col\":3}}]",
+ "creation": "2022-12-14 10:06:16.365573",
  "docstatus": 0,
  "doctype": "Workspace",
- "extends_another_page": 0,
+ "for_user": "",
  "hide_custom": 0,
  "idx": 0,
- "is_default": 0,
- "is_standard": 1,
  "label": "Logistics",
  "links": [],
- "modified": "2022-07-04 12:21:40.993325",
+ "modified": "2023-10-31 11:03:26.136351",
  "modified_by": "Administrator",
  "module": "Norden",
  "name": "Logistics",
  "owner": "Administrator",
- "pin_to_bottom": 0,
- "pin_to_top": 0,
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [
+  {
+   "role": "Logistics User"
+  },
+  {
+   "role": "Administrator"
+  }
+ ],
+ "sequence_id": 5.0,
  "shortcuts": [
   {
+   "color": "Grey",
    "doc_view": "List",
    "label": "Logistics Request",
    "link_to": "Logistics Request",
    "type": "DocType"
   }
- ]
+ ],
+ "title": "Logistics"
 }

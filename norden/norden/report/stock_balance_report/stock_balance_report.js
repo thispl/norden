@@ -10,7 +10,7 @@ frappe.query_reports["Stock Balance Report"] = {
 			"fieldtype": "Link",
 			"width": "80",
 			"options": "Company",
-			// "reqd":1,
+			"reqd":1,
 			"default": frappe.defaults.get_default("company")
 		},
 		{

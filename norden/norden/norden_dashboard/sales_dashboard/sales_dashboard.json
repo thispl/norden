@@ -1,0 +1,53 @@
+{
+ "cards": [],
+ "charts": [
+  {
+   "chart": "Quotation Status",
+   "width": "Half"
+  },
+  {
+   "chart": "Quotation Countrywise",
+   "width": "Half"
+  },
+  {
+   "chart": "Quotation Leadwise",
+   "width": "Half"
+  },
+  {
+   "chart": "Sales Order Status",
+   "width": "Half"
+  },
+  {
+   "chart": "Sales Order Countrywise",
+   "width": "Half"
+  },
+  {
+   "chart": "Sales Order Leadwise",
+   "width": "Half"
+  },
+  {
+   "chart": "Sales Invoice Status",
+   "width": "Half"
+  },
+  {
+   "chart": "Sales Invoice Countrywise",
+   "width": "Half"
+  },
+  {
+   "chart": "Outgoing Bills (Sales Invoice)",
+   "width": "Half"
+  }
+ ],
+ "creation": "2022-12-19 14:21:30.848986",
+ "dashboard_name": "Sales Dashboard",
+ "docstatus": 0,
+ "doctype": "Dashboard",
+ "idx": 0,
+ "is_default": 0,
+ "is_standard": 1,
+ "modified": "2023-01-31 19:21:29.317139",
+ "modified_by": "Administrator",
+ "module": "Norden",
+ "name": "Sales Dashboard",
+ "owner": "Administrator"
+}

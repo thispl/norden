@@ -1,0 +1,75 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:document",
+ "creation": "2022-12-25 17:07:57.867406",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "document",
+  "approvers_section",
+  "workflow",
+  "section_break_4",
+  "product_team"
+ ],
+ "fields": [
+  {
+   "fieldname": "document",
+   "fieldtype": "Link",
+   "label": "Document",
+   "options": "DocType",
+   "unique": 1
+  },
+  {
+   "fieldname": "approvers_section",
+   "fieldtype": "Section Break",
+   "label": "Approvers"
+  },
+  {
+   "depends_on": "eval:doc.document != \"Item Group\"",
+   "fieldname": "workflow",
+   "fieldtype": "Table",
+   "label": "Workflow",
+   "options": "Approvers"
+  },
+  {
+   "depends_on": "eval:doc.document == \"Item Group\"",
+   "fieldname": "product_team",
+   "fieldtype": "Table",
+   "label": "Product Team",
+   "options": "Product Team Table"
+  },
+  {
+   "fieldname": "section_break_4",
+   "fieldtype": "Section Break",
+   "label": "Product Team"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2023-04-28 11:54:49.020570",
+ "modified_by": "Administrator",
+ "module": "Norden",
+ "name": "Workflow Approval",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

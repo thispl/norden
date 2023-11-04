@@ -24,14 +24,20 @@ frappe.query_reports["Item Price Details"] = {
 		// 	// "default": frappe.defaults.get_default("company")
 		// },
 
-		{
-			"fieldname": "price_list",
-			"label": __("Price List"),
-			"fieldtype": "Link",
-			"width": "80",
-			"options": "Price List",
-			"mandatory": 1,
-		},
+		// {
+		// 	"fieldname": "price_list",
+		// 	"label": __("Price List"),
+		// 	"fieldtype": "Link",
+		// 	"width": "80",
+		// 	"options": "Price List",
+			// "mandatory": 1,
+			// "get_query": function() {
+			// 	const company = frappe.query_report.get_filter_value('Price List');
+			// 	return {
+			// 		filters: { 'permission': 1}
+			// 	}
+			// }
+		// },
 
 		{
 			"fieldname": "item_code",
@@ -39,11 +45,19 @@ frappe.query_reports["Item Price Details"] = {
 			"fieldtype": "Link",
 			"width": "80",
 			"options": "Item",
+			// "reqd":1,
 			"get_query": function() {
 				return {
 					query: "erpnext.controllers.queries.item_query",
 				};
 			}
+		},
+		{
+			"fieldname": "item_group",
+			"label": __("Item Group"),
+			"fieldtype": "Link",
+			"width": "80",
+			"options": "Item Group",
 		},
 		
 

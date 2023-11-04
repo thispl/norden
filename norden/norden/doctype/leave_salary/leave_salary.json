@@ -1,0 +1,237 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:employee",
+ "creation": "2023-08-22 15:51:16.777142",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "employee_details_section",
+  "employee",
+  "employee_name",
+  "date_of_joining",
+  "grade",
+  "column_break_4",
+  "company",
+  "department",
+  "designation",
+  "passport_number",
+  "leave_salary_section",
+  "leave_start_date",
+  "leave_end_date",
+  "accrued_leaves",
+  "leaves_availed",
+  "leave_balance",
+  "column_break_48",
+  "basic",
+  "hra",
+  "ta_others",
+  "telephone_allowance",
+  "column_break_27",
+  "earned_basic",
+  "earned_hra",
+  "earned_ta_others",
+  "earned_telephone_allowance",
+  "total_salary"
+ ],
+ "fields": [
+  {
+   "fieldname": "employee_details_section",
+   "fieldtype": "Section Break",
+   "label": "Employee Details"
+  },
+  {
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "label": "Employee",
+   "options": "Employee",
+   "unique": 1
+  },
+  {
+   "fetch_from": "employee.employee_name",
+   "fieldname": "employee_name",
+   "fieldtype": "Data",
+   "label": "Employee Name",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "employee.date_of_joining",
+   "fieldname": "date_of_joining",
+   "fieldtype": "Data",
+   "label": "Date of Joining",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "employee.grade",
+   "fieldname": "grade",
+   "fieldtype": "Link",
+   "label": "Grade",
+   "options": "Employee Grade",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "employee.passport_number",
+   "fieldname": "passport_number",
+   "fieldtype": "Data",
+   "label": "Passport Number",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "employee.department",
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "label": "Department ",
+   "options": "Department",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "employee.designation",
+   "fieldname": "designation",
+   "fieldtype": "Link",
+   "label": "Designation",
+   "options": "Designation",
+   "read_only": 1
+  },
+  {
+   "fieldname": "leave_salary_section",
+   "fieldtype": "Section Break",
+   "label": "Leave Salary"
+  },
+  {
+   "fieldname": "leave_start_date",
+   "fieldtype": "Date",
+   "label": "Leave Start Date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "leave_end_date",
+   "fieldtype": "Date",
+   "label": "Leave End Date",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "accrued_leaves",
+   "fieldtype": "Float",
+   "label": "Leaves Allocated ",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "leaves_availed",
+   "fieldtype": "Float",
+   "label": "Leaves Availed",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "leave_balance",
+   "fieldtype": "Float",
+   "label": "Leave Balance",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_48",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "total_salary",
+   "fieldtype": "Currency",
+   "label": "Total Leave Salary",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "employee.basic",
+   "fieldname": "basic",
+   "fieldtype": "Currency",
+   "label": "Basic"
+  },
+  {
+   "fetch_from": "employee.hra",
+   "fieldname": "hra",
+   "fieldtype": "Currency",
+   "label": "HRA"
+  },
+  {
+   "fetch_from": "employee.ta_others",
+   "fieldname": "ta_others",
+   "fieldtype": "Currency",
+   "label": "TA & Others"
+  },
+  {
+   "fetch_from": "employee.telephone_allowance",
+   "fieldname": "telephone_allowance",
+   "fieldtype": "Currency",
+   "label": "Telephone Allowance"
+  },
+  {
+   "fieldname": "column_break_27",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "earned_basic",
+   "fieldtype": "Currency",
+   "label": "Earned Basic",
+   "read_only": 1
+  },
+  {
+   "fieldname": "earned_hra",
+   "fieldtype": "Currency",
+   "label": "Earned HRA",
+   "read_only": 1
+  },
+  {
+   "fieldname": "earned_ta_others",
+   "fieldtype": "Currency",
+   "label": "Earned TA & Others",
+   "read_only": 1
+  },
+  {
+   "fieldname": "earned_telephone_allowance",
+   "fieldtype": "Currency",
+   "label": "Earned Telephone Allowance",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "employee.company",
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2023-08-24 19:12:06.977718",
+ "modified_by": "Administrator",
+ "module": "Norden",
+ "name": "Leave Salary",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

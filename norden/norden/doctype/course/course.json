@@ -1,0 +1,175 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:course_name",
+ "creation": "2023-06-15 16:15:00.170181",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "course_name",
+  "logo",
+  "image1",
+  "image2",
+  "certificate_content",
+  "column_break_5",
+  "product_group",
+  "validity",
+  "background_image",
+  "product_manager_tab",
+  "employee",
+  "employee_name",
+  "column_break_13",
+  "designation",
+  "signature",
+  "trainer_tab",
+  "trainer",
+  "trainer_name",
+  "column_break_19",
+  "trainer_designation",
+  "trainer_signature"
+ ],
+ "fields": [
+  {
+   "fieldname": "course_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Course Name",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "logo",
+   "fieldtype": "Attach Image",
+   "label": "Logo"
+  },
+  {
+   "fieldname": "image1",
+   "fieldtype": "Attach Image",
+   "label": "Image1"
+  },
+  {
+   "fieldname": "image2",
+   "fieldtype": "Attach Image",
+   "label": "Image2"
+  },
+  {
+   "description": "In Years",
+   "fieldname": "validity",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Validity",
+   "reqd": 1
+  },
+  {
+   "fieldname": "background_image",
+   "fieldtype": "Attach Image",
+   "label": "Background Image"
+  },
+  {
+   "fieldname": "certificate_content",
+   "fieldtype": "Small Text",
+   "label": "Certificate Content"
+  },
+  {
+   "fieldname": "product_group",
+   "fieldtype": "Link",
+   "label": "Product Group",
+   "options": "Item Group"
+  },
+  {
+   "fieldname": "product_manager_tab",
+   "fieldtype": "Tab Break",
+   "label": "Product Manager"
+  },
+  {
+   "fieldname": "signature",
+   "fieldtype": "Attach",
+   "label": "Signature"
+  },
+  {
+   "fieldname": "column_break_5",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "trainer_tab",
+   "fieldtype": "Tab Break",
+   "label": "Trainer"
+  },
+  {
+   "fieldname": "trainer_signature",
+   "fieldtype": "Attach",
+   "label": "Trainer Signature"
+  },
+  {
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "label": "Product Manager ",
+   "options": "Employee"
+  },
+  {
+   "fetch_from": "employee.employee_name",
+   "fieldname": "employee_name",
+   "fieldtype": "Data",
+   "label": "Product Manager Name"
+  },
+  {
+   "fetch_from": "employee.designation",
+   "fieldname": "designation",
+   "fieldtype": "Data",
+   "label": "Product Manager Designation"
+  },
+  {
+   "fieldname": "trainer",
+   "fieldtype": "Link",
+   "label": "Trainer",
+   "options": "Employee"
+  },
+  {
+   "fetch_from": "trainer.employee_name",
+   "fieldname": "trainer_name",
+   "fieldtype": "Data",
+   "label": "Trainer Name"
+  },
+  {
+   "fetch_from": "trainer.designation",
+   "fieldname": "trainer_designation",
+   "fieldtype": "Data",
+   "label": "Trainer Designation"
+  },
+  {
+   "fieldname": "column_break_13",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_19",
+   "fieldtype": "Column Break"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2023-06-17 15:25:18.808159",
+ "modified_by": "Administrator",
+ "module": "Norden",
+ "name": "Course",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

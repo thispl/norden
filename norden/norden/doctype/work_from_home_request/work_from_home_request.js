@@ -3,6 +3,5 @@
 
 frappe.ui.form.on('Work From Home Request', {
 	// refresh: function(frm) {
-
 	// }
 });

@@ -10,7 +10,24 @@ download: function (frm) {
 		var path = "norden.norden.doctype.report_dashboard.bank_format.download"
 		var args = 'from_date=%(from_date)s&to_date=%(to_date)s&company=%(company)s&department=%(department)s&employee_grade=%(employee_grade)s'
 	}
-	
+	if (frm.doc.report == 'Unregistered Salary Report') {
+		var path = "norden.norden.doctype.report_dashboard.unregistered_salary_report.download"
+		var args = 'from_date=%(from_date)s&to_date=%(to_date)s&company=%(company)s&department=%(department)s&employee_grade=%(employee_grade)s'
+	}
+	if (frm.doc.report == 'Payroll Summary Report') {
+		var path = "norden.norden.doctype.report_dashboard.payroll_summary_report.download"
+		var args = 'from_date=%(from_date)s&to_date=%(to_date)s&company=%(company)s&department=%(department)s&employee_grade=%(employee_grade)s'
+	}
+	if (frm.doc.report == 'Test report') {
+		var path = "norden.norden.doctype.report_dashboard.test_report.download"
+		var args = 'from_date=%(from_date)s&to_date=%(to_date)s&company=%(company)s&department=%(department)s&employee_grade=%(employee_grade)s'
+	}
+	if (frm.doc.report == 'Summary Test Report') {
+		console.log('hi')
+		var path = "norden.norden.doctype.report_dashboard.summary_test_report.download"
+		var args = 'from_date=%(from_date)s&to_date=%(to_date)s&company=%(company)s&department=%(department)s&employee_grade=%(employee_grade)s'
+	}
+
 
 	if (path) {
 		window.location.href = repl(frappe.request.url +

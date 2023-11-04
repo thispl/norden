@@ -1,6 +1,6 @@
 {
  "actions": [],
- "autoname": "Sample-.####",
+ "autoname": "format:sample{item}-{####}",
  "creation": "2022-11-30 15:22:03.578324",
  "doctype": "DocType",
  "editable_grid": 1,
@@ -9,6 +9,9 @@
   "item",
   "po_number",
   "pr_number",
+  "logistics_request_number",
+  "so_number",
+  "dn_number",
   "inspection_template",
   "item_inspection",
   "amended_from",
@@ -32,13 +35,15 @@
    "fieldname": "po_number",
    "fieldtype": "Link",
    "label": "Po Number",
-   "options": "Purchase Order"
+   "options": "Purchase Order",
+   "read_only": 1
   },
   {
    "fieldname": "pr_number",
    "fieldtype": "Link",
    "label": "Pr Number",
-   "options": "Purchase Receipt"
+   "options": "Purchase Receipt",
+   "read_only": 1
   },
   {
    "fieldname": "amended_from",
@@ -100,6 +105,25 @@
    "fieldtype": "Link",
    "label": "Item Inspection",
    "options": "Item Inspection"
+  },
+  {
+   "fieldname": "logistics_request_number",
+   "fieldtype": "Link",
+   "label": "Logistics Request Number",
+   "options": "Logistics Request",
+   "read_only": 1
+  },
+  {
+   "fieldname": "so_number",
+   "fieldtype": "Link",
+   "label": "Sales Order Number",
+   "options": "Sales Order"
+  },
+  {
+   "fieldname": "dn_number",
+   "fieldtype": "Link",
+   "label": "Delivery Note Number",
+   "options": "Delivery Note"
   }
  ],
  "index_web_pages_for_search": 1,
@@ -111,10 +135,11 @@
    "link_fieldname": "pr_number"
   }
  ],
- "modified": "2022-12-08 12:22:56.781010",
+ "modified": "2023-01-03 19:55:45.605941",
  "modified_by": "Administrator",
  "module": "Norden",
  "name": "Inspection Sample",
+ "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [
   {
@@ -132,5 +157,6 @@
  ],
  "sort_field": "modified",
  "sort_order": "DESC",
+ "states": [],
  "track_changes": 1
 }

@@ -1,0 +1,195 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "PRE - .####",
+ "creation": "2023-08-30 22:46:50.968507",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "party_type",
+  "party_account",
+  "party",
+  "total_number_of_prepayment",
+  "payment_posting_date",
+  "posting_date",
+  "prepayment_component",
+  "company",
+  "column_break_7",
+  "payment_account",
+  "prepayment_account",
+  "frequency_of_depreciation",
+  "journal_entry_created",
+  "total_amount_to_be_paid",
+  "payment_amount",
+  "account_type",
+  "expense_account_name",
+  "first_month_amount",
+  "prepayment_details_section",
+  "prepayment_details",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "party_type",
+   "fieldtype": "Select",
+   "label": "Party Type",
+   "options": "\nSupplier\nEmployee",
+   "reqd": 1
+  },
+  {
+   "depends_on": "eval:doc.party_type",
+   "fieldname": "party",
+   "fieldtype": "Dynamic Link",
+   "label": "Party",
+   "options": "party_type",
+   "reqd": 1
+  },
+  {
+   "fieldname": "total_number_of_prepayment",
+   "fieldtype": "Int",
+   "label": "Total Number Of Payment",
+   "reqd": 1
+  },
+  {
+   "fieldname": "payment_posting_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Payment Posting Date",
+   "reqd": 1
+  },
+  {
+   "depends_on": "eval:doc.payment_posting_date",
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "label": "Posting Date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_7",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "prepayment_component",
+   "fieldtype": "Link",
+   "label": "Prepayment Component",
+   "options": "Prepayment Component"
+  },
+  {
+   "default": "Norden Communication Middle East FZE",
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company"
+  },
+  {
+   "fieldname": "frequency_of_depreciation",
+   "fieldtype": "Int",
+   "label": "Frequency of Payment (Months)"
+  },
+  {
+   "fieldname": "total_amount_to_be_paid",
+   "fieldtype": "Currency",
+   "label": "Total Amount to be Paid",
+   "options": "Company:company:default_currency",
+   "reqd": 1
+  },
+  {
+   "fieldname": "payment_amount",
+   "fieldtype": "Currency",
+   "label": "Payment Amount",
+   "options": "Company:company:default_currency"
+  },
+  {
+   "fieldname": "prepayment_details_section",
+   "fieldtype": "Section Break",
+   "label": "Prepayment Details"
+  },
+  {
+   "depends_on": "eval:doc.total_amount_to_be_paid",
+   "fieldname": "prepayment_details",
+   "fieldtype": "Table",
+   "label": "Prepayment Details",
+   "options": "Prepayment Details"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Prepayment",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "party_account",
+   "fieldtype": "Link",
+   "label": "Party Account",
+   "options": "Account"
+  },
+  {
+   "fieldname": "payment_account",
+   "fieldtype": "Link",
+   "label": "Payment Account",
+   "options": "Account"
+  },
+  {
+   "fieldname": "prepayment_account",
+   "fieldtype": "Link",
+   "label": "Prepayment Account",
+   "options": "Account"
+  },
+  {
+   "default": "0",
+   "fieldname": "journal_entry_created",
+   "fieldtype": "Check",
+   "label": "Journal Entry Created",
+   "read_only": 1
+  },
+  {
+   "fieldname": "account_type",
+   "fieldtype": "Select",
+   "label": "Account Type",
+   "options": "\nExpense Account"
+  },
+  {
+   "fieldname": "expense_account_name",
+   "fieldtype": "Link",
+   "label": "Expense Account Name",
+   "options": "Account"
+  },
+  {
+   "fieldname": "first_month_amount",
+   "fieldtype": "Currency",
+   "hidden": 1,
+   "label": "First Month Amount"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2023-09-28 18:18:04.662073",
+ "modified_by": "Administrator",
+ "module": "Norden",
+ "name": "Prepayment",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

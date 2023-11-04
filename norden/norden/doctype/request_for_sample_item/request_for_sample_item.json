@@ -15,15 +15,18 @@
   "designation",
   "column_break_6",
   "department",
-  "company",
-  "section_break_9",
-  "source_warehouse",
-  "column_break_11",
-  "target_warehouse",
+  "submission_date",
   "section_break_13",
   "customer",
   "items",
   "status",
+  "warehouse_tab",
+  "section_break_9",
+  "company",
+  "section_break_17",
+  "source_warehouse",
+  "column_break_11",
+  "target_warehouse",
   "amended_from"
  ],
  "fields": [
@@ -134,15 +137,30 @@
   {
    "fieldname": "section_break_4",
    "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "warehouse_tab",
+   "fieldtype": "Tab Break",
+   "label": "Warehouse"
+  },
+  {
+   "fieldname": "section_break_17",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "submission_date",
+   "fieldtype": "Date",
+   "label": "Submission Date"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2022-11-28 17:21:28.587475",
+ "modified": "2023-01-17 22:44:44.692043",
  "modified_by": "Administrator",
  "module": "Norden",
  "name": "Request for Sample Item",
+ "naming_rule": "By \"Naming Series\" field",
  "owner": "Administrator",
  "permissions": [
   {
@@ -160,5 +178,6 @@
  ],
  "sort_field": "modified",
  "sort_order": "DESC",
+ "states": [],
  "track_changes": 1
 }

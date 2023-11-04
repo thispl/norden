@@ -8,7 +8,7 @@ from frappe.utils import getdate, nowdate, flt, cint, formatdate, cstr, now, tim
 from collections import OrderedDict
 from erpnext.accounts.utils import get_currency_precision
 from erpnext.accounts.doctype.accounting_dimension.accounting_dimension import get_accounting_dimensions, get_dimension_with_children
-
+from erpnext.setup.utils import get_exchange_rate
 
 def execute(filters=None):
 	args = {
@@ -92,7 +92,7 @@ class ReceivablePayableReport(object):
 					outstanding = 0.0
 				)
 			self.get_invoices(gle)
-
+			
 			if self.filters.get('group_by_party'):
 				self.init_subtotal_row(gle.party)
 
@@ -196,7 +196,10 @@ class ReceivablePayableReport(object):
 		# as we can use this to filter out invoices without outstanding
 		for key, row in self.voucher_balance.items():
 			row.outstanding = flt(row.invoiced - row.paid - row.credit_note, self.currency_precision)
-			row.invoice_grand_total = row.invoiced
+			ep = get_exchange_rate(self.gl_entries[0]["account_currency"],"USD")
+			row.invoice_grand_total = row.invoiced * ep
+			# for i in self.gl_entries:
+			# 	frappe.errprint(i.account_currency)
 			if abs(row.outstanding) > 1.0/10 ** self.currency_precision:
 				# non-zero oustanding, we must consider this row
 

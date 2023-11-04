@@ -15,6 +15,7 @@ from calendar import monthrange
 from frappe import _, msgprint
 from frappe.utils import flt
 from frappe.utils import cstr, cint, getdate
+# from frappe import has_role
 
 def execute(filters=None):
 	columns, data = [] ,[]
@@ -24,30 +25,47 @@ def execute(filters=None):
 
 def get_columns(filters):
 	column = [
-		_('Item') + ':Data:120',
-		_('Item Name') + ':Data:300',
-		# _('UOM') + ':Data:100',
-		_('Selling Price') + ':Currency:150',
-		# _('Internal_cost') + ':Currency:100',
-		# # _('Warehouse') + ':Data:120',
-		# _('Stock UOM') + ':Data:150',
-		# _('Balance') + ':Data:150',
+		_('Item') + ':Data:160',
+		_('Item Name') + ':Data:150',
+		_('Item Group') + ':Data:150',
 	]
+	role = frappe.get_roles(frappe.session.user)
+	user = frappe.get_all("User Permission",{"user":frappe.session.user,"allow":"Price List"},["*"])
+	if "Cost Viewer" in role:
+		column.append(_("STD Buying USD") + ':Float:150')
+	for s in user:
+		column.append(_(s.for_value) + ':Float:150')
 	return column
 
 
 def get_data(filters):
+	role = frappe.get_roles(frappe.session.user)
 	data = []
-	frappe.errprint(filters.item_code)
-	if filters.price_list:
-		item = frappe.db.sql(""" select * from `tabItem Price` where price_list = '%s' """%(filters.price_list),as_dict=True)
-	
-	if filters.item_code and filters.price_list:
-		item = frappe.db.sql(""" select * from `tabItem Price` where price_list = '%s' and item_code = '%s' """%(filters.price_list,filters.item_code),as_dict=True)
-	
+	user = frappe.get_all("User Permission",{"user":frappe.session.user,"allow":"Price List"},["*"])
+	if filters.item_code:
+		item = frappe.get_all("Item",{"name":filters.item_code},["*"])
+	if filters.item_group:
+		item = frappe.get_all("Item",{"item_group":filters.item_group},["*"])
+	if filters.item_code and filters.item_group:
+		item=frappe.get_all("Item",{"name":filters.item_code,"item_group":filters.item_group},["*"])	
+	if not filters:
+		item = frappe.get_all("Item",["*"])
+		item_group = frappe.get_all("Item Group",["*"])
 	for i in item:
-		frappe.errprint(i.item_code)
-		row = [i.item_code,i.item_name,i.price_list_rate]
+		row = [i.item_code,i.item_name,i.item_group]
+		if "Cost Viewer" in role:
+			std = frappe.get_value("Item Price",{"item_code":i.item_code,"price_list":"STANDARD BUYING-USD"},["price_list_rate"])
+			if std:
+				row.append(std)
+			if not std:
+				std = 0
+				row.append(std)
+		for s in user:
+			item = frappe.db.sql(""" select price_list_rate from `tabItem Price` where price_list = '%s' and item_code = '%s' """%(s.for_value,i.item_code),as_dict=True)
+			if item:
+				row.append(item[0]["price_list_rate"])
+			else:
+				row.append('')
 		data.append(row)
 	return data	
 	# 	data.append(row)

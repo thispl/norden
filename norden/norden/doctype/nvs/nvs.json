@@ -19,6 +19,7 @@
   "description",
   "features",
   "specification",
+  "specification_pb",
   "laser_player",
   "laser_pb",
   "usb",
@@ -49,8 +50,10 @@
   "net_weight",
   "section_break_9",
   "front_panel",
+  "front_pannal_mm",
   "front_pb",
   "rear_panel",
+  "rear_pannal_mm",
   "rear_pb",
   "software_instructions",
   "software_pb",
@@ -77,6 +80,7 @@
   "installation_pb",
   "section_break_14",
   "dimension_image",
+  "dimension_image_mm",
   "dimension",
   "section_break_17",
   "ordering_information_section",
@@ -520,14 +524,36 @@
    "fieldname": "category_id",
    "fieldtype": "Data",
    "label": "Category ID"
+  },
+  {
+   "fieldname": "front_pannal_mm",
+   "fieldtype": "Int",
+   "label": "Front Pannal MM"
+  },
+  {
+   "fieldname": "rear_pannal_mm",
+   "fieldtype": "Int",
+   "label": "Rear Pannal MM"
+  },
+  {
+   "fieldname": "dimension_image_mm",
+   "fieldtype": "Int",
+   "label": "Dimension Image MM"
+  },
+  {
+   "default": "0",
+   "fieldname": "specification_pb",
+   "fieldtype": "Check",
+   "label": "Page Break"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2021-10-28 15:33:50.130781",
+ "modified": "2023-09-25 11:13:08.966411",
  "modified_by": "Administrator",
  "module": "Norden",
  "name": "NVS",
+ "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [
   {
@@ -545,5 +571,6 @@
  ],
  "sort_field": "modified",
  "sort_order": "DESC",
+ "states": [],
  "track_changes": 1
 }

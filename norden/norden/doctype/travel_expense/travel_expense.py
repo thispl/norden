@@ -5,5 +5,5 @@
 from frappe.model.document import Document
 
 class TravelExpense(Document):
-	urllib.parse.quote(str(param_value))
+	# urllib.parse.quote(str(param_value))
 	pass

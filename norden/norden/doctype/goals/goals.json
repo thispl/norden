@@ -1,0 +1,91 @@
+{
+ "actions": [],
+ "autoname": "autoincrement",
+ "creation": "2023-04-08 10:30:00.976081",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "kra",
+  "section_break_2",
+  "per_weightage",
+  "req_output",
+  "min_output",
+  "actual_output",
+  "column_break_4",
+  "score",
+  "section_break_6",
+  "earned_score"
+ ],
+ "fields": [
+  {
+   "fieldname": "kra",
+   "fieldtype": "Small Text",
+   "in_list_view": 1,
+   "label": "Goal",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_2",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "per_weightage",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Weightage(%)",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "score",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Score(0-5)"
+  },
+  {
+   "fieldname": "section_break_6",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "earned_score",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Earned Score"
+  },
+  {
+   "fieldname": "req_output",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Req Output"
+  },
+  {
+   "fieldname": "min_output",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Min Output"
+  },
+  {
+   "fieldname": "actual_output",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Actual Output"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2023-04-08 11:15:12.387605",
+ "modified_by": "Administrator",
+ "module": "Norden",
+ "name": "Goals",
+ "naming_rule": "Autoincrement",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

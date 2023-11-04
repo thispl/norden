@@ -10,6 +10,7 @@
   "model",
   "column_break_3",
   "item_image",
+  "width",
   "version",
   "section_break_5",
   "description",
@@ -123,15 +124,21 @@
    "fieldname": "technical_parameter_pb",
    "fieldtype": "Check",
    "label": "Page Break"
+  },
+  {
+   "fieldname": "width",
+   "fieldtype": "Float",
+   "label": "Image Width (mm)"
   }
  ],
  "image_field": "item_image",
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2021-09-21 06:44:01.269359",
+ "modified": "2023-09-15 12:25:43.811594",
  "modified_by": "Administrator",
  "module": "Norden",
  "name": "NAC Datasheet",
+ "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [
   {
@@ -149,5 +156,6 @@
  ],
  "sort_field": "modified",
  "sort_order": "DESC",
+ "states": [],
  "track_changes": 1
 }

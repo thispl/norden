@@ -1,0 +1,44 @@
+{
+ "charts": [],
+ "content": "[{\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Training Certification</span>\",\"col\":12}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Generate Certificate\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Create Course\",\"col\":3}}]",
+ "creation": "2023-06-16 10:27:37.367023",
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "hr",
+ "idx": 0,
+ "label": "Training Certification",
+ "links": [],
+ "modified": "2023-10-31 11:03:26.805495",
+ "modified_by": "Administrator",
+ "module": "Norden",
+ "name": "Training Certification",
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [
+  {
+   "role": "System Manager"
+  }
+ ],
+ "sequence_id": 11.0,
+ "shortcuts": [
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Generate Certificate",
+   "link_to": "Training Certificate",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Create Course",
+   "link_to": "Course",
+   "type": "DocType"
+  }
+ ],
+ "title": "Training Certification"
+}

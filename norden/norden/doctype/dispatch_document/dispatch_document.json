@@ -18,10 +18,11 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2021-10-05 11:55:13.700048",
+ "modified": "2023-09-21 12:55:24.881549",
  "modified_by": "Administrator",
  "module": "Norden",
  "name": "Dispatch Document",
+ "naming_rule": "By fieldname",
  "owner": "Administrator",
  "permissions": [
   {
@@ -39,5 +40,6 @@
  ],
  "sort_field": "modified",
  "sort_order": "DESC",
+ "states": [],
  "track_changes": 1
 }

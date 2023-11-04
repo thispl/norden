@@ -1,5 +1,6 @@
 {
  "actions": [],
+ "allow_import": 1,
  "autoname": "field:specification",
  "creation": "2022-05-30 16:59:47.907200",
  "doctype": "DocType",
@@ -27,10 +28,11 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2022-12-07 13:52:21.321835",
+ "modified": "2022-12-21 15:24:22.451155",
  "modified_by": "Administrator",
  "module": "Norden",
  "name": "Specification",
+ "naming_rule": "By fieldname",
  "owner": "Administrator",
  "permissions": [
   {
@@ -48,5 +50,6 @@
  ],
  "sort_field": "modified",
  "sort_order": "DESC",
+ "states": [],
  "track_changes": 1
 }

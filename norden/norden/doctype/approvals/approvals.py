@@ -18,7 +18,6 @@ from openpyxl import load_workbook
 from openpyxl.utils import get_column_letter
 from openpyxl.styles import GradientFill, PatternFill
 from six import BytesIO, string_types
-from erpnext.hr.doctype.holiday_list.holiday_list import is_holiday
 from frappe.utils import (
     flt,
     cint,

@@ -1,0 +1,80 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "STI-.####",
+ "creation": "2023-02-06 15:00:23.386313",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "boe_inbound_no",
+  "boe_outbound_no",
+  "section_break_2",
+  "stock_transfer",
+  "section_break_4",
+  "stock_transfer_outbound"
+ ],
+ "fields": [
+  {
+   "fieldname": "stock_transfer",
+   "fieldtype": "Table",
+   "label": "Stock Transfer inbound",
+   "options": "Stock Transfer Detail"
+  },
+  {
+   "fieldname": "section_break_2",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "section_break_4",
+   "fieldtype": "Section Break",
+   "hidden": 1
+  },
+  {
+   "fieldname": "stock_transfer_outbound",
+   "fieldtype": "Table",
+   "hidden": 1,
+   "label": "Stock Transfer Outbound",
+   "options": "Stock Transfer Outbound"
+  },
+  {
+   "fieldname": "boe_inbound_no",
+   "fieldtype": "Link",
+   "label": "BOE Inbound No",
+   "options": "Bill of Entry",
+   "unique": 1
+  },
+  {
+   "fieldname": "boe_outbound_no",
+   "fieldtype": "Link",
+   "label": "BOE Outbound No",
+   "options": "Bill of Entry Outbound"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2023-03-06 18:22:24.445062",
+ "modified_by": "Administrator",
+ "module": "Norden",
+ "name": "Stock Transfer India",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

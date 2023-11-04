@@ -1,0 +1,393 @@
+{
+ "actions": [],
+ "allow_copy": 1,
+ "allow_rename": 1,
+ "creation": "2022-12-19 11:08:04.055701",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "leave_policy_tab",
+  "html_3",
+  "section_break_4",
+  "htm_10",
+  "html",
+  "html_2",
+  "html_4",
+  "html_8",
+  "html_9",
+  "1_earned_leave_el_section",
+  "html_6",
+  "html_5",
+  "html_11",
+  "html_14",
+  "html_15",
+  "html_16",
+  "section_break_17",
+  "2_casual_leave_cl_section",
+  "html_19",
+  "html_21",
+  "html_22",
+  "html_23",
+  "section_break_22",
+  "3_sick_leave_sl_section",
+  "html_24",
+  "html_25",
+  "html_26",
+  "html_27",
+  "section_break_28",
+  "4_maternity_leave_ml_section",
+  "html_30",
+  "html_31",
+  "html_32",
+  "html_33",
+  "section_break_34",
+  "5_paternity_leave_section",
+  "html_36",
+  "html_37",
+  "html_38",
+  "html_39",
+  "section_break_40",
+  "6_marriage_leave_section",
+  "html_42",
+  "html_43",
+  "html_44",
+  "html_45",
+  "section_break_46",
+  "7_compensatory_off_comp_off_section",
+  "html_48",
+  "html_49",
+  "html_50",
+  "html_51",
+  "section_break_52",
+  "8_loss_of_pay_leave_lop_lwp_section",
+  "html_54",
+  "9_leave_during_probations__trainees_section",
+  "html_56",
+  "travel_policy_tab",
+  "it_policy_tab"
+ ],
+ "fields": [
+  {
+   "fieldname": "leave_policy_tab",
+   "fieldtype": "HTML",
+   "options": "<p style=\"font-size: 20px; text-align: center;\"><b>Leave Policy</b></p>"
+  },
+  {
+   "fieldname": "html_3",
+   "fieldtype": "HTML",
+   "options": "<p style=\"font-size: 16px; text-align: center;\"><b>(<font color=\"red\">Revised </font>-25 April 2023)</b></p>\n<p style=\"font-size: 16px;\"><b>Our Leave Policy-</b>designed and incorporate the following features:</p><br>\n<p></p><li style=\"font-size: 16px;\">It has version tracking information like effective date, revision number.</li>\n<li style=\"font-size: 16px;\">It is logically divided and has numbered sections.</li>\n<li style=\"font-size: 16px;\">It has the name of the policy written on each page.</li>\n<li style=\"font-size: 16px;\">It will be made available in Intra-net, also mobile-friendly soon.</li>\n<li style=\"font-size: 16px;\">It is a clear, straight forward language that is easy to understand.</li>\n<li style=\"font-size: 16px;\">It has keywords, which are well defined to ensure zero ambiguity.</li>\n<li style=\"font-size: 16px;\">It holds meaningful communication of our leave policy.</li>\n<li style=\"font-size: 16px;\">It will be reviewed and audited periodically once a year. (HR policies)</li><br>\n<p style=\"font-size: 16px;\">\n</p><p style=\"font-size: 16px;\">More than the types and number of leaves, the process of availing leaves\ndetermines the employees\u2019 perception of how \u2018friendly\u2019 the leave policy is.</p>\n<p style=\"font-size: 16px;\">Remember that a well-structured HR policy is also a tool to communicate the\ncompany\u2019s values and expectations. Leave policy is not just about granting leaves; it is about helping employees to know about their entitlements and to make it easy for employees to avail them effectively.</p>\n<p style=\"font-size: 16px;\">The ultimate measure of a good leave policy is the outcomes it produces happy and engaged employees who have decent work-life balance.</p><br>\n<p style=\"font-size: 16px; text-align: right;\">Revision: NC/HR/LP/v4-25/04/2023</p>"
+  },
+  {
+   "fieldname": "section_break_4",
+   "fieldtype": "Section Break",
+   "label": "General Rules of Leaves"
+  },
+  {
+   "fieldname": "html_2",
+   "fieldtype": "HTML",
+   "options": "<p></p> <p style=\"font-size: 16px;\">1.Employees should proceed on leave only after getting the applied leave duly sanctioned by the concerned H.O.D through the ERP system.</p>\n<p style=\"font-size: 16px;\">2.In the event of an emergency, he/she will be liable to inform the concerned authority within 24 hours, failing which he/she will be liable to refusal of leave or pay cuts without any further reference on the matter.</p>\n<p style=\"font-size: 16px;\">3.Employees are required to report on duty after the completion of the sanctioned leave positively. If leave is extended on emergency, then the employees should communicate and get an approval immediately mentioning the reason therewith and the period extended to the HOD.</p>\n<p style=\"font-size: 16px;\">4.The duty time is fixed in general from 9.00 am to 6.00 pm until further circular is published.</p>\n<p style=\"font-size: 16px;\">5.Employee reporting to the office after 09.30 is not acceptable in general if the reasons is genuine, the reporting person can take a decision. The same shall be applicable for early going as well, however in both case\nrepetition will invite disciplinary action.</p>\n<p style=\"font-size: 16px;\">6.Sick leaves more than two days can only be accepted with the supporting documents / Medical Certificate from Doctor.</p>\n<p style=\"font-size: 16px;\">7.Casual leave permitted maximum 2 days in a month; anything above will be redeemed from the allocated earned leave if available, otherwise treated as LOP.</p>\n<p style=\"font-size: 16px;\">8.Availing leave either on a Friday or on a Monday is restricted to maximum 2 times in a quarter; if such leave pattern repeats unreasonably in the same period, then the weekend holidays will also be deducted from earned leave.</p><br>\n<p style=\"font-size: 16px; text-align: right;\">Revision: NC/HR/LP/v4-25/04/2023</p>\n\n"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "html_4",
+   "fieldtype": "Section Break",
+   "options": "\n"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "1_earned_leave_el_section",
+   "fieldtype": "Section Break",
+   "label": "1  - Earned Leave (EL)"
+  },
+  {
+   "fieldname": "html_6",
+   "fieldtype": "HTML",
+   "options": "<p style=\"font-size: 16px;\">The Earned leave is also known as Vacation Leave (VL) or Privilege Leave (PL) or Flexi Holiday, or Annual Leave (AL). The leave balance at the end of the year\ncan be carried forward to the next year. Earned Leaves can also be converted to cash through a process called Leave Encashment at the time of full &amp; final settlement.The basic salary is usually considered as the unit of exchange to encash leaves.</p><br><br>\n\n"
+  },
+  {
+   "fieldname": "html_5",
+   "fieldtype": "HTML",
+   "options": "<p style=\"font-size: 17px; color: blue;\">&emsp; &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<u><b> Item </b></u><b>&emsp;&emsp;&emsp; &emsp;&emsp;&emsp;&emsp;<u>Qty</u> &emsp;&emsp;&emsp; &emsp;&emsp;&emsp; &emsp;&emsp;&emsp; &emsp;&emsp;<u>Remarks</u> </b>\n</p>"
+  },
+  {
+   "fieldname": "html_11",
+   "fieldtype": "HTML",
+   "options": "<p style=\"font-size: 16px;\">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Leave Entitlement per year&emsp;&emsp;&emsp;12 Days&emsp;&emsp;&emsp; After 12 months of continous service for  first year\n</p>"
+  },
+  {
+   "fieldname": "html_14",
+   "fieldtype": "HTML",
+   "options": "<p style=\"font-size: 16px;\">&emsp;&emsp;&emsp;&emsp;\n&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Maximum EL/AL/PL that can be &emsp;<font color=\"orange\">24 Days</font></p>\n"
+  },
+  {
+   "fieldname": "html_15",
+   "fieldtype": "HTML",
+   "options": "<p style=\"font-size: 16px;\">&emsp;&emsp;&emsp;&emsp;\n&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;carried forward / Accumulation.</p>\n<p style=\"font-size: 16px; text-align: left; color: green;\"><b>Foot Note:</b></p>"
+  },
+  {
+   "fieldname": "html_16",
+   "fieldtype": "HTML",
+   "options": "<p style=\"font-size: 16px; color: red;\">\u2713 Earned leave must be applied at least 5 days ahead of the leave intend.</p>\n<p style=\"font-size: 16px; color: red;\">\u2713 The leave must be applied through ERP system only.</p>\n<p style=\"font-size: 16px; color: red;\">\u2713 If one avail earned leave before and after holidays, holidays/weekend will also be considered as earned leave.</p>\n<p style=\"font-size: 16px; color: red;\">\u2713 The earned leave can be accumulated upto 24 days, anything above must be used on \nor before 31st March of proceeding year, otherwise it may lapse and </p>  \n<span style=\"font-size: 16px; color: black;\">NO ENCASHMENT</span>\n<span style=\"font-size: 16px; color: red;\">allowed.</span>"
+  },
+  {
+   "fieldname": "section_break_17",
+   "fieldtype": "Section Break"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "2_casual_leave_cl_section",
+   "fieldtype": "Section Break",
+   "label": "2 - Casual Leave (CL)"
+  },
+  {
+   "fieldname": "html_19",
+   "fieldtype": "HTML",
+   "options": "<p style=\"font-size: 16px;\">Casual Leaves accommodate any urgent/ unforeseen personal requirements as\nagainst EL being planned leaves.</p>"
+  },
+  {
+   "fieldname": "html_21",
+   "fieldtype": "HTML",
+   "options": "<p style=\"font-size: 16px; color: blue;\">&emsp;&emsp;&emsp; &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<b> <u>Qty</u>&emsp;&emsp;&emsp; &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<u>Remarks</u></b></p>"
+  },
+  {
+   "fieldname": "html_22",
+   "fieldtype": "HTML",
+   "options": "<p style=\"font-size: 16px;\">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;\n&emsp;12 Days&emsp;&emsp;&emsp; 12 Days (During his / her first 12 months and further continuous service)</p>\n<p style=\"font-size: 16px; text-align: left; color: green;\"><b>Foot Note:</b></p>"
+  },
+  {
+   "fieldname": "html_23",
+   "fieldtype": "HTML",
+   "options": "<p style=\"font-size: 16px; color: red;\">\u2713 Casual leaves limited to 2 Days continuously.</p>\n<p style=\"font-size: 16px; color: red;\">\u2713 The leave must be applied through ERP system only.</p>\n<p style=\"font-size: 16px; color: red;\">\u2713 The casual leave cannot be availed before &amp; after holidays twice in a month</p>\n<p style=\"font-size: 16px; color: red;\">\u2713 The casual leave cannot be carried forward to next year.</p>\n\n<p style=\"font-size: 16px; text-align: right;\">Revision: NC/HR/LP/v4-25/04/2023</p>\n"
+  },
+  {
+   "fieldname": "section_break_22",
+   "fieldtype": "Section Break"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "3_sick_leave_sl_section",
+   "fieldtype": "Section Break",
+   "label": "3 - Sick Leave (SL)"
+  },
+  {
+   "fieldname": "html_24",
+   "fieldtype": "HTML",
+   "options": "<p></p> <p style=\"font-size: 16px;\">Sick leave also called Medical Leaves (ML), these are provided on the ground of\nsickness or in case of illness or medically unfit.</p>"
+  },
+  {
+   "fieldname": "html_25",
+   "fieldtype": "HTML",
+   "options": "<p style=\"font-size: 16px; color: blue;\">&emsp;&emsp;&emsp; &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<u><b> Qty</b></u><b>&emsp;&emsp;&emsp; &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<u>Remarks</u></b></p>"
+  },
+  {
+   "fieldname": "html_26",
+   "fieldtype": "HTML",
+   "options": "<p style=\"font-size: 16px;\">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;\n&emsp;12 Days&emsp;&emsp;&emsp; 12 Days (During his/her first 12 months and further continuous service)</p>\n<p style=\"font-size: 16px; text-align: left; color: green;\"><b>Foot Note:</b></p>"
+  },
+  {
+   "fieldname": "html_27",
+   "fieldtype": "HTML",
+   "options": "<p style=\"font-size: 16px; color: red;\">\u2713 Medical certificate is mandatory in case of continuous sick leave more than 2 days.</p>\n<p style=\"font-size: 16px; color: red;\">\u2713 The medical certificate must be from a recognized medical doctor.</p>\n<p style=\"font-size: 16px; color: red;\">\u2713 The sick leave must be informed on the same day to the HR and reporting officer.</p>\n<p style=\"font-size: 16px; color: red;\">\u2713 If sick leave is taken before and after holidays, the holidays also will be considered as sick leave.</p>\n<p style=\"font-size: 16px; color: red;\">\u2713 The sick leave cannot be carried forward to the next year.</p>\n\n"
+  },
+  {
+   "fieldname": "section_break_28",
+   "fieldtype": "Section Break"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "4_maternity_leave_ml_section",
+   "fieldtype": "Section Break",
+   "label": "4 - Maternity Leave (ML)"
+  },
+  {
+   "fieldname": "html_30",
+   "fieldtype": "HTML",
+   "options": "<p style=\"font-size: 16px;\">Maternity Benefit Act of 1961 requires that employers need to provide 180 days\nof paid leave to any woman who has completed their last one year preceding the\nexpected delivery date. The Act also provides for mandated leave in case of\nmiscarriage, adoption, surrogacy and tubectomy. The leave cannot be carried\nforward.</p>"
+  },
+  {
+   "fieldname": "html_31",
+   "fieldtype": "HTML",
+   "options": "<p style=\"font-size: 16px; color: blue;\">&emsp;&emsp;<b> <u>Qty</u>&emsp;&emsp;&emsp; &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<u>Remarks</u></b></p>"
+  },
+  {
+   "fieldname": "html_32",
+   "fieldtype": "HTML",
+   "options": "<p style=\"font-size: 16px;\">&emsp;\n180 Days&emsp;&emsp;&emsp; Eligibility: Woman who had worked in our organization for a period of at least\n180 days within the past 12 months.</p><br>\n<p style=\"font-size: 16px; text-align: left; color: green;\"><b>Foot Note:</b></p>"
+  },
+  {
+   "fieldname": "html_33",
+   "fieldtype": "HTML",
+   "options": "<p style=\"font-size: 16px; color: red;\">\u2713 The Maternity leave is applicable for the first two children only.</p>\n<p style=\"font-size: 16px; color: red;\">\u2713 In case of a third child, 12 weeks of leave can be availed without Pay.</p>\n\n<p style=\"font-size: 16px; text-align: right;\">Revision: NC/HR/LP/v3-15/12/2022</p>\n"
+  },
+  {
+   "fieldname": "section_break_34",
+   "fieldtype": "Section Break"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "5_paternity_leave_section",
+   "fieldtype": "Section Break",
+   "label": "5 - Paternity Leave"
+  },
+  {
+   "fieldname": "html_36",
+   "fieldtype": "HTML",
+   "options": "<p style=\"font-size: 16px;\">The Paternity Leave is a leave offered to expectant fathers after a child is born. It\nis a leave meant for the father to take care of the new-born and the mother.</p>"
+  },
+  {
+   "fieldname": "html_37",
+   "fieldtype": "HTML",
+   "options": "<p style=\"font-size: 16px; color: blue;\">&emsp;&emsp;&emsp; &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<b> <u>Qty</u>&emsp;&emsp;&emsp;&emsp;&emsp; &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<u>Remarks</u></b></p>"
+  },
+  {
+   "fieldname": "html_38",
+   "fieldtype": "HTML",
+   "options": "<p style=\"font-size: 16px;\">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;2 Days&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; It can be availed within Four weeks from the birth of new baby.\n</p>\n\n<p style=\"font-size: 16px; text-align: left; color: green;\"><b>Foot Note:</b></p>"
+  },
+  {
+   "fieldname": "html_39",
+   "fieldtype": "HTML",
+   "options": "<p style=\"font-size: 16px; color: red;\">\u2713 To be eligible for Paternity Leave you must be the biological / adoptive father of a child.</p>\n<p style=\"font-size: 16px; color: red;\">\u2713 The 2 days can be taken all at once.</p>"
+  },
+  {
+   "fieldname": "section_break_40",
+   "fieldtype": "Section Break"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "6_marriage_leave_section",
+   "fieldtype": "Section Break",
+   "label": "6 - Marriage Leave"
+  },
+  {
+   "fieldname": "html_42",
+   "fieldtype": "HTML",
+   "options": "<p style=\"font-size: 16px;\">Special leave for employees getting married called Marriage Leave.\nMarriage leave is not a legal entitlement, but it is given as a privilege.\nIn case of remarriage or multiple marriages, employees will have to utilize their\nannual leave balances or even go on leave without pay.</p>"
+  },
+  {
+   "fieldname": "html_43",
+   "fieldtype": "HTML",
+   "options": "<p style=\"font-size: 16px; color: blue;\">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<b> <u>Qty</u>&emsp;&emsp;&emsp;&emsp;&emsp; &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<u>Remarks</u></b></p>"
+  },
+  {
+   "fieldname": "html_44",
+   "fieldtype": "HTML",
+   "options": "<p style=\"font-size: 16px;\">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;3 Days&emsp;&emsp;&emsp; The eligible employee who has completed their probation period\n</p>\n\n<p style=\"font-size: 16px; text-align: left; color: green;\"><b>Foot Note:</b></p>"
+  },
+  {
+   "fieldname": "html_45",
+   "fieldtype": "HTML",
+   "options": "<p style=\"font-size: 16px; color: red;\">\u2713 The eligibility is for only once in entire employment period with our organization.</p>\n<p style=\"font-size: 16px; color: red;\">\u2713 Marriage leave can be availed only for the first legal marriage of the employees.</p>"
+  },
+  {
+   "fieldname": "section_break_46",
+   "fieldtype": "Section Break"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "7_compensatory_off_comp_off_section",
+   "fieldtype": "Section Break",
+   "label": "7 - Compensatory Off (Comp-Off)"
+  },
+  {
+   "fieldname": "html_48",
+   "fieldtype": "HTML",
+   "options": "<p style=\"font-size: 16px;\">If an employee asked to work on a weekend or a holiday due to the priority of the deliverables, they are offered a compensatory off on any other workday.</p>"
+  },
+  {
+   "fieldname": "html_49",
+   "fieldtype": "HTML",
+   "options": "<p style=\"font-size: 16px; color: blue;\">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<b> <u>Qty</u>&emsp;&emsp;&emsp;&emsp;&emsp; &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<u>Remarks</u></b></p>"
+  },
+  {
+   "fieldname": "html_50",
+   "fieldtype": "HTML",
+   "options": "<p style=\"font-size: 16px;\">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;As per the days worked&emsp;&emsp;&emsp; Comp-off lapses within 60 days.\n</p>\n\n<p style=\"font-size: 16px; text-align: left; color: green;\"><b>Foot Note:</b></p>"
+  },
+  {
+   "fieldname": "html_51",
+   "fieldtype": "HTML",
+   "options": "<p style=\"font-size: 16px; color: red;\">\u2713 The employee must claim comp-off after having worked on a non-working day.</p>\n<p style=\"font-size: 16px; color: red;\">\u2713 The request must be approved by the immediate manager and then forwarded to HR for granting a comp-off leave to the employee.</p>\n<p style=\"font-size: 16px; color: red;\">\u2713 The employee must utilize available comp-off leave within tits expiry.</p>"
+  },
+  {
+   "fieldname": "section_break_52",
+   "fieldtype": "Section Break"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "8_loss_of_pay_leave_lop_lwp_section",
+   "fieldtype": "Section Break",
+   "label": "8) Loss of Pay Leave (LOP / LWP)"
+  },
+  {
+   "fieldname": "html_54",
+   "fieldtype": "HTML",
+   "options": "<p style=\"font-size: 16px;\">There are cases when an employee has exhausted all leave balance but still\nrequires time-off for meeting some exigency. In such situations, Management\nallows them to go on leave without pay (LWP). Since there is a loss of income it is called LOP Leave.</p>\n\n<p style=\"font-size: 16px;\">Any leave availed in violation of leave policy is also considered as LOP. For\nexample, an employee going on vacation without prior intimation or approval. Or\nan employee not providing medical certificates in case of sick leave as per policy.</p>\n\n<p style=\"font-size: 16px;\">The deduction LOP will be done during the payroll of the month.</p>"
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "9_leave_during_probations__trainees_section",
+   "fieldtype": "Section Break",
+   "label": "9) Leave during Probations & Trainees"
+  },
+  {
+   "fieldname": "html_56",
+   "fieldtype": "HTML",
+   "options": "<p style=\"font-size: 16px;\">The permitted leave during the 6 months\u2019 probation is 6 days (casual leave-3/\nsick leave-3), otherwise LOP can be applied with prior approval.</p>\n<p style=\"font-size: 16px;\">All Paid Trainees are permitted One day leave in a month, otherwise LOP can\nbe applied with prior approval.</p><br><br>\n\n<p style=\"font-size: 16px; text-align: left;\">Global Manager- HR</p>\n\n<p style=\"font-size: 16px; text-align: right;\">Revision: NC/HR/LP/v4-25/04/2023</p>"
+  },
+  {
+   "fieldname": "travel_policy_tab",
+   "fieldtype": "Section Break",
+   "label": "Travel Policy"
+  },
+  {
+   "fieldname": "it_policy_tab",
+   "fieldtype": "Section Break",
+   "label": "IT Policy"
+  },
+  {
+   "fieldname": "htm_10",
+   "fieldtype": "HTML",
+   "options": "<p style=\"font-size: 20px; text-align: center;\"><b>Leave Policy - \n (India)</b></p>"
+  },
+  {
+   "fieldname": "html",
+   "fieldtype": "HTML",
+   "options": "<p style=\"font-size: 16px; text-align: center;\"><b>(<font color=\"red\">Revised </font>-25 April 2023)</b></p>"
+  },
+  {
+   "fieldname": "html_8",
+   "fieldtype": "HTML",
+   "options": "<p style=\"font-size: 20px; text-align: center;\"><b>Leave Policy - \n (India)</b></p>"
+  },
+  {
+   "fieldname": "html_9",
+   "fieldtype": "HTML",
+   "options": "<p style=\"font-size: 16px; text-align: center;\"><b><font color=\"red\">(Revised </font>-25 April 2023)</b></p><br>\n<p style=\"font-size: 16px; text-align: center;\"><u> <b> Leave Types</b></u></p>"
+  }
+ ],
+ "hide_toolbar": 1,
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2023-05-12 16:13:39.060067",
+ "modified_by": "Administrator",
+ "module": "Norden",
+ "name": "Organization Policy",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

@@ -1,12 +1,16 @@
 {
- "cards": [],
+ "cards": [
+  {
+   "card": "SO - DLV Completed - Not Billed"
+  }
+ ],
  "charts": [
   {
-   "chart": "Sales Order Countrywise",
+   "chart": "Sales Order Status",
    "width": "Half"
   },
   {
-   "chart": "Sales Order Status",
+   "chart": "Sales Order Countrywise",
    "width": "Half"
   },
   {
@@ -21,7 +25,7 @@
  "idx": 0,
  "is_default": 0,
  "is_standard": 1,
- "modified": "2022-12-03 19:01:35.804645",
+ "modified": "2023-02-15 16:44:57.688575",
  "modified_by": "Administrator",
  "module": "Norden",
  "name": "Sales Order Dashboard",

@@ -6,7 +6,8 @@
  "engine": "InnoDB",
  "field_order": [
   "document_type",
-  "attach"
+  "attach",
+  "download"
  ],
  "fields": [
   {
@@ -21,12 +22,19 @@
    "fieldtype": "Attach",
    "in_list_view": 1,
    "label": "Attach"
+  },
+  {
+   "default": "0",
+   "fieldname": "download",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Download"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2022-11-16 20:50:40.946470",
+ "modified": "2023-04-15 17:52:54.226430",
  "modified_by": "Administrator",
  "module": "Norden",
  "name": "Supporting Document",
@@ -34,5 +42,6 @@
  "permissions": [],
  "sort_field": "modified",
  "sort_order": "DESC",
+ "states": [],
  "track_changes": 1
 }

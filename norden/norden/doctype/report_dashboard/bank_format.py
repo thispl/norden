@@ -43,7 +43,7 @@ def make_xlsx(data, sheet_name=None, wb=None, column_widths=None):
         print(ss.employee_name)
         dt = datetime.strptime(args.from_date,'%Y-%m-%d')
         d = dt.strftime('%b')
-        # emp = frappe.get_doc('Employee',{"employee":ss.employee},['*'])
+        emp = frappe.get_doc('Employee',{"employee":ss.employee},['*'])
         emp = frappe.get_doc('Employee',{"employee":ss.employee},['*'])
         ws.append(["",emp.first_name,ss.bank_account_no,ss.net_pay,ss.employee_name,d,ss.end_date,emp.ifsc_code,ss.bank_name,emp.bank_branch,emp.company_email])
 

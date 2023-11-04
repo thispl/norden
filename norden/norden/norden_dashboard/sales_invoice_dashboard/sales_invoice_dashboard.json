@@ -2,12 +2,16 @@
  "cards": [],
  "charts": [
   {
-   "chart": "Sales Invoice Countrywise",
-   "width": "Full"
+   "chart": "Sales Invoice Status",
+   "width": "Half"
   },
   {
-   "chart": "Sales Invoice Status",
-   "width": "Full"
+   "chart": "Sales Invoice Countrywise",
+   "width": "Half"
+  },
+  {
+   "chart": "Outgoing Bills (Sales Invoice)",
+   "width": "Half"
   }
  ],
  "creation": "2022-12-03 18:52:28.214775",
@@ -17,8 +21,8 @@
  "idx": 0,
  "is_default": 0,
  "is_standard": 1,
- "modified": "2022-12-08 18:51:48.127420",
- "modified_by": "Administrator",
+ "modified": "2023-04-17 11:14:34.948600",
+ "modified_by": "faisal@nordenco.ae",
  "module": "Norden",
  "name": "Sales Invoice Dashboard",
  "owner": "Administrator"

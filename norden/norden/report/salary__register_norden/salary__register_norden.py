@@ -68,7 +68,7 @@ def get_data(filters):
 		lop = frappe.db.get_value('Salary Detail',{'abbr':'LOP','parent':ss.name},'amount')
 
 		row = [
-			ss.employee,ss.employee_name,emp.date_of_joining,emp.date_of_birth,ss.designation,ss.region,ss.company,ss.start_date,ss.end_date,
+			ss.employee,frappe.get_value('Employee',ss.employee,"employee_name"),emp.date_of_joining,emp.date_of_birth,ss.designation,ss.region,ss.company,ss.start_date,ss.end_date,
 			basic,hra,conveyance,vfa,sa,ctc,arrears,ot,gift,leave_encashment,internet,ss.gross_pay,professional_tax,epf,esi,ad,tds,lop,
 			ss.total_deduction,ss.net_pay,ss.total_working_days,ss.payment_days,ss.leave_without_pay
 		]	

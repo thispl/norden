@@ -16,37 +16,42 @@
    "fieldname": "for_employee",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "From Employee"
+   "label": "From Employee",
+   "read_only": 1
   },
   {
    "fieldname": "employee_name",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Employee Name"
+   "label": "Employee Name",
+   "read_only": 1
   },
   {
    "fieldname": "from_date",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "From date"
+   "label": "From date",
+   "read_only": 1
   },
   {
    "fieldname": "to_date",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "To date"
+   "label": "To date",
+   "read_only": 1
   },
   {
    "fieldname": "reason",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Reason"
+   "label": "Reason",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2022-12-03 18:22:24.835013",
+ "modified": "2022-12-21 12:19:24.479953",
  "modified_by": "Administrator",
  "module": "Norden",
  "name": "Attendance Request Approval",
@@ -54,5 +59,6 @@
  "permissions": [],
  "sort_field": "modified",
  "sort_order": "DESC",
+ "states": [],
  "track_changes": 1
 }

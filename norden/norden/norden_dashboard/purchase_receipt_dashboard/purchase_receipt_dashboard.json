@@ -1,0 +1,29 @@
+{
+ "cards": [],
+ "charts": [
+  {
+   "chart": "Purchase Receipt Status",
+   "width": "Half"
+  },
+  {
+   "chart": "Purchase Receipt Companywise",
+   "width": "Half"
+  },
+  {
+   "chart": "Purchase Receipt Supplierwise",
+   "width": "Half"
+  }
+ ],
+ "creation": "2022-12-10 17:29:00.479575",
+ "dashboard_name": "Purchase Receipt Dashboard",
+ "docstatus": 0,
+ "doctype": "Dashboard",
+ "idx": 0,
+ "is_default": 0,
+ "is_standard": 1,
+ "modified": "2023-04-17 11:12:46.972163",
+ "modified_by": "faisal@nordenco.ae",
+ "module": "Norden",
+ "name": "Purchase Receipt Dashboard",
+ "owner": "Administrator"
+}

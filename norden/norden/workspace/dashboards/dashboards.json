@@ -1,0 +1,85 @@
+{
+ "charts": [
+  {
+   "chart_name": "Quotation Status",
+   "label": "Total Quotes"
+  },
+  {
+   "chart_name": "Quotation Status",
+   "label": "Quotation Status"
+  },
+  {
+   "chart_name": "Quotation Countrywise",
+   "label": "Quotation Countrywise"
+  },
+  {
+   "chart_name": "Quotation Leadwise",
+   "label": "Quotation - Lead Owner"
+  }
+ ],
+ "content": "[{\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Dashboards</span>\",\"col\":12}},{\"type\":\"chart\",\"data\":{\"chart_name\":\"Quotation Status\",\"col\":6}},{\"type\":\"chart\",\"data\":{\"chart_name\":\"Total Quotes\",\"col\":6}},{\"type\":\"chart\",\"data\":{\"chart_name\":\"Quotation Countrywise\",\"col\":6}},{\"type\":\"chart\",\"data\":{\"chart_name\":\"Quotation - Lead Owner\",\"col\":6}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Sales Invoice Dashboard\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"NCME Dashboard\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Sales Order Dashboard\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Quotation Dashboard\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Sales Dashboard\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Opportunity Dashboard\",\"col\":3}}]",
+ "creation": "2023-05-09 10:46:29.418694",
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "kanban",
+ "idx": 0,
+ "label": "Dashboards",
+ "links": [],
+ "modified": "2023-06-28 13:47:24.252333",
+ "modified_by": "Administrator",
+ "module": "Norden",
+ "name": "Dashboards",
+ "owner": "faisal@nordenco.ae",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [],
+ "sequence_id": 2.0,
+ "shortcuts": [
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Sales Invoice Dashboard",
+   "link_to": "Sales Invoice Dashboard",
+   "type": "Dashboard"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "NCME Dashboard",
+   "link_to": "ncme-dashboard",
+   "type": "Page"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Opportunity Dashboard",
+   "link_to": "Opportunity",
+   "type": "Dashboard"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Sales Dashboard",
+   "link_to": "Sales Dashboard",
+   "type": "Dashboard"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Sales Order Dashboard",
+   "link_to": "Sales Order Dashboard",
+   "type": "Dashboard"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Quotation Dashboard",
+   "link_to": "Quotation Dashboard",
+   "type": "Dashboard"
+  }
+ ],
+ "title": "Dashboards"
+}

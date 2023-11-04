@@ -1,0 +1,238 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "Training.###",
+ "creation": "2023-06-15 16:37:48.339228",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "course",
+  "status",
+  "company_name",
+  "column_break_4",
+  "date",
+  "expiry_date",
+  "trainee_details_tab",
+  "salutation",
+  "attendee_name",
+  "register_number",
+  "column_break_11",
+  "contact_number",
+  "email_id",
+  "course_details_tab",
+  "certificate_content",
+  "product_group",
+  "validity",
+  "product_manager_section",
+  "employee",
+  "employee_name",
+  "designation",
+  "trainer_section",
+  "trainer",
+  "trainer_name",
+  "trainer_designation",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "course",
+   "fieldtype": "Link",
+   "label": "Course",
+   "options": "Course",
+   "reqd": 1
+  },
+  {
+   "fieldname": "attendee_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Attendee Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "company_name",
+   "fieldtype": "Link",
+   "label": "Company Name",
+   "options": "Company",
+   "reqd": 1
+  },
+  {
+   "fieldname": "register_number",
+   "fieldtype": "Data",
+   "label": "Register Number",
+   "reqd": 1
+  },
+  {
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date",
+   "reqd": 1
+  },
+  {
+   "depends_on": "eval:doc.date",
+   "fieldname": "expiry_date",
+   "fieldtype": "Date",
+   "label": "Expiry Date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "\nIssued\nExpired"
+  },
+  {
+   "fieldname": "contact_number",
+   "fieldtype": "Data",
+   "label": "Contact Number",
+   "options": "Phone",
+   "reqd": 1
+  },
+  {
+   "fieldname": "trainee_details_tab",
+   "fieldtype": "Tab Break",
+   "label": "Attendee Details"
+  },
+  {
+   "fieldname": "salutation",
+   "fieldtype": "Link",
+   "label": "Salutation",
+   "options": "Salutation",
+   "reqd": 1
+  },
+  {
+   "fieldname": "email_id",
+   "fieldtype": "Data",
+   "label": "Email ID",
+   "options": "Email",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "course.course_name",
+   "fieldname": "course_details_tab",
+   "fieldtype": "Tab Break",
+   "label": "Course Details"
+  },
+  {
+   "fetch_from": "course.certificate_content",
+   "fieldname": "certificate_content",
+   "fieldtype": "Small Text",
+   "label": "Certificate Content",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "course.product_group",
+   "fieldname": "product_group",
+   "fieldtype": "Link",
+   "label": "Product Group",
+   "options": "Item Group",
+   "read_only": 1
+  },
+  {
+   "fieldname": "product_manager_section",
+   "fieldtype": "Section Break",
+   "label": "Product Manager"
+  },
+  {
+   "fetch_from": "course.employee",
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "label": "Product Manager",
+   "options": "Employee",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "course.employee_name",
+   "fieldname": "employee_name",
+   "fieldtype": "Data",
+   "label": "Product Manager Name",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "course.designation",
+   "fieldname": "designation",
+   "fieldtype": "Data",
+   "label": "Product Manager Designation",
+   "read_only": 1
+  },
+  {
+   "fieldname": "trainer_section",
+   "fieldtype": "Section Break",
+   "label": "Trainer"
+  },
+  {
+   "fetch_from": "course.trainer",
+   "fieldname": "trainer",
+   "fieldtype": "Link",
+   "label": "Trainer",
+   "options": "Employee",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "course.trainer_name",
+   "fieldname": "trainer_name",
+   "fieldtype": "Data",
+   "label": "Trainer Name",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "course.trainer_designation",
+   "fieldname": "trainer_designation",
+   "fieldtype": "Data",
+   "label": "Trainer Designation",
+   "read_only": 1
+  },
+  {
+   "description": "In Years",
+   "fetch_from": "course.validity",
+   "fieldname": "validity",
+   "fieldtype": "Int",
+   "label": "Validity",
+   "read_only": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Training Certificate",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_11",
+   "fieldtype": "Column Break"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2023-06-17 16:27:14.319359",
+ "modified_by": "Administrator",
+ "module": "Norden",
+ "name": "Training Certificate",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

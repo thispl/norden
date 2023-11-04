@@ -1,0 +1,408 @@
+{
+ "actions": [],
+ "autoname": "naming_series:",
+ "creation": "2022-05-30 14:40:39.034818",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "item_code",
+  "description",
+  "factory_name",
+  "factory_code",
+  "po_number",
+  "pr_number",
+  "logistics_request_number",
+  "dn_number",
+  "so_number",
+  "inspection_lot_no",
+  "batch_number",
+  "file_number",
+  "invoice_no",
+  "received_qty",
+  "column_break_8",
+  "pdi",
+  "id",
+  "inspection_date",
+  "status_updated_on",
+  "company_name",
+  "warehouse",
+  "territory",
+  "inspected_by",
+  "c_of_c",
+  "sample",
+  "serial_no",
+  "sample_reference",
+  "accepted_qty",
+  "accepted_warehouse",
+  "rejected_qty",
+  "rejected_warehouse",
+  "rejected_serial_no",
+  "attachments_section",
+  "attach_video",
+  "attach_photo",
+  "attached_pdi",
+  "column_break_20",
+  "download_report",
+  "attach_test_report",
+  "section_break_15",
+  "item_aspects_and_specifications",
+  "section_break_16",
+  "visual_aspects",
+  "section_break_18",
+  "dimensional_aspects",
+  "section_break_20",
+  "material",
+  "section_break_22",
+  "functional",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "item_code",
+   "fieldtype": "Link",
+   "label": "Item code",
+   "options": "Item"
+  },
+  {
+   "fetch_from": "item_code.description",
+   "fieldname": "description",
+   "fieldtype": "Data",
+   "label": "Description"
+  },
+  {
+   "depends_on": "eval:doc.pdi != 1",
+   "fieldname": "factory_name",
+   "fieldtype": "Data",
+   "label": "Factory Name"
+  },
+  {
+   "depends_on": "eval:doc.pdi != 1",
+   "fieldname": "factory_code",
+   "fieldtype": "Data",
+   "label": "Factory Code"
+  },
+  {
+   "fieldname": "po_number",
+   "fieldtype": "Link",
+   "label": "Purchase Order Number",
+   "options": "Purchase Order",
+   "read_only": 1
+  },
+  {
+   "fieldname": "pr_number",
+   "fieldtype": "Link",
+   "label": "Purchase Receipt Number",
+   "options": "Purchase Receipt",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval:doc.pdi != 1",
+   "fieldname": "inspection_lot_no",
+   "fieldtype": "Data",
+   "label": "Inspection Lot No"
+  },
+  {
+   "depends_on": "eval:doc.pdi != 1",
+   "fieldname": "batch_number",
+   "fieldtype": "Data",
+   "label": "Batch Number"
+  },
+  {
+   "fieldname": "column_break_8",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "depends_on": "eval:doc.pdi != 1",
+   "fieldname": "c_of_c",
+   "fieldtype": "Check",
+   "label": "C of C Received"
+  },
+  {
+   "fieldname": "inspection_date",
+   "fieldtype": "Date",
+   "label": "Inspection Date"
+  },
+  {
+   "fieldname": "sample",
+   "fieldtype": "Int",
+   "label": "No of Samples"
+  },
+  {
+   "depends_on": "eval:doc.pdi != 1",
+   "fieldname": "sample_reference",
+   "fieldtype": "Data",
+   "label": "Sample Reference"
+  },
+  {
+   "depends_on": "eval:doc.pdi != 1",
+   "fieldname": "invoice_no",
+   "fieldtype": "Data",
+   "label": "Supplier Invoice No"
+  },
+  {
+   "fieldname": "section_break_15",
+   "fieldtype": "Section Break",
+   "hidden": 1
+  },
+  {
+   "fieldname": "item_aspects_and_specifications",
+   "fieldtype": "Table",
+   "label": "Item Aspects and Specifications",
+   "options": "Item Aspects and Specifications"
+  },
+  {
+   "fieldname": "section_break_16",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "visual_aspects",
+   "fieldtype": "Table",
+   "hidden": 1,
+   "label": "VISUAL ASPECTS",
+   "options": "VISUAL ASPECTS"
+  },
+  {
+   "fieldname": "section_break_18",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "dimensional_aspects",
+   "fieldtype": "Table",
+   "hidden": 1,
+   "label": "DIMENSIONAL ASPECTS",
+   "options": "DIMENSIONAL ASPECTS"
+  },
+  {
+   "fieldname": "section_break_20",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "material",
+   "fieldtype": "Table",
+   "hidden": 1,
+   "label": "MATERIAL",
+   "options": "MATERIAL"
+  },
+  {
+   "fieldname": "section_break_22",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "functional",
+   "fieldtype": "Table",
+   "hidden": 1,
+   "label": "FUNCTIONAL",
+   "options": "FUNCTIONAL"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Item Inspection",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "logistics_request_number",
+   "fieldtype": "Link",
+   "label": "Logistics Request Number",
+   "options": "Logistics Request",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval:doc.pdi != 1",
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Naming Series",
+   "options": "\nIS-NCMEF-.YYYY.-\nIS-NCPLP-.YYYY.-\nIS-NRIC-.YYYY.-\nIS-SNTL-.YYYY.-\nIS-NCUL-.YYYY.-\nIS-NC-.YYYY.-\nIS-NSA-.YYYY.-\nIS-NCPLB-.YYYY.-\nIS-NSPL-.YYYY.-"
+  },
+  {
+   "fieldname": "dn_number",
+   "fieldtype": "Link",
+   "label": "Delivery Note Number",
+   "options": "Delivery Note",
+   "read_only": 1
+  },
+  {
+   "fieldname": "so_number",
+   "fieldtype": "Link",
+   "label": "Sales Order Number",
+   "options": "Sales Order",
+   "read_only": 1
+  },
+  {
+   "fieldname": "company_name",
+   "fieldtype": "Link",
+   "label": "Company Name",
+   "options": "Company"
+  },
+  {
+   "fieldname": "territory",
+   "fieldtype": "Data",
+   "label": "Territory",
+   "read_only": 1
+  },
+  {
+   "fieldname": "inspected_by",
+   "fieldtype": "Link",
+   "label": "Inspected by",
+   "options": "User"
+  },
+  {
+   "fieldname": "serial_no",
+   "fieldtype": "Small Text",
+   "label": "Serial No"
+  },
+  {
+   "fieldname": "file_number",
+   "fieldtype": "Data",
+   "label": "File Number",
+   "read_only": 1
+  },
+  {
+   "fieldname": "status_updated_on",
+   "fieldtype": "Date",
+   "label": "Status Updated On",
+   "read_only": 1
+  },
+  {
+   "fieldname": "attachments_section",
+   "fieldtype": "Section Break",
+   "label": "Attachments"
+  },
+  {
+   "depends_on": "eval:doc.pdi != 1",
+   "fieldname": "attach_video",
+   "fieldtype": "Attach",
+   "label": "Attach Video "
+  },
+  {
+   "fieldname": "column_break_20",
+   "fieldtype": "Column Break"
+  },
+  {
+   "allow_on_submit": 1,
+   "depends_on": "eval:doc.pdi != 1",
+   "fieldname": "attach_photo",
+   "fieldtype": "Attach",
+   "ignore_user_permissions": 1,
+   "label": "Attach Photo"
+  },
+  {
+   "depends_on": "eval:doc.pdi != 1",
+   "fieldname": "attach_test_report",
+   "fieldtype": "Attach",
+   "label": "Attach Test Report"
+  },
+  {
+   "depends_on": "eval:doc.pdi != 1",
+   "fieldname": "accepted_qty",
+   "fieldtype": "Int",
+   "label": "Accepted Qty"
+  },
+  {
+   "depends_on": "eval:doc.pdi != 1",
+   "fieldname": "rejected_qty",
+   "fieldtype": "Int",
+   "label": "Rejected Qty"
+  },
+  {
+   "fieldname": "download_report",
+   "fieldtype": "Attach",
+   "label": "Download Report"
+  },
+  {
+   "fieldname": "rejected_serial_no",
+   "fieldtype": "Small Text",
+   "label": "Rejected Serial No"
+  },
+  {
+   "default": "0",
+   "fieldname": "pdi",
+   "fieldtype": "Check",
+   "label": "PDI"
+  },
+  {
+   "depends_on": "eval:doc.pdi == 1",
+   "fieldname": "attached_pdi",
+   "fieldtype": "Attach",
+   "label": "Attached PDI"
+  },
+  {
+   "fieldname": "id",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "ID"
+  },
+  {
+   "fieldname": "accepted_warehouse",
+   "fieldtype": "Link",
+   "label": "Accepted Warehouse",
+   "options": "Warehouse"
+  },
+  {
+   "fieldname": "received_qty",
+   "fieldtype": "Int",
+   "label": "Received Qty"
+  },
+  {
+   "fieldname": "warehouse",
+   "fieldtype": "Link",
+   "label": "Warehouse",
+   "options": "Warehouse"
+  },
+  {
+   "fieldname": "rejected_warehouse",
+   "fieldtype": "Link",
+   "label": "Rejected Warehouse",
+   "options": "Warehouse"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [
+  {
+   "group": "Quality",
+   "link_doctype": "Inspection Sample",
+   "link_fieldname": "item_inspection"
+  },
+  {
+   "group": "MRB",
+   "link_doctype": "MRB",
+   "link_fieldname": "item_inspection"
+  },
+  {
+   "group": "SCAR",
+   "link_doctype": "SCAR",
+   "link_fieldname": "item_inspection"
+  }
+ ],
+ "modified": "2023-10-26 12:01:18.539646",
+ "modified_by": "Administrator",
+ "module": "Quality Inspection",
+ "name": "Item Inspection",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

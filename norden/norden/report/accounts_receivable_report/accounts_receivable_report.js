@@ -13,6 +13,15 @@ frappe.query_reports["Accounts Receivable Report"] = {
 			"reqd": 1,
 			"default": frappe.defaults.get_user_default("Company")
 		},
+
+		{
+			"fieldname":"currency",
+			"label": __("Currency"),
+			"fieldtype": "Link",
+			"options": "Currency",
+			
+		},
+
 		{
 			"fieldname":"report_date",
 			"label": __("Posting Date"),
@@ -181,7 +190,9 @@ frappe.query_reports["Accounts Receivable Report"] = {
 			"label": __("Credit Limit"),
 			"fieldtype": "Currency",
 			"hidden": 1
-		}
+		},
+
+		
 
 	],
 

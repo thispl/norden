@@ -8,7 +8,9 @@
   "sales_order",
   "customer",
   "date",
-  "sales_person"
+  "column_break_4",
+  "sales_person",
+  "workflow_state"
  ],
  "fields": [
   {
@@ -16,31 +18,43 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Sales Order",
-   "options": "Sales Order"
+   "options": "Sales Order",
+   "read_only": 1
   },
   {
    "fieldname": "customer",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Customer"
+   "label": "Customer",
+   "read_only": 1
   },
   {
    "fieldname": "date",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Date"
+   "label": "Date",
+   "read_only": 1
   },
   {
    "fieldname": "sales_person",
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Sales Person"
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "workflow_state",
+   "fieldtype": "Data",
+   "label": "Workflow State"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2022-11-19 11:12:22.687665",
+ "modified": "2023-10-10 15:33:57.802981",
  "modified_by": "Administrator",
  "module": "Norden",
  "name": "Sales Order Approval",
@@ -48,5 +62,6 @@
  "permissions": [],
  "sort_field": "modified",
  "sort_order": "DESC",
+ "states": [],
  "track_changes": 1
 }

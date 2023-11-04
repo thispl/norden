@@ -1,0 +1,68 @@
+{
+ "actions": [],
+ "creation": "2023-06-25 21:03:41.267419",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "expense_claim_summary",
+  "section_break_8",
+  "leave_application_approval",
+  "section_break_10",
+  "attendance_request_approval"
+ ],
+ "fields": [
+  {
+   "fieldname": "expense_claim_summary",
+   "fieldtype": "Table",
+   "label": "Expense Claim Approval",
+   "options": "Expense Claim Summary"
+  },
+  {
+   "fieldname": "section_break_8",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "leave_application_approval",
+   "fieldtype": "Table",
+   "label": "Leave Application Approval",
+   "options": "Leave Application Approval"
+  },
+  {
+   "fieldname": "section_break_10",
+   "fieldtype": "Section Break",
+   "hidden": 1
+  },
+  {
+   "fieldname": "attendance_request_approval",
+   "fieldtype": "Table",
+   "label": "Attendance Request Approval",
+   "options": "Attendance Request Approval"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2023-06-25 21:45:29.647240",
+ "modified_by": "Administrator",
+ "module": "Norden",
+ "name": "MD Approval Summary",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

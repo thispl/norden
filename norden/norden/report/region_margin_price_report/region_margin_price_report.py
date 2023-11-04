@@ -52,7 +52,7 @@ def get_data(filters):
         item = frappe.get_all("Item",['*'])
     # sales_price = frappe.get_value("Country Margin Price",{"item_group":"Fibre Cables - Cut Piece",'country':"Singapore"},["sales"])
     # frappe.errprint(sales_price)
-    country = ["Singapore","Vietnam","Combodia","Bangladesh","Philippines","Malaysia","Indonesia","Srilanka"]
+    country = ["Singapore","Vietnam","Cambodia","Bangladesh","Philippines","Malaysia","Indonesia","Srilanka"]
     for i in item:
         item_price = frappe.get_value("Item Price",{"item_code":i.name},["price_list_rate"])
         row = [i.name,i.item_name,i.item_sub_group,item_price]

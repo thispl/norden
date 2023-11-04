@@ -1,0 +1,29 @@
+{
+ "cards": [],
+ "charts": [
+  {
+   "chart": "Purchase Order Status",
+   "width": "Full"
+  },
+  {
+   "chart": "Purchase Order Companywise",
+   "width": "Full"
+  },
+  {
+   "chart": "Purchase Order Supplierwise",
+   "width": "Full"
+  }
+ ],
+ "creation": "2022-12-10 15:59:29.245172",
+ "dashboard_name": "Purchase Order",
+ "docstatus": 0,
+ "doctype": "Dashboard",
+ "idx": 0,
+ "is_default": 1,
+ "is_standard": 1,
+ "modified": "2022-12-10 15:59:38.858899",
+ "modified_by": "Administrator",
+ "module": "Norden",
+ "name": "Purchase Order",
+ "owner": "Administrator"
+}

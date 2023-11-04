@@ -5,20 +5,42 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "specification"
+  "specification",
+  "acceptance_criteria",
+  "instrument_ref_no",
+  "remarks"
  ],
  "fields": [
   {
    "fieldname": "specification",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Specification",
    "options": "Specification"
+  },
+  {
+   "fieldname": "acceptance_criteria",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Acceptance Criteria"
+  },
+  {
+   "fieldname": "instrument_ref_no",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Instrument Ref No"
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Small Text",
+   "in_list_view": 1,
+   "label": "Remarks"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2022-11-29 18:25:08.211326",
+ "modified": "2022-12-22 13:19:50.494943",
  "modified_by": "Administrator",
  "module": "Norden",
  "name": "Visual Aspects Table",
@@ -26,5 +48,6 @@
  "permissions": [],
  "sort_field": "modified",
  "sort_order": "DESC",
+ "states": [],
  "track_changes": 1
 }

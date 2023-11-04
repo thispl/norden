@@ -45,7 +45,7 @@ def get_columns(filters):
 		{
 			"label": _("Item sub Group"),
 			"fieldtype": "Link",
-			"fieldname": "item_group",
+			"fieldname": "item_sub_group",
 			"options": "Item Group",
 			"width": 120
 		},
@@ -82,16 +82,16 @@ def get_columns(filters):
 			"width": 120
 		},
 		{
-			"label": _("Sales Order"),
+			"label": _("Sales Invoice"),
 			"fieldtype": "Link",
 			"fieldname": "sales_order",
-			"options": "Sales Order",
+			"options": "Sales Invoice",
 			"width": 100
 		},
 		{
 			"label": _("Transaction Date"),
 			"fieldtype": "Date",
-			"fieldname": "transaction_date",
+			"fieldname": "posting_date",
 			"width": 90
 		},
 		{
@@ -134,12 +134,12 @@ def get_columns(filters):
 			"fieldname": "delivered_quantity",
 			"width": 150
 		},
-		{
-			"label": _("Billed Amount"),
-			"fieldtype": "currency",
-			"fieldname": "billed_amount",
-			"width": 120
-		},
+		# {
+		# 	"label": _("Billed Amount"),
+		# 	"fieldtype": "currency",
+		# 	"fieldname": "billed_amount",
+		# 	"width": 120
+		# },
 		{
 			"label": _("Company"),
 			"fieldtype": "Link",
@@ -159,29 +159,33 @@ def get_data(filters):
 	customer_details = get_customer_details()
 	item_details = get_item_details()
 	sales_order_records = get_sales_order_details(company_list, filters)
-
 	for record in sales_order_records:
+		frappe.errprint(record)
 		customer_record = customer_details.get(record.customer)
 		item_record = item_details.get(record.item_code)
+		# item_sub_group = ''
+		# ig = frappe.get_value("Item",{"name": record.item_code},["item_sub_group"])
+		# g = frappe.get_value("Item",{"name": record.item_code},["item_group"])
+		frappe.errprint(item_record.get("item_sub_group"))
 		row = {
 			"item_code": record.item_code,
 			"item_name": item_record.item_name,
-			"item_group": item_record.item_group,
-			"item_sub_group": item_record.item_sub_group,
+			"item_group":  item_record.get("item_group"),
+			"item_sub_group": item_record.get("item_sub_group"),
 			"description": record.description,
 			"quantity": record.qty,
 			"uom": record.uom,
 			"rate": record.base_rate,
 			"amount": record.base_amount,
 			"sales_order": record.name,
-			"transaction_date": record.transaction_date,
+			"posting_date": record.posting_date,
 			"customer": record.customer,
 			"customer_name": customer_record.customer_name,
 			"customer_group": customer_record.customer_group,
 			"territory": record.territory,
 			"project": record.project,
 			"delivered_quantity": flt(record.delivered_qty),
-			"billed_amount": flt(record.billed_amt),
+			# "billed_amount": flt(record.billed_amt),
 			"company": record.company
 		}
 		data.append(row)
@@ -194,13 +198,13 @@ def get_conditions(filters):
 		conditions += "AND so_item.item_group = %s" %frappe.db.escape(filters.item_group)
 
 	if filters.get('item_sub_group'):
-		conditions += "AND so_item.item_sub_group = %s" %frappe.db.escape(filters.item_sub_group)
+		conditions += "AND `tabItem`.item_sub_group = %s" %frappe.db.escape(filters.item_sub_group)
 
 	if filters.get('from_date'):
-		conditions += "AND so.transaction_date >= '%s'" %filters.from_date
+		conditions += "AND so.posting_date >= '%s'" %filters.from_date
 
 	if filters.get('to_date'):
-		conditions += "AND so.transaction_date <= '%s'" %filters.to_date
+		conditions += "AND so.posting_date <= '%s'" %filters.to_date
 
 	if filters.get("item_code"):
 		conditions += "AND so_item.item_code = %s" %frappe.db.escape(filters.item_code)
@@ -226,7 +230,7 @@ def get_customer_details():
 
 def get_item_details():
 	details = frappe.db.get_all("Item",
-		fields=["item_code", "item_name", "item_group",'item_sub_group'])
+		fields=["item_code", "item_name", "item_group","item_sub_group"])
 	item_details = {}
 	for d in details:
 		item_details.setdefault(d.item_code, frappe._dict({
@@ -243,11 +247,13 @@ def get_sales_order_details(company_list, filters):
 		SELECT
 			so_item.item_code, so_item.description, so_item.qty,
 			so_item.uom, so_item.base_rate, so_item.base_amount,
-			so.name, so.transaction_date, so.customer,so.territory,
+			so.name, so.posting_date, so.customer,so.territory,
 			so.project, so_item.delivered_qty,
-			so_item.billed_amt, so.company
+			so.company,
+			`tabItem`.item_sub_group
 		FROM
-			`tabSales Order` so, `tabSales Order Item` so_item
+			`tabSales Invoice` so, `tabSales Invoice Item` so_item
+			join `tabItem`  on `tabItem`.name = so_item.item_code
 		WHERE
 			so.name = so_item.parent
 			AND so.company in ({0})

@@ -14,5 +14,20 @@ frappe.ui.form.on('File Number Global Search', {
 			}
 		})	
 	}
+	},
+	company(frm){
+		if(frm.doc.company){
+			frm.call({
+				method: 'get_data_value',
+				doc: frm.doc,
+				freeze: true,
+				freeze_message: __("Please Wait..."),
+				callback(r){
+					if (r.message) {
+						frm.fields_dict.documents.$wrapper.empty().append(r.message)
+					}
+				}				
+			})
+		}
 	}
 });

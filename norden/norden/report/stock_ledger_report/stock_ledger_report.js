@@ -61,6 +61,13 @@ frappe.query_reports["Stock Ledger Report"] = {
 			"fieldtype": "Link",
 			"options": "Batch"
 		},
+
+		{
+			"fieldname":"bill_of_entry",
+			"label": __("Bill of Entry"),
+			"fieldtype": "Link",
+			"options": "Bill of Entry"
+		},
 		{
 			"fieldname":"brand",
 			"label": __("Brand"),

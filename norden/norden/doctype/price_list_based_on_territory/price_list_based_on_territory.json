@@ -1,5 +1,7 @@
 {
  "actions": [],
+ "allow_import": 1,
+ "allow_rename": 1,
  "autoname": "field:price_type",
  "creation": "2022-12-08 16:27:21.752176",
  "doctype": "DocType",
@@ -7,7 +9,10 @@
  "engine": "InnoDB",
  "field_order": [
   "price_type",
-  "territory"
+  "territory",
+  "is_internal",
+  "std",
+  "default"
  ],
  "fields": [
   {
@@ -21,14 +26,33 @@
    "fieldtype": "Link",
    "label": "Territory",
    "options": "Territory"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_internal",
+   "fieldtype": "Check",
+   "label": "Is Internal"
+  },
+  {
+   "default": "0",
+   "fieldname": "std",
+   "fieldtype": "Check",
+   "label": "std"
+  },
+  {
+   "default": "0",
+   "fieldname": "default",
+   "fieldtype": "Check",
+   "label": "default"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2022-12-08 16:29:43.603595",
+ "modified": "2023-03-23 15:29:07.515637",
  "modified_by": "Administrator",
  "module": "Norden",
  "name": "Price List based on Territory",
+ "naming_rule": "By fieldname",
  "owner": "Administrator",
  "permissions": [
   {
@@ -46,5 +70,6 @@
  ],
  "sort_field": "modified",
  "sort_order": "DESC",
+ "states": [],
  "track_changes": 1
 }

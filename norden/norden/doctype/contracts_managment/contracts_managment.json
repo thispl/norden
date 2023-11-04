@@ -1,0 +1,215 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2023-03-31 10:59:30.836277",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "company",
+  "group",
+  "name_of_license",
+  "category",
+  "contact_number",
+  "reference_number",
+  "issuing_authority",
+  "sponsor_company",
+  "prepared_notification",
+  "column_break_9",
+  "issue_date",
+  "renewability_status",
+  "renewal_frequency",
+  "last_renewal_date",
+  "next_due_date",
+  "days_left",
+  "renewal_status",
+  "current_status",
+  "attach_file",
+  "custodian_information_section",
+  "custodian",
+  "custodian_name",
+  "column_break_22",
+  "custodian_resident_qid_number",
+  "email",
+  "remarks",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "name_of_license",
+   "fieldtype": "Data",
+   "label": "Name of the License"
+  },
+  {
+   "fieldname": "category",
+   "fieldtype": "Link",
+   "label": "Category",
+   "options": "Category"
+  },
+  {
+   "fieldname": "contact_number",
+   "fieldtype": "Data",
+   "label": "Contact Number",
+   "length": 10,
+   "options": "Phone"
+  },
+  {
+   "fieldname": "reference_number",
+   "fieldtype": "Data",
+   "label": "Reference Number"
+  },
+  {
+   "fieldname": "issuing_authority",
+   "fieldtype": "Data",
+   "label": "Issuing Authority"
+  },
+  {
+   "fieldname": "sponsor_company",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Sponsor Company",
+   "options": "Sponsor Company"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company"
+  },
+  {
+   "fieldname": "column_break_9",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "issue_date",
+   "fieldtype": "Date",
+   "label": "Issue Date"
+  },
+  {
+   "fieldname": "renewability_status",
+   "fieldtype": "Select",
+   "label": "Renewability Status",
+   "options": "\nRenewable\nNon-Renewable\nUnlimited Validity"
+  },
+  {
+   "fieldname": "renewal_frequency",
+   "fieldtype": "Int",
+   "label": "Renewal Frequency"
+  },
+  {
+   "fieldname": "last_renewal_date",
+   "fieldtype": "Date",
+   "label": "Last Renewal Date"
+  },
+  {
+   "fieldname": "next_due_date",
+   "fieldtype": "Date",
+   "label": "Next Due Date"
+  },
+  {
+   "fieldname": "days_left",
+   "fieldtype": "Int",
+   "label": "Days Left"
+  },
+  {
+   "fieldname": "renewal_status",
+   "fieldtype": "Select",
+   "label": "Renewal Status",
+   "options": "\nValid\nDue for Renewal\nNot Renewable\nUnlimited\nVacated"
+  },
+  {
+   "fieldname": "current_status",
+   "fieldtype": "Select",
+   "label": "Current Status",
+   "options": "\nLive\nInactive\nActive"
+  },
+  {
+   "fieldname": "attach_file",
+   "fieldtype": "Attach",
+   "label": "Attach File"
+  },
+  {
+   "fieldname": "custodian_information_section",
+   "fieldtype": "Section Break",
+   "label": "Custodian Information"
+  },
+  {
+   "fieldname": "custodian",
+   "fieldtype": "Link",
+   "label": "Custodian",
+   "options": "Employee"
+  },
+  {
+   "fetch_from": "custodian.employee_name",
+   "fieldname": "custodian_name",
+   "fieldtype": "Data",
+   "label": "Custodian Name"
+  },
+  {
+   "fieldname": "column_break_22",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "custodian_resident_qid_number",
+   "fieldtype": "Data",
+   "label": "Custodian Resident QID Number"
+  },
+  {
+   "fieldname": "email",
+   "fieldtype": "Read Only",
+   "label": "Email"
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Small Text",
+   "label": "Remarks"
+  },
+  {
+   "fieldname": "group",
+   "fieldtype": "Link",
+   "label": "Group",
+   "options": "Group"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Contracts Managment",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "prepared_notification",
+   "fieldtype": "Select",
+   "label": "Prepared Notification",
+   "options": "1 Month\n2 Months\n3 Months"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2023-08-19 16:44:03.343766",
+ "modified_by": "Administrator",
+ "module": "Norden",
+ "name": "Contracts Managment",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

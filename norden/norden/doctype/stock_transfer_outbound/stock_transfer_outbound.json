@@ -1,0 +1,96 @@
+{
+ "actions": [],
+ "creation": "2023-02-07 11:48:24.490827",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "item_code",
+  "source_warehouse",
+  "target_warehouse",
+  "bom_inbound_qty",
+  "bom_outbound_qty",
+  "balance_in_qty",
+  "balance_out_qty",
+  "bom_inbound",
+  "bom_outbound",
+  "column_break_9",
+  "serial_no"
+ ],
+ "fields": [
+  {
+   "fieldname": "item_code",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Item Code",
+   "options": "Item"
+  },
+  {
+   "fieldname": "source_warehouse",
+   "fieldtype": "Link",
+   "label": "Source Warehouse",
+   "options": "Warehouse"
+  },
+  {
+   "fieldname": "target_warehouse",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Target Warehouse",
+   "options": "Warehouse"
+  },
+  {
+   "fieldname": "bom_inbound_qty",
+   "fieldtype": "Int",
+   "label": "Bom Inbound Qty"
+  },
+  {
+   "fieldname": "bom_outbound_qty",
+   "fieldtype": "Int",
+   "label": "Bom outbound Qty"
+  },
+  {
+   "fieldname": "balance_in_qty",
+   "fieldtype": "Int",
+   "label": "Balance In Qty"
+  },
+  {
+   "fieldname": "balance_out_qty",
+   "fieldtype": "Int",
+   "label": "Balance Out Qty"
+  },
+  {
+   "fieldname": "bom_inbound",
+   "fieldtype": "Link",
+   "label": "Bom Inbound",
+   "options": "Bill of Entry"
+  },
+  {
+   "fieldname": "bom_outbound",
+   "fieldtype": "Link",
+   "label": "Bom Outbound",
+   "options": "Bill of Entry Outbound"
+  },
+  {
+   "fieldname": "column_break_9",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "serial_no",
+   "fieldtype": "Small Text",
+   "label": "Serial No"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2023-02-07 11:48:24.490827",
+ "modified_by": "Administrator",
+ "module": "Norden",
+ "name": "Stock Transfer Outbound",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

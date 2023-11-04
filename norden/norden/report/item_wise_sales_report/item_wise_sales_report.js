@@ -39,12 +39,6 @@ frappe.query_reports["Item-wise Sales Report"] = {
 			label: __("Item Sub Group"),
 			fieldtype: "Link",
 			options: "Item Sub Group",
-			"get_query": function() {
-				const is_group = frappe.query_report.get_filter_value('is_group');
-				return {
-					filters: { 'is_group': is_group }
-				}
-			}
 		},
 
 		{

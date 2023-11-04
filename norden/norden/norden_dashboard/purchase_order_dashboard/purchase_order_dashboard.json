@@ -1,0 +1,29 @@
+{
+ "cards": [],
+ "charts": [
+  {
+   "chart": "Purchase Order Status",
+   "width": "Half"
+  },
+  {
+   "chart": "Purchase Order Companywise",
+   "width": "Half"
+  },
+  {
+   "chart": "Purchase Order Supplierwise",
+   "width": "Half"
+  }
+ ],
+ "creation": "2022-12-10 15:59:29.245172",
+ "dashboard_name": "Purchase Order Dashboard",
+ "docstatus": 0,
+ "doctype": "Dashboard",
+ "idx": 0,
+ "is_default": 0,
+ "is_standard": 1,
+ "modified": "2023-04-17 11:13:20.504510",
+ "modified_by": "faisal@nordenco.ae",
+ "module": "Norden",
+ "name": "Purchase Order Dashboard",
+ "owner": "Administrator"
+}

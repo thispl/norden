@@ -1,0 +1,46 @@
+{
+ "add_total_row": 0,
+ "columns": [],
+ "creation": "2023-08-29 23:34:59.845833",
+ "disable_prepared_report": 0,
+ "disabled": 0,
+ "docstatus": 0,
+ "doctype": "Report",
+ "filters": [],
+ "idx": 0,
+ "is_standard": "Yes",
+ "letter_head": "Norden",
+ "modified": "2023-08-29 23:34:59.845833",
+ "modified_by": "Administrator",
+ "module": "Norden",
+ "name": "Ordered Items to be Delivered Report",
+ "owner": "Administrator",
+ "prepared_report": 1,
+ "query": "",
+ "ref_doctype": "Sales Order",
+ "report_name": "Ordered Items to be Delivered Report",
+ "report_type": "Script Report",
+ "roles": [
+  {
+   "role": "Sales User"
+  },
+  {
+   "role": "Maintenance User"
+  },
+  {
+   "role": "Sales Manager"
+  },
+  {
+   "role": "Accounts User"
+  },
+  {
+   "role": "Stock User"
+  },
+  {
+   "role": "System Manager"
+  },
+  {
+   "role": "Analytics"
+  }
+ ]
+}

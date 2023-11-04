@@ -58,8 +58,10 @@ def execute(filters=None):
 
 		if sle.voucher_type == "Purchase Receipt":
 			p = frappe.get_value("Purchase Receipt",{"name":sle.voucher_no},['supplier'])
+			b = frappe.get_value("Purchase Receipt",{"name":sle.voucher_no},['bill_of_entry'])
 			sle.update({
 			"party": p,
+			"bill_of_entry":b
 		})
 
 		if sle.voucher_type == "Purchase Invoice":
@@ -120,10 +122,9 @@ def get_columns():
 		{"label": _("Valuation Rate"), "fieldname": "valuation_rate", "fieldtype": "Currency", "width": 110, "options": "Company:company:default_currency", "convertible": "rate"},
 		{"label": _("Balance Value"), "fieldname": "stock_value", "fieldtype": "Currency", "width": 110, "options": "Company:company:default_currency"},
 		{"label": _("Voucher Type"), "fieldname": "voucher_type", "width": 110},
-		{"label": _("Voucher #"), "fieldname": "voucher_no", "fieldtype": "Dynamic Link", "options": "voucher_type", "width": 100},
-
-		{"label": _("Party"), "fieldname": "party", "fieldtype": "Data", "width": 280},
-		
+		{"label": _("Voucher #"), "fieldname": "voucher_no", "fieldtype": "Dynamic Link", "options": "voucher_type", "width": 150},
+		{"label": _("Party"), "fieldname": "party", "fieldtype": "Data", "width": 200},
+		{"label": _("Bill of Entry"), "fieldname": "bill_of_entry", "fieldtype": "Link","options": "Bill of Entry","width": 100},
 		{"label": _("Batch"), "fieldname": "batch_no", "fieldtype": "Link", "options": "Batch", "width": 100},
 		{"label": _("Serial No"), "fieldname": "serial_no", "fieldtype": "Link", "options": "Serial No", "width": 100},
 		{"label": _("Balance Serial No"), "fieldname": "balance_serial_no", "width": 100},
@@ -158,7 +159,7 @@ def get_stock_ledger_entries(filters, items):
 			project,
 			stock_value_difference
 		FROM
-			`tabStock Ledger Entry` sle
+			`tabStock Ledger Entry` sle left join `tabPurchase Receipt`
 		WHERE
 			company = %(company)s
 				AND is_cancelled = 0 AND posting_date BETWEEN %(from_date)s AND %(to_date)s
@@ -226,6 +227,8 @@ def get_sle_conditions(filters):
 			conditions.append(warehouse_condition)
 	if filters.get("voucher_no"):
 		conditions.append("voucher_no=%(voucher_no)s")
+	# if filters.get("bill_of_entry"):
+	# 	conditions.append("bill_of_entry=%(bill_of_entry)s")
 	if filters.get("batch_no"):
 		conditions.append("batch_no=%(batch_no)s")
 	if filters.get("project"):

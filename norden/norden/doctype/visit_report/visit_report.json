@@ -1,0 +1,184 @@
+{
+ "actions": [],
+ "allow_import": 1,
+ "allow_rename": 1,
+ "autoname": "VR-.####",
+ "creation": "2023-10-07 13:06:13.324236",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "sales_person",
+  "person_name",
+  "region",
+  "cluster",
+  "contact_details",
+  "column_break_8",
+  "date_of_visit",
+  "name_of_the_customer__distributor__si__eu__consultant",
+  "verticalindustry",
+  "project_name",
+  "product_categories",
+  "column_break_10",
+  "win_probability",
+  "total_project_value",
+  "expected_closing_date",
+  "percentage_of_conversion",
+  "key_win_factors",
+  "column_break_20",
+  "total_revenue",
+  "total_gross_margin",
+  "gross_margin",
+  "current_status",
+  "remarks"
+ ],
+ "fields": [
+  {
+   "fieldname": "sales_person",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Sales Person",
+   "options": "Sales Person"
+  },
+  {
+   "fetch_from": "sales_person.sales_person_name",
+   "fieldname": "person_name",
+   "fieldtype": "Data",
+   "label": "Person Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "region",
+   "fieldtype": "Link",
+   "label": "Region",
+   "options": "Territory"
+  },
+  {
+   "fieldname": "cluster",
+   "fieldtype": "Link",
+   "label": "Cluster",
+   "options": "Cluster"
+  },
+  {
+   "fieldname": "date_of_visit",
+   "fieldtype": "Date",
+   "label": "Date of Visit"
+  },
+  {
+   "fieldname": "name_of_the_customer__distributor__si__eu__consultant",
+   "fieldtype": "Data",
+   "label": "Name of the Customer / Distributor / SI / EU / Consultant"
+  },
+  {
+   "fieldname": "verticalindustry",
+   "fieldtype": "Data",
+   "label": "Vertical/Industry"
+  },
+  {
+   "fieldname": "key_win_factors",
+   "fieldtype": "Small Text",
+   "label": "Key Win Factors"
+  },
+  {
+   "fieldname": "contact_details",
+   "fieldtype": "Small Text",
+   "label": "Contact Details"
+  },
+  {
+   "fieldname": "project_name",
+   "fieldtype": "Link",
+   "label": "Project Name",
+   "options": "Project"
+  },
+  {
+   "fieldname": "column_break_8",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_project_value",
+   "fieldtype": "Float",
+   "label": "Total Project Value"
+  },
+  {
+   "fieldname": "product_categories",
+   "fieldtype": "Table MultiSelect",
+   "label": "Product Categories",
+   "options": "Product Category"
+  },
+  {
+   "fieldname": "win_probability",
+   "fieldtype": "Percent",
+   "label": "Win Probability"
+  },
+  {
+   "fieldname": "percentage_of_conversion",
+   "fieldtype": "Percent",
+   "label": "Percentage of Conversion"
+  },
+  {
+   "fieldname": "expected_closing_date",
+   "fieldtype": "Date",
+   "label": "Expected Closing Date"
+  },
+  {
+   "fieldname": "current_status",
+   "fieldtype": "Data",
+   "label": "Current Status"
+  },
+  {
+   "fieldname": "total_revenue",
+   "fieldtype": "Currency",
+   "label": "Total Revenue"
+  },
+  {
+   "fieldname": "total_gross_margin",
+   "fieldtype": "Currency",
+   "label": "Total Gross Margin"
+  },
+  {
+   "fieldname": "gross_margin",
+   "fieldtype": "Percent",
+   "label": "Gross Margin"
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Small Text",
+   "label": "Remarks"
+  },
+  {
+   "fieldname": "column_break_10",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_20",
+   "fieldtype": "Column Break"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2023-10-07 16:58:01.978722",
+ "modified_by": "Administrator",
+ "module": "Norden",
+ "name": "Visit Report",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

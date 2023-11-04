@@ -1,5 +1,6 @@
 {
  "actions": [],
+ "allow_rename": 1,
  "autoname": "naming_series:",
  "creation": "2021-09-30 16:10:58.711939",
  "doctype": "DocType",
@@ -18,10 +19,22 @@
   "credit_days",
   "seacontainertype",
   "inventory_destination",
+  "warehouse",
+  "customer",
   "naming_series",
   "alert_date",
+  "currency_and_price_list_section",
+  "currency",
+  "conv_rate",
+  "conversion_rate",
+  "plc_conversion_rate",
+  "column_break_20",
+  "buying_price_list",
+  "price_list_currency",
   "section_break_12",
   "product_description",
+  "section_break_19",
+  "product_description_so",
   "section_break_14",
   "consignment_type",
   "project",
@@ -29,6 +42,7 @@
   "column_break_17",
   "requester_name",
   "grand_total",
+  "currency_inr",
   "custom_duty",
   "quantity__packages",
   "courier__awb__bl_number__container",
@@ -46,6 +60,8 @@
   "payment_ttc",
   "section_break_28",
   "norden_inco_terms",
+  "norden_incoterms",
+  "supplier_incoterms",
   "supplier_inco_terms",
   "pol_seaportairport",
   "pol_city",
@@ -79,6 +95,7 @@
   "custom_payment",
   "support_doc",
   "support_documents",
+  "download",
   "document_for_payment_clearance_section",
   "payment_clearance",
   "section_break_59",
@@ -86,6 +103,12 @@
   "column_break_63",
   "customs_clearance_status",
   "customs_clearance",
+  "nric_section",
+  "requested_id",
+  "column_break_94",
+  "attach",
+  "column_break_96",
+  "submitted",
   "delivery_section",
   "vehicle_number",
   "vehicle_type",
@@ -100,6 +123,7 @@
   "receipts",
   "attach_bills_section",
   "bills",
+  "mode_of_dispatch",
   "amended_from"
  ],
  "fields": [
@@ -142,10 +166,11 @@
    "fieldname": "inventory_destination",
    "fieldtype": "Select",
    "label": "Inventory destination ",
-   "options": "\nSEZ\nNormal\nWarehouse Bonded\nDirect to Customer"
+   "options": "\nSEZ\nNormal\nWarehouse Bonded\nDirect to Customer",
+   "reqd": 1
   },
   {
-   "depends_on": "eval:doc.cargo_type == \"SEA\"",
+   "depends_on": "// eval:doc.cargo_type == \"SEA\"",
    "fieldname": "seacontainertype",
    "fieldtype": "Select",
    "in_list_view": 1,
@@ -174,8 +199,7 @@
    "fetch_from": "order_no.consignment_type",
    "fieldname": "consignment_type",
    "fieldtype": "Data",
-   "label": "Consignment type",
-   "read_only": 1
+   "label": "Consignment type"
   },
   {
    "fieldname": "final_doc",
@@ -197,11 +221,10 @@
   {
    "fetch_from": "order_no.grand_total",
    "fieldname": "grand_total",
-   "fieldtype": "Currency",
+   "fieldtype": "Float",
    "label": "Grand Total "
   },
   {
-   "depends_on": "eval:doc.company != \"Norden Communication UK Limited\"",
    "fieldname": "custom_duty",
    "fieldtype": "Currency",
    "label": "Forecast \u2013 Customs Duty Amount"
@@ -262,8 +285,6 @@
    "label": "Logistics OPS"
   },
   {
-   "collapsible": 1,
-   "depends_on": "eval:doc.customs_clearance_status == \"Customs Clearance Completed\" && doc.workflow_state == \"Delivery\"",
    "fieldname": "delivery_section",
    "fieldtype": "Section Break",
    "label": "Delivery"
@@ -296,6 +317,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "depends_on": "product_description",
    "fieldname": "product_description",
    "fieldtype": "Table",
    "label": "Product Description",
@@ -334,12 +356,12 @@
    "label": "POD City"
   },
   {
-   "depends_on": "eval:doc.consignment_type !='Stock'",
+   "depends_on": "// eval:doc.consignment_type !='Stock'",
    "fetch_from": "order_no.project_name",
    "fieldname": "project",
    "fieldtype": "Link",
    "label": "Project Name",
-   "options": "Project"
+   "options": "Project Reference"
   },
   {
    "fieldname": "dimensions",
@@ -396,6 +418,7 @@
    "options": "Carrier Name"
   },
   {
+   "depends_on": "eval:doc.company != \"Norden Research and Innovation Centre (OPC) Pvt. Ltd\"",
    "fieldname": "section_break_59",
    "fieldtype": "Section Break",
    "label": "Payment & Customs Clearance "
@@ -547,15 +570,15 @@
   },
   {
    "fieldname": "supplier_inco_terms",
-   "fieldtype": "Select",
+   "fieldtype": "Data",
    "label": "Supplier INCO Terms",
-   "options": "\nEX Works\nFOB\nCFR\nCIF\nDAP\nDDP\nBy Road\nBy Air\nBy Sea\nBy Courier\nFCA"
+   "read_only": 1
   },
   {
    "fieldname": "norden_inco_terms",
-   "fieldtype": "Select",
+   "fieldtype": "Data",
    "label": "Norden INCO Terms",
-   "options": "EX Works\nFOB\nCFR"
+   "read_only": 1
   },
   {
    "fieldname": "naming_series",
@@ -592,6 +615,7 @@
   {
    "fieldname": "purchase_receipts_section",
    "fieldtype": "Section Break",
+   "hidden": 1,
    "label": "Purchase Receipts"
   },
   {
@@ -617,6 +641,7 @@
    "label": "Comments"
   },
   {
+   "depends_on": "eval:doc.company != \"Norden Research and Innovation Centre (OPC) Pvt. Ltd\"",
    "fieldname": "document_for_payment_clearance_section",
    "fieldtype": "Section Break",
    "label": "Document for Payment Clearance"
@@ -638,19 +663,149 @@
    "label": "Credit Days"
   },
   {
+   "fetch_if_empty": 1,
    "fieldname": "cargo_type",
    "fieldtype": "Select",
    "label": "Cargo Type",
    "options": "\nAir\nSea\nCourier\nOwn Transport"
+  },
+  {
+   "depends_on": "eval:doc.inventory_destination == \"Warehouse Bonded\"",
+   "fieldname": "warehouse",
+   "fieldtype": "Link",
+   "label": "Final Destination",
+   "options": "Warehouse"
+  },
+  {
+   "depends_on": "eval:doc.inventory_destination == \"Direct to Customer\"",
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer"
+  },
+  {
+   "fieldname": "currency_inr",
+   "fieldtype": "Float",
+   "hidden": 1,
+   "label": "Currency INR"
+  },
+  {
+   "fieldname": "section_break_19",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "currency_and_price_list_section",
+   "fieldtype": "Section Break",
+   "label": "Currency and Price List"
+  },
+  {
+   "fieldname": "currency",
+   "fieldtype": "Link",
+   "label": "Currency",
+   "options": "Currency"
+  },
+  {
+   "fieldname": "column_break_20",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "buying_price_list",
+   "fieldtype": "Link",
+   "label": "Buying Price List",
+   "options": "Price List"
+  },
+  {
+   "fieldname": "price_list_currency",
+   "fieldtype": "Link",
+   "label": "Price List Currency",
+   "options": "Currency"
+  },
+  {
+   "depends_on": "product_description_so",
+   "fieldname": "product_description_so",
+   "fieldtype": "Table",
+   "label": "Product Description",
+   "options": "Sales Order Item"
+  },
+  {
+   "fieldname": "norden_incoterms",
+   "fieldtype": "Link",
+   "label": "Norden Incoterms",
+   "options": "Norden Incoterms"
+  },
+  {
+   "fieldname": "supplier_incoterms",
+   "fieldtype": "Link",
+   "label": "Supplier Incoterms",
+   "options": "Supplier Incoterms"
+  },
+  {
+   "fieldname": "download",
+   "fieldtype": "Button",
+   "label": "Download"
+  },
+  {
+   "depends_on": "eval:doc.company == \"Norden Research and Innovation Centre (OPC) Pvt. Ltd\"",
+   "fieldname": "nric_section",
+   "fieldtype": "Section Break",
+   "label": "NRIC"
+  },
+  {
+   "fieldname": "requested_id",
+   "fieldtype": "Data",
+   "label": "Request ID for SEZ BOE"
+  },
+  {
+   "fieldname": "column_break_94",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "attach",
+   "fieldtype": "Attach",
+   "label": "Attach"
+  },
+  {
+   "fieldname": "column_break_96",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "depends_on": "eval:doc.workflow_state == \"Waiting for ID Submission\"\n",
+   "fieldname": "submitted",
+   "fieldtype": "Check",
+   "label": "Submit"
+  },
+  {
+   "fieldname": "mode_of_dispatch",
+   "fieldtype": "Data",
+   "label": "Mode of Dispatch"
+  },
+  {
+   "fieldname": "conversion_rate",
+   "fieldtype": "Float",
+   "hidden": 1,
+   "label": " Conversion Rate"
+  },
+  {
+   "fieldname": "plc_conversion_rate",
+   "fieldtype": "Float",
+   "hidden": 1,
+   "label": "Price List Exchange Rate"
+  },
+  {
+   "fieldname": "conv_rate",
+   "fieldtype": "Float",
+   "label": "Conversion Rate"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2022-12-05 17:02:04.441514",
+ "modified": "2023-06-16 11:32:51.888491",
  "modified_by": "Administrator",
  "module": "Norden",
  "name": "Logistics Request",
+ "naming_rule": "By \"Naming Series\" field",
  "owner": "Administrator",
  "permissions": [
   {
@@ -681,6 +836,7 @@
  ],
  "sort_field": "modified",
  "sort_order": "DESC",
+ "states": [],
  "title_field": "order_no",
  "track_changes": 1
 }

@@ -16,7 +16,7 @@
   "section_break_9",
   "items_table",
   "section_break_11",
-  "sales_order",
+  "sales_invoice",
   "sales_person_name",
   "so_submitted_date",
   "company",
@@ -47,7 +47,7 @@
   {
    "fieldname": "so_submitted_date",
    "fieldtype": "Date",
-   "label": "SO Submitted Date"
+   "label": "SI Submitted Date"
   },
   {
    "fieldname": "remarks",
@@ -62,7 +62,7 @@
   {
    "fieldname": "so_status_live",
    "fieldtype": "Data",
-   "label": "SO Status_Live"
+   "label": "SI Status_Live"
   },
   {
    "fieldname": "sales_person_name",
@@ -73,11 +73,6 @@
    "fieldname": "company",
    "fieldtype": "Data",
    "label": "Company"
-  },
-  {
-   "fieldname": "sales_order",
-   "fieldtype": "Data",
-   "label": "Sales Order"
   },
   {
    "fieldname": "items_table",
@@ -117,14 +112,21 @@
    "fieldname": "customer_contractor",
    "fieldtype": "Data",
    "label": "Customer / Contractor"
+  },
+  {
+   "fieldname": "sales_invoice",
+   "fieldtype": "Link",
+   "label": "Sales Invoice",
+   "options": "Sales Invoice"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2022-08-09 20:31:56.907323",
+ "modified": "2023-11-01 11:50:27.470461",
  "modified_by": "Administrator",
  "module": "Norden",
  "name": "Project Reference",
+ "naming_rule": "By fieldname",
  "owner": "Administrator",
  "permissions": [
   {
@@ -143,5 +145,7 @@
  "quick_entry": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
+ "states": [],
+ "title_field": "project_name",
  "track_changes": 1
 }
