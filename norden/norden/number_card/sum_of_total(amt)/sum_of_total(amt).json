@@ -1,0 +1,22 @@
+{
+ "creation": "2023-11-25 15:52:34.210171",
+ "docstatus": 0,
+ "doctype": "Number Card",
+ "filters_json": "{\"period\":\"Monthly\",\"based_on\":\"Item\",\"fiscal_year\":\"2023 - 2024\",\"company\":\"Norden Communication Pvt Ltd\"}",
+ "function": "Count",
+ "idx": 0,
+ "is_public": 0,
+ "is_standard": 1,
+ "label": "Sum of Total(amt)",
+ "modified": "2023-11-25 15:52:34.268408",
+ "modified_by": "Administrator",
+ "module": "Norden",
+ "name": "Sum of Total(amt)",
+ "owner": "Administrator",
+ "report_field": "total(amt)",
+ "report_function": "Sum",
+ "report_name": "Product Revenue",
+ "show_percentage_stats": 1,
+ "stats_time_interval": "Daily",
+ "type": "Report"
+}

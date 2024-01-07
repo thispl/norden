@@ -18,7 +18,7 @@ def create_project_reference(doc,method):
     else:
         pr = frappe.new_doc("Project Reference")
     pr.project_name = doc.project_name 
-    # pr.sale_order = doc.name
+    pr.sale_order = doc.name
     # pr.project_reference_name = doc.project_reference_name
     pr.customer_contractor = doc.customer
     pr.consultant_company = doc.consultant_company

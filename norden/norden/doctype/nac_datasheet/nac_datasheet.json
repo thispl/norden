@@ -22,6 +22,7 @@
   "led_indicator",
   "section_break_10",
   "dimension_upload",
+  "image_width_mm",
   "ordering_information",
   "packing_information",
   "amended_from"
@@ -129,12 +130,18 @@
    "fieldname": "width",
    "fieldtype": "Float",
    "label": "Image Width (mm)"
+  },
+  {
+   "default": "200",
+   "fieldname": "image_width_mm",
+   "fieldtype": "Int",
+   "label": "Image Width mm"
   }
  ],
  "image_field": "item_image",
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-09-15 12:25:43.811594",
+ "modified": "2023-11-28 16:18:47.589136",
  "modified_by": "Administrator",
  "module": "Norden",
  "name": "NAC Datasheet",

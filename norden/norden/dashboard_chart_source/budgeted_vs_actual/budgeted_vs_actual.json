@@ -1,0 +1,13 @@
+{
+ "creation": "2023-11-29 17:18:59.927081",
+ "docstatus": 0,
+ "doctype": "Dashboard Chart Source",
+ "idx": 0,
+ "modified": "2023-11-29 17:18:59.927081",
+ "modified_by": "Administrator",
+ "module": "Norden",
+ "name": "Budgeted vs Actual",
+ "owner": "Administrator",
+ "source_name": "Budgeted vs Actual",
+ "timeseries": 1
+}

@@ -1,0 +1,21 @@
+{
+ "cards": [],
+ "charts": [
+  {
+   "chart": "Item Groupwise Sales Invoice",
+   "width": "Full"
+  }
+ ],
+ "creation": "2023-12-01 15:53:38.636434",
+ "dashboard_name": "Item Groupwise Sales Invoice",
+ "docstatus": 0,
+ "doctype": "Dashboard",
+ "idx": 0,
+ "is_default": 0,
+ "is_standard": 1,
+ "modified": "2023-12-01 15:57:22.698787",
+ "modified_by": "Administrator",
+ "module": "Norden",
+ "name": "Item Groupwise Sales Invoice",
+ "owner": "Administrator"
+}

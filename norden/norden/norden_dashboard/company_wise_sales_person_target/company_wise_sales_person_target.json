@@ -1,0 +1,21 @@
+{
+ "cards": [],
+ "charts": [
+  {
+   "chart": "Company Wise Sales Person Target",
+   "width": "Full"
+  }
+ ],
+ "creation": "2023-11-28 16:45:07.073924",
+ "dashboard_name": "Company Wise Sales Person Target",
+ "docstatus": 0,
+ "doctype": "Dashboard",
+ "idx": 0,
+ "is_default": 0,
+ "is_standard": 1,
+ "modified": "2023-11-28 16:46:05.485550",
+ "modified_by": "Administrator",
+ "module": "Norden",
+ "name": "Company Wise Sales Person Target",
+ "owner": "Administrator"
+}

@@ -1,0 +1,39 @@
+{
+ "cards": [
+  {
+   "card": "Total Number of PO Generated"
+  },
+  {
+   "card": "Under processing (Nurtutrig)"
+  },
+  {
+   "card": "Total Number of SO Completed"
+  }
+ ],
+ "charts": [
+  {
+   "chart": "Total Number of PO Generated",
+   "width": "Half"
+  },
+  {
+   "chart": "Under processing (Nurtutrig)",
+   "width": "Half"
+  },
+  {
+   "chart": "Total Number of SO Completed",
+   "width": "Half"
+  }
+ ],
+ "creation": "2023-12-11 10:06:41.414593",
+ "dashboard_name": "Project reference",
+ "docstatus": 0,
+ "doctype": "Dashboard",
+ "idx": 0,
+ "is_default": 0,
+ "is_standard": 1,
+ "modified": "2023-12-11 10:30:32.526937",
+ "modified_by": "Administrator",
+ "module": "Norden",
+ "name": "Project reference",
+ "owner": "Administrator"
+}

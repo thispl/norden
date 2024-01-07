@@ -12,17 +12,21 @@
   {
    "chart": "Outgoing Bills (Sales Invoice)",
    "width": "Half"
+  },
+  {
+   "chart": "Item Group Wise",
+   "width": "Half"
   }
  ],
  "creation": "2022-12-03 18:52:28.214775",
  "dashboard_name": "Sales Invoice Dashboard",
  "docstatus": 0,
  "doctype": "Dashboard",
- "idx": 0,
+ "idx": 2,
  "is_default": 0,
  "is_standard": 1,
- "modified": "2023-04-17 11:14:34.948600",
- "modified_by": "faisal@nordenco.ae",
+ "modified": "2023-12-02 12:26:41.618270",
+ "modified_by": "Administrator",
  "module": "Norden",
  "name": "Sales Invoice Dashboard",
  "owner": "Administrator"

@@ -1,0 +1,48 @@
+{
+ "add_total_row": 1,
+ "columns": [],
+ "creation": "2023-11-22 14:10:16.269516",
+ "disabled": 0,
+ "docstatus": 0,
+ "doctype": "Report",
+ "filters": [],
+ "idx": 0,
+ "is_standard": "Yes",
+ "letter_head": "Norden",
+ "letterhead": null,
+ "modified": "2023-11-22 14:10:16.269516",
+ "modified_by": "Administrator",
+ "module": "Norden",
+ "name": "Report Stock Reserve",
+ "owner": "Administrator",
+ "prepared_report": 0,
+ "ref_doctype": "Sales Order",
+ "report_name": "Report Stock Reserve",
+ "report_type": "Script Report",
+ "roles": [
+  {
+   "role": "Sales User"
+  },
+  {
+   "role": "Maintenance User"
+  },
+  {
+   "role": "Sales Manager"
+  },
+  {
+   "role": "Accounts User"
+  },
+  {
+   "role": "Stock User"
+  },
+  {
+   "role": "System Manager"
+  },
+  {
+   "role": "Analytics"
+  },
+  {
+   "role": "Finance - UAE"
+  }
+ ]
+}

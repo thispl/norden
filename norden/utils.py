@@ -234,6 +234,107 @@ def getstock_detail(item_details, company):
 	data += '</table>'
 	return data
 
+@frappe.whitelist()
+def getstock_detail_list(name):
+	company = frappe.db.get_value("Sales Order",{'name':name},['company'])
+	item_details = frappe.get_all("Sales Order Item",{'parent':name},['item_code','item_name','qty','rate'])
+	data = ''
+	data += '<h4><center><b>STOCK DETAILS</b></center></h4>'
+	data += '<table class="table table-bordered">'
+	data += '<tr>'
+	data += '<td colspan=1 style="width:13%;padding:1px;border:1px solid black;font-size:14px;font-size:12px;background-color:#e35310;color:white;"><center><b>ITEM CODE</b></center></td>'
+	data += '<td colspan=1 style="width:33%;padding:1px;border:1px solid black;font-size:14px;font-size:12px;background-color:#e35310;color:white;"><center><b>ITEM NAME</b></center></td>'
+	data += '<td colspan=1 style="width:70px;padding:1px;border:1px solid black;font-size:14px;font-size:12px;background-color:#e35310;color:white;"><center><b>STOCK</b></center></td>'
+	data += '<td colspan=1 style="width:70px;padding:1px;border:1px solid black;font-size:14px;font-size:12px;background-color:#e35310;color:white;"><center><b>NSPL</b></center></td>'
+	data += '<td colspan=1 style="width:70px;padding:1px;border:1px solid black;font-size:14px;font-size:12px;background-color:#e35310;color:white;"><center><b>NCME</b></center></td>'
+	data += '<td colspan=1 style="width:70px;padding:1px;border:1px solid black;font-size:14px;font-size:12px;background-color:#e35310;color:white;"><center><b>NCUL</b></center></td>'
+	data += '<td colspan=1 style="width:70px;padding:1px;border:1px solid black;font-size:14px;font-size:12px;background-color:#e35310;color:white;"><center><b>SNTL</b></center></td>'
+	data += '<td colspan=1 style="width:70px;padding:1px;border:1px solid black;font-size:14px;font-size:12px;background-color:#e35310;color:white;"><center><b>NCPL</b></center></td>'
+	data += '<td colspan=1 style="width:70px;padding:1px;border:1px solid black;font-size:14px;font-size:12px;background-color:#e35310;color:white;"><center><b>NRIC</b></center></td>'
+	data += '<td colspan=1 style="padding:1px;border:1px solid black;font-size:14px;font-size:12px;background-color:#e35310;color:white;"><center><b>IN TRANSIT</b></center></td>'
+	data += '<td colspan=1 style="padding:1px;border:1px solid black;font-size:14px;font-size:12px;background-color:#e35310;color:white;"><center><b>PENDING TO SELL</b></center></td>'
+	warehouses = []  # Create a list to store warehouse names
+
+	for j in item_details:
+		country = frappe.get_value("Company", {"name": company}, ["country"])
+		warehouse_stock = frappe.db.sql("""
+		select sum(b.actual_qty) as qty from `tabBin` b join `tabWarehouse` wh on wh.name = b.warehouse join `tabCompany` c on c.name = wh.company where c.country = '%s' and b.item_code = '%s'
+		""" % (country, j["item_code"]), as_dict=True)[0]
+
+		if not warehouse_stock["qty"]:
+			warehouse_stock["qty"] = 0
+		purchase_order = frappe.db.sql("""select sum(`tabPurchase Order Item`.qty) as qty from `tabPurchase Order`
+				left join `tabPurchase Order Item` on `tabPurchase Order`.name = `tabPurchase Order Item`.parent
+				where `tabPurchase Order Item`.item_code = '%s' and `tabPurchase Order`.docstatus != 2 """ % (
+			j["item_code"]), as_dict=True)[0] or 0
+		if not purchase_order["qty"]:
+			purchase_order["qty"] = 0
+		purchase_receipt = frappe.db.sql("""select sum(`tabPurchase Receipt Item`.qty) as qty from `tabPurchase Receipt`
+				left join `tabPurchase Receipt Item` on `tabPurchase Receipt`.name = `tabPurchase Receipt Item`.parent
+				where `tabPurchase Receipt Item`.item_code = '%s' and `tabPurchase Receipt`.docstatus = 1 """ % (
+			j["item_code"]), as_dict=True)[0] or 0
+		if not purchase_receipt["qty"]:
+			purchase_receipt["qty"] = 0
+		in_transit = purchase_order["qty"] - purchase_receipt["qty"]
+		total = warehouse_stock["qty"] + in_transit
+
+		
+
+		stocks = frappe.db.sql("""select actual_qty,warehouse,stock_uom,stock_value from tabBin
+		where item_code = '%s' """ % (j["item_code"]), as_dict=True)
+
+		pos = frappe.db.sql("""select `tabPurchase Order Item`.item_code as item_code,`tabPurchase Order Item`.item_name as item_name,`tabPurchase Order`.supplier as supplier,sum(`tabPurchase Order Item`.qty) as qty,`tabPurchase Order Item`.rate as rate,`tabPurchase Order`.name as po from `tabPurchase Order`
+				left join `tabPurchase Order Item` on `tabPurchase Order`.name = `tabPurchase Order Item`.parent
+				where `tabPurchase Order Item`.item_code = '%s' and `tabPurchase Order`.docstatus != 2 order by rate asc limit 1""" % (
+			j["item_code"]), as_dict=True)
+
+		sale = frappe.db.sql("""select `tabSales Order Item`.item_code as item_code,`tabSales Order Item`.item_name as item_name,sum(`tabSales Order Item`.qty) as qty,`tabSales Order Item`.rate as rate,`tabSales Order`.name as so from `tabSales Order`
+				left join `tabSales Order Item` on `tabSales Order`.name = `tabSales Order Item`.parent
+				where `tabSales Order Item`.item_code = '%s' and `tabSales Order`.docstatus = 0 order by rate asc limit 1""" % (
+			j["item_code"]), as_dict=True)
+
+		for po in pos:
+			for so in sale:
+				data += '<tr>'
+				data += '<td style="text-align:center;border: 1px solid black" colspan=1>%s</td>' % (j["item_code"])
+				data += '<td style="text-align:center;border: 1px solid black" colspan=1>%s</td>' % (j["item_name"])
+				data += '<td style="text-align:center;border: 1px solid black" colspan=1>%s</td>' % (warehouse_stock['qty'] or 0)
+				
+				compa = ["Norden Singapore PTE LTD","Norden Communication Middle East FZE","Norden Communication UK Limited","Sparcom Ningbo Telecom Ltd","Norden Communication Pvt Ltd","Norden Research and Innovation Centre (OPC) Pvt. Ltd"]
+
+				for co in compa:
+					st = 0
+					ware = frappe.db.get_list("Warehouse",{"company":co},['name'])
+					for w in ware:
+						sto = frappe.db.get_value("Bin",{"item_code":j["item_code"],"warehouse":w.name},['actual_qty'])
+						if not sto:
+							sto = 0
+						st += sto
+					data += '<td style="text-align:center;border: 1px solid black" colspan=1>%s</td>' %(st)
+				# data += '<td style="text-align:center;border: 1px solid black" colspan=1>%s</td>' 
+				# data += '<td style="text-align:center;border: 1px solid black" colspan=1>%s</td>'
+				# data += '<td style="text-align:center;border: 1px solid black" colspan=1>%s</td>'
+				# data += '<td style="text-align:center;border: 1px solid black" colspan=1>%s</td>'
+				# data += '<td style="text-align:center;border: 1px solid black" colspan=1>%s</td>'
+
+				# for stock in stocks:
+				# 	wh = stock.warehouse
+				# 	x = wh.split('- ')
+				# 	warehouse_name = x[-1]
+				# 	if warehouse_name not in warehouses:
+				# 		warehouses.append(warehouse_name)  # Add warehouse name to the list
+				# 	data += '<td style="text-align:center;border: 1px solid black" colspan=1>%s</td>' % (stock.actual_qty)
+					
+
+				data += '<td style="text-align:center;border: 1px solid black" colspan=1>%s</td>' % (in_transit or 0)
+				data += '<td style="text-align:center;border: 1px solid black" colspan=1>%s</td>' % (so.qty or 0)
+				data += '</tr>'
+
+	data += '<tr>'
+	
+	data += '</table>'
+	return data
+
 
 @frappe.whitelist()
 def item_default_wh(doc,method):
@@ -258,7 +359,7 @@ def item_default_wh(doc,method):
 				"income_account": "Sales - NCME"
 			},
 			{
-				"company": "Norden Research and Innovation Centre (OPC) Pvt. Ltd",
+				"company": "Norden research and Innovation Centre  Pvt. Ltd",
 				"buying_cost_center": "Main - NRIC",
 				"selling_cost_center": "Main - NRIC",
 				"expense_account": "Cost of Goods Sold - NRIC",
@@ -336,7 +437,7 @@ def get_series_with_tax(company,doctype):
 	
 @frappe.whitelist()
 def email_salary_slip():
-	ss = frappe.get_all("Salary Slip",{'start_date':'2023-10-01'},['employee','name'])
+	ss = frappe.get_all("Salary Slip",{'start_date':'2023-12-01'},['employee','name'])
 	for s in ss:
 		doc = frappe.get_doc("Salary Slip",s['name'])
 		receiver = frappe.db.get_value("Employee", doc.employee, "company_email")
@@ -1205,32 +1306,32 @@ def create_sti(doc,method):
 
 @frappe.whitelist()
 def reversing_se(doc,method):
-    if doc.bill_of_entry and doc.stock_entry_type == "Material Transfer":
-        s = frappe.get_doc("Stock Transfer India",{"boe_inbound_no":doc.bill_of_entry})
-        for i in s.stock_transfer:
-            for d in doc.items:
-                if d.item_code == i.item_code and i.target_warehouse == "India Bonded Warehouse - NCPL":
-                    i.balance_in_qty = i.balance_in_qty + d.qty 
-                    if i.updated_serial_no:
-                        s_name = (i.updated_serial_no).upper() 
-                        ser_name = s_name.split("\n")
-                        d_name = (d.serial_no).upper()
-                        sr_name = d_name.split("\n")
-                        for k in sr_name:
-                            ser_name.append(k)
-                            frappe.errprint("\n".join(ser_name))
-                        i.updated_serial_no = ''
-                        i.updated_serial_no = "\n".join(ser_name)
-        s.save(ignore_permissions=True)
-        o = frappe.get_doc("Stock Transfer India",{"boe_outbound_no":doc.bom_out_bound})
-        o.save(ignore_permissions=True)
-        o.delete()
-        
+	if doc.bill_of_entry and doc.stock_entry_type == "Material Transfer":
+		s = frappe.get_doc("Stock Transfer India",{"boe_inbound_no":doc.bill_of_entry})
+		for i in s.stock_transfer:
+			for d in doc.items:
+				if d.item_code == i.item_code and i.target_warehouse == "India Bonded Warehouse - NCPL":
+					i.balance_in_qty = i.balance_in_qty + d.qty 
+					if i.updated_serial_no:
+						s_name = (i.updated_serial_no).upper() 
+						ser_name = s_name.split("\n")
+						d_name = (d.serial_no).upper()
+						sr_name = d_name.split("\n")
+						for k in sr_name:
+							ser_name.append(k)
+							frappe.errprint("\n".join(ser_name))
+						i.updated_serial_no = ''
+						i.updated_serial_no = "\n".join(ser_name)
+		s.save(ignore_permissions=True)
+		o = frappe.get_doc("Stock Transfer India",{"boe_outbound_no":doc.bom_out_bound})
+		o.save(ignore_permissions=True)
+		o.delete()
+		
 
-    if doc.bill_of_entry and doc.stock_entry_type == "Material Receipt":
-        s = frappe.get_doc("Stock Transfer India",{"boe_inbound_no":doc.bill_of_entry})
-        s.save(ignore_permissions=True)
-        s.delete()
+	if doc.bill_of_entry and doc.stock_entry_type == "Material Receipt":
+		s = frappe.get_doc("Stock Transfer India",{"boe_inbound_no":doc.bill_of_entry})
+		s.save(ignore_permissions=True)
+		s.delete()
 
 def add_itemwise_additional_cost(doc,method):
 	for row in doc.items:
@@ -1308,7 +1409,7 @@ def return_blocked_items():
 
 @frappe.whitelist()
 def create_stock_transfer_india(doc,method):
-	if doc.bill_of_entry and doc.set_warehouse == "India Bonded Warehouse - NCPL":
+	if doc.bill_of_entry != "NA":
 		if frappe.db.exists("Stock Transfer India",{"boe_inbound_no":doc.bill_of_entry}):
 			s = frappe.get_doc("Stock Transfer India",{"boe_inbound_no":doc.bill_of_entry})
 			for i in doc.items:
@@ -1405,10 +1506,10 @@ def create_stock_transfer_india(doc,method):
 
 @frappe.whitelist()
 def reverse_sti_pr(doc,method):
-    if doc.bill_of_entry:
-        s = frappe.get_doc("Stock Transfer India",{"boe_inbound_no":doc.bill_of_entry})
-        s.save(ignore_permissions=True)
-        s.delete()
+	if doc.bill_of_entry and doc.bill_of_entry != "NA":
+		s = frappe.get_doc("Stock Transfer India",{"boe_inbound_no":doc.bill_of_entry})
+		s.save(ignore_permissions=True)
+		s.delete()
 
 @frappe.whitelist()
 def transfer_to_scrap(doc,method):
@@ -1620,7 +1721,7 @@ def update_previous_leave_allocation_manually():
 				new_all.to_date = date.today().replace(month=12, day=31)
 				new_all.save(ignore_permissions=True)
 				new_all.submit()
-    
+	
 @frappe.whitelist()
 def cron_job_allocation():
 	job = frappe.db.exists('Scheduled Job Type', 'update_previous_leave_allocation_manually')
@@ -1643,7 +1744,6 @@ def create_update_leave_allocation():
 		doj = emp.date_of_joining
 		diff = current_date - doj
 		years = diff.days / 365.25  
-		frappe.errprint(emp.name)
 		print(int(years))
 		if(int(years)) > 0 :
 			if frappe.db.exists("Leave Allocation",{'employee':emp.employee,'leave_type':"Annual Leave"}):
@@ -1661,7 +1761,7 @@ def create_update_leave_allocation():
 				la.to_date = "2100-12-31"
 				la.save(ignore_permissions=True)
 				la.submit()  
-    
+	
 @frappe.whitelist()
 def cron_job_allocation_1():
 	job = frappe.db.exists('Scheduled Job Type', 'create_update_leave_allocation')
@@ -2032,7 +2132,6 @@ def stock_detail(doc):
 @frappe.whitelist()
 def stock_uae(item_details,company):
 	item_details = json.loads(item_details)
-	frappe.errprint(item_details)
 	data = ''
 	data += '<h4><center><b>STOCK DETAILS - UAE</b></center></h4>'
 	data += '<table class="table table-bordered">'
@@ -2078,3 +2177,209 @@ def stock_uae(item_details,company):
 		data += '</tr>'
 	data += '</table>'
 	return data
+
+@frappe.whitelist()
+def update_reserve_status(doc,method):
+	if doc.voucher_type == "Sales Order":
+		frappe.db.set_value(doc.voucher_type,doc.voucher_no,'custom_reservation_status',"Reserved")
+	
+@frappe.whitelist()
+def revert_reserve_status(doc,method):
+	if doc.voucher_type == "Sales Order":
+		frappe.db.set_value(doc.voucher_type,doc.voucher_no,'custom_reservation_status',"")
+	list = frappe.db.exists("Stock Reservation Entry",{'docstatus':1,'voucher_no':doc.voucher_no})
+	if list:
+		frappe.db.set_value(doc.voucher_type,doc.voucher_no,'custom_reservation_status',"Reserved")
+
+@frappe.whitelist()
+def update_target():
+	processed_territories = set()
+	target_invoices = frappe.get_all("Sales Invoice", {'company': "Norden Singapore PTE LTD"}, ['territory'])
+
+	for invoice in target_invoices:
+		territory = invoice.get('territory')
+		if territory and territory not in processed_territories:
+			target_value = frappe.db.get_value("Target Detail", {'parent': territory}, 'target_amount')
+			if target_value is not None:
+				print(territory, target_value)
+				processed_territories.add(territory)
+
+@frappe.whitelist()
+def gross_net():
+	total=0
+	to_net=0
+	gross = frappe.get_all("GL Entry",{'company':'Norden Communication Pvt Ltd','account':'Sales - NCPL'},['credit'])
+	for i in gross:
+		total +=i.credit
+	print(total)
+	net = frappe.get_all("GL Entry",{'company':'Norden Communication Pvt Ltd'},['credit','account'])
+	for i in net:
+		if i.account == 'Cost of Goods Sold - NCPL':
+			to_net +=i.credit
+	print(to_net)
+	print(to_net-total)
+
+@frappe.whitelist()
+def sub_group():
+	bal_qty = 0.0
+	from_date = '2023-11-09'
+	to_date = '2023-12-09'
+	unique_item_codes = set()
+	values = frappe.get_all("Stock Ledger Entry", {'is_cancelled': '0', 'company': 'Norden Communication Pvt Ltd', 'posting_date': ('between', [from_date, to_date])}, ['actual_qty', 'qty_after_transaction', 'item_code'])
+	for i in values:
+		item_code = i.item_code
+		unique_item_codes.add(item_code)   
+		if i.actual_qty <0:
+			out_qty += i.actual_qty
+		if i.actual_qty < 0:
+			in_qty += i.actual_qty
+	total_count = len(unique_item_codes)
+	print(total_count)
+
+
+@frappe.whitelist()
+def get_pr_po_no(bill):
+	pr = frappe.db.get_value("Purchase Receipt",{"bill_of_entry":bill,"docstatus":1},["name"])
+	order = frappe.db.get_value("Purchase Receipt",{"bill_of_entry":bill,"docstatus":1},["purchase_order_no"])
+	return pr,order
+
+# @frappe.whitelist()
+# def probation_to_confirmation():
+# 	data = ''
+# 	employee = frappe.get_all('Employee', {'status': 'Active', 'custom_employee_category': 'Probation', 'company': 'Norden Communication Middle East FZE'}, [
+# 							  "name", "employee_name", "department", "date_of_joining"])
+# 	data += 'Dear Mam,<br>Kindly Find the List of Employees going to complete their Probation With in 7 Days.<br><table class="table table-bordered">'
+# 	data += '<table class="table table-bordered"><tr><th>Employee ID</th><th>Employee Name</th><th>Department</th><th>Date of Joining</th></tr>'
+# 	for emp in employee:
+# 		diff = date_diff(emp.date_end_of_joining, today())
+# 		if (diff <= 7 and diff >= 0):
+			
+# 			data += '<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>' % (
+# 				emp.name, emp.employee_name, emp.department, format_date(emp.date_of_joining))
+# 	data += '</table>'
+# 	frappe.sendmail(
+# 		recipients=["gayathri.r@groupteampro.com"],
+# 		subject=('Probation Completion Remainder Mail'),
+# 		header=('Probation End Period Employee Details'),
+# 		message=data
+# 	)
+
+# probation_to_confirmation()
+
+
+# @frappe.whitelist()
+# def annual_leave_expiry():
+#     employees = frappe.get_all('Employee', 
+#                                {'status': 'Active', 'company': 'Norden Communication Middle East FZE'}, 
+#                                ["name", "employee_name", "department", "date_of_joining"])
+
+#     for emp in employees:
+#         diff = date_diff(add_months(emp.date_of_joining, 18), today())
+
+#         if diff == 0:
+#             # 1 year and 6 months after joining date - Send a message “Leave expired”
+#             send_leave_expiry_mail(emp.employee_name, emp.date_of_joining)
+
+#         elif diff == 30:
+#             # 1 year and 5 months after joining date - 1st reminder
+#             send_leave_expiry_reminder_mail(emp.employee_name, emp.date_of_joining)
+
+# def send_leave_expiry_mail(employee_name, date_of_joining):
+#     subject = 'Annual Leave Expiry - Leave Expired'
+#     message = f'Dear {employee_name},\n\nYour annual leave has expired as of {format_date(date_of_joining)}.\n\nPlease contact HR for further assistance.'
+    
+#     send_mail(subject, message)
+
+# def send_leave_expiry_reminder_mail(employee_name, date_of_joining):
+#     subject = 'Annual Leave Expiry - 1st Reminder'
+#     message = f'Dear {employee_name},\n\nThis is a reminder that your annual leave will expire in 1 month, on {format_date(add_months(date_of_joining, 18))}.\n\nPlease plan accordingly.'
+    
+#     send_mail(subject, message)
+
+# def send_mail(subject, message):
+#     frappe.sendmail(
+#         recipients=["gayathri.r@groupteampro.com"],
+#         subject=subject,
+#         message=message
+#     )
+
+# from datetime import datetime
+
+# @frappe.whitelist()
+# def annual_leave_due():
+#     employees = frappe.get_all('Employee', 
+#                                {'status': 'Active', 'company': 'Norden Communication Middle East FZE'}, 
+#                                ["name", "employee_name", "department", "date_of_joining"])
+
+#     for emp in employees:
+#         date_of_joining = frappe.utils.get_datetime(emp.date_of_joining).date()  # Convert string to date object
+#         today_date = frappe.utils.now_datetime().date()  # Convert today to date object
+#         months_since_joining = month_diff(date_of_joining, today_date)
+
+#         if months_since_joining == 10:
+#             # 10 months after joining date - First reminder
+#             send_annual_leave_due_reminder(emp.employee_name, date_of_joining, "first")
+
+#         elif months_since_joining == 11:
+#             # 11 months after joining date - Second reminder
+#             send_annual_leave_due_reminder(emp.employee_name, date_of_joining, "second")
+
+#         elif months_since_joining == 12:
+#             # 1 year after joining date - 3rd reminder
+#             send_annual_leave_due_reminder(emp.employee_name, date_of_joining, "third")
+
+# def send_annual_leave_due_reminder(employee_name, date_of_joining, reminder_type):
+#     subject = f'Annual Leave Due Reminder - {reminder_type.capitalize()} Reminder'
+#     message = f'Dear {employee_name},\n\nThis is your {reminder_type} reminder to allocate your annual leave. You joined our company on {format_date(date_of_joining)}, and it is essential to plan your leave accordingly.\n\nPlease contact HR for leave allocation.'
+#     send_mail(subject, message)
+
+# def send_mail(subject, message):
+#     frappe.sendmail(
+#         recipients=["gayathri.r@groupteampro.com"],
+#         cc=["sobha123@gmail.com"],
+#         subject=subject,
+#         message=message
+#     )
+
+# def month_diff(start_date, end_date):
+#     return (end_date.year - start_date.year) * 12 + end_date.month - start_date.month
+
+# annual_leave_due()
+
+@frappe.whitelist()
+def send_mail_to_teampro(subject, message, recipients, sender):
+    """
+    Send an email to the specified recipients with the given subject and message.
+    """
+    if not frappe.db.exists("Email Account", {"email_id": sender}):
+        frappe.throw(_("Sender email not configured in Email Account"))
+
+    # Add additional content to the message body
+    message_body = f"Dear Sir/Madam,<br><br>\
+                    Greetings from Norden!!<br><br>\
+                    Hope this mail finds you well!!<br><br>\
+                    {message}<br><br>\
+                    Thanks & Regards,<br>\
+                    Norden Support"
+
+    try:
+        frappe.sendmail(
+            recipients=recipients,
+            sender=sender,
+            subject=subject,
+            message=message_body,
+            now=True
+        )
+        return "Email sent successfully"
+    except Exception as e:
+        frappe.log_error(frappe.get_traceback(), 'Email Sending Failed')
+        return "Failed to send email"
+
+
+
+
+
+
+
+
+

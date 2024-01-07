@@ -11,9 +11,6 @@ import json
 class RequestforSampleItem(Document):
     def on_update(self):
         if self.workflow_state == 'Issued':
-            # warehouse = frappe.get_value("Warehouse",{"company":self.company,"warehouse_name":self.source_warehouse})
-            # target = frappe.get_value("Warehouse",{"company":self.company,"warehouse_name":self.target_warehouse})
-            # if warehouse:
             stock = frappe.new_doc("Stock Entry")
             stock.company = self.company
             stock.stock_entry_type = "Material Transfer"
@@ -30,9 +27,15 @@ class RequestforSampleItem(Document):
             })
             stock.save(ignore_permissions=True)
             stock.submit()
+            self.db_set("stock_issued", stock.name, update_modified=False)
+
+            # frappe.errprint(stock.name)
+            # self.stock_issued= stock.name
+            # self.save(ignore_permissions=True)
+            # frappe.db.commit()
+
 
         if self.workflow_state == "Returned":
-            frappe.errprint("hi")
             s = frappe.new_doc("Stock Entry")
             s.company = self.company
             s.stock_entry_type = "Material Transfer"
@@ -40,7 +43,6 @@ class RequestforSampleItem(Document):
             s.from_warehouse = self.target_warehouse
             s.to_warehouse = self.source_warehouse,
             for i in self.items:
-                frappe.errprint("dckdjcdcidciau")
                 s.append("items", {
                 "s_warehouse": self.target_warehouse,
                 "t_warehouse": self.source_warehouse,
@@ -50,6 +52,15 @@ class RequestforSampleItem(Document):
             })
             s.save(ignore_permissions=True)
             s.submit()
+            self.db_set("stock_returned", s.name, update_modified=False)
+
+
+
+    # def after_insert(self):
+    #     if self.workflow_state == 'Issued':
+    #         se = frappe.get_doc("Stock Entry",{})
+        
+            
 
     @frappe.whitelist()
     def get_rate(self):

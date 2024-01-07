@@ -118,7 +118,6 @@ def get_data(filters):
 		asc"""%(s.name),as_dict=1)[0]
 		raw = {'sales_order':s.name,'sales_person':sb['sales_person_user'],'status':sb['status'],'customer_no':sb['customer'],'customer_name':sb["customer_name"],'date':sb["transaction_date"],'qty':sb["qty"],'delivered_qty':sb["delivered_qty"],'qty_to_deliver':sb["qty_to_deliver"],'amount':sb["base_amount"],'amount_to_deliver':sb["amount_to_deliver"],'item_delivery_date':sb["delivery_date"],'delay_days':sb["diffdate"],'indent':0}
 		data.append(raw)
-		frappe.errprint(raw)
 		for i in sa:
 			row = {'item':i.item_code,'qty':i.qty,'delivered_qty':i.delivered_qty,'qty_to_deliver':i.qty_to_deliver,'rate':i.base_rate,'amount':i.base_amount,'amount_to_deliver':i.amount_to_deliver,'available_qty':i.actual_qty,'projected_qty':i.projected_qty,'item_delivery_date':i.delivery_date,'delay_days':i.diffdate,'item_name':i.item_name,'description':i.description,'item_group':i.item_group,'warehouse':i.warehouse,'indent':1}
 			data.append(row)

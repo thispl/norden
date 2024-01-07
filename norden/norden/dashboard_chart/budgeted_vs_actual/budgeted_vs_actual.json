@@ -1,0 +1,36 @@
+{
+ "based_on": "",
+ "chart_name": "Budgeted vs Actual",
+ "chart_type": "Custom",
+ "creation": "2023-11-29 17:19:09.451700",
+ "docstatus": 0,
+ "doctype": "Dashboard Chart",
+ "document_type": "",
+ "dynamic_filters_json": "[]",
+ "filters_json": "[]",
+ "group_by_type": "Count",
+ "idx": 0,
+ "is_public": 1,
+ "is_standard": 1,
+ "last_synced_on": "2023-12-01 13:12:39.822936",
+ "modified": "2023-12-01 13:12:59.318049",
+ "modified_by": "Administrator",
+ "module": "Norden",
+ "name": "Budgeted vs Actual",
+ "number_of_groups": 0,
+ "owner": "Administrator",
+ "parent_document_type": "",
+ "roles": [
+  {
+   "role": "Sales User"
+  }
+ ],
+ "source": "Budgeted vs Actual",
+ "time_interval": "Yearly",
+ "timeseries": 0,
+ "timespan": "Last Year",
+ "type": "Bar",
+ "use_report_chart": 0,
+ "value_based_on": "",
+ "y_axis": []
+}

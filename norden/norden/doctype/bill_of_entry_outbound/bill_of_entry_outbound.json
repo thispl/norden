@@ -23,12 +23,12 @@
    "fieldname": "boe_inbound",
    "fieldtype": "Link",
    "label": "BOE - Inbound",
-   "options": "Bill of Entry"
+   "options": "Bill of Entry Inbound"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-03-02 22:59:14.864371",
+ "modified": "2023-11-30 15:45:30.548057",
  "modified_by": "Administrator",
  "module": "Norden",
  "name": "Bill of Entry Outbound",

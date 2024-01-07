@@ -1,0 +1,13 @@
+{
+ "creation": "2023-12-08 11:49:11.612264",
+ "docstatus": 0,
+ "doctype": "Dashboard Chart Source",
+ "idx": 0,
+ "modified": "2023-12-08 11:53:46.313691",
+ "modified_by": "Administrator",
+ "module": "Norden",
+ "name": "Stock Value Changes on month basis",
+ "owner": "Administrator",
+ "source_name": "Stock Value Changes on month basis",
+ "timeseries": 0
+}

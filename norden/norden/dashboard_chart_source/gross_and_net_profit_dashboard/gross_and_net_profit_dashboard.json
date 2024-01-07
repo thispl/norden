@@ -1,0 +1,13 @@
+{
+ "creation": "2023-12-02 16:59:36.736094",
+ "docstatus": 0,
+ "doctype": "Dashboard Chart Source",
+ "idx": 0,
+ "modified": "2023-12-02 16:59:36.736094",
+ "modified_by": "Administrator",
+ "module": "Norden",
+ "name": "Gross and Net Profit Dashboard",
+ "owner": "Administrator",
+ "source_name": "Gross and Net Profit Dashboard",
+ "timeseries": 1
+}

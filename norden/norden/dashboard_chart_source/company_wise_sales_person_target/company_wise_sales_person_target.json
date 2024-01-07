@@ -1,0 +1,13 @@
+{
+ "creation": "2023-11-28 14:43:17.355076",
+ "docstatus": 0,
+ "doctype": "Dashboard Chart Source",
+ "idx": 0,
+ "modified": "2023-11-28 14:48:32.316339",
+ "modified_by": "Administrator",
+ "module": "Norden",
+ "name": "Company Wise Sales Person Target",
+ "owner": "Administrator",
+ "source_name": "Company Wise Sales Person Target",
+ "timeseries": 1
+}

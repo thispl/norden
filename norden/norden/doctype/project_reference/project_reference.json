@@ -31,7 +31,6 @@
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Project Name/Reference",
-   "reqd": 1,
    "unique": 1
   },
   {
@@ -122,7 +121,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-11-01 11:50:27.470461",
+ "modified": "2023-11-28 13:56:52.607847",
  "modified_by": "Administrator",
  "module": "Norden",
  "name": "Project Reference",

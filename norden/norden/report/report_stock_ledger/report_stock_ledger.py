@@ -69,7 +69,7 @@ def execute(filters=None):
             "territory":territory
 
             })
-        data.append(sle)
+        # data.append(sle)
 
         if sle.actual_qty:
             sle["in_out_rate"] = flt(sle.stock_value_difference / sle.actual_qty, precision)
@@ -77,12 +77,13 @@ def execute(filters=None):
         elif sle.voucher_type == "Stock Reconciliation":
             sle["in_out_rate"] = sle.valuation_rate
 
-        data.append(sle)
+        # data.append(sle)
 
         if include_uom:
             conversion_factors.append(item_detail.conversion_factor)
 
     update_included_uom_in_report(columns, data, include_uom, conversion_factors)
+    data.extend(sl_entries)
     return columns, data
 
 

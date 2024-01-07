@@ -95,8 +95,17 @@ override_doctype_class = {
 # Hook on document methods and events
 
 doc_events = {
+    "Item Inspection":{
+		"on_submit": ["norden.custom.update_qc_status","norden.custom.update_qc_status_stock"],
+	
+		# "on_update": "norden.custom.item_ins_serial"
+	},
 	"Item":{
 		"after_insert": "norden.utils.item_default_wh",
+	},
+	"Stock Reservation Entry":{
+		"after_insert": "norden.utils.update_reserve_status",
+		"on_cancel": "norden.utils.revert_reserve_status"
 	},
 
 	"Stock Entry":{
@@ -136,6 +145,7 @@ doc_events = {
 		
 		"on_submit": [
       	# "norden.custom.check_item_inspection",
+       	# "norden.custom.pr_create",
 		"norden.custom.get_foc_item_pr",
 		"norden.utils.update_sn_pr", 
 		"norden.custom.create_mrb",
@@ -150,7 +160,8 @@ doc_events = {
 	},
 
 	# "MRB": {
-		# "validate": "norden.utils.transfer_to_scrap",
+	# 	"on_update":"norden.custom.mrb_create"
+	# 	# "validate": "norden.utils.transfer_to_scrap",
 	# },
 
 	"Material Request": {
@@ -163,9 +174,7 @@ doc_events = {
 		"on_submit": "norden.custom.update_marcom",
 	},
 	"Sales Invoice": {
-        "after_insert":"norden.custom.update_invoice_number",
-		"on_submit": "norden.norden.doctype.project_reference.project_reference.create_project_reference",
-
+        "after_insert":"norden.custom.update_invoice_number"
 	},
 	"Travel Request":{
 		"on_submit": "norden.custom.create_employee_advance",
@@ -177,9 +186,8 @@ doc_events = {
 	"Appraisal":{
 		"on_update": "norden.custom.get_appraisal"
 	},
-
     
-	"Appraisal Template":{
+    "Appraisal Template":{
 		"on_update": "norden.custom.get_appraisal_template"
 		# "validate": "norden.custom.get_appraisal_kra"
 	},
@@ -202,9 +210,6 @@ doc_events = {
 			# "norden.utils.item_allocation",
 			
 		],
-
-	
-		
 },
 # "Customer":{
 # 	"validate":[
@@ -259,7 +264,8 @@ scheduler_events = {
 		"norden.norden.doctype.logistics_request.logistics_request.pending_for_payments",
 		"norden.utils.return_blocked_items",
 		"norden.custom.internship_end_date",
-		"norden.custom.date_of_joining"
+		"norden.custom.date_of_joining",
+		"norden.custom.request_for_sample",
 
 
 		
@@ -271,7 +277,7 @@ scheduler_events = {
 # 		"norden.tasks.weekly"
 # 	]
 	"monthly": [
-		"norden.utils.update_previous_leave_allocation_manually",
+		# "norden.utils.update_previous_leave_allocation_manually",
 # 		"norden.tasks.monthly"
 
 	],
@@ -311,12 +317,18 @@ override_whitelisted_methods = {
 jinja = {
 	"methods": [
 		"norden.norden.doctype.eyenor_datasheet.eyenor_datasheet.get_specification",
+  		"norden.norden.doctype.eyenor_datasheet.eyenor_datasheet.get_specification_test",
 		"norden.norden.doctype.eyenor_datasheet.eyenor_datasheet_html.get_html_specification",
 		"norden.norden.doctype.eyenor_datasheet.eyenor_datasheet_html.get_html_header",
 		"norden.norden.doctype.eyenor_datasheet.eyenor_datasheet.get_header",
+		"norden.norden.doctype.eyenor_datasheet.eyenor_datasheet.get_header_test",
 		"norden.norden.doctype.eyenor_datasheet.eyenor_datasheet_html.get_html_order_info",
 		"norden.norden.doctype.eyenor_datasheet.eyenor_datasheet.get_order_info",
-		"norden.norden.doctype.eyenor_datasheet.eyenor_datasheet.get_pack_info",	
+  		"norden.norden.doctype.eyenor_datasheet.eyenor_datasheet.get_order_info_test",
+
+		"norden.norden.doctype.eyenor_datasheet.eyenor_datasheet.get_pack_info",
+  		"norden.norden.doctype.eyenor_datasheet.eyenor_datasheet.get_pack_info_test",	
+	
 		"norden.norden.doctype.eyenor_datasheet.eyenor_datasheet.get_thermal_image",	
 		"norden.norden.doctype.eyenor_datasheet.eyenor_datasheet.get_datasheet_icons",
 		"norden.norden.doctype.nvs.nvs.get_nvs_specification",
@@ -332,6 +344,7 @@ jinja = {
 		"norden.norden.doctype.cable_datasheet.cable_datasheet.get_nordata_desc",
 		"norden.norden.doctype.cable_datasheet.cable_datasheet.get_optidata_desc",
         "norden.norden.doctype.eyenor_datasheet.eyenor_datasheet.get_dori_distance",
+		"norden.norden.doctype.eyenor_datasheet.eyenor_datasheet.get_dori_distance_test",
         "norden.custom.get_leave_balance",
 		"norden.utils.get_visual",
 		"norden.utils.get_dimensional",
@@ -348,4 +361,4 @@ jinja = {
 
 }
 
-fixtures = ["Client Script","Print Format","Report","Workspace"]
+fixtures = ["Client Script","Print Format","Report","Custom Field"]

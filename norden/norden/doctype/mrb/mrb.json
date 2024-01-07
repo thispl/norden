@@ -9,10 +9,11 @@
  "engine": "InnoDB",
  "field_order": [
   "item_details_section",
-  "purchase_receipt",
   "item_code",
   "description",
   "item_inspection",
+  "purchase_order",
+  "purchase_receipt",
   "supplier",
   "material__process__machine",
   "responsible",
@@ -20,28 +21,44 @@
   "uom",
   "rate",
   "qty",
-  "material_review_board_mrb_information",
-  "disposition_of_non_conforming_material",
-  "column_break_4",
+  "rejected_qty_serial_no",
   "batch_no",
+  "material_review_board_mrb_information",
+  "id",
+  "column_break_4",
+  "batch",
+  "warehouse",
   "ncmr_no",
+  "reason_for_rejection",
   "work_order",
   "product_pn",
   "product_description",
   "serial_no",
-  "warehouse",
   "company",
-  "mrb_action",
   "return_to_vendorsupplier_rework_state_rework_instruction",
   "mrb_meeting_date",
   "mrb_meeting_members",
+  "disposition_of_non_conforming_material",
+  "mrb_act",
+  "use_as_is",
+  "use_as_is_serial_no",
+  "rework",
+  "rework_instructions",
+  "rework_warehouse",
+  "rework_serial_no",
+  "column_break_dbzd",
+  "scrap",
+  "scrap_serial_no",
+  "return_to_vendor",
+  "rtv_instructions",
+  "rtv_serial_no",
+  "return_to_vendor_warehouse",
+  "mrb_action",
   "section_break_7",
-  "purchase_order",
   "actions",
   "inspection_date",
   "inspected_by",
   "column_break_12",
-  "rework_instructions",
   "download_report",
   "attach_report",
   "dan",
@@ -55,56 +72,63 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Item Code",
-   "options": "Item"
+   "options": "Item",
+   "read_only": 1
   },
   {
    "fieldname": "purchase_order",
    "fieldtype": "Link",
    "label": "Purchase Order",
-   "options": "Purchase Order"
+   "options": "Purchase Order",
+   "read_only": 1
   },
   {
    "fieldname": "purchase_receipt",
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Purchase Receipt",
-   "options": "Purchase Receipt"
+   "options": "Purchase Receipt",
+   "read_only": 1
   },
   {
    "fieldname": "description",
    "fieldtype": "Small Text",
-   "label": "Description"
+   "label": "Description",
+   "read_only": 1
   },
   {
    "fieldname": "qty",
-   "fieldtype": "Int",
-   "label": "Rejected Qty"
+   "fieldtype": "Float",
+   "label": "Rejected Qty",
+   "read_only": 1
   },
   {
    "fieldname": "uom",
    "fieldtype": "Link",
-   "hidden": 1,
    "label": "Uom",
-   "options": "UOM"
+   "options": "UOM",
+   "read_only": 1
   },
   {
    "fieldname": "rate",
    "fieldtype": "Float",
    "hidden": 1,
-   "label": "Rate"
+   "label": "Rate",
+   "read_only": 1
   },
   {
    "fieldname": "batch_no",
    "fieldtype": "Link",
-   "hidden": 1,
    "label": "Batch No",
-   "options": "Batch"
+   "options": "Batch",
+   "read_only": 1
   },
   {
    "fieldname": "company",
    "fieldtype": "Link",
    "label": "Company",
-   "options": "Company"
+   "options": "Company",
+   "read_only": 1
   },
   {
    "fieldname": "inspection_date",
@@ -135,7 +159,8 @@
    "fieldname": "warehouse",
    "fieldtype": "Link",
    "label": "Warehouse",
-   "options": "Warehouse"
+   "options": "Warehouse",
+   "read_only": 1
   },
   {
    "fieldname": "section_break_16",
@@ -161,6 +186,7 @@
   {
    "fieldname": "mrb_action",
    "fieldtype": "Select",
+   "hidden": 1,
    "label": "MRB Action",
    "options": "Use As is\nScrap\nReturn to Vendor\nRework"
   },
@@ -177,7 +203,8 @@
    "fieldname": "serial_no",
    "fieldtype": "Small Text",
    "hidden": 1,
-   "label": "Serial No"
+   "label": "Serial No",
+   "read_only": 1
   },
   {
    "depends_on": "eval:doc.mrb_action == \"Deviation\"",
@@ -192,42 +219,50 @@
   },
   {
    "fieldname": "supplier",
-   "fieldtype": "Data",
-   "label": "Supplier"
+   "fieldtype": "Link",
+   "label": "Supplier",
+   "options": "Supplier"
   },
   {
    "fieldname": "material__process__machine",
    "fieldtype": "Data",
+   "hidden": 1,
    "label": "Material / Process / Machine"
   },
   {
    "fieldname": "responsible",
    "fieldtype": "Data",
+   "hidden": 1,
    "label": "Responsible"
   },
   {
    "fieldname": "ncm_description",
    "fieldtype": "Data",
+   "hidden": 1,
    "label": "NCM Description"
   },
   {
    "fieldname": "ncmr_no",
    "fieldtype": "Data",
-   "label": "NCMR No"
+   "label": "NCMR No",
+   "read_only": 1
   },
   {
    "fieldname": "work_order",
    "fieldtype": "Data",
+   "hidden": 1,
    "label": "Work Order"
   },
   {
    "fieldname": "product_pn",
    "fieldtype": "Data",
+   "hidden": 1,
    "label": "Product P/N"
   },
   {
    "fieldname": "product_description",
    "fieldtype": "Data",
+   "hidden": 1,
    "label": "Product Description"
   },
   {
@@ -271,14 +306,105 @@
   {
    "fieldname": "item_inspection",
    "fieldtype": "Link",
+   "in_standard_filter": 1,
    "label": "Item Inspection ",
-   "options": "Item Inspection"
+   "options": "Item Inspection",
+   "read_only": 1
+  },
+  {
+   "fieldname": "reason_for_rejection",
+   "fieldtype": "Small Text",
+   "label": "Reason for Rejection",
+   "read_only": 1
+  },
+  {
+   "fieldname": "mrb_act",
+   "fieldtype": "Section Break",
+   "label": "MRB Action"
+  },
+  {
+   "fieldname": "use_as_is",
+   "fieldtype": "Float",
+   "label": "Use As Is"
+  },
+  {
+   "fieldname": "scrap",
+   "fieldtype": "Float",
+   "label": "Scrap"
+  },
+  {
+   "fieldname": "return_to_vendor",
+   "fieldtype": "Float",
+   "label": "Return to Vendor"
+  },
+  {
+   "fieldname": "column_break_dbzd",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "rework",
+   "fieldtype": "Float",
+   "label": "Rework"
+  },
+  {
+   "fieldname": "rework_warehouse",
+   "fieldtype": "Link",
+   "label": "Rework Warehouse",
+   "options": "Warehouse"
+  },
+  {
+   "fieldname": "rtv_instructions",
+   "fieldtype": "Small Text",
+   "label": "RTV Instructions"
+  },
+  {
+   "fieldname": "return_to_vendor_warehouse",
+   "fieldtype": "Link",
+   "label": "Return to Vendor Warehouse",
+   "options": "Warehouse",
+   "read_only": 1
+  },
+  {
+   "fieldname": "id",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "ID"
+  },
+  {
+   "fieldname": "rejected_qty_serial_no",
+   "fieldtype": "Small Text",
+   "label": "Rejected Qty Serial No"
+  },
+  {
+   "fieldname": "batch",
+   "fieldtype": "Data",
+   "label": "Batch"
+  },
+  {
+   "fieldname": "use_as_is_serial_no",
+   "fieldtype": "Small Text",
+   "label": "Use As Is Serial No"
+  },
+  {
+   "fieldname": "rework_serial_no",
+   "fieldtype": "Small Text",
+   "label": "Rework Serial No"
+  },
+  {
+   "fieldname": "scrap_serial_no",
+   "fieldtype": "Small Text",
+   "label": "Scrap Serial No"
+  },
+  {
+   "fieldname": "rtv_serial_no",
+   "fieldtype": "Small Text",
+   "label": "RTV Serial No"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-09-07 15:43:16.511167",
+ "modified": "2023-12-19 16:44:55.968964",
  "modified_by": "Administrator",
  "module": "Norden",
  "name": "MRB",

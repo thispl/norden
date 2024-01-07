@@ -58,11 +58,12 @@ class ProductSearch(Document):
 		tot = 'Total'
 		uom = 'Nos'
 
-		stocks_query = frappe.db.sql("""select actual_qty,warehouse,stock_uom,stock_value from tabBin
+		stocks_query = frappe.db.sql("""select actual_qty,reserved_stock,warehouse,stock_uom,stock_value from tabBin
 				where item_code = '%s' """%(item),as_dict=True)
+		# frappe.errprint(stocks_query.reserved_stock)
 		if stocks_query:
 			stocks = stocks_query
-
+		
 		data += '<table class="table table-bordered" style="width:70%"><tr><th style="padding:1px;border: 1px solid black;background-color:#fe3f0c;color:white" colspan=10><center>NORDEN PRODUCT SEARCH</center></th></tr>'
 		data += '<tr><td colspan = 2 style="padding:1px;border: 1px solid black;color:white;background-color:#6f6f6f;text-align: left"><b>Item Code</b></td><td colspan = 8 style="padding:1px;border: 1px solid black;text-align: left"><b>%s</b></td></tr>'%(item)
 		data += '<tr><td colspan = 2 style="padding:1px;border: 1px solid black;background-color:#6f6f6f;color:white;text-align: left"><b>Item Name</b></td><td colspan = 8 style="padding:1px;border: 1px solid black;text-align: left"><b>%s</b></td></tr>'%(frappe.db.get_value('Item',item,'item_name'))
@@ -81,8 +82,8 @@ class ProductSearch(Document):
 			data += '<td colspan = 1 style="padding:1px;border: 1px solid black;background-color:#6f6f6f;color:white;"><center><b>Pending SO</b></center></td>'
 			data += '</tr>'
 			for stock in stocks_query:
-				frappe.errprint(type(stock.actual_qty))
 				if stock.actual_qty >= 0:
+					reserve = stock.actual_qty - stock.reserved_stock
 					stock_company = frappe.db.sql("""select company from tabWarehouse where name = '%s' """%(stock.warehouse),as_dict=True)
 					for com in stock_company:
 						psoc_query = frappe.db.sql("""select sum(`tabSales Order Item`.qty) as qty from `tabSales Order`
@@ -137,9 +138,10 @@ class ProductSearch(Document):
 							sp = frappe.get_value("Item Price",{"item_code":item,"price_list":"Internal - NCMEF"},["price_list_rate"])
 						else:
 							sp = frappe.get_value("Item Price",{"item_code":item,"price_list":pricelist},["price_list_rate"])
-						data += '<tr><td colspan = 1 style="padding:1px;border: 1px solid black">%s</td><td colspan = 1 style="padding:1px;border: 1px solid black">%s</td><td colspan = 1 style="padding:1px;border: 1px solid black"><center><b>%s</b></center></td><td colspan = 1 style="padding:1px;border: 1px solid black"><center><b>%s</b></center></td><td colspan = 1 style="padding:1px;border: 1px solid black"><center><b>%s</b></center></td><td colspan = 1 style="padding:1px;border: 1px solid black"><center><b>%s</b></center></td><td colspan = 1 style="padding:1px;border: 1px solid black"><center><b>%s</b></center></td><td colspan = 1 style="padding:1px;border: 1px solid black"><center><b>%s</b></center></td><td colspan = 1 style="padding:1px;border: 1px solid black"><center><b>%s</b></center></td></tr>'%(com.company,stock.warehouse,int(stock.actual_qty) or 0,stock.stock_uom or '-',valuation_rate or 0,sp or 0,default_currency,ppoc_total or 0,del_total or 0)
+						data += '<tr><td colspan = 1 style="padding:1px;border: 1px solid black">%s</td><td colspan = 1 style="padding:1px;border: 1px solid black">%s</td><td colspan = 1 style="padding:1px;border: 1px solid black"><center><b>%s</b></center></td><td colspan = 1 style="padding:1px;border: 1px solid black"><center><b>%s</b></center></td><td colspan = 1 style="padding:1px;border: 1px solid black"><center><b>%s</b></center></td><td colspan = 1 style="padding:1px;border: 1px solid black"><center><b>%s</b></center></td><td colspan = 1 style="padding:1px;border: 1px solid black"><center><b>%s</b></center></td><td colspan = 1 style="padding:1px;border: 1px solid black"><center><b>%s</b></center></td><td colspan = 1 style="padding:1px;border: 1px solid black"><center><b>%s</b></center></td></tr>'%(com.company,stock.warehouse,reserve or 0,stock.stock_uom or '-',valuation_rate or 0,sp or 0,default_currency,ppoc_total or 0,del_total or 0)
 						i += 1
-						cou += stock.actual_qty
+						# cou += stock.actual_qty
+						cou += reserve
 						p_po += ppoc_total
 						p_so += del_total
 			data += '<tr><td align="right" colspan = 2 style="padding:1px;border: 1px solid black;background-color:#6f6f6f;color:white;"><b>%s</b></td><td colspan = 1 style="padding:1px;border: 1px solid black;background-color:#6f6f6f;color:white;"><center><b>%s</b></center></td><td colspan = 1 style="padding:1px;border: 1px solid black;background-color:#6f6f6f;color:white;"><center><b>%s</b></center></td><td colspan = 3 style="padding:1px;border: 1px solid black;background-color:#6f6f6f;color:white;"><center><b></b></center></td><td colspan = 1 style="padding:1px;border: 1px solid black;background-color:#6f6f6f;color:white;"><center><b>%s</b></center></td><td colspan = 1 style="padding:1px;border: 1px solid black;background-color:#6f6f6f;color:white;"><center><b>%s</b></center></td></tr>'%(tot or 0,int(cou) or 0,uom,p_po or 0,p_so or 0)

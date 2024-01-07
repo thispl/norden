@@ -47,7 +47,7 @@ def get_columns(filters):
 			c.name = "NCUL"
 		if c.name == 'Sparcom Ningbo Telecom Ltd':
 			c.name = "SNTL"
-		if c.name == 'Norden Research and Innovation Centre (OPC) Pvt. Ltd':
+		if c.name == 'Norden research and Innovation Centre  Pvt. Ltd':
 			c.name = "NRIC"
 		if c.name == 'Norden Africa':
 			c.name = "NSA"	

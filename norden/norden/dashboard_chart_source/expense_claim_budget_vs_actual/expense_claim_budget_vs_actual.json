@@ -1,0 +1,13 @@
+{
+ "creation": "2023-12-01 18:57:18.549782",
+ "docstatus": 0,
+ "doctype": "Dashboard Chart Source",
+ "idx": 0,
+ "modified": "2023-12-01 18:57:18.549782",
+ "modified_by": "Administrator",
+ "module": "Norden",
+ "name": "Expense Claim Budget vs Actual",
+ "owner": "Administrator",
+ "source_name": "Expense Claim Budget vs Actual",
+ "timeseries": 0
+}

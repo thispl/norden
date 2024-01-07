@@ -24,7 +24,7 @@ def get_columns(filters):
          _("Norden Communication Pvt Ltd") + ":Data/:100",
          _("Norden Communication UK Limited") + ":Data/:100",
          _("Sparcom Ningbo Telecom Ltd") + ":Data/:100",
-         _("Norden Research and Innovation Centre (OPC) Pvt. Ltd") + ":Data/:150",
+         _("Norden research and Innovation Centre  Pvt. Ltd") + ":Data/:150",
          _("Norden Africa") + ":Data/:150",
          _("Norden Communication India") + ":Data/:150",
          _("NCPL -Bangalore") + ":Data/:150",

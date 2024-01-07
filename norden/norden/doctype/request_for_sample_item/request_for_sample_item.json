@@ -12,10 +12,13 @@
   "section_break_4",
   "employee",
   "employee_name",
+  "user",
   "designation",
   "column_break_6",
   "department",
   "submission_date",
+  "stock_issued",
+  "stock_returned",
   "section_break_13",
   "customer",
   "items",
@@ -33,6 +36,7 @@
   {
    "fieldname": "employee",
    "fieldtype": "Link",
+   "ignore_user_permissions": 1,
    "in_list_view": 1,
    "label": "Employee",
    "options": "Employee",
@@ -51,6 +55,8 @@
    "fetch_from": "employee.employee_name",
    "fieldname": "employee_name",
    "fieldtype": "Read Only",
+   "in_list_view": 1,
+   "in_preview": 1,
    "label": "Employee Name"
   },
   {
@@ -151,12 +157,31 @@
    "fieldname": "submission_date",
    "fieldtype": "Date",
    "label": "Submission Date"
+  },
+  {
+   "fetch_from": "employee.user_id",
+   "fieldname": "user",
+   "fieldtype": "Link",
+   "label": "User",
+   "options": "User"
+  },
+  {
+   "fieldname": "stock_issued",
+   "fieldtype": "Link",
+   "label": "Stock Issued",
+   "options": "Stock Entry"
+  },
+  {
+   "fieldname": "stock_returned",
+   "fieldtype": "Link",
+   "label": "Stock Returned",
+   "options": "Stock Entry"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-01-17 22:44:44.692043",
+ "modified": "2024-01-04 19:26:06.257492",
  "modified_by": "Administrator",
  "module": "Norden",
  "name": "Request for Sample Item",

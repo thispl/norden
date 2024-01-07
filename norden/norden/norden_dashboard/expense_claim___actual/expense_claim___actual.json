@@ -1,0 +1,21 @@
+{
+ "cards": [],
+ "charts": [
+  {
+   "chart": "Expense claim - Actual",
+   "width": "Full"
+  }
+ ],
+ "creation": "2023-12-02 12:32:35.456311",
+ "dashboard_name": "Expense claim - Actual",
+ "docstatus": 0,
+ "doctype": "Dashboard",
+ "idx": 0,
+ "is_default": 0,
+ "is_standard": 1,
+ "modified": "2023-12-02 12:32:35.456311",
+ "modified_by": "Administrator",
+ "module": "Norden",
+ "name": "Expense claim - Actual",
+ "owner": "Administrator"
+}

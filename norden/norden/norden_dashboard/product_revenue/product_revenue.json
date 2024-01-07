@@ -1,0 +1,25 @@
+{
+ "cards": [
+  {
+   "card": "Sum of Total(amt)"
+  }
+ ],
+ "charts": [
+  {
+   "chart": "Product Revenue Sales",
+   "width": "Full"
+  }
+ ],
+ "creation": "2023-11-25 15:38:36.573573",
+ "dashboard_name": "Product Revenue",
+ "docstatus": 0,
+ "doctype": "Dashboard",
+ "idx": 0,
+ "is_default": 0,
+ "is_standard": 1,
+ "modified": "2023-11-25 16:12:40.281526",
+ "modified_by": "Administrator",
+ "module": "Norden",
+ "name": "Product Revenue",
+ "owner": "Administrator"
+}

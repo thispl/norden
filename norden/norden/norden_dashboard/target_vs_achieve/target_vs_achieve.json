@@ -1,0 +1,21 @@
+{
+ "cards": [],
+ "charts": [
+  {
+   "chart": "Budgeted vs Actual",
+   "width": "Full"
+  }
+ ],
+ "creation": "2023-11-29 17:27:22.688801",
+ "dashboard_name": "Target vs Achieve",
+ "docstatus": 0,
+ "doctype": "Dashboard",
+ "idx": 0,
+ "is_default": 0,
+ "is_standard": 1,
+ "modified": "2023-11-29 18:56:26.925677",
+ "modified_by": "Administrator",
+ "module": "Norden",
+ "name": "Target vs Achieve",
+ "owner": "Administrator"
+}
