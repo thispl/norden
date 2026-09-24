@@ -87,7 +87,7 @@ override_doctype_class = {
 	"Leave Application":"norden.overrides.CustomLeaveApplication",
 	"Expense Claim":"norden.overrides.CustomExpenseClaim",
 	"Attendance Request":"norden.overrides.CustomAttendanceRequest",
-
+    "Salary Slip":"norden.overrides.CustomSalarySlip"
 }
 
 # Document Events
@@ -96,12 +96,15 @@ override_doctype_class = {
 
 doc_events = {
     "Item Inspection":{
-		"on_submit": ["norden.custom.update_qc_status","norden.custom.update_qc_status_stock"],
+		"on_submit": ["norden.custom.update_qc_status","norden.custom.update_qc_status_stock","norden.custom.to_reserve_on_inspection"],
 	
 		# "on_update": "norden.custom.item_ins_serial"
 	},
 	"Item":{
 		"after_insert": "norden.utils.item_default_wh",
+	},
+	"Item Price":{
+		"validate":'norden.custom.validate_item_price_list'
 	},
 	"Stock Reservation Entry":{
 		"after_insert": "norden.utils.update_reserve_status",
@@ -110,9 +113,12 @@ doc_events = {
 
 	"Stock Entry":{
 		"on_submit": ["norden.utils.create_sti","norden.utils.update_sn"],
-		"before_submit":"norden.utils.add_itemwise_additional_cost",
+		"before_submit":["norden.utils.add_itemwise_additional_cost","norden.custom.check_rack_qty_stock_entry"],
 		"before_cancel":"norden.utils.reversing_se",
 		# "on_cancel":"norden.custom.cancel_stock_entry_name"
+	},
+    "Work From Home Request":{
+		"on_submit": "norden.utils.wfh_approval_mail",
 	},
 
 	# "Serial No":{
@@ -124,19 +130,31 @@ doc_events = {
 	
 	"Opportunity": {
 		# "after_insert": "norden.email_alerts.opportunity_creation_alert",
-		"validate" : "norden.custom.create_opp_file_number",
+		# "validate" : "norden.custom.create_opp_file_number",
+        "on_submit":"norden.custom.get_file_number",
 	},
 	# "Quotation": {
-	# 	"on_update": "norden.email_alerts.quotation_creation_alert",
+		# "on_update": "norden.email_alerts.quotation_creation_alert",
 	# },
 	
-	"Landed Cost Voucher": {
-		"on_submit": "norden.custom.create_lcv_je",
+	# "Landed Cost Voucher": {
+	# 	"on_submit": "norden.custom.create_lcv_je",
+	# },
+    "Purchase Invoice":{
+        "on_trash": "norden.utility.pe_on_trash",
+        # "after_insert":"norden.custom.set_discount_value",
+	},
+     "Rack Transfer":{
+		"on_submit": "norden.custom.create_stock_entry",
+
 	},
 	"Purchase Receipt": {
-		"on_update_after_submit":"norden.utils.create_stock_transfer_india",
+		# "on_update_after_submit":"norden.utils.create_stock_transfer_india",
 		"after_submit": ["norden.custom.create_lcv",
 		],
+        # "on_submit": "norden.custom.to_reserve_on_pr",
+        # "on_update": "norden.custom.hide_inspect_button",
+    
 		# 'on_submit':'norden.utils.create_stock_transfer_india',
 		# "on_submit": "norden.custom.update_sn_pr",
 
@@ -150,6 +168,8 @@ doc_events = {
 		"norden.utils.update_sn_pr", 
 		"norden.custom.create_mrb",
 		"norden.utils.create_stock_transfer_india",
+        "norden.custom.automate_inspect_creation",
+        # "norden.custom.to_reserve_on_pr",
 		
 		],
         "before_cancel":"norden.utils.reverse_sti_pr"
@@ -165,16 +185,28 @@ doc_events = {
 	# },
 
 	"Material Request": {
-		"validate": "norden.custom.create_file_number_mr",
+		# "validate": "norden.custom.create_file_number_mr",
+        "on_submit":"norden.custom.get_file_number",
 	},
 	"Employee Promotion": {
 		"on_update": "norden.custom.update_appraisal_template",
 	},
 	"Sales Order": {
-		"on_submit": "norden.custom.update_marcom",
+		"on_submit": ["norden.custom.update_marcom",
+        "norden.custom.update_base_rate_new"
+                ],
+		"validate":"norden.utils.check_credit_limit"
+
+	},
+	"Sales Person":{
+		"after_insert":"norden.custom.create_cluster_and_update_up"
 	},
 	"Sales Invoice": {
-        "after_insert":"norden.custom.update_invoice_number"
+        "after_insert":"norden.custom.update_invoice_number",
+        "on_trash": "norden.utility.pe_on_trash",
+		"validate":'norden.custom.validate_taxes_presence',
+        "on_cancel":'norden.custom.invoice_cancel',
+        "before_insert":'norden.utils.update_si_naming_series'
 	},
 	"Travel Request":{
 		"on_submit": "norden.custom.create_employee_advance",
@@ -205,11 +237,12 @@ doc_events = {
 
 		"validate":[
 			"norden.custom.internal_margin_calculation",
-			"norden.custom.create_file_number",
+			# "norden.custom.create_file_number",
 			"norden.utils.quotation_workflow_alert",
 			# "norden.utils.item_allocation",
 			
 		],
+        # "on_submit":"norden.custom.get_file_number",
 },
 # "Customer":{
 # 	"validate":[
@@ -219,17 +252,17 @@ doc_events = {
 # },
 
 	"Purchase Order": {
+        "on_submit": ["norden.custom.batch_number","norden.custom.create_pi"],
+		
 		"after_insert": [
-			"norden.custom.batch_number",
 			"norden.custom.get_po_no",
-		],
-
-		"validate": "norden.custom.batch_number",
-		# "validate": "norden.utils.check_uom",
+            "norden.custom.batch_number",
+		]
 },
     "Batch":{
         "after_insert":[
             "norden.custom.update_company",
+            "norden.custom.update_lot_no"
 		]
 	},
     "ToDo":{
@@ -244,7 +277,13 @@ doc_events = {
 		"on_submit":["norden.utils.check_item_inspection_dn",
 		"norden.custom.get_foc_item_dn",
 		],
-},
+  		"before_submit":"norden.custom.check_rack_qty",
+		"on_cancel":'norden.custom.update_rack'
+	},
+	"Pick List":{
+        "on_submit":["norden.custom.check_qc_completion","norden.custom.validate_reserved_stock_in_pick_list"]
+	},
+	
 
 # 	"Sales Invoice": {
 # 		"on_submit": "norden.custom.si_status",
@@ -266,10 +305,14 @@ scheduler_events = {
 		"norden.custom.internship_end_date",
 		"norden.custom.date_of_joining",
 		"norden.custom.request_for_sample",
-
-
-		
-	],
+		"norden.custom.get_valuation_rate_from_sle",
+        "norden.utils.passport_expire",
+        # "norden.utils.work_anniversary_remainder",
+        # "norden.utils.probation_to_confirmation",
+        # "norden.utils.probation.email_probation_emp",
+        # "norden.utils.probation.annual_leave_expiry",
+        # "norden.utils.probation.annual_leave_due",
+    ],
 # 	"hourly": [
 # 		"norden.tasks.hourly"
 # 	],
@@ -277,13 +320,30 @@ scheduler_events = {
 # 		"norden.tasks.weekly"
 # 	]
 	"monthly": [
-		# "norden.utils.update_previous_leave_allocation_manually",
+		"norden.utils.update_previous_leave_allocation_manually",
+        "norden.utils.create_update_leave_allocation",
+        "norden.utils.annual_leave_expired",
 # 		"norden.tasks.monthly"
 
 	],
 "cron":{
 	"0 9 * * *":[
 		"norden.email_alerts.send_birthday_alert"
+	],
+    "00 00 * * *":[
+		"norden.custom.annual_leave_expiry_alert_mail"
+	],
+    "30 00 * * *":[
+		"norden.utils.annual_leave_expired"
+	],
+    "0 9 * * *":[
+		"norden.utils.passport_expire"
+	],
+    "01 00 * * *":[
+		"norden.email_alerts.work_anniversary_reminder_to_shoba"
+	],
+    "05 00 * * *":[
+		"norden.email_alerts.work_anniversary_reminder_to_employees"
 	],
 	# "0 0 */15 * *":[
 	# 	"norden.utils.return_blocked_items"
@@ -333,6 +393,8 @@ jinja = {
 		"norden.norden.doctype.eyenor_datasheet.eyenor_datasheet.get_datasheet_icons",
 		"norden.norden.doctype.nvs.nvs.get_nvs_specification",
 		"norden.norden.doctype.nvs.nvs.get_nvs_header",
+        "norden.norden.doctype.nac_datasheet.nac_datasheet.get_secnor_header",
+        "norden.norden.doctype.nvs.nvs.get_nvs_header_old",
 		"norden.norden.doctype.nvs.nvs.get_category_alignment",
 		"norden.norden.doctype.eyenor_stickers.eyenor_stickers.generate_stickers",
 		"norden.norden.doctype.nac_datasheet.nac_datasheet.get_technical_parameter",
@@ -356,7 +418,11 @@ jinja = {
         "norden.custom.get_stock_details",
         "norden.custom.get_stock",
         "norden.utils.stock_detail",
-        "norden.custom.return_tax_html"
+        "norden.custom.return_tax_html",
+        "norden.custom.returntaxhtml",
+        "norden.custom.return_tax_invoice",
+        "norden.custom.serial_number_check",
+		"norden.custom.get_stock_details_manufacture"
 	]
 
 }

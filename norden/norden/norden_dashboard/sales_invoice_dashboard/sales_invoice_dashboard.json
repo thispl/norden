@@ -2,15 +2,15 @@
  "cards": [],
  "charts": [
   {
-   "chart": "Sales Invoice Status",
-   "width": "Half"
-  },
-  {
    "chart": "Sales Invoice Countrywise",
-   "width": "Half"
+   "width": "Full"
   },
   {
    "chart": "Outgoing Bills (Sales Invoice)",
+   "width": "Half"
+  },
+  {
+   "chart": "Sales Invoice Status",
    "width": "Half"
   },
   {
@@ -25,7 +25,7 @@
  "idx": 2,
  "is_default": 0,
  "is_standard": 1,
- "modified": "2023-12-02 12:26:41.618270",
+ "modified": "2024-01-22 15:07:15.199509",
  "modified_by": "Administrator",
  "module": "Norden",
  "name": "Sales Invoice Dashboard",

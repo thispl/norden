@@ -284,7 +284,7 @@ def margin(item_details,company,currency,margin_currency,exchange_rate,user,pric
             for d in india_table: 
                 if item_group == d.item_group:
                     india_landing = round((sbu * d.landing),2) 
-                    frappe.errprint(india_landing)
+                    
                     india_spc  = round((india_landing/ d.spc),2)
                     india_ltp = round((india_spc / d.ltp),2)
                     india_dtp = round((india_ltp / d.dtp),2)

@@ -32,6 +32,7 @@ from frappe.utils import (
 class ProductSearch(Document):
 	@frappe.whitelist()
 	def get_data(self):
+		date = frappe.db.get_value("Custom Settings","Custom Settings","date")
 		data = ''
 		data1 = ''
 		item = frappe.get_value('Item',{'item_code':self.item_code},'item_code')
@@ -86,64 +87,62 @@ class ProductSearch(Document):
 					reserve = stock.actual_qty - stock.reserved_stock
 					stock_company = frappe.db.sql("""select company from tabWarehouse where name = '%s' """%(stock.warehouse),as_dict=True)
 					for com in stock_company:
-						psoc_query = frappe.db.sql("""select sum(`tabSales Order Item`.qty) as qty from `tabSales Order`
-						left join `tabSales Order Item` on `tabSales Order`.name = `tabSales Order Item`.parent
-						where `tabSales Order Item`.item_code = '%s' and `tabSales Order`.docstatus = 1 and `tabSales Order`.company = '%s' """ % (self.item_code,com.company), as_dict=True)[0]
-						if not psoc_query["qty"]:
-							psoc_query["qty"] = 0
-						deliver = frappe.db.sql("""select sum(`tabDelivery Note Item`.qty) as qty from `tabDelivery Note`
-						left join `tabDelivery Note Item` on `tabDelivery Note`.name = `tabDelivery Note Item`.parent
-						where `tabDelivery Note Item`.item_code = '%s' and `tabDelivery Note`.docstatus = 1 and `tabDelivery Note`.company = '%s'  """%(self.item_code,com.company), as_dict=True)[0]
-						if not deliver["qty"]:
-							deliver['qty'] = 0
-						del_total = psoc_query['qty'] - deliver['qty']
-						ppoc_query = frappe.db.sql("""select sum(`tabPurchase Order Item`.qty) as qty from `tabPurchase Order`
-						left join `tabPurchase Order Item` on `tabPurchase Order`.name = `tabPurchase Order Item`.parent
-						where `tabPurchase Order Item`.item_code = '%s' and `tabPurchase Order`.docstatus != 2 and `tabPurchase Order`.company = '%s' """ % (self.item_code,com.company), as_dict=True)[0]
-						if not ppoc_query["qty"]:
-							ppoc_query["qty"] = 0
-						ppoc_receipt = frappe.db.sql("""select sum(`tabPurchase Receipt Item`.qty) as qty from `tabPurchase Receipt`
-						left join `tabPurchase Receipt Item` on `tabPurchase Receipt`.name = `tabPurchase Receipt Item`.parent
-						where `tabPurchase Receipt Item`.item_code = '%s' and `tabPurchase Receipt`.status = "Completed" and `tabPurchase Receipt`.company = '%s'  """%(self.item_code,com.company),as_dict=True)[0]
-						if not ppoc_receipt["qty"]:
-							ppoc_receipt["qty"] = 0
-						ppoc_total = ppoc_query["qty"] - ppoc_receipt["qty"]
-						country,default_currency = frappe.get_value("Company",{"name":com.company},["country","default_currency"])
-						if country == "United Arab Emirates":
-							cost = frappe.get_value("Item Price",{"item_code":item,"price_list":"Electra Qatar - NCMEF"},["price_list_rate"])
-						else:
-							cost = frappe.get_value("Item Price",{"item_code":item,"price_list":"STANDARD BUYING-USD"},["price_list_rate"])
-						
-						valuation_rate = 0
-						source_warehouse = frappe.db.get_value('Warehouse', {'default_for_stock_transfer':1,'company': com.company }, ["name"])
-						latest_vr = frappe.db.sql("""select valuation_rate as vr from tabBin
-								where item_code = '%s' and warehouse = '%s' """%(item,source_warehouse),as_dict=True)
-						if latest_vr:
-							valuation_rate = latest_vr[0]["vr"]
-						else:
-							val_rate = []
-							l_vr = frappe.db.sql("""
-								SELECT valuation_rate AS vr FROM tabBin
-								WHERE item_code = %s AND warehouse = %s
-							""", (item, source_warehouse), as_dict=True)
-							for item in l_vr: 
-								if item not in val_rate: 
-									val_rate.append(item.vr)
-							if len(val_rate) > 1 :
-								valuation_rate = max(val_rate)
-					     
-					     
-						pricelist = country + ' ' + "Sales Price"
-						if country == "United Arab Emirates":
-							sp = frappe.get_value("Item Price",{"item_code":item,"price_list":"Internal - NCMEF"},["price_list_rate"])
-						else:
-							sp = frappe.get_value("Item Price",{"item_code":item,"price_list":pricelist},["price_list_rate"])
-						data += '<tr><td colspan = 1 style="padding:1px;border: 1px solid black">%s</td><td colspan = 1 style="padding:1px;border: 1px solid black">%s</td><td colspan = 1 style="padding:1px;border: 1px solid black"><center><b>%s</b></center></td><td colspan = 1 style="padding:1px;border: 1px solid black"><center><b>%s</b></center></td><td colspan = 1 style="padding:1px;border: 1px solid black"><center><b>%s</b></center></td><td colspan = 1 style="padding:1px;border: 1px solid black"><center><b>%s</b></center></td><td colspan = 1 style="padding:1px;border: 1px solid black"><center><b>%s</b></center></td><td colspan = 1 style="padding:1px;border: 1px solid black"><center><b>%s</b></center></td><td colspan = 1 style="padding:1px;border: 1px solid black"><center><b>%s</b></center></td></tr>'%(com.company,stock.warehouse,reserve or 0,stock.stock_uom or '-',valuation_rate or 0,sp or 0,default_currency,ppoc_total or 0,del_total or 0)
-						i += 1
-						# cou += stock.actual_qty
-						cou += reserve
-						p_po += ppoc_total
-						p_so += del_total
+						if com.company != "Norden Africa":
+							new_so = frappe.db.sql("""select sum(`tabSales Order Item`.qty) as qty,sum(`tabSales Order Item`.delivered_qty) as d_qty from `tabSales Order`
+							left join `tabSales Order Item` on `tabSales Order`.name = `tabSales Order Item`.parent
+							where `tabSales Order Item`.item_code = '%s' and `tabSales Order`.docstatus = 1 and `tabSales Order`.status != 'Closed' and `tabSales Order`.company = '%s' and `tabSales Order`.set_warehouse = '%s' and `tabSales Order`.transaction_date >= '%s'  """ % (self.item_code,com.company,stock.warehouse,date), as_dict=True)[0]
+							if not new_so['qty']:
+								new_so['qty'] = 0
+							if not new_so['d_qty']:
+								new_so['d_qty'] = 0
+							del_total = new_so['qty'] - new_so['d_qty']
+							
+
+							new_po = frappe.db.sql("""select sum(`tabPurchase Order Item`.qty) as qty,sum(`tabPurchase Order Item`.received_qty) as d_qty from `tabPurchase Order`
+							left join `tabPurchase Order Item` on `tabPurchase Order`.name = `tabPurchase Order Item`.parent
+							where `tabPurchase Order Item`.item_code = '%s' and `tabPurchase Order`.docstatus = 1 and `tabPurchase Order`.status != 'Closed' and `tabPurchase Order`.company = '%s' and `tabPurchase Order`.set_warehouse = '%s' and `tabPurchase Order`.transaction_date >= '%s'  """ % (self.item_code,com.company,stock.warehouse,date), as_dict=True)[0]
+							if not new_po['qty']:
+								new_po['qty'] = 0
+							if not new_po['d_qty']:
+								new_po['d_qty'] = 0
+							ppoc_total = new_po['qty'] - new_po['d_qty']
+
+							country,default_currency = frappe.get_value("Company",{"name":com.company},["country","default_currency"])
+							if country == "United Arab Emirates":
+								cost = frappe.get_value("Item Price",{"item_code":item,"price_list":"Electra Qatar - NCMEF"},["price_list_rate"])
+							else:
+								cost = frappe.get_value("Item Price",{"item_code":item,"price_list":"STANDARD BUYING-USD"},["price_list_rate"])
+							
+							valuation_rate = 0
+							source_warehouse = frappe.db.get_value('Warehouse', {'default_for_stock_transfer':1,'company': com.company }, ["name"])
+							latest_vr = frappe.db.sql("""select valuation_rate as vr from tabBin
+									where item_code = '%s' and warehouse = '%s' """%(item,source_warehouse),as_dict=True)
+							if latest_vr:
+								valuation_rate = latest_vr[0]["vr"]
+							else:
+								val_rate = []
+								l_vr = frappe.db.sql("""
+									SELECT valuation_rate AS vr FROM tabBin
+									WHERE item_code = %s AND warehouse = %s
+								""", (item, source_warehouse), as_dict=True)
+								for item in l_vr: 
+									if item not in val_rate: 
+										val_rate.append(item.vr)
+								if len(val_rate) > 1 :
+									valuation_rate = max(val_rate)
+							
+							
+							pricelist = country + ' ' + "Sales Price"
+							if country == "United Arab Emirates":
+								sp = frappe.get_value("Item Price",{"item_code":item,"price_list":"Internal - NCMEF"},["price_list_rate"])
+							else:
+								sp = frappe.get_value("Item Price",{"item_code":item,"price_list":pricelist},["price_list_rate"])
+							data += '<tr><td colspan = 1 style="padding:1px;border: 1px solid black">%s</td><td colspan = 1 style="padding:1px;border: 1px solid black">%s</td><td colspan = 1 style="padding:1px;border: 1px solid black"><center><b>%s</b></center></td><td colspan = 1 style="padding:1px;border: 1px solid black"><center><b>%s</b></center></td><td colspan = 1 style="padding:1px;border: 1px solid black"><center><b>%s</b></center></td><td colspan = 1 style="padding:1px;border: 1px solid black"><center><b>%s</b></center></td><td colspan = 1 style="padding:1px;border: 1px solid black"><center><b>%s</b></center></td><td colspan = 1 style="padding:1px;border: 1px solid black"><center><b>%s</b></center></td><td colspan = 1 style="padding:1px;border: 1px solid black"><center><b>%s</b></center></td></tr>'%(com.company,stock.warehouse,int(reserve) or 0,stock.stock_uom or '-',(round(float(valuation_rate) , 2)) or 0,sp or 0,default_currency,int(ppoc_total) or 0,int(del_total) or 0)
+							i += 1
+							# cou += stock.actual_qty
+							cou += reserve
+							p_po += ppoc_total
+							p_so += del_total
 			data += '<tr><td align="right" colspan = 2 style="padding:1px;border: 1px solid black;background-color:#6f6f6f;color:white;"><b>%s</b></td><td colspan = 1 style="padding:1px;border: 1px solid black;background-color:#6f6f6f;color:white;"><center><b>%s</b></center></td><td colspan = 1 style="padding:1px;border: 1px solid black;background-color:#6f6f6f;color:white;"><center><b>%s</b></center></td><td colspan = 3 style="padding:1px;border: 1px solid black;background-color:#6f6f6f;color:white;"><center><b></b></center></td><td colspan = 1 style="padding:1px;border: 1px solid black;background-color:#6f6f6f;color:white;"><center><b>%s</b></center></td><td colspan = 1 style="padding:1px;border: 1px solid black;background-color:#6f6f6f;color:white;"><center><b>%s</b></center></td></tr>'%(tot or 0,int(cou) or 0,uom,p_po or 0,p_so or 0)
 			data += '</table>'
 		else:
@@ -157,6 +156,7 @@ class ProductSearch(Document):
 	
 	@frappe.whitelist()
 	def get_data_norden(self):
+		date = frappe.db.get_value("Custom Settings","Custom Settings","date")
 		data = ''
 		data1 = ''
 		aa = self.item_code
@@ -184,7 +184,7 @@ class ProductSearch(Document):
 		tot = 'Total'
 		uom = 'Nos'
 
-		stocks_query = frappe.db.sql("""select actual_qty,warehouse,stock_uom,stock_value from tabBin
+		stocks_query = frappe.db.sql("""select actual_qty,reserved_stock,warehouse,stock_uom,stock_value from tabBin
 				where item_code = '%s' """%(item),as_dict=True)
 		if stocks_query:
 			stocks = stocks_query
@@ -210,44 +210,44 @@ class ProductSearch(Document):
 			data += '</tr>'
 			for stock in stocks_query:
 				if stock.actual_qty >= 0:
+					reserve = stock.actual_qty - stock.reserved_stock
 					stock_company = frappe.db.sql("""select company from tabWarehouse where name = '%s' """%(stock.warehouse),as_dict=True)
 					for com in stock_company:
-						psoc_query = frappe.db.sql("""select sum(`tabSales Order Item`.qty) as qty from `tabSales Order`
-						left join `tabSales Order Item` on `tabSales Order`.name = `tabSales Order Item`.parent
-						where `tabSales Order Item`.item_code = '%s' and `tabSales Order`.docstatus = 1 and `tabSales Order`.company = '%s' """ % (self.item_code,com.company), as_dict=True)[0]
-						if not psoc_query["qty"]:
-							psoc_query["qty"] = 0
-						deliver = frappe.db.sql("""select sum(`tabDelivery Note Item`.qty) as qty from `tabDelivery Note`
-						left join `tabDelivery Note Item` on `tabDelivery Note`.name = `tabDelivery Note Item`.parent
-						where `tabDelivery Note Item`.item_code = '%s' and `tabDelivery Note`.docstatus = 1 and `tabDelivery Note`.company = '%s'  """%(self.item_code,com.company), as_dict=True)[0]
-						if not deliver["qty"]:
-							deliver['qty'] = 0
-						del_total = psoc_query['qty'] - deliver['qty']
-						ppoc_query = frappe.db.sql("""select sum(`tabPurchase Order Item`.qty) as qty from `tabPurchase Order`
-						left join `tabPurchase Order Item` on `tabPurchase Order`.name = `tabPurchase Order Item`.parent
-						where `tabPurchase Order Item`.item_code = '%s' and `tabPurchase Order`.docstatus != 2 and `tabPurchase Order`.company = '%s' """ % (self.item_code,com.company), as_dict=True)[0]
-						if not ppoc_query["qty"]:
-							ppoc_query["qty"] = 0
-						ppoc_receipt = frappe.db.sql("""select sum(`tabPurchase Receipt Item`.qty) as qty from `tabPurchase Receipt`
-						left join `tabPurchase Receipt Item` on `tabPurchase Receipt`.name = `tabPurchase Receipt Item`.parent
-						where `tabPurchase Receipt Item`.item_code = '%s' and `tabPurchase Receipt`.status = "Completed" and `tabPurchase Receipt`.company = '%s'  """%(self.item_code,com.company),as_dict=True)[0]
-						if not ppoc_receipt["qty"]:
-							ppoc_receipt["qty"] = 0
-						ppoc_total = ppoc_query["qty"] - ppoc_receipt["qty"]
-						country,default_currency = frappe.get_value("Company",{"name":com.company},["country","default_currency"])
-						pricelist = country + ' ' + "Sales Price"
-						if country == "United Arab Emirates":
-							sp = frappe.get_value("Item Price",{"item_code":item,"price_list":"Internal - NCMEF"},["price_list_rate"])
-						else:
-							sp = frappe.get_value("Item Price",{"item_code":item,"price_list":pricelist},["price_list_rate"])
-						if stock.actual_qty == 0 and sp == 0 and ppoc_total == 0 and del_total == 0:
-							frappe.errprint(stock.actual_qty)
-						else:
-							data += '<tr><td colspan = 2 style="padding:1px;border: 1px solid black">%s</td><td colspan = 2 style="padding:1px;border: 1px solid black"><center><b>%s</b></center></td><td colspan = 2 style="padding:1px;border: 1px solid black"><center><b>%s</b></center></td><td colspan = 2 style="padding:1px;border: 1px solid black"><center><b>%s</b></center></td><td colspan = 2 style="padding:1px;border: 1px solid black"><center><b>%s</b></center></td><td colspan = 2 style="padding:1px;border: 1px solid black"><center><b>%s</b></center></td></tr>'%(com.company,stock.warehouse,int(stock.actual_qty) or 0,stock.stock_uom or '-',ppoc_total or 0,del_total or 0)
-						i += 1
-						cou += stock.actual_qty
-						p_po += ppoc_total
-						p_so += del_total
+						if com.company != "Norden Africa":
+							new_so = frappe.db.sql("""select sum(`tabSales Order Item`.qty) as qty,sum(`tabSales Order Item`.delivered_qty) as d_qty from `tabSales Order`
+							left join `tabSales Order Item` on `tabSales Order`.name = `tabSales Order Item`.parent
+							where `tabSales Order Item`.item_code = '%s' and `tabSales Order`.docstatus = 1 and `tabSales Order`.status != 'Closed' and `tabSales Order`.company = '%s' and `tabSales Order`.set_warehouse = '%s' and `tabSales Order`.transaction_date >= '%s'  """ % (self.item_code,com.company,stock.warehouse,date), as_dict=True)[0]
+							if not new_so['qty']:
+								new_so['qty'] = 0
+							if not new_so['d_qty']:
+								new_so['d_qty'] = 0
+							del_total = new_so['qty'] - new_so['d_qty']
+
+							new_po = frappe.db.sql("""select sum(`tabPurchase Order Item`.qty) as qty,sum(`tabPurchase Order Item`.received_qty) as d_qty from `tabPurchase Order`
+							left join `tabPurchase Order Item` on `tabPurchase Order`.name = `tabPurchase Order Item`.parent
+							where `tabPurchase Order Item`.item_code = '%s' and `tabPurchase Order`.docstatus = 1 and `tabPurchase Order`.status != 'Closed' and `tabPurchase Order`.company = '%s' and `tabPurchase Order`.set_warehouse = '%s' and `tabPurchase Order`.transaction_date >= '%s' """ % (self.item_code,com.company,stock.warehouse,date), as_dict=True)[0]
+							if not new_po['qty']:
+								new_po['qty'] = 0
+							if not new_po['d_qty']:
+								new_po['d_qty'] = 0
+							ppoc_total = new_po['qty'] - new_po['d_qty']
+
+
+
+							country,default_currency = frappe.get_value("Company",{"name":com.company},["country","default_currency"])
+							pricelist = country + ' ' + "Sales Price"
+							if country == "United Arab Emirates":
+								sp = frappe.get_value("Item Price",{"item_code":item,"price_list":"Internal - NCMEF"},["price_list_rate"])
+							else:
+								sp = frappe.get_value("Item Price",{"item_code":item,"price_list":pricelist},["price_list_rate"])
+							if stock.actual_qty == 0 and sp == 0 and ppoc_total == 0 and del_total == 0:
+								frappe.errprint(stock.actual_qty)
+							else:
+								data += '<tr><td colspan = 2 style="padding:1px;border: 1px solid black">%s</td><td colspan = 2 style="padding:1px;border: 1px solid black"><center><b>%s</b></center></td><td colspan = 2 style="padding:1px;border: 1px solid black"><center><b>%s</b></center></td><td colspan = 2 style="padding:1px;border: 1px solid black"><center><b>%s</b></center></td><td colspan = 2 style="padding:1px;border: 1px solid black"><center><b>%s</b></center></td><td colspan = 2 style="padding:1px;border: 1px solid black"><center><b>%s</b></center></td></tr>'%(com.company,stock.warehouse,int(reserve) or 0,stock.stock_uom or '-',round(ppoc_total,2),round(del_total,2))
+							i += 1
+							cou += reserve
+							p_po += ppoc_total
+							p_so += del_total
 			data += '<tr><td align="right" colspan = 4 style="padding:1px;border: 1px solid black;background-color:#6f6f6f;color:white;"><b>%s</b></td><td align="right" colspan = 2 style="padding:1px;border: 1px solid black;background-color:#6f6f6f;color:white;"><b>%s</b></td><td colspan = 2 style="padding:1px;border: 1px solid black;background-color:#6f6f6f;color:white;"><center><b>%s</b></center></td><td colspan = 2 style="padding:1px;border: 1px solid black;background-color:#6f6f6f;color:white;"><center><b>%s</b></center></td><td colspan = 2 style="padding:1px;border: 1px solid black;background-color:#6f6f6f;color:white;"><center><b>%s</b></center></td></tr>'%(tot or 0,int(cou) or 0,uom,p_po or 0,p_so or 0)
 			data += '</table>'
 		else:

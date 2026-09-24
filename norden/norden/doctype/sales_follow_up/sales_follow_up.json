@@ -11,6 +11,7 @@
   "column_break_3",
   "status",
   "account_manager",
+  "quotation",
   "section_break_5",
   "customer_info",
   "basic_details_section",
@@ -18,16 +19,34 @@
   "person_name",
   "email_address",
   "industry",
+  "location",
   "column_break_11",
   "territory",
   "custom_group",
+  "customer_type",
+  "company",
+  "address_section",
+  "customer_primary_contact",
+  "address",
+  "address_type",
+  "address_line_1",
+  "address_line_2",
+  "website",
+  "column_break_cm2c",
+  "customer_primary_address",
+  "contact",
+  "city_town",
+  "stateprovince",
+  "country",
+  "postal_code",
   "billing_currency",
   "market_segment",
   "follow_up_details_section",
   "next_contact_date",
   "next_contact_by",
   "column_break_20",
-  "to_discuss"
+  "to_discuss",
+  "remarks"
  ],
  "fields": [
   {
@@ -71,6 +90,7 @@
   {
    "fieldname": "organization_name",
    "fieldtype": "Data",
+   "in_list_view": 1,
    "label": "Organization Name"
   },
   {
@@ -146,15 +166,127 @@
   {
    "fieldname": "to_discuss",
    "fieldtype": "Small Text",
+   "in_list_view": 1,
    "label": "To Discuss"
+  },
+  {
+   "fieldname": "location",
+   "fieldtype": "Data",
+   "label": "Location"
+  },
+  {
+   "fieldname": "customer_type",
+   "fieldtype": "Select",
+   "label": "Customer Type",
+   "options": "Company\nIndividual"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Company",
+   "options": "Company"
+  },
+  {
+   "fieldname": "address_section",
+   "fieldtype": "Section Break",
+   "label": "Address"
+  },
+  {
+   "fieldname": "customer_primary_contact",
+   "fieldtype": "Link",
+   "label": "Customer Primary Contact",
+   "options": "Contact"
+  },
+  {
+   "fieldname": "address",
+   "fieldtype": "HTML",
+   "label": "Address"
+  },
+  {
+   "fieldname": "address_type",
+   "fieldtype": "Select",
+   "label": "Address Type",
+   "options": "\nBilling\nShipping\nOffice\nPersonal\nPlant\nPostal\nShop\nSubsidiary\nWarehouse\nCurrent\nPermanent\nOther"
+  },
+  {
+   "fetch_from": "customer_primary_address.address_line1",
+   "fieldname": "address_line_1",
+   "fieldtype": "Data",
+   "label": "Address Line 1"
+  },
+  {
+   "fetch_from": "customer_primary_address.address_line2",
+   "fieldname": "address_line_2",
+   "fieldtype": "Data",
+   "label": "Address Line 2"
+  },
+  {
+   "fieldname": "website",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Website"
+  },
+  {
+   "fieldname": "column_break_cm2c",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "customer_primary_address",
+   "fieldtype": "Link",
+   "label": "Customer Primary Address",
+   "options": "Address"
+  },
+  {
+   "fieldname": "contact",
+   "fieldtype": "HTML",
+   "label": "Contact"
+  },
+  {
+   "fetch_from": "customer_primary_address.city",
+   "fieldname": "city_town",
+   "fieldtype": "Data",
+   "label": "City Town"
+  },
+  {
+   "fetch_from": "customer_primary_address.state",
+   "fieldname": "stateprovince",
+   "fieldtype": "Data",
+   "label": "State/Province"
+  },
+  {
+   "fetch_from": "customer_primary_address.country",
+   "fieldname": "country",
+   "fieldtype": "Data",
+   "label": "Country"
+  },
+  {
+   "fetch_from": "customer_primary_address.pincode",
+   "fieldname": "postal_code",
+   "fieldtype": "Data",
+   "label": "Postal Code"
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Small Text",
+   "in_list_view": 1,
+   "label": "Remarks"
+  },
+  {
+   "fieldname": "quotation",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Quotation",
+   "options": "Quotation"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2021-11-17 16:06:22.389245",
+ "modified": "2024-06-10 10:58:17.395125",
  "modified_by": "Administrator",
  "module": "Norden",
  "name": "Sales Follow UP",
+ "naming_rule": "Expression (old style)",
  "owner": "Administrator",
  "permissions": [
   {
@@ -172,5 +304,6 @@
  ],
  "sort_field": "modified",
  "sort_order": "DESC",
+ "states": [],
  "track_changes": 1
 }

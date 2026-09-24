@@ -6,7 +6,11 @@
  "engine": "InnoDB",
  "field_order": [
   "item",
+  "item_name",
+  "description",
   "quantity",
+  "uom",
+  "doc_currency",
   "rate",
   "serial_no"
  ],
@@ -34,12 +38,44 @@
    "fieldname": "serial_no",
    "fieldtype": "Small Text",
    "label": "Serial No"
+  },
+  {
+   "fetch_from": "item.item_name",
+   "fetch_if_empty": 1,
+   "fieldname": "item_name",
+   "fieldtype": "Small Text",
+   "in_list_view": 1,
+   "label": "Item Name",
+   "length": 300
+  },
+  {
+   "fetch_from": "item.description",
+   "fetch_if_empty": 1,
+   "fieldname": "description",
+   "fieldtype": "Text Editor",
+   "in_list_view": 1,
+   "label": "Description"
+  },
+  {
+   "fetch_from": "item.stock_uom",
+   "fetch_if_empty": 1,
+   "fieldname": "uom",
+   "fieldtype": "Link",
+   "label": "UOM",
+   "options": "UOM"
+  },
+  {
+   "fieldname": "doc_currency",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Currency",
+   "options": "Currency"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2023-11-29 19:21:21.343888",
+ "modified": "2024-10-14 12:32:29.938030",
  "modified_by": "Administrator",
  "module": "Norden",
  "name": "Sample Items",

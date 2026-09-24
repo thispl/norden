@@ -27,6 +27,7 @@
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Item Name",
+   "length": 400,
    "read_only": 1
   },
   {
@@ -67,7 +68,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2021-11-11 20:20:34.945253",
+ "modified": "2024-10-18 16:13:13.824777",
  "modified_by": "Administrator",
  "module": "Norden",
  "name": "Stock Availability",
@@ -75,5 +76,6 @@
  "permissions": [],
  "sort_field": "modified",
  "sort_order": "DESC",
+ "states": [],
  "track_changes": 1
 }

@@ -104,7 +104,8 @@ def get_optidata_desc(doc):
 def datasheet_api(doc):
     doc = json.loads(doc)
     nac_doc = frappe.get_doc('Cable Datasheet', doc['name'])
-    url = "https://www.nordencommunication.com/api/products/save"
+    # Temporarily disabled for outbound traffic investigation - nordencommunication.com
+    # url = "https://www.nordencommunication.com/api/products/save"
     # specs = frappe.get_print(doc['doctype'], doc['name'], doc=nac_doc, print_format='NAC Datasheet Specification HTML').replace('\n',"").replace('\t',"")
     specs = frappe.render_template("norden/norden/doctype/cable_datasheet/cable_ds_specification.html",{"doc": doc})
     ordering_info = frappe.render_template("norden/norden/doctype/cable_datasheet/cable_ds_ordering_information.html",{"doc": doc})
@@ -126,5 +127,6 @@ def datasheet_api(doc):
         'Authorization': 'Bearer qhMbf0bCwdUVysowooeGdQoz8BTI4nv5iZgWj8CM',
         'Content-Type': 'application/x-www-form-urlencoded'
     }
-    response = requests.request("POST", url, data=payload,headers=headers)
-    frappe.errprint(response.content)
+    # Temporarily disabled for outbound traffic investigation - nordencommunication.com
+    # response = requests.request("POST", url, data=payload,headers=headers)
+    # frappe.errprint(response.content)

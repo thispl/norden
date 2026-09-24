@@ -29,6 +29,7 @@
   "serial_number",
   "batch",
   "uom",
+  "delivery_qc",
   "column_break_8",
   "pdi",
   "id",
@@ -41,8 +42,6 @@
   "inspected_by",
   "c_of_c",
   "sample",
-  "sample_quantity",
-  "serial_no",
   "sample_qty",
   "sample_qty_serial_no",
   "accepted_qty",
@@ -52,7 +51,6 @@
   "rejected_qty",
   "rejected_quantity",
   "rejected_serial",
-  "rejected_serial_no",
   "rejected_warehouse",
   "ncmr_no",
   "reason_for_rejection",
@@ -104,11 +102,11 @@
    "read_only": 1
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "pr_number",
    "fieldtype": "Link",
    "label": "Purchase Receipt Number",
-   "options": "Purchase Receipt",
-   "read_only": 1
+   "options": "Purchase Receipt"
   },
   {
    "depends_on": "eval:doc.pdi != 1",
@@ -263,11 +261,6 @@
    "read_only": 1
   },
   {
-   "fieldname": "serial_no",
-   "fieldtype": "Small Text",
-   "label": "Serial No"
-  },
-  {
    "fieldname": "file_number",
    "fieldtype": "Data",
    "label": "File Number",
@@ -311,22 +304,19 @@
   {
    "fieldname": "accepted_qty",
    "fieldtype": "Float",
+   "hidden": 1,
    "label": "Accepted Qty"
   },
   {
    "fieldname": "rejected_qty",
    "fieldtype": "Float",
+   "hidden": 1,
    "label": "Rejected Qty"
   },
   {
    "fieldname": "download_report",
    "fieldtype": "Attach",
    "label": "Download Report"
-  },
-  {
-   "fieldname": "rejected_serial_no",
-   "fieldtype": "Small Text",
-   "label": "Rejected Serial No"
   },
   {
    "default": "0",
@@ -355,6 +345,7 @@
   {
    "fieldname": "received_qty",
    "fieldtype": "Float",
+   "hidden": 1,
    "label": "Received Qty"
   },
   {
@@ -398,15 +389,15 @@
    "label": "Received Quantity"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "serial_and_batch_bundle",
    "fieldtype": "Link",
    "label": "Serial and Batch Bundle",
-   "options": "Serial and Batch Bundle",
-   "read_only": 1
+   "options": "Serial and Batch Bundle"
   },
   {
    "fieldname": "serial_number",
-   "fieldtype": "Small Text",
+   "fieldtype": "Long Text",
    "label": "Serial Number"
   },
   {
@@ -430,14 +421,9 @@
    "label": "Row"
   },
   {
-   "fieldname": "sample_quantity",
-   "fieldtype": "Float",
-   "label": "Sample Quantity"
-  },
-  {
    "fieldname": "sample_qty",
    "fieldtype": "Float",
-   "label": "Sample Qty"
+   "label": "Distractive Quantity Taken For Testing"
   },
   {
    "fieldname": "sample_qty_serial_no",
@@ -451,7 +437,7 @@
   },
   {
    "fieldname": "accepted_qty_serial_no",
-   "fieldtype": "Small Text",
+   "fieldtype": "Long Text",
    "label": "Accepted Qty Serial No"
   },
   {
@@ -461,7 +447,7 @@
   },
   {
    "fieldname": "rejected_serial",
-   "fieldtype": "Small Text",
+   "fieldtype": "Long Text",
    "label": "Rejected Serial No"
   },
   {
@@ -473,6 +459,13 @@
    "fieldname": "reason_for_rejection",
    "fieldtype": "Small Text",
    "label": "Reason for Rejection"
+  },
+  {
+   "default": "0",
+   "fieldname": "delivery_qc",
+   "fieldtype": "Check",
+   "label": "Delivery QC",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
@@ -494,7 +487,7 @@
    "link_fieldname": "item_inspection"
   }
  ],
- "modified": "2023-12-19 22:53:45.624291",
+ "modified": "2025-02-12 10:07:41.334875",
  "modified_by": "Administrator",
  "module": "Quality Inspection",
  "name": "Item Inspection",
@@ -514,6 +507,7 @@
    "write": 1
   }
  ],
+ "queue_in_background": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": [],

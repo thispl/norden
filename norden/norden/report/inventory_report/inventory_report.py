@@ -7,6 +7,8 @@ import frappe
 from frappe import _, msgprint
 
 def execute(filters=None):
+# def execute():
+	# filters={'company':'Norden Communication Middle East FZE','item' :'114-10001104GY'}
 	columns, data = [] ,[]
 	columns = get_columns(filters)
 	data = get_data(filters)
@@ -17,10 +19,14 @@ def get_columns(filters):
 		_('Item') + ":Link/Item:190",
 	]
 	col = frappe.db.get_list("Warehouse",{'company':filters.company},["name"])
-	for c in col:        
-		columns.append({
-			"label": c.name
-		})
+	# frappe.get_value("Bin",{"warehouse":col.name,"item_code":i.name},["actual_qty"])
+	for c in col: 
+		aq = frappe.get_value("Bin",{"warehouse":c.name,"item_code":filters.item},["actual_qty"])   
+		if aq is not None and aq > 0:
+
+			columns.append({
+				"label": c.name
+			})
 	return columns
 
 
@@ -36,10 +42,10 @@ def get_data(filters):
 		warehouse = frappe.db.get_list("Warehouse",{'company':filters.company},["name"])
 		for wh in warehouse:
 			pr = frappe.get_value("Bin",{"warehouse":wh.name,"item_code":i.name},["actual_qty"])
-			frappe.errprint(pr)
-			if pr:
+			
+			if pr and pr > 0:
 				row += [pr]
-			else:
-				row += [0]
+			# else:
+			# 	row += [0]
 		data.append(row)
 	return data

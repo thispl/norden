@@ -44,7 +44,7 @@ def get_data(filters):
         (`tabSales Order Item`.qty - ifnull(`tabSales Order Item`.delivered_qty, 0)) as qty_to_deliver, 
         `tabSales Order Item`.base_rate, `tabSales Order Item`.base_amount, 
         ((`tabSales Order Item`.qty - ifnull(`tabSales Order Item`.delivered_qty, 0))*`tabSales Order Item`.base_rate) as amount_to_deliver, 
-        `tabBin`.actual_qty, 
+       (sum(`tabBin`.actual_qty) - sum(`tabBin`.reserved_stock)) as actual_qty,
         `tabBin`.projected_qty, 
         `tabSales Order Item`.`delivery_date`,  
         DATEDIFF(CURDATE(),`tabSales Order Item`.`delivery_date`) as diffdate, 
@@ -76,7 +76,7 @@ def get_data(filters):
         sum((`tabSales Order Item`.qty - ifnull(`tabSales Order Item`.delivered_qty, 0))) as qty_to_deliver, 
         `tabSales Order Item`.base_rate, sum(`tabSales Order Item`.base_amount) as base_amount, 
         sum(((`tabSales Order Item`.qty - ifnull(`tabSales Order Item`.delivered_qty, 0))*`tabSales Order Item`.base_rate)) as amount_to_deliver, 
-        `tabBin`.actual_qty, 
+        (sum(`tabBin`.actual_qty) - sum(`tabBin`.reserved_stock)) as actual_qty,
         `tabBin`.projected_qty, 
         `tabSales Order Item`.`delivery_date`,  
         DATEDIFF(CURDATE(),`tabSales Order Item`.`delivery_date`) as diffdate, 
@@ -97,7 +97,7 @@ def get_data(filters):
         asc"""%(s.name),as_dict=1)[0]
         raw = {'sales_order':s.name,'qty':sb["qty"],'indent':0}
         data.append(raw)
-        frappe.errprint(raw)
+        
         for i in sa:
             reserve = frappe.db.get_value("Stock Reservation Entry",{"item_code":i.item_code,"voucher_no":s.name,"warehouse":i.warehouse},["reserved_qty"])
             row = {'item':i.item_code,'qty':i.qty,'reserved_qty':reserve or 0,'unreserved_qty':float(i.qty - (reserve or 0)),'warehouse':i.warehouse,'indent':1}

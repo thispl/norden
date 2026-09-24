@@ -46,7 +46,7 @@ def get_data(filters):
 	for i in item:
 		country = frappe.get_value("Company",{"name":filters.company},["country"])
 		warehouse_stock = frappe.db.sql("""
-		select sum(b.actual_qty) as qty from `tabBin` b 
+		select (sum(`tabBin`.actual_qty) - sum(b.reserved_stock)) as qty from `tabBin` b 
 		join `tabWarehouse` wh on wh.name = b.warehouse
 		join `tabCompany` c on c.name = wh.company
 		where c.country = '%s' and b.item_code = '%s' and wh.company = '%s'

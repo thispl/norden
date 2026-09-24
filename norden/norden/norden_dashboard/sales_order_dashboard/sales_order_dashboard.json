@@ -16,17 +16,21 @@
   {
    "chart": "Sales Order Leadwise",
    "width": "Half"
+  },
+  {
+   "chart": "Sales Order Countrywise",
+   "width": "Half"
   }
  ],
  "creation": "2022-12-03 18:39:29.199598",
  "dashboard_name": "Sales Order Dashboard",
  "docstatus": 0,
  "doctype": "Dashboard",
- "idx": 0,
+ "idx": 28,
  "is_default": 0,
  "is_standard": 1,
- "modified": "2023-02-15 16:44:57.688575",
- "modified_by": "Administrator",
+ "modified": "2025-06-17 21:38:07.706268",
+ "modified_by": "amirsherif@nordenco.ae",
  "module": "Norden",
  "name": "Sales Order Dashboard",
  "owner": "Administrator"

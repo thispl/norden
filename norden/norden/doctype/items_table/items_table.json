@@ -14,7 +14,8 @@
    "fieldname": "items_name",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Items Name"
+   "label": "Items Name",
+   "length": 200
   },
   {
    "fieldname": "qty",
@@ -32,7 +33,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2022-07-06 12:39:20.746769",
+ "modified": "2024-07-02 19:33:24.185189",
  "modified_by": "Administrator",
  "module": "Norden",
  "name": "Items Table",
@@ -40,5 +41,6 @@
  "permissions": [],
  "sort_field": "modified",
  "sort_order": "DESC",
+ "states": [],
  "track_changes": 1
 }

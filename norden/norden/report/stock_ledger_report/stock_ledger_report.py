@@ -159,16 +159,19 @@ def get_stock_ledger_entries(filters, items):
 			project,
 			stock_value_difference
 		FROM
-			`tabStock Ledger Entry` sle left join `tabPurchase Receipt`
+			`tabStock Ledger Entry` sle
 		WHERE
 			company = %(company)s
-				AND is_cancelled = 0 AND posting_date BETWEEN %(from_date)s AND %(to_date)s
-				{sle_conditions}
-				{item_conditions_sql}
+			AND is_cancelled = 0
+			AND posting_date BETWEEN %(from_date)s AND %(to_date)s
+			{sle_conditions}
+			{item_conditions_sql}
 		ORDER BY
-			posting_date asc, posting_time asc, creation asc
-		""".format(sle_conditions=get_sle_conditions(filters), item_conditions_sql=item_conditions_sql),
-		filters, as_dict=1)
+			posting_date ASC, posting_time ASC, creation ASC
+	""".format(
+		sle_conditions=get_sle_conditions(filters),
+		item_conditions_sql=item_conditions_sql
+	), filters, as_dict=1)
 	return sl_entries
 
 

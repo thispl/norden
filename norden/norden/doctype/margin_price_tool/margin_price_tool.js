@@ -166,14 +166,14 @@ frappe.ui.form.on('Margin Price Tool', {
 		frm.save()
 	},
 
-	// update_dubai(frm) {
-	// 	frappe.call({
-	// 		method : "norden.norden.doctype.margin_price_tool.margin_price_tool.enqueue_update_item_price_dubai",
-	// 		args: {
-	// 			table : frm.doc.dubai,
-	// 		}
-	// 	})
-	// 	frappe.msgprint("Updating Item Price. Please check Item Price List after sometime.")
-	// 	frm.save()
-	// },
+	update_dubai(frm) {
+		frappe.call({
+			method : "norden.norden.doctype.margin_price_tool.margin_price_tool.enqueue_update_item_price_dubai",
+			args: {
+				table : frm.doc.dubai,
+			}
+		})
+		frappe.msgprint("Updating Item Price. Please check Item Price List after sometime.")
+		frm.save()
+	},
 });

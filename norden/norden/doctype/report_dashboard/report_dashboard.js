@@ -27,6 +27,13 @@ download: function (frm) {
 		var path = "norden.norden.doctype.report_dashboard.summary_test_report.download"
 		var args = 'from_date=%(from_date)s&to_date=%(to_date)s&company=%(company)s&department=%(department)s&employee_grade=%(employee_grade)s'
 	}
+	if (frm.doc.report == 'Salary Summary Report') {
+		console.log('hi')
+		var path = "norden.norden.doctype.report_dashboard.summary_test_report.download"
+		var args = 'from_date=%(from_date)s&to_date=%(to_date)s&company=%(company)s&department=%(department)s&employee_grade=%(employee_grade)s'
+	}
+
+
 
 
 	if (path) {

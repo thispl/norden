@@ -7,10 +7,13 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "workflow_state",
   "logistic_type",
   "po_so",
   "order_no",
+  "multiple_pos",
   "file_number",
+  "custom_file_number",
   "company",
   "country",
   "column_break_4",
@@ -143,6 +146,7 @@
   {
    "fieldname": "order_no",
    "fieldtype": "Dynamic Link",
+   "in_list_view": 1,
    "label": "Order No",
    "options": "po_so"
   },
@@ -170,10 +174,9 @@
    "reqd": 1
   },
   {
-   "depends_on": "// eval:doc.cargo_type == \"SEA\"",
+   "depends_on": "eval:doc.cargo_type == \"SEA\"",
    "fieldname": "seacontainertype",
    "fieldtype": "Select",
-   "in_list_view": 1,
    "label": "Sea Container Type",
    "mandatory_depends_on": "eval:doc.cargo_type==\"SEA\"",
    "options": "\nLCL\n20Ft.Container\n40Ft.Container"
@@ -183,10 +186,8 @@
    "fieldtype": "Column Break"
   },
   {
-   "fetch_from": "order_no.supplier",
    "fieldname": "supplier",
    "fieldtype": "Link",
-   "in_list_view": 1,
    "label": "Supplier Name",
    "options": "Supplier"
   },
@@ -196,7 +197,6 @@
    "label": "Courier / AWB / BL Number / Container"
   },
   {
-   "fetch_from": "order_no.consignment_type",
    "fieldname": "consignment_type",
    "fieldtype": "Data",
    "label": "Consignment type"
@@ -219,15 +219,11 @@
    "label": "Tentative Production Completion Date"
   },
   {
-   "fetch_from": "order_no.grand_total",
-   "fieldname": "grand_total",
-   "fieldtype": "Float",
-   "label": "Grand Total "
-  },
-  {
+   "depends_on": "eval:doc.company != \"Norden Communication UK Limited\" || doc.company != \"Norden Singapore PTE LTD\"",
    "fieldname": "custom_duty",
    "fieldtype": "Currency",
-   "label": "Forecast \u2013 Customs Duty Amount"
+   "label": "Forecast \u2013 Customs Duty Amount",
+   "options": "Company:company:default_currency"
   },
   {
    "fieldname": "etd",
@@ -285,6 +281,7 @@
    "label": "Logistics OPS"
   },
   {
+   "depends_on": "eval:doc.customs_clearance_status == \"Payment Done\" || doc.customs_clearance_status == \"Customs Clearance Completed\" && doc.workflow_state == \"Delivery\" || doc.submitted == 1 && doc.workflow_state == \"Delivery\" || doc.submitted == 1 && doc.workflow_state == \"E-Way Bill\" || doc.customs_clearance_status == \"Payment Done\" || doc.workflow_state == \"E-Way Bill\"",
    "fieldname": "delivery_section",
    "fieldtype": "Section Break",
    "label": "Delivery"
@@ -356,8 +353,9 @@
    "label": "POD City"
   },
   {
-   "depends_on": "// eval:doc.consignment_type !='Stock'",
-   "fetch_from": "order_no.project_name",
+   "depends_on": "eval:doc.consignment_type !='Stock'",
+   "fetch_from": "order_no.project",
+   "fetch_if_empty": 1,
    "fieldname": "project",
    "fieldtype": "Link",
    "label": "Project Name",
@@ -418,7 +416,7 @@
    "options": "Carrier Name"
   },
   {
-   "depends_on": "eval:doc.company != \"Norden Research and Innovation Centre (OPC) Pvt. Ltd\"",
+   "depends_on": "eval:doc.company != \"Norden Research and Innovation Centre (OPC) Pvt. Ltd\" ",
    "fieldname": "section_break_59",
    "fieldtype": "Section Break",
    "label": "Payment & Customs Clearance "
@@ -544,7 +542,6 @@
    "label": "E-Way No"
   },
   {
-   "fetch_from": "order_no.request_name",
    "fieldname": "requester_name",
    "fieldtype": "Link",
    "label": "Requester Name",
@@ -581,6 +578,7 @@
    "read_only": 1
   },
   {
+   "default": "LR-.YYYY.-",
    "fieldname": "naming_series",
    "fieldtype": "Select",
    "label": "Series",
@@ -641,7 +639,7 @@
    "label": "Comments"
   },
   {
-   "depends_on": "eval:doc.company != \"Norden Research and Innovation Centre (OPC) Pvt. Ltd\"",
+   "depends_on": "eval:doc.company != \"Norden Research and Innovation Centre (OPC) Pvt. Ltd\" ",
    "fieldname": "document_for_payment_clearance_section",
    "fieldtype": "Section Break",
    "label": "Document for Payment Clearance"
@@ -655,19 +653,23 @@
   {
    "fieldname": "alert_date",
    "fieldtype": "Date",
+   "hidden": 1,
    "label": "Alert Date"
   },
   {
    "fieldname": "credit_days",
    "fieldtype": "Int",
+   "hidden": 1,
    "label": "Credit Days"
   },
   {
+   "fetch_from": "order_no.mode_of_dispatch",
    "fetch_if_empty": 1,
    "fieldname": "cargo_type",
    "fieldtype": "Select",
    "label": "Cargo Type",
-   "options": "\nAir\nSea\nCourier\nOwn Transport"
+   "options": "\nAir\nSEA - LCL\nSEA - FCL\nSea\nCourier\nOwn Transport",
+   "reqd": 1
   },
   {
    "depends_on": "eval:doc.inventory_destination == \"Warehouse Bonded\"",
@@ -745,7 +747,7 @@
    "label": "Download"
   },
   {
-   "depends_on": "eval:doc.company == \"Norden Research and Innovation Centre (OPC) Pvt. Ltd\"",
+   "depends_on": "eval:doc.company == \"Norden Research and Innovation Centre (OPC) Pvt. Ltd\" && doc.workflow_state == \"Document Review\" || doc.company == \"Norden Research and Innovation Centre (OPC) Pvt. Ltd\" && doc.workflow_state == \"Waiting for ID Submission\" || doc.company == \"Norden Research and Innovation Centre (OPC) Pvt. Ltd\" && doc.workflow_state == \"Delivery\" || doc.company == \"Norden Research and Innovation Centre (OPC) Pvt. Ltd\" && doc.workflow_state == \"E-Way Bill\"",
    "fieldname": "nric_section",
    "fieldtype": "Section Break",
    "label": "NRIC"
@@ -796,44 +798,45 @@
    "fieldname": "conv_rate",
    "fieldtype": "Float",
    "label": "Conversion Rate"
+  },
+  {
+   "fieldname": "custom_file_number",
+   "fieldtype": "Link",
+   "label": "File Number",
+   "options": "File Number",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "order_no.grand_total",
+   "fieldname": "grand_total",
+   "fieldtype": "Currency",
+   "label": "Grand Total"
+  },
+  {
+   "fieldname": "multiple_pos",
+   "fieldtype": "Small Text",
+   "label": "Multiple POs"
+  },
+  {
+   "allow_on_submit": 1,
+   "fieldname": "workflow_state",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Workflow State",
+   "no_copy": 1,
+   "options": "Workflow State"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-06-16 11:32:51.888491",
+ "modified": "2025-03-05 12:52:06.378760",
  "modified_by": "Administrator",
  "module": "Norden",
  "name": "Logistics Request",
  "naming_rule": "By \"Naming Series\" field",
  "owner": "Administrator",
- "permissions": [
-  {
-   "create": 1,
-   "delete": 1,
-   "email": 1,
-   "export": 1,
-   "print": 1,
-   "read": 1,
-   "report": 1,
-   "role": "System Manager",
-   "share": 1,
-   "write": 1
-  },
-  {
-   "create": 1,
-   "delete": 1,
-   "email": 1,
-   "export": 1,
-   "print": 1,
-   "read": 1,
-   "report": 1,
-   "role": "Logistics User",
-   "select": 1,
-   "share": 1,
-   "write": 1
-  }
- ],
+ "permissions": [],
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": [],

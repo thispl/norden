@@ -9,7 +9,8 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "item_sub_group"
+  "item_sub_group",
+  "has_lme"
  ],
  "fields": [
   {
@@ -17,11 +18,17 @@
    "fieldtype": "Data",
    "label": "Item Sub Group",
    "unique": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "has_lme",
+   "fieldtype": "Check",
+   "label": "Has LME"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2022-12-12 17:32:51.595376",
+ "modified": "2024-08-31 10:06:37.873329",
  "modified_by": "Administrator",
  "module": "Norden",
  "name": "Item Sub Group",

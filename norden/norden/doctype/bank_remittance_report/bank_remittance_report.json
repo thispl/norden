@@ -1,0 +1,55 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-07-23 16:56:32.268688",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "value_date",
+  "company",
+  "downlaod"
+ ],
+ "fields": [
+  {
+   "fieldname": "value_date",
+   "fieldtype": "Date",
+   "label": "Value Date"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company"
+  },
+  {
+   "depends_on": "eval:doc.value_date && doc.company",
+   "fieldname": "downlaod",
+   "fieldtype": "Button",
+   "label": "Download"
+  }
+ ],
+ "hide_toolbar": 1,
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2024-07-25 11:59:03.869417",
+ "modified_by": "Administrator",
+ "module": "Norden",
+ "name": "Bank Remittance Report",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

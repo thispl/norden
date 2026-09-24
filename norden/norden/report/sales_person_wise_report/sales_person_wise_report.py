@@ -81,6 +81,7 @@ def get_columns(filters):
 
 def get_data(filters):
 	data = []
+	sp = []
 	if filters.sales_person:
 		sp = frappe.get_all("Sales Person",{"name":filters.sales_person,},["*"])
 
@@ -100,4 +101,3 @@ def get_data(filters):
 			si_3 = frappe.get_all("Sales Invoice",{"sale_person":user,"posting_date": ["between", ["2023-03-01", "2023-03-31"]]},["*"])
 			# so_1 = frappe.get_all("Sales Order",{"sale_person":user,"transaction_date": ["between", ["2023-01-01", "2023-03-31"]],"status":["!=","Completed"]},["*"])
 			so_1 = frappe.db.sql(""" select grand_total ,currency from `tabSales Order` where transaction_date between "2023-01-01" and "2023-03-31" and sale_person = '%s' and status != "Completed" """ %(user),as_dict=True)
-			frappe.errprint (so_1)

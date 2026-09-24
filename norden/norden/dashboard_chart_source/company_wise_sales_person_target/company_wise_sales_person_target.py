@@ -40,8 +40,8 @@ def get_data(chart_name=None, chart=None, no_cache=None, filters=None,
 			"labels": all_labels,
 			"datasets": [
 				{"name": _("Target Amount"), "values": all_target_values},
-				{"name": _("Achievement Amount 2022"), "values": all_achievement_values_2022},
-				{"name": _("Achievement Amount 2023"), "values": all_achievement_values},
+				{"name": _("Achievement Amount 2022"), "values": [format(round(float(value), 2), '.2f') for value in all_achievement_values_2022]},
+				{"name": _("Achievement Amount 2023"), "values": [format(round(float(value), 2), '.2f') for value in all_achievement_values]},
 			],
 		}
 

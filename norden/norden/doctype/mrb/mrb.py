@@ -161,7 +161,10 @@ class MRB(Document):
             s.from_warehouse = self.warehouse    
             s.company = self.company 
             s.custom_mrb = self.name
-            store_warehouse = frappe.get_value("Warehouse",{"company":self.company,"custom_stores":1})
+            if self.company == "Norden Communication Pvt Ltd":
+                store_warehouse = "Store PKDY - NCPL"
+            else:
+                store_warehouse = frappe.get_value("Warehouse",{"company":self.company,"custom_stores":1})
             cc = frappe.get_value("Cost Center",{"company":self.company,"is_default":1})
             s.to_warehouse = store_warehouse
             s.append("items", {

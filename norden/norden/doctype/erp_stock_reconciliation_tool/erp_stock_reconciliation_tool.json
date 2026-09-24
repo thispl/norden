@@ -1,0 +1,132 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "ESRT-.#####",
+ "creation": "2024-10-07 17:34:12.277838",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "stock_analysis",
+  "company",
+  "posting_date",
+  "warehouse",
+  "rack",
+  "team",
+  "column_break_qdzu",
+  "item",
+  "stock_qty",
+  "physical_qty",
+  "qty_addedremoved",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "warehouse",
+   "fieldtype": "Link",
+   "label": "Warehouse",
+   "options": "Warehouse",
+   "read_only": 1
+  },
+  {
+   "fieldname": "item",
+   "fieldtype": "Link",
+   "in_filter": 1,
+   "in_standard_filter": 1,
+   "label": "Item",
+   "options": "Item",
+   "read_only": 1
+  },
+  {
+   "fieldname": "stock_qty",
+   "fieldtype": "Float",
+   "label": "Stock Qty",
+   "read_only": 1
+  },
+  {
+   "fieldname": "physical_qty",
+   "fieldtype": "Float",
+   "label": "Physical Qty"
+  },
+  {
+   "fieldname": "qty_addedremoved",
+   "fieldtype": "Data",
+   "label": "Qty Added/Removed"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "ERP Stock Reconciliation Tool",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "default": "Today",
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "label": "Posting Date"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company"
+  },
+  {
+   "fieldname": "rack",
+   "fieldtype": "Link",
+   "in_filter": 1,
+   "in_standard_filter": 1,
+   "label": "Rack",
+   "options": "Rack"
+  },
+  {
+   "fieldname": "stock_analysis",
+   "fieldtype": "Link",
+   "in_standard_filter": 1,
+   "label": "Title",
+   "options": "Stock Analysis"
+  },
+  {
+   "fieldname": "column_break_qdzu",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "rack.team",
+   "fieldname": "team",
+   "fieldtype": "Link",
+   "label": "Team",
+   "options": "Stock Team",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2026-01-05 11:15:10.951592",
+ "modified_by": "Administrator",
+ "module": "Norden",
+ "name": "ERP Stock Reconciliation Tool",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

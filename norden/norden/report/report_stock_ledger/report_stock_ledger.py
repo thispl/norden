@@ -61,13 +61,13 @@ def execute(filters=None):
         voucher_no = get_voucher_number(sle.voucher_type,sle.voucher_no)
         customer = get_customer(sle.voucher_type,sle.voucher_no)
         territory = get_territory(sle.voucher_type,sle.voucher_no)
-
+        lot_no = get_lot_no(sle.voucher_type,sle.voucher_no)
 
         sle.update({
             "voucher_number": voucher_no,
             "customer":customer,
-            "territory":territory
-
+            "territory":territory,
+            "lot_no":lot_no
             })
         # data.append(sle)
 
@@ -172,6 +172,12 @@ def get_columns(filters):
                 "label": _("Customer Name"),
                 "fieldname": "customer",
                 "fieldtype": "link",
+                "width": 100
+            },
+            {
+                "label": _("Supplier Lot Number"),
+                "fieldname": "lot_no",
+                "fieldtype": "Data",
                 "width": 100
             },
             
@@ -354,12 +360,12 @@ def get_stock_ledger_entries(filters, items):
 def get_voucher_number(voucher_type,voucher_no):
 
     if voucher_type == "Delivery Note":
-        voucher_number = frappe.db.get_value("Delivery Note", {'name':voucher_no},[ "file_number"]) 
+        voucher_number = frappe.db.get_value("Delivery Note", {'name':voucher_no},[ "file_number"])
         if not voucher_number:
             voucher_number = voucher_no
     
     elif voucher_type == "Purchase Receipt":
-        voucher_number = frappe.db.get_value("Purchase Receipt", {'name':voucher_no},[ "file_number"]) 
+        voucher_number = frappe.db.get_value("Purchase Receipt", {'name':voucher_no},[ "file_number"])  
         if not voucher_number:
             voucher_number = voucher_no 
             
@@ -372,6 +378,19 @@ def get_voucher_number(voucher_type,voucher_no):
         voucher_number = voucher_no
     return voucher_number
 
+
+def get_lot_no(voucher_type,voucher_no):
+
+    if voucher_type == "Purchase Receipt":
+        lot_no = frappe.db.get_value("Purchase Receipt", {'name':voucher_no},[ "custom_supplier_lot_number"])
+        if lot_no:
+            lot_no = lot_no
+        else:
+            lot_no =""
+    
+    else:
+        lot_no = " "
+    return lot_no
 
 def get_customer(voucher_type,voucher_no):
     customer =''

@@ -17,14 +17,16 @@
   {
    "fieldname": "company_series",
    "fieldtype": "Table",
+   "ignore_user_permissions": 1,
    "label": "Company Series",
    "options": "Company Series"
   }
  ],
+ "hide_toolbar": 1,
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2022-05-11 19:15:42.999647",
+ "modified": "2026-04-30 12:11:40.762323",
  "modified_by": "Administrator",
  "module": "Norden",
  "name": "General settings",
@@ -43,5 +45,6 @@
  ],
  "sort_field": "modified",
  "sort_order": "DESC",
+ "states": [],
  "track_changes": 1
 }

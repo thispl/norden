@@ -70,7 +70,7 @@ def get_data(filters):
 		for c in company:
 
 			warehouse_stock = frappe.db.sql("""
-            select sum(b.actual_qty) as qty from `tabBin` b 
+            select (sum(b.actual_qty) - sum(b.reserved_stock)) as qty, from `tabBin` b 
             join `tabWarehouse` wh on wh.name = b.warehouse
             join `tabCompany` c on c.name = wh.company
             where b.item_code = '%s' and wh.company = '%s' and b.valuation_rate > 0
@@ -83,7 +83,6 @@ def get_data(filters):
             join `tabCompany` c on c.name = wh.company
             where b.item_code = '%s' and wh.company = '%s' and b.valuation_rate > 0
             """ % (i.item_code,c.name),as_dict=True)[0]
-			frappe.errprint(warehouse_vr["valuation_rate"])
 			if warehouse_stock["qty"] and warehouse_vr["valuation_rate"]:
 				qty = warehouse_stock["qty"]
 				valuation_rate = warehouse_vr["valuation_rate"]

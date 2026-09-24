@@ -82,6 +82,12 @@ def get_columns(filters):
 			"width": 120
 		},
 		{
+			"label": _("Grand Total"),
+			"fieldname": "grand_total",
+			"options": "Currency",
+			"width": 120
+		},
+		{
 			"label": _("Sales Invoice"),
 			"fieldtype": "Link",
 			"fieldname": "sales_order",

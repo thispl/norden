@@ -29,7 +29,7 @@ def get_columns():
 
 		_('Internet') + ':Data:100',_('Gross Pay') +':Data:100',_('Professional Tax') +':Data:100',_('EPF') +':Data:100',_('ESI') +':Data:100',
 
-		_('Advance Deduction') +':Dataa:100',_('TDS') +':Data:100',_('Loss Of Pay') +':Data:100',_('Total Deduction') +':Data:100',_('Net Pay') +':Data:100',
+		_('Advance Deduction') +':Dataa:100',_('TDS') +':Data:100',_('Salary Hold') +':Data:100',_('Other Deduction') +':Data:100',_('Loss Of Pay') +':Data:100',_('Total Deduction') +':Data:100',_('Net Pay') +':Data:100',
 
 		_('Working Days') +':Data:100',_('Payment  Days') +':Data:100',_('Lop Days') +':Data:100'
 	]
@@ -48,7 +48,7 @@ def get_data(filters):
 
 	for ss in salary_slip:
 		emp = frappe.get_doc('Employee',{'employee':ss.employee},['*'])
-		frappe.errprint(emp)
+		
 		basic = frappe.db.get_value('Salary Detail',{'abbr':'B','parent':ss.name},'amount')
 		hra = frappe.db.get_value('Salary Detail',{'abbr':'HRA','parent':ss.name},'amount')
 		conveyance = frappe.db.get_value('Salary Detail',{'abbr':'CNV','parent':ss.name},'amount')	
@@ -65,11 +65,13 @@ def get_data(filters):
 		esi = frappe.db.get_value('Salary Detail',{'abbr':'ESI','parent':ss.name},'amount')
 		ad = frappe.db.get_value('Salary Detail',{'abbr':'AD','parent':ss.name},'amount')
 		tds = frappe.db.get_value('Salary Detail',{'abbr':'TDS','parent':ss.name},'amount')
+		hold = frappe.db.get_value('Salary Detail',{'abbr':'SH','parent':ss.name},'amount')
+		deduct = frappe.db.get_value('Salary Detail',{'abbr':'OD','parent':ss.name},'amount')
 		lop = frappe.db.get_value('Salary Detail',{'abbr':'LOP','parent':ss.name},'amount')
 
 		row = [
 			ss.employee,frappe.get_value('Employee',ss.employee,"employee_name"),emp.date_of_joining,emp.date_of_birth,ss.designation,ss.region,ss.company,ss.start_date,ss.end_date,
-			basic,hra,conveyance,vfa,sa,ctc,arrears,ot,gift,leave_encashment,internet,ss.gross_pay,professional_tax,epf,esi,ad,tds,lop,
+			basic,hra,conveyance,vfa,sa,ctc,arrears,ot,gift,leave_encashment,internet,ss.gross_pay,professional_tax,epf,esi,ad,tds,hold,deduct,lop,
 			ss.total_deduction,ss.net_pay,ss.total_working_days,ss.payment_days,ss.leave_without_pay
 		]	
 		data.append(row)

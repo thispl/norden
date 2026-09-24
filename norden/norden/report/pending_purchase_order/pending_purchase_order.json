@@ -1,0 +1,41 @@
+{
+ "add_total_row": 1,
+ "columns": [],
+ "creation": "2024-01-07 07:54:30.869069",
+ "disabled": 0,
+ "docstatus": 0,
+ "doctype": "Report",
+ "filters": [],
+ "idx": 2,
+ "is_standard": "Yes",
+ "letter_head": "Norden",
+ "letterhead": null,
+ "modified": "2024-02-07 11:20:41.726263",
+ "modified_by": "Administrator",
+ "module": "Norden",
+ "name": "Pending Purchase Order",
+ "prepared_report": 0,
+ "ref_doctype": "Purchase Order",
+ "report_name": "Pending Purchase Order",
+ "report_type": "Script Report",
+ "roles": [
+  {
+   "role": "Purchase User"
+  },
+  {
+   "role": "Stock User"
+  },
+  {
+   "role": "Purchase Manager"
+  },
+  {
+   "role": "Logistics User"
+  },
+  {
+   "role": "System Manager"
+  },
+  {
+   "role": "Logistics Manager"
+  }
+ ]
+}

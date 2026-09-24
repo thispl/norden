@@ -8,16 +8,37 @@
  "engine": "InnoDB",
  "field_order": [
   "item_code",
+  "description",
   "column_break_2",
   "company",
   "column_break_4",
-  "description",
+  "like",
+  "item_summary_section",
+  "item_html",
+  "item_details_section",
+  "html",
   "allocated_item_details_section",
   "allocated_item_details",
   "po_details_section",
   "po_details",
+  "po_details_summary_section",
+  "total_order_qty",
+  "column_break_flbp",
+  "total_pr_qty",
+  "column_break_ligh",
+  "total_qc_qty",
+  "column_break_h7fg",
+  "total_bal_qty",
   "so_details_section",
   "so_details",
+  "so_details_summary_section",
+  "total_order",
+  "column_break_fvlu",
+  "total_res_qty",
+  "column_break_bhb4",
+  "total_delivery_qty",
+  "column_break_adcq",
+  "total_pending_qty",
   "price_list_details_section",
   "price_list_details"
  ],
@@ -36,6 +57,7 @@
    "read_only": 1
   },
   {
+   "depends_on": "eval:!doc.like",
    "fieldname": "allocated_item_details_section",
    "fieldtype": "Section Break",
    "label": "Allocated Item Details"
@@ -52,6 +74,7 @@
    "label": "Description"
   },
   {
+   "depends_on": "eval:!doc.like",
    "fieldname": "po_details_section",
    "fieldtype": "Section Break",
    "label": "PO Details"
@@ -60,10 +83,10 @@
    "fieldname": "po_details",
    "fieldtype": "Table",
    "label": "PO Details",
-   "options": "PO Details",
-   "read_only": 1
+   "options": "PO Details"
   },
   {
+   "depends_on": "eval:!doc.like",
    "fieldname": "so_details_section",
    "fieldtype": "Section Break",
    "label": "SO Details"
@@ -72,22 +95,21 @@
    "fieldname": "so_details",
    "fieldtype": "Table",
    "label": "SO Details",
-   "options": "SO Details",
-   "read_only": 1
+   "options": "SO Details"
   },
   {
    "fieldname": "company",
    "fieldtype": "Link",
    "ignore_user_permissions": 1,
    "label": "Company",
-   "options": "Company",
-   "read_only": 1
+   "options": "Company"
   },
   {
    "fieldname": "column_break_4",
    "fieldtype": "Column Break"
   },
   {
+   "depends_on": "eval:!doc.like",
    "fieldname": "price_list_details_section",
    "fieldtype": "Section Break",
    "label": "Price List Details"
@@ -98,13 +120,121 @@
    "label": "Price List Details",
    "options": "Price List Details",
    "read_only": 1
+  },
+  {
+   "depends_on": "eval:!doc.like",
+   "fieldname": "po_details_summary_section",
+   "fieldtype": "Section Break",
+   "label": "PO Details Summary"
+  },
+  {
+   "fieldname": "total_order_qty",
+   "fieldtype": "Float",
+   "label": "Total Order Qty",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_flbp",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_pr_qty",
+   "fieldtype": "Float",
+   "label": "Total PR Qty",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_ligh",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_qc_qty",
+   "fieldtype": "Float",
+   "label": "Total QC Qty",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_h7fg",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_bal_qty",
+   "fieldtype": "Float",
+   "label": "Total Bal qty",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval:!doc.like",
+   "fieldname": "so_details_summary_section",
+   "fieldtype": "Section Break",
+   "label": "SO Details Summary"
+  },
+  {
+   "fieldname": "total_order",
+   "fieldtype": "Float",
+   "label": "Total Order Qty",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_fvlu",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_res_qty",
+   "fieldtype": "Float",
+   "label": "Total Res Qty",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_bhb4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_delivery_qty",
+   "fieldtype": "Float",
+   "label": "Total Delivery Qty",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_adcq",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "total_pending_qty",
+   "fieldtype": "Float",
+   "label": "Total Pending Qty",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval:!doc.like",
+   "fieldname": "item_details_section",
+   "fieldtype": "Section Break",
+   "label": "Item Details"
+  },
+  {
+   "fieldname": "html",
+   "fieldtype": "HTML"
+  },
+  {
+   "fieldname": "item_summary_section",
+   "fieldtype": "Section Break",
+   "label": "Item Summary"
+  },
+  {
+   "fieldname": "item_html",
+   "fieldtype": "HTML"
+  },
+  {
+   "fieldname": "like",
+   "fieldtype": "Data",
+   "label": "Like"
   }
  ],
  "hide_toolbar": 1,
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2023-06-15 16:53:46.328420",
+ "modified": "2026-05-05 10:54:05.462080",
  "modified_by": "Administrator",
  "module": "Norden",
  "name": "Allocation Details",

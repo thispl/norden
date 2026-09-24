@@ -47,7 +47,7 @@ def send_birthday_alert(doc,method):
     content += table + "</table><br><br>Thanks & Regards,<br>ERP"
     # print(content)
     frappe.sendmail(
-            recipients=['hrd@nordencommunucation.com','kareem@nordencommunication.com'],
+            recipients=['hrd@nordencommunucation.com'],
             subject=_("Birthday Remainder"),
             header=_("Birthday Remainder"),
             message = content
@@ -77,6 +77,98 @@ def appraisal_remainder_mail():
                         emp_doj = frappe.get_list('Employee' ,{'employee': emplo},["date_of_joining"])
                         print(emp_doj)
 
-                        # table_html += '<tr><td colspan = 4 style="border: 1px solid black">%s</td><td colspan = 4 style="border: 1px solid black">%s</td><td colspan = 4 style="border: 1px solid black">%s</td><td colspan = 4 style="border: 1px solid black">%s</td><td colspan = 4 style="border: 1px solid black">%s</td><td colspan = 4 style="border: 1px solid black">%s</td></tr>'%(leave.name, leave.employee, leave.employee_name, leave.from_date, leave.to_date,leave.leave_type)
-                        # table_html += '</table><br>
-        
+            
+from datetime import datetime, timedelta
+from frappe.utils.background_jobs import enqueue
+@frappe.whitelist()
+def work_anniversary_reminder_to_shoba():
+	message = _("Dear Mam,<br><br>A friendly reminder of future important dates for our team.<br><br>Let’s congratulate them on their work anniversary!<br><br>")
+	employees = frappe.db.sql("""SELECT name, employee_name, department, date_of_joining
+	FROM `tabEmployee`
+	WHERE status = 'Active'
+	AND company = "Norden Communication Middle East FZE"
+	ORDER BY date_of_joining""", as_dict=True)
+	emp_set = set()
+	today = datetime.now().date()
+	future_date = today + timedelta(days=14)
+	for emp in employees:
+		employee_hire_date = emp.date_of_joining
+		upcoming_anniversary = datetime(today.year, employee_hire_date.month, employee_hire_date.day).date()
+		if today <= upcoming_anniversary <= future_date:
+			diff_years = today.year - employee_hire_date.year - ((today.month, today.day) < (employee_hire_date.month, employee_hire_date.day))
+			if diff_years in [5.0, 10.0, 15.0, 20.0, 21.0, 22.0, 23.0, 24.0, 25.0, 26.0, 27.0, 28.0, 29.0, 30.0, 31.0, 32.0, 33.0, 34.0, 35.0]:
+				emp_tuple = (emp["name"], emp["employee_name"], emp["department"], emp["date_of_joining"], diff_years)
+				emp_set.add(emp_tuple)
+		half_year_anniversary = employee_hire_date + timedelta(days=183)
+		if today <= half_year_anniversary <= future_date:
+			emp_tuple_half_year = (emp["name"], emp["employee_name"], emp["department"], emp["date_of_joining"], 0.5 )
+			emp_set.add(emp_tuple_half_year)
+	if emp_set:
+		sorted_emp_set = sorted(emp_set, key=lambda x: (x[3], x[0]))
+		message += '<table class="table table-bordered"><tr><th>Employee ID</th><th>Employee Name</th><th>Department</th><th>Date of Joining</th><th>Work Anniversary Completed</th></tr>'
+		for emp_tuple in sorted_emp_set:
+			message += '<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s years</td></tr>'%(emp_tuple[0], emp_tuple[1], emp_tuple[2], format_date(emp_tuple[3]), emp_tuple[4])
+		message += '</table>'
+		email_args = {
+			"message": message,
+			"recipients": ["veeramayandi.p@groupteampro.com","sobha@nordenco.ae"],
+			"subject": "Work Anniversary Reminder"
+		}
+		enqueue(method=frappe.sendmail, queue='short', timeout=300, is_async=True, **email_args)
+
+@frappe.whitelist()
+def work_anniversary_reminder_to_employees():
+	message = _("Dear Mam/Sir,<br><br>A friendly reminder of future important dates for our team.<br><br>Let’s congratulate them on their work anniversary!<br><br>")
+	employees = frappe.db.sql("""SELECT *
+		FROM `tabEmployee`
+		WHERE status = 'Active'
+		AND company = "Norden Communication Middle East FZE"
+		ORDER BY date_of_joining""", as_dict=True)
+	emp_set = set()
+	today = datetime.now().date()  # Assuming you want today's date
+	future_date = today + timedelta(days=14)
+	for emp in employees:
+		employee_hire_date = emp.date_of_joining
+		upcoming_anniversary = datetime(today.year, employee_hire_date.month, employee_hire_date.day).date()
+		if today <= upcoming_anniversary <= future_date:
+			diff_years = today.year - employee_hire_date.year - ((today.month, today.day) < (employee_hire_date.month, employee_hire_date.day))
+			if diff_years in [5.0, 10.0, 15.0, 20.0, 21.0, 22.0, 23.0, 24.0, 25.0, 26.0, 27.0, 28.0, 29.0, 30.0, 31.0, 32.0, 33.0, 34.0, 35.0]:
+				emp_tuple = (emp["name"], emp["employee_name"], emp["department"], emp["date_of_joining"], diff_years)
+				emp_set.add(emp_tuple)
+		half_year_anniversary = employee_hire_date + timedelta(days=183)
+		if today <= half_year_anniversary <= future_date:
+			emp_tuple_half_year = (emp["name"], emp["employee_name"], emp["department"], emp["date_of_joining"], 0.5 )
+			emp_set.add(emp_tuple_half_year)
+	if len(emp_set) > 1:
+		sorted_emp_set = sorted(emp_set, key=lambda x: (x[3], x[0]))
+		for emp in employees:
+			recipients = emp.user_id or emp.company_email or emp.personal_email
+			if recipients:
+				message += '<table class="table table-bordered"><tr><th>Employee ID</th><th>Employee Name</th><th>Department</th><th>Date of Joining</th><th>Work Anniversary Completed</th></tr>'
+				for emp_tuple in sorted_emp_set:
+					if emp["name"] != emp_tuple[0]:
+						message += '<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s years</td></tr>'%(emp_tuple[0], emp_tuple[1], emp_tuple[2], format_date(emp_tuple[3]), emp_tuple[4])
+				message += '</table>'
+				email_args = {
+					"message": message,
+					"recipients": [recipients],
+					"subject": "Work Anniversary Reminder"
+				}
+				enqueue(method=frappe.sendmail, queue='short', timeout=300, is_async=True, **email_args)
+	elif len(emp_set) == 1:
+		sorted_emp_set = sorted(emp_set, key=lambda x: (x[3], x[0]))
+		for emp in employees:
+			recipients = emp.user_id or emp.company_email or emp.personal_email
+			if recipients:
+				message += '<table class="table table-bordered"><tr><th>Employee ID</th><th>Employee Name</th><th>Department</th><th>Date of Joining</th><th>Work Anniversary Completed</th></tr>'
+				for emp_tuple in sorted_emp_set:
+					if emp["name"] != emp_tuple[0]:
+						message += '<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s years</td></tr>'%(emp_tuple[0], emp_tuple[1], emp_tuple[2], format_date(emp_tuple[3]), emp_tuple[4])
+						message += '</table>'
+						email_args = {
+							"message": message,
+							"recipients": [recipients],
+							"subject": "Work Anniversary Reminder"
+						}
+						enqueue(method=frappe.sendmail, queue='short', timeout=300, is_async=True, **email_args)
+	  

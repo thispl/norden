@@ -41,7 +41,7 @@ def get_conditions(filters):
 
 def get_data(filters):
 	data = []
-	frappe.errprint('hi')
+	
 	conditions, filters = get_conditions(filters)
 	sa = []
 	if filters:

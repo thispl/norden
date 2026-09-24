@@ -50,7 +50,7 @@ class MarginPriceTool(Document):
 
 @frappe.whitelist()
 def enqueue_update_item_price(table,country):
-    enqueue(update_item_price, queue='default', timeout=6000, event='updating_margin_sales_price',at_front=True,table=table,country=country)
+    enqueue(update_item_price, queue='long', timeout=6000, event='updating_margin_sales_price',at_front=True,table=table,country=country)
 
 @frappe.whitelist()
 def update_item_price(table,country):
@@ -119,7 +119,7 @@ def update_item_price(table,country):
 
 @frappe.whitelist()
 def enqueue_update_item_price_bulk(table,country):
-    enqueue(update_item_price_bulk, queue='default', timeout=6000, event='updating_margin_sales_price',table=table,country=country)
+    enqueue(update_item_price_bulk, queue='long', timeout=6000, event='updating_margin_sales_price',table=table,country=country)
 
 @frappe.whitelist()
 def update_item_price_bulk(table,country):
@@ -187,7 +187,7 @@ def update_item_price_bulk(table,country):
 
 @frappe.whitelist()
 def enqueue_update_item_price_uk(table):
-    enqueue(update_item_price_uk, queue='default', timeout=6000, event='updating_margin_sales_price',table=table)
+    enqueue(update_item_price_uk, queue='long', timeout=6000, event='updating_margin_sales_price',table=table)
 
 @frappe.whitelist()
 def update_item_price_uk(table):
@@ -271,7 +271,7 @@ def update_item_price_uk(table):
 
 @frappe.whitelist()
 def enqueue_update_item_price_uk_bulk(table):
-    enqueue(update_item_price_uk_bulk, queue='default', timeout=6000, event='updating_margin_sales_price',table=table)
+    enqueue(update_item_price_uk_bulk, queue='long', timeout=6000, event='updating_margin_sales_price',table=table)
 
 @frappe.whitelist()
 def update_item_price_uk_bulk(table):
@@ -358,7 +358,7 @@ def update_item_price_uk_bulk(table):
 
 @frappe.whitelist()
 def enqueue_update_item_price_india(table):
-    enqueue(update_item_price_india, queue='default', timeout=6000, event='updating_margin_sales_price',table=table)
+    enqueue(update_item_price_india, queue='long', timeout=6000, event='updating_margin_sales_price',table=table)
 
 @frappe.whitelist()
 def update_item_price_india(table):
@@ -515,7 +515,7 @@ def update_item_price_india(table):
 
 @frappe.whitelist()
 def enqueue_update_item_price_india_bulk(table):
-    enqueue(update_item_price_india_bulk, queue='default', timeout=6000, event='updating_margin_sales_price',table=table)
+    enqueue(update_item_price_india_bulk, queue='long', timeout=6000, event='updating_margin_sales_price',table=table)
 
 @frappe.whitelist()
 def update_item_price_india_bulk(table):
@@ -657,7 +657,7 @@ def update_item_price_india_bulk(table):
 
 @frappe.whitelist()
 def enqueue_update_item_price_africa(table):
-    enqueue(update_item_price_africa, queue='default', timeout=6000, event='updating_margin_sales_price',table=table)
+    enqueue(update_item_price_africa, queue='long', timeout=6000, event='updating_margin_sales_price',table=table)
 
 @frappe.whitelist()
 def update_item_price_africa(table):
@@ -690,10 +690,10 @@ def update_item_price_africa(table):
                     pps = rate/(100 - row["margin"])*100
 
                 if row["freight"] and row["freight"] > 0:
-                    existing_ip = frappe.db.exists('Item Price',{'price_list':'Africa Sales Price','item_code':i.name})
+                    existing_ip = frappe.db.exists('Item Price',{'price_list':'Africa Customer Price','item_code':i.name})
                     sales_price = row["freight"] * pps
                     if not existing_ip:
-                        price_list = "Africa Sales Price"
+                        price_list = "Africa Customer Price"
                         doc = frappe.new_doc("Item Price")
                         doc.item_code = i.name
                         doc.price_list = price_list
@@ -708,48 +708,48 @@ def update_item_price_africa(table):
                         frappe.db.set_value("Item Price",existing_ip,'price_list_rate',sales_price)
                         frappe.db.set_value("Item Price",existing_ip,'valid_from','2022-01-01')
 
-                if row["dealer_price"] and row["dealer_price"] > 0:
-                    existing_ip = frappe.db.exists('Item Price',{'price_list':'Africa Dealer Price','item_code':i.name})
-                    dp = sales_price * row["dealer_price"]
-                    if not existing_ip:
-                        price_list = "Africa Dealer Price"
-                        doc = frappe.new_doc("Item Price")
-                        doc.item_code = i.name
-                        doc.price_list = price_list
-                        doc.selling = 1
-                        doc.buying = 1
-                        doc.valid_from = '2022-01-01'
-                        doc.price_list_rate = dp
-                        doc.save(ignore_permissions=True)
-                        frappe.db.commit()
+                # if row["dealer_price"] and row["dealer_price"] > 0:
+                #     existing_ip = frappe.db.exists('Item Price',{'price_list':'Africa Dealer Price','item_code':i.name})
+                #     dp = sales_price * row["dealer_price"]
+                #     if not existing_ip:
+                #         price_list = "Africa Dealer Price"
+                #         doc = frappe.new_doc("Item Price")
+                #         doc.item_code = i.name
+                #         doc.price_list = price_list
+                #         doc.selling = 1
+                #         doc.buying = 1
+                #         doc.valid_from = '2022-01-01'
+                #         doc.price_list_rate = dp
+                #         doc.save(ignore_permissions=True)
+                #         frappe.db.commit()
 
-                    else:
-                        frappe.db.set_value("Item Price",existing_ip,'price_list_rate',dp)
-                        frappe.db.set_value("Item Price",existing_ip,'valid_from','2022-01-01')
+                #     else:
+                #         frappe.db.set_value("Item Price",existing_ip,'price_list_rate',dp)
+                #         frappe.db.set_value("Item Price",existing_ip,'valid_from','2022-01-01')
 
-                if row["customer_price"] and row["customer_price"] > 0:
-                    existing_ip = frappe.db.exists('Item Price',{'price_list':'Africa Customer Price','item_code':i.name})
-                    cp = dp * row["customer_price"]
-                    if not existing_ip:
-                        price_list = "Africa Customer Price"
-                        doc = frappe.new_doc("Item Price")
-                        doc.item_code = i.name
-                        doc.price_list = price_list
-                        doc.selling = 1
-                        doc.buying = 1
-                        doc.valid_from = '2022-01-01'
-                        doc.price_list_rate = cp
-                        doc.save(ignore_permissions=True)
-                        frappe.db.commit()
+                # if row["customer_price"] and row["customer_price"] > 0:
+                #     existing_ip = frappe.db.exists('Item Price',{'price_list':'Africa Customer Price','item_code':i.name})
+                #     cp = dp * row["customer_price"]
+                #     if not existing_ip:
+                #         price_list = "Africa Customer Price"
+                #         doc = frappe.new_doc("Item Price")
+                #         doc.item_code = i.name
+                #         doc.price_list = price_list
+                #         doc.selling = 1
+                #         doc.buying = 1
+                #         doc.valid_from = '2022-01-01'
+                #         doc.price_list_rate = cp
+                #         doc.save(ignore_permissions=True)
+                #         frappe.db.commit()
 
-                    else:
-                        frappe.db.set_value("Item Price",existing_ip,'price_list_rate',cp)
-                        frappe.db.set_value("Item Price",existing_ip,'valid_from','2022-01-01')
+                #     else:
+                #         frappe.db.set_value("Item Price",existing_ip,'price_list_rate',cp)
+                #         frappe.db.set_value("Item Price",existing_ip,'valid_from','2022-01-01')
 
 
 @frappe.whitelist()
 def enqueue_update_item_price_africa_bulk(table):
-    enqueue(update_item_price_africa_bulk, queue='default', timeout=6000, event='updating_margin_sales_price',table=table)
+    enqueue(update_item_price_africa_bulk, queue='long', timeout=6000, event='updating_margin_sales_price',table=table)
 
 @frappe.whitelist()
 def update_item_price_africa_bulk(table):
@@ -781,10 +781,10 @@ def update_item_price_africa_bulk(table):
                     pps = rate/(100 - row.margin)*100
 
                 if row.freight and row.freight > 0:
-                    existing_ip = frappe.db.exists('Item Price',{'price_list':'Africa Sales Price','item_code':i.name})
+                    existing_ip = frappe.db.exists('Item Price',{'price_list':'Africa Customer Price','item_code':i.name})
                     sales_price = row.freight * pps
                     if not existing_ip:
-                        price_list = "Africa Sales Price"
+                        price_list = "Africa Customer Price"
                         doc = frappe.new_doc("Item Price")
                         doc.item_code = i.name
                         doc.price_list = price_list
@@ -799,43 +799,43 @@ def update_item_price_africa_bulk(table):
                         frappe.db.set_value("Item Price",existing_ip,'price_list_rate',sales_price)
                         frappe.db.set_value("Item Price",existing_ip,'valid_from','2022-01-01')
 
-                if row.dealer_price and row.dealer_price > 0:
-                    existing_ip = frappe.db.exists('Item Price',{'price_list':'Africa Dealer Price','item_code':i.name})
-                    dp = sales_price * row.dealer_price
-                    if not existing_ip:
-                        price_list = "Africa Dealer Price"
-                        doc = frappe.new_doc("Item Price")
-                        doc.item_code = i.name
-                        doc.price_list = price_list
-                        doc.selling = 1
-                        doc.buying = 1
-                        doc.valid_from = '2022-01-01'
-                        doc.price_list_rate = dp
-                        doc.save(ignore_permissions=True)
-                        frappe.db.commit()
+                # if row.dealer_price and row.dealer_price > 0:
+                #     existing_ip = frappe.db.exists('Item Price',{'price_list':'Africa Dealer Price','item_code':i.name})
+                #     dp = sales_price * row.dealer_price
+                #     if not existing_ip:
+                #         price_list = "Africa Dealer Price"
+                #         doc = frappe.new_doc("Item Price")
+                #         doc.item_code = i.name
+                #         doc.price_list = price_list
+                #         doc.selling = 1
+                #         doc.buying = 1
+                #         doc.valid_from = '2022-01-01'
+                #         doc.price_list_rate = dp
+                #         doc.save(ignore_permissions=True)
+                #         frappe.db.commit()
 
-                    else:
-                        frappe.db.set_value("Item Price",existing_ip,'price_list_rate',dp)
-                        frappe.db.set_value("Item Price",existing_ip,'valid_from','2022-01-01')
+                #     else:
+                #         frappe.db.set_value("Item Price",existing_ip,'price_list_rate',dp)
+                #         frappe.db.set_value("Item Price",existing_ip,'valid_from','2022-01-01')
 
-                if row.customer_price and row.customer_price > 0:
-                    existing_ip = frappe.db.exists('Item Price',{'price_list':'Africa Customer Price','item_code':i.name})
-                    cp = dp * row.customer_price
-                    if not existing_ip:
-                        price_list = "Africa Customer Price"
-                        doc = frappe.new_doc("Item Price")
-                        doc.item_code = i.name
-                        doc.price_list = price_list
-                        doc.selling = 1
-                        doc.buying = 1
-                        doc.valid_from = '2022-01-01'
-                        doc.price_list_rate = cp
-                        doc.save(ignore_permissions=True)
-                        frappe.db.commit()
+                # if row.customer_price and row.customer_price > 0:
+                #     existing_ip = frappe.db.exists('Item Price',{'price_list':'Africa Customer Price','item_code':i.name})
+                #     cp = dp * row.customer_price
+                #     if not existing_ip:
+                #         price_list = "Africa Customer Price"
+                #         doc = frappe.new_doc("Item Price")
+                #         doc.item_code = i.name
+                #         doc.price_list = price_list
+                #         doc.selling = 1
+                #         doc.buying = 1
+                #         doc.valid_from = '2022-01-01'
+                #         doc.price_list_rate = cp
+                #         doc.save(ignore_permissions=True)
+                #         frappe.db.commit()
 
-                    else:
-                        frappe.db.set_value("Item Price",existing_ip,'price_list_rate',cp)
-                        frappe.db.set_value("Item Price",existing_ip,'valid_from','2022-01-01')
+                #     else:
+                #         frappe.db.set_value("Item Price",existing_ip,'price_list_rate',cp)
+                #         frappe.db.set_value("Item Price",existing_ip,'valid_from','2022-01-01')
 
 
 
@@ -843,62 +843,67 @@ def update_item_price_africa_bulk(table):
 
 @frappe.whitelist()
 def enqueue_update_item_price_dubai(table):
-    enqueue(update_item_price_dubai, queue='default', timeout=6000, event='updating_margin_sales_price',table=table)
+    enqueue(update_item_price_dubai, queue='long', timeout=6000, event='updating_margin_sales_price',table=table)
+
+from erpnext.setup.utils import get_exchange_rate
 
 @frappe.whitelist()
 def update_item_price_dubai(table):
     table = json.loads(table)
     for row in table:
+        fp_conversion = get_exchange_rate("USD","AED")
+
         items = frappe.get_all('Item',{'item_sub_group':row["item_group"]})
         for i in items:
-            factory_price = frappe.db.get_value('Item Price',{'price_list':'STANDARD BUYING-USD','item_code':i.name},'price_list_rate')
-            if factory_price:
-                from erpnext.setup.utils import get_exchange_rate
-                fp_conversion = get_exchange_rate("USD","AED")
+            warehouse = frappe.db.get_value("Warehouse",{'company':"Norden Communication Middle East FZE",'default_for_stock_transfer':1},['name'])
+            val_rate = frappe.db.get_value("Bin",{'item_code':i.name,'warehouse':warehouse},['valuation_rate'])
+            if val_rate:                
+                factory_price = frappe.db.get_value('Item Price',{'price_list':'UAE Master Price','item_code':i.name},'price_list_rate')
                 if row["landing"] and row["landing"] > 0:
-                    existing_ip = frappe.db.exists('Item Price',{'price_list':'Dubai Landing Cost','item_code':i.name})
-                    rate = factory_price * row["landing"]
+                    existing_ip = frappe.db.exists('Item Price',{'price_list':'Landing - NCMEF','item_code':i.name})
+                    rate = val_rate * row["landing"]
                     if not existing_ip:
-                        price_list = "Dubai Landing Cost"
                         doc = frappe.new_doc("Item Price")
-                        doc.item_code = i.name
-                        doc.price_list = price_list
-                        doc.selling = 1
-                        doc.buying = 1
-                        doc.valid_from = '2022-01-01'
-                        doc.price_list_rate = rate
-                        doc.save(ignore_permissions=True)
-                        frappe.db.commit()
-
                     else:
-                        frappe.db.set_value("Item Price",existing_ip,'price_list_rate',rate)
-                        frappe.db.set_value("Item Price",existing_ip,'valid_from','2022-01-01')
+                        doc = frappe.get_doc("Item Price",existing_ip)
+                    price_list = "Landing - NCMEF"
+                    doc.item_code = i.name
+                    doc.price_list = price_list
+                    doc.selling = 1
+                    doc.buying = 1
+                    doc.valid_from = '2022-01-01'
+                    doc.price_list_rate = rate
+                    doc.save(ignore_permissions=True)
+                    frappe.db.commit()
+
 
                 if row["incentive"] and row["incentive"] > 0:
-                    existing_ip = frappe.db.exists('Item Price',{'price_list':'Dubai Incentive','item_code':i.name})
+                    existing_ip = frappe.db.exists('Item Price',{'price_list':'Incentive - NCMEF','item_code':i.name})
                     incentive = rate * row["incentive"]
                     if not existing_ip:
-                        price_list = "Dubai Incentive"
                         doc = frappe.new_doc("Item Price")
-                        doc.item_code = i.name
-                        doc.price_list = price_list
-                        doc.selling = 1
-                        doc.buying = 1
-                        doc.valid_from = '2022-01-01'
-                        doc.price_list_rate = incentive
-                        doc.save(ignore_permissions=True)
-                        frappe.db.commit()
-
                     else:
-                        frappe.db.set_value("Item Price",existing_ip,'price_list_rate',incentive)
-                        frappe.db.set_value("Item Price",existing_ip,'valid_from','2022-01-01')
+                        doc = frappe.get_doc("Item Price",existing_ip)
+                    price_list = "Incentive - NCMEF"
+                    doc.item_code = i.name
+                    doc.price_list = price_list
+                    doc.selling = 1
+                    doc.buying = 1
+                    doc.valid_from = '2022-01-01'
+                    doc.price_list_rate = incentive
+                    doc.save(ignore_permissions=True)
+                    frappe.db.commit()
 
                 if row["internal"] and row["internal"] > 0:
-                    existing_ip = frappe.db.exists('Item Price',{'price_list':'Dubai Internal Cost','item_code':i.name})
-                    internal = rate * row["incentive"]
-                    if not existing_ip:
-                        price_list = "Dubai Internal Cost"
-                        doc = frappe.new_doc("Item Price")
+                    existing_ip = frappe.db.exists('Item Price',{'price_list':'Internal - NCMEF','item_code':i.name})
+                    if factory_price:
+                        internal = factory_price * fp_conversion * row["landing"] * row["internal"]
+
+                        if not existing_ip:
+                            doc = frappe.new_doc("Item Price")
+                        else:
+                            doc = frappe.get_doc("Item Price",existing_ip)
+                        price_list = "Internal - NCMEF"
                         doc.item_code = i.name
                         doc.price_list = price_list
                         doc.selling = 1
@@ -908,17 +913,17 @@ def update_item_price_dubai(table):
                         doc.save(ignore_permissions=True)
                         frappe.db.commit()
 
-                    else:
-                        frappe.db.set_value("Item Price",existing_ip,'price_list_rate',internal)
-                        frappe.db.set_value("Item Price",existing_ip,'valid_from','2022-01-01')
 
                 if row["distributor"] and row["distributor"] > 0:
-                    existing_ip = frappe.db.exists('Item Price',{'price_list':'Dubai Distributor Price','item_code':i.name})
-                    distributor = rate * row["distributor"]
-                    if not existing_ip:
-                        price_list = "Dubai Distributor Price"
-                        doc = frappe.new_doc("Item Price")
+                    existing_ip = frappe.db.exists('Item Price',{'price_list':'Dist. Price - NCMEF','item_code':i.name})
+                    if factory_price:
+                        distributor = factory_price * fp_conversion * row["landing"] * row["distributor"]
+                        if not existing_ip:
+                            doc = frappe.new_doc("Item Price")
+                        else:
+                            doc = frappe.get_doc("Item Price",existing_ip)
                         doc.item_code = i.name
+                        price_list = "Dist. Price - NCMEF"
                         doc.price_list = price_list
                         doc.selling = 1
                         doc.buying = 1
@@ -927,17 +932,17 @@ def update_item_price_dubai(table):
                         doc.save(ignore_permissions=True)
                         frappe.db.commit()
 
-                    else:
-                        frappe.db.set_value("Item Price",existing_ip,'price_list_rate',distributor)
-                        frappe.db.set_value("Item Price",existing_ip,'valid_from','2022-01-01')
 
                 if row["saudi"] and row["saudi"] > 0:
-                    existing_ip = frappe.db.exists('Item Price',{'price_list':'Saudi dist','item_code':i.name})
-                    saudi = rate * row["saudi"]
-                    if not existing_ip:
-                        price_list = "Saudi dist"
-                        doc = frappe.new_doc("Item Price")
+                    existing_ip = frappe.db.exists('Item Price',{'price_list':'Saudi Dist. - NCMEF','item_code':i.name})
+                    if factory_price:
+                        saudi = factory_price * fp_conversion * row["landing"] * row["saudi"]
+                        if not existing_ip:
+                            doc = frappe.new_doc("Item Price")
+                        else:
+                            doc = frappe.get_doc("Item Price",existing_ip)
                         doc.item_code = i.name
+                        price_list = "Saudi Dist. - NCMEF"
                         doc.price_list = price_list
                         doc.selling = 1
                         doc.buying = 1
@@ -946,35 +951,35 @@ def update_item_price_dubai(table):
                         doc.save(ignore_permissions=True)
                         frappe.db.commit()
 
-                    else:
-                        frappe.db.set_value("Item Price",existing_ip,'price_list_rate',saudi)
-                        frappe.db.set_value("Item Price",existing_ip,'valid_from','2022-01-01')
 
                 if row["project"] and row["project"] > 0:
-                    existing_ip = frappe.db.exists('Item Price',{'price_list':'Dubai Project','item_code':i.name})
-                    project = rate * row["project"]
-                    if not existing_ip:
-                        price_list = "Dubai Project"
-                        doc = frappe.new_doc("Item Price")
+                    existing_ip = frappe.db.exists('Item Price',{'price_list':'Project Group - NCMEF','item_code':i.name})
+                    if factory_price:
+                        project = factory_price * fp_conversion * row["landing"] * row["project"]
+                        if not existing_ip:
+                            doc = frappe.new_doc("Item Price")
+                        else:
+                            doc = frappe.get_doc("Item Price",existing_ip)
+                        price_list = "Project Group - NCMEF"
                         doc.item_code = i.name
                         doc.price_list = price_list
                         doc.selling = 1
                         doc.buying = 1
                         doc.valid_from = '2022-01-01'
-                        doc.price_list_rate = Project
+                        doc.price_list_rate = project
                         doc.save(ignore_permissions=True)
                         frappe.db.commit()
 
-                    else:
-                        frappe.db.set_value("Item Price",existing_ip,'price_list_rate',project)
-                        frappe.db.set_value("Item Price",existing_ip,'valid_from','2022-01-01')
 
                 if row["retail"] and row["retail"] > 0:
-                    existing_ip = frappe.db.exists('Item Price',{'price_list':'Dubai Retail','item_code':i.name})
-                    retail = rate * row["retail"]
-                    if not existing_ip:
-                        price_list = "Dubai Retail"
-                        doc = frappe.new_doc("Item Price")
+                    existing_ip = frappe.db.exists('Item Price',{'price_list':'Retail - NCMEF','item_code':i.name})
+                    if factory_price:    
+                        retail = factory_price * fp_conversion * row["landing"] * row["retail"]
+                        if not existing_ip:
+                            doc = frappe.new_doc("Item Price")
+                        else:
+                            doc = frappe.get_doc("Item Price",existing_ip)
+                        price_list = "Retail - NCMEF"
                         doc.item_code = i.name
                         doc.price_list = price_list
                         doc.selling = 1
@@ -984,16 +989,160 @@ def update_item_price_dubai(table):
                         doc.save(ignore_permissions=True)
                         frappe.db.commit()
 
-                    else:
-                        frappe.db.set_value("Item Price",existing_ip,'price_list_rate',retail)
-                        frappe.db.set_value("Item Price",existing_ip,'valid_from','2022-01-01')
 
                 if row["electra"] and row["electra"] > 0:
-                    existing_ip = frappe.db.exists('Item Price',{'price_list':'Electra Dubai','item_code':i.name})
-                    electra = factory_price * row["electra"]
+                    existing_ip = frappe.db.exists('Item Price',{'price_list':'Electra Qatar - NCMEF','item_code':i.name})
+                    electra = val_rate * row["electra"]
                     if not existing_ip:
-                        price_list = "Electra Dubai"
                         doc = frappe.new_doc("Item Price")
+                    else:
+                        doc = frappe.get_doc("Item Price",existing_ip)
+                    price_list = "Electra Qatar - NCMEF"
+                    doc.item_code = i.name
+                    doc.price_list = price_list
+                    doc.selling = 1
+                    doc.buying = 1
+                    doc.valid_from = '2022-01-01'
+                    doc.price_list_rate = electra
+                    doc.save(ignore_permissions=True)
+                    frappe.db.commit()
+
+
+            else:
+                factory_price = frappe.db.get_value('Item Price',{'price_list':'UAE Master Price','item_code':i.name},'price_list_rate')
+                if factory_price:
+                    fp_conversion = get_exchange_rate("USD","AED")
+                    if row["landing"] and row["landing"] > 0:
+                        existing_ip = frappe.db.exists('Item Price',{'price_list':'Landing - NCMEF','item_code':i.name})
+                        rate = factory_price *fp_conversion * row["landing"]
+                        if not existing_ip:
+                            doc = frappe.new_doc("Item Price")
+                        else:
+                            doc = frappe.get_doc("Item Price",existing_ip)
+                        price_list = "Landing - NCMEF"
+                        doc.item_code = i.name
+                        doc.price_list = price_list
+                        doc.selling = 1
+                        doc.buying = 1
+                        doc.valid_from = '2022-01-01'
+                        doc.price_list_rate = rate
+                        doc.save(ignore_permissions=True)
+                        frappe.db.commit()
+
+                        
+                    if row["incentive"] and row["incentive"] > 0:
+                        existing_ip = frappe.db.exists('Item Price',{'price_list':'Incentive - NCMEF','item_code':i.name})
+                        incentive = rate * row["incentive"]
+                        if not existing_ip:
+                            doc = frappe.new_doc("Item Price")
+                        else:
+                            doc = frappe.get_doc("Item Price",existing_ip)
+                        price_list = "Incentive - NCMEF"
+                        doc.item_code = i.name
+                        doc.price_list = price_list
+                        doc.selling = 1
+                        doc.buying = 1
+                        doc.valid_from = '2022-01-01'
+                        doc.price_list_rate = incentive
+                        doc.save(ignore_permissions=True)
+                        frappe.db.commit()
+
+                    if row["internal"] and row["internal"] > 0:
+                        existing_ip = frappe.db.exists('Item Price',{'price_list':'Internal - NCMEF','item_code':i.name})
+                        internal = rate * row["internal"]
+                        if not existing_ip:
+                            doc = frappe.new_doc("Item Price")
+                        else:
+                            doc = frappe.get_doc("Item Price",existing_ip)
+                        price_list = "Internal - NCMEF"
+                        doc.item_code = i.name
+                        doc.price_list = price_list
+                        doc.selling = 1
+                        doc.buying = 1
+                        doc.valid_from = '2022-01-01'
+                        doc.price_list_rate = internal
+                        doc.save(ignore_permissions=True)
+                        frappe.db.commit()
+
+
+                    if row["distributor"] and row["distributor"] > 0:
+                        existing_ip = frappe.db.exists('Item Price',{'price_list':'Dist. Price - NCMEF','item_code':i.name})
+                        distributor = rate * row["distributor"]
+                        if not existing_ip:
+                            doc = frappe.new_doc("Item Price")
+                        else:
+                            doc = frappe.get_doc("Item Price",existing_ip)
+                        price_list = "Dist. Price - NCMEF"
+                        doc.item_code = i.name
+                        doc.price_list = price_list
+                        doc.selling = 1
+                        doc.buying = 1
+                        doc.valid_from = '2022-01-01'
+                        doc.price_list_rate = distributor
+                        doc.save(ignore_permissions=True)
+                        frappe.db.commit()
+
+                        
+                    if row["saudi"] and row["saudi"] > 0:
+                        existing_ip = frappe.db.exists('Item Price',{'price_list':'Saudi Dist. - NCMEF','item_code':i.name})
+                        saudi = rate * row["saudi"]
+                        if not existing_ip:
+                            doc = frappe.new_doc("Item Price")
+                        else:
+                            doc = frappe.get_doc("Item Price",existing_ip)
+                        price_list = "Saudi Dist. - NCMEF"
+                        doc.item_code = i.name
+                        doc.price_list = price_list
+                        doc.selling = 1
+                        doc.buying = 1
+                        doc.valid_from = '2022-01-01'
+                        doc.price_list_rate = saudi
+                        doc.save(ignore_permissions=True)
+                        frappe.db.commit()
+
+                    if row["project"] and row["project"] > 0:
+                        existing_ip = frappe.db.exists('Item Price',{'price_list':'Project Group - NCMEF','item_code':i.name})
+                        project = rate * row["project"]
+                        if not existing_ip:
+                            doc = frappe.new_doc("Item Price")
+                        else:
+                            doc = frappe.get_doc("Item Price",existing_ip)
+                        price_list = "Project Group - NCMEF"
+                        doc.item_code = i.name
+                        doc.price_list = price_list
+                        doc.selling = 1
+                        doc.buying = 1
+                        doc.valid_from = '2022-01-01'
+                        doc.price_list_rate = project
+                        doc.save(ignore_permissions=True)
+                        frappe.db.commit()
+
+                        
+                    if row["retail"] and row["retail"] > 0:
+                        existing_ip = frappe.db.exists('Item Price',{'price_list':'Retail - NCMEF','item_code':i.name})
+                        retail = rate * row["retail"]
+                        if not existing_ip:
+                            doc = frappe.new_doc("Item Price")
+                        else:
+                            doc = frappe.get_doc("Item Price",existing_ip)
+                        price_list = "Retail - NCMEF"
+                        doc.item_code = i.name
+                        doc.price_list = price_list
+                        doc.selling = 1
+                        doc.buying = 1
+                        doc.valid_from = '2022-01-01'
+                        doc.price_list_rate = retail
+                        doc.save(ignore_permissions=True)
+                        frappe.db.commit()
+
+                    if row["electra"] and row["electra"] > 0:
+                        existing_ip = frappe.db.exists('Item Price',{'price_list':'Electra Qatar - NCMEF','item_code':i.name})
+                        electra = factory_price *fp_conversion* row["electra"]
+                        if not existing_ip:
+                            doc = frappe.new_doc("Item Price")
+                        else:
+                            doc = frappe.get_doc("Item Price",existing_ip)
+                        price_list = "Electra Qatar - NCMEF"
                         doc.item_code = i.name
                         doc.price_list = price_list
                         doc.selling = 1
@@ -1002,12 +1151,3 @@ def update_item_price_dubai(table):
                         doc.price_list_rate = electra
                         doc.save(ignore_permissions=True)
                         frappe.db.commit()
-
-                    else:
-                        frappe.db.set_value("Item Price",existing_ip,'price_list_rate',electra)
-                        frappe.db.set_value("Item Price",existing_ip,'valid_from','2022-01-01')
-
-
-    
-
-

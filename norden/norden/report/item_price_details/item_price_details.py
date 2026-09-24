@@ -28,6 +28,7 @@ def get_columns(filters):
 		_('Item') + ':Data:160',
 		_('Item Name') + ':Data:150',
 		_('Item Group') + ':Data:150',
+		_('Item Sub Group') + ':Data:200',
 	]
 	role = frappe.get_roles(frappe.session.user)
 	user = frappe.get_all("User Permission",{"user":frappe.session.user,"allow":"Price List"},["*"])
@@ -43,16 +44,16 @@ def get_data(filters):
 	data = []
 	user = frappe.get_all("User Permission",{"user":frappe.session.user,"allow":"Price List"},["*"])
 	if filters.item_code:
-		item = frappe.get_all("Item",{"name":filters.item_code},["*"])
+		item = frappe.get_all("Item",{"name":filters.item_code,"disabled":0},["*"])
 	if filters.item_group:
-		item = frappe.get_all("Item",{"item_group":filters.item_group},["*"])
+		item = frappe.get_all("Item",{"item_group":filters.item_group,"disabled":0},["*"])
 	if filters.item_code and filters.item_group:
-		item=frappe.get_all("Item",{"name":filters.item_code,"item_group":filters.item_group},["*"])	
+		item=frappe.get_all("Item",{"name":filters.item_code,"item_group":filters.item_group,"disabled":0},["*"])	
 	if not filters:
-		item = frappe.get_all("Item",["*"])
+		item = frappe.get_all("Item",{"disabled":0},["*"])
 		item_group = frappe.get_all("Item Group",["*"])
 	for i in item:
-		row = [i.item_code,i.item_name,i.item_group]
+		row = [i.item_code,i.item_name,i.item_group,i.item_sub_group]
 		if "Cost Viewer" in role:
 			std = frappe.get_value("Item Price",{"item_code":i.item_code,"price_list":"STANDARD BUYING-USD"},["price_list_rate"])
 			if std:

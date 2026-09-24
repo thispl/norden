@@ -131,8 +131,6 @@ class Prepayment(Document):
         last_digit = datetime_str[8:10]
         str_int = int(last_digit)
 
-        frappe.errprint(str_int)
-        frappe.errprint(type(str_int))
         day_amt = payment / str_int
         first_month_amt = ceil(day_amt * number_of_days)
         dict_list = []

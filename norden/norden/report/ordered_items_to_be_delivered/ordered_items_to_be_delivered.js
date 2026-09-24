@@ -28,6 +28,17 @@ frappe.query_reports["Ordered Items to be Delivered"] = {
 			"fieldtype": "Link",
 			"options": "Sales Order",
 		},
+
+		{
+			"fieldname":"from_date",
+			"label": __("From Date"),
+			"fieldtype": "Date",
+		},
+		{
+			"fieldname":"to_date",
+			"label": __("To Date"),
+			"fieldtype": "Date",
+		},
 	],
 	"formatter": function(value, row, column, data, default_formatter) {
 		value = default_formatter(value, row, column, data);

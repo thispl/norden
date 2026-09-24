@@ -11,8 +11,14 @@ class NVS(Document):
 
 @frappe.whitelist()
 def get_nvs_header(doc):
-	data = '<tr><td style="background-color:#6e1f56;" colspan="3"><b style="color:white;font-size:14px">Specifications</b></td></tr>'
-	data += '<tr><td style="background-color:#e9d8e2;" ><b>Model</b></td><td style="background-color:#e9d8e2;" colspan="3"><b style="font-size:11px;">%s</b></td></tr>'%(doc.type)
+	data = '<tr style=border-color:#C70540><td style="background-color:#C70540;" colspan="3"><b style="color:white;font-size:14px">Specifications</b></td></tr>'
+	data += '<tr style=border-color:#C70540><td style="background-color:#f1c0cf;color:#424242" ><b>Model</b></td><td style="background-color:#f1c0cf;" colspan="3"><b style="font-size:11px;color:#424242;">%s</b></td></tr>'%(doc.type)
+	return data
+
+@frappe.whitelist()
+def get_nvs_header_old(doc):
+	data = '<tr style=border-color:#7A1F5E><td style="background-color:#7A1F5E;" colspan="3"><b style="color:white;font-size:14px">Specifications</b></td></tr>'
+	data += '<tr style=border-color:#7A1F5E><td style="background-color:#e9d8e2;color:#424242" ><b>Model</b></td><td style="background-color:#e9d8e2;" colspan="3"><b style="font-size:11px;color:#424242;">%s</b></td></tr>'%(doc.type)
 	return data
 
 @frappe.whitelist()
@@ -50,7 +56,7 @@ def get_nvs_specification(doc,child,label,pb):
 		if pb == 1:
 			data += '</table><p style="page-break-before: always;">&nbsp;</p><table class="table table-condensed table-border">'
 			data += '<tr><td style="background-color:#6e1f56;" colspan="3"><b style="color:white">Specifications</b></td></tr>'
-			data += '<tr><td style="background-color:#e9d8e2;" >Model</td><td style="background-color:#e9d8e2;"colspan="3"><center>%s</center></td></tr>'%(doc.type)
+			data += '<tr><td style="background-color:#e9d8e2;color:#424242" >Model</td><td style="background-color:#e9d8e2;color:#424242"colspan="3"><center>%s</center></td></tr>'%(doc.type)
 		return data
 	else:
 		return ''

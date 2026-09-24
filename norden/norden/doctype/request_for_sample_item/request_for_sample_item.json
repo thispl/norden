@@ -8,24 +8,30 @@
  "field_order": [
   "naming_series",
   "column_break_2",
-  "date",
+  "company",
   "section_break_4",
   "employee",
   "employee_name",
   "user",
   "designation",
+  "project_reference",
   "column_break_6",
+  "customer",
   "department",
   "submission_date",
-  "stock_issued",
-  "stock_returned",
+  "date",
+  "custom_is_stock_issued",
+  "is_stock_returned",
   "section_break_13",
-  "customer",
   "items",
   "status",
+  "section_break_frio",
+  "remarks",
   "warehouse_tab",
   "section_break_9",
-  "company",
+  "stock_issued",
+  "column_break_ilpn",
+  "stock_returned",
   "section_break_17",
   "source_warehouse",
   "column_break_11",
@@ -37,7 +43,7 @@
    "fieldname": "employee",
    "fieldtype": "Link",
    "ignore_user_permissions": 1,
-   "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Employee",
    "options": "Employee",
    "reqd": 1
@@ -74,12 +80,16 @@
   {
    "fieldname": "company",
    "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Company",
-   "options": "Company"
+   "options": "Company",
+   "reqd": 1
   },
   {
    "fieldname": "customer",
    "fieldtype": "Link",
+   "in_standard_filter": 1,
    "label": "Customer",
    "options": "Customer"
   },
@@ -87,6 +97,7 @@
    "allow_on_submit": 1,
    "fieldname": "status",
    "fieldtype": "Read Only",
+   "in_list_view": 1,
    "label": "Status",
    "options": "\n"
   },
@@ -166,6 +177,7 @@
    "options": "User"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "stock_issued",
    "fieldtype": "Link",
    "label": "Stock Issued",
@@ -175,32 +187,53 @@
    "fieldname": "stock_returned",
    "fieldtype": "Link",
    "label": "Stock Returned",
-   "options": "Stock Entry"
+   "options": "Stock Entry",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "custom_is_stock_issued",
+   "fieldtype": "Check",
+   "hidden": 1,
+   "label": "Is Stock Issued"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_stock_returned",
+   "fieldtype": "Check",
+   "hidden": 1,
+   "label": "Is Stock Returned"
+  },
+  {
+   "fieldname": "project_reference",
+   "fieldtype": "Link",
+   "label": "Project Reference",
+   "options": "Project Reference"
+  },
+  {
+   "fieldname": "column_break_ilpn",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_frio",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "remarks",
+   "fieldtype": "Small Text",
+   "label": "Remarks"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-01-04 19:26:06.257492",
+ "modified": "2025-09-11 15:33:10.798837",
  "modified_by": "Administrator",
  "module": "Norden",
  "name": "Request for Sample Item",
  "naming_rule": "By \"Naming Series\" field",
  "owner": "Administrator",
- "permissions": [
-  {
-   "create": 1,
-   "delete": 1,
-   "email": 1,
-   "export": 1,
-   "print": 1,
-   "read": 1,
-   "report": 1,
-   "role": "System Manager",
-   "share": 1,
-   "write": 1
-  }
- ],
+ "permissions": [],
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": [],

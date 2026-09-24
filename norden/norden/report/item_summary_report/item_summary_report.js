@@ -4,13 +4,39 @@
 
 frappe.query_reports["Item Summary Report"] = {
 	"filters": [
+		// {
+		// 	"fieldname": "item",
+		// 	"label": __("Item"),
+		// 	"fieldtype": "Link",
+		// 	"width": "80",
+		// 	"options": "Item",
+		// 	// "reqd":1
+		// },
 		{
-			"fieldname": "item",
-			"label": __("Item"),
+			"fieldname":"based_on_type",
+			"label": __("Type"),
+			// "reqd":1,
 			"fieldtype": "Link",
-			"width": "80",
-			"options": "Item",
-			// "reqd":1
+			"options": "DocType",
+			"default":"Item",
+			"get_query": function() {
+				return {
+					filters: {"name": ["in", ["Item", "Item Group"]]}
+				}
+			}
+		},
+		{
+			"fieldname":"based_on",
+			"label": __("Item Code / Item Group"),
+			"fieldtype": "Dynamic Link",
+			"get_options": function() {
+				var based_on_type = frappe.query_report.get_filter_value('based_on_type');
+				var based_on = frappe.query_report.get_filter_value('based_on');
+				if(based_on && !based_on_type) {
+					frappe.throw(__("Please select Party Type first"));
+				}
+				return based_on_type;
+			}
 		},
 		{
 			"fieldname": "company",
@@ -20,13 +46,13 @@ frappe.query_reports["Item Summary Report"] = {
 			"reqd":1
 		},
 		
-		{
-			"fieldname": "item_group",
-			"label": __("Item Group"),
-			"fieldtype": "Link",
-			"width": "80",
-			"options": "Item Group",
-		},
+		// {
+		// 	"fieldname": "item_group",
+		// 	"label": __("Item Group"),
+		// 	"fieldtype": "Link",
+		// 	"width": "80",
+		// 	"options": "Item Group",
+		// },
 		{
 			"fieldname": "like",
 			"label": __("Like"),
@@ -46,6 +72,7 @@ frappe.query_reports["Item Summary Report"] = {
 		frappe.route_options = {
 			"item_code": data["item"],
 		}
+		console.log(this.filters)
 		window.open(
 			frappe.urllib.get_full_url("/app/allocation-details/Allocation%20Details?item_code="+encodeURIComponent(data["company"] +':'+ data["item"])));
 	},

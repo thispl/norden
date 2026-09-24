@@ -1,0 +1,84 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-04-23 19:19:06.818635",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "item_summary_report_section",
+  "date",
+  "section_break_iavj",
+  "mail_settings",
+  "cost_rate_section",
+  "item_code",
+  "column_break_otxv",
+  "update_cost_rate"
+ ],
+ "fields": [
+  {
+   "description": "Note : From this date the stock details will be listed in Item  Summary Report and in Allocation Details",
+   "fieldname": "date",
+   "fieldtype": "Date",
+   "label": "Date"
+  },
+  {
+   "fieldname": "section_break_iavj",
+   "fieldtype": "Section Break",
+   "label": "Mail Settings"
+  },
+  {
+   "fieldname": "mail_settings",
+   "fieldtype": "Table",
+   "options": "Custom Mail Settings"
+  },
+  {
+   "fieldname": "item_summary_report_section",
+   "fieldtype": "Section Break",
+   "label": "Item Summary Report"
+  },
+  {
+   "fieldname": "cost_rate_section",
+   "fieldtype": "Section Break",
+   "label": "Cost Rate"
+  },
+  {
+   "fieldname": "item_code",
+   "fieldtype": "Link",
+   "label": "Item Code",
+   "options": "Item"
+  },
+  {
+   "fieldname": "column_break_otxv",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "update_cost_rate",
+   "fieldtype": "Button",
+   "label": "Update Cost Rate"
+  }
+ ],
+ "hide_toolbar": 1,
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2024-06-25 18:39:21.247601",
+ "modified_by": "Administrator",
+ "module": "Norden",
+ "name": "Custom Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

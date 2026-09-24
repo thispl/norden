@@ -36,7 +36,7 @@ def get_data(filters):
 				if qc:
 					inspect = frappe.db.exists("Item Inspection",{"pr_number":i.name,"item_code":k.item_code})
 					if not inspect:
-						frappe.errprint(k.balance)
+						
 						row = [i.name,k.item_code,k.ordered or 0,k.received_qty or 0,k.qty or 0,k.balance or 0]
 			data.append(row)
 	return data

@@ -39,30 +39,33 @@ def get_data(chart_name=None, chart=None, no_cache=None, filters=None,
                 "labels": territory_names,
                 "datasets": [
                     {"name": _("Target Amount"), "values": [format(all_targets.get(territory, 0.0)) for territory in all_territories]},
-                    {"name": _("Achievement Amount"), "values": [format(r[1]) for r in achievement_data]},
+                    {"name": _("Achievement Amount"), "values": [format(round(float(r[1]), 2), '.2f') if isinstance(r[1], (int, float)) else str(r[1]) for r in achievement_data]}
                 ],
             }
 
-def get_records(from_date: str, to_date: str, datefield: str, company: str, territory:str) -> list[tuple[str, float, int]]:
-	
-	filters = [
-		["Sales Invoice", "company", "=", company],
-		["Sales Invoice", datefield, ">=", from_date, False],
-		["Sales Invoice", datefield, "<=", to_date, False],
-		["Sales Invoice", "territory", "=", territory, False],
+def get_records(from_date: str, to_date: str, datefield: str, company: str, territory: str) -> list[tuple[str, float, int]]:
+    filters = [
+        ["Sales Invoice", "company", "=", company],
+        ["Sales Invoice", datefield, ">=", from_date, False],
+        ["Sales Invoice", datefield, "<=", to_date, False],
+        ["Sales Invoice", "territory", "=", territory, False],
+    ]
 
-	]
-	
-	data = frappe.db.get_list(
-		"Sales Invoice",
-		fields=[f"{datefield} as _unit", "SUM(grand_total) as total_amount", "COUNT(*) as count",'docstatus != 2'],
-		filters=filters,
-		group_by="_unit",
-		order_by="_unit asc",
-		as_list=True,
-		ignore_ifnull=True,
-	)
-	return data
+    print(f"get_records filters for {territory}: {filters}")
+
+    data = frappe.db.get_list(
+        "Sales Invoice",
+        fields=[f"{datefield} as _unit", "SUM(grand_total) as total_amount", "COUNT(*) as count", 'docstatus != 2'],
+        filters=filters,
+        group_by="_unit",
+        order_by="_unit asc",
+        as_list=True,
+        ignore_ifnull=True,
+    )
+
+    print(f"get_records data for {territory}: {data}")
+    return data
+
 
 def get_all_territories() -> list:
 	territories = frappe.get_all("Territory", fields=['name'])
@@ -73,7 +76,7 @@ def get_all_targets() -> dict:
 	targets = {}
 
 	for territory in territories:
-		target_value = frappe.get_value("Target Detail", {'parent': territory}, 'target_amount')
+		target_value = frappe.get_value("Target Detail", {'parent': territory}, 'target_amount' )
 		targets[territory] = float(target_value) if target_value else 0.0
 
 	return targets

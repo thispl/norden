@@ -59,18 +59,19 @@ def get_data(chart_name=None, chart=None, no_cache=None, filters=None,
 					aggregated_data[company_name]['bal_val'] += bal_val
 				else:
 					aggregated_data[company_name] = {'bal_qty': bal_qty, 'bal_val': bal_val}
-	aggregated_data_list = [{'bal_qty': values['bal_qty']} for key, values in aggregated_data.items()]
-	data.extend(aggregated_data_list)
-	first_bal_qty_value = data[0]['bal_qty'] if data else 0
-	frappe.errprint(first_bal_qty_value)
-	return {
-		"datasets": [
-			{
-				"name": _("Stock Quantity"),
-				"values": first_bal_qty_value,
-			},
-		],
-	}
+		aggregated_data_list = [{'bal_qty': values['bal_qty']} for key, values in aggregated_data.items()]
+		data.extend(aggregated_data_list)
+		first_bal_qty_value = data[0]['bal_qty'] if data else 0
+
+		return {
+			"datasets": [
+				{
+					"name": _("Stock Quantity"),
+					"values": [first_bal_qty_value],
+				},
+			],
+		}
+
 
 def apply_conditions(query, filters):
 	sle = frappe.qb.DocType("Stock Ledger Entry")

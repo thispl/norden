@@ -27,8 +27,7 @@ def get_data(chart_name=None, chart=None, no_cache=None, filters=None,
 		success, achievement_data = get_values(from_date, to_date, "posting_date")
 		if success and company:
 			labels = [str(r[0]) for r in achievement]
-			values = [float(r[1]) for r in achievement]
-
+			values = [round(float(str(r[1])), 2) if isinstance(r[1], (int, float, str)) and str(r[1]).replace('.', '', 1).isdigit() else 0.0 for r in achievement]
 			return {
 				"labels": labels,
 				"datasets": [

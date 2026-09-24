@@ -15,7 +15,29 @@ frappe.ui.form.on('Logistics Request', {
 			});
 	},
 	refresh: function (frm) {
-		
+		if(frm.doc.__islocal) {
+
+			frm.add_custom_button(__('Purchase Order'),
+				function() {
+					frm.set_value('multiple_pos','')
+					erpnext.utils.map_current_doc({
+						method: "norden.norden.doctype.logistics_request.logistics_request.make_purchase_order",
+						source_doctype: "Purchase Order",
+						target: frm,
+						setters: {
+							schedule_date: undefined,
+							status: undefined
+						},
+						get_query_filters: {
+							docstatus: 1,
+							company: frm.doc.company
+						},
+						allow_child_item_selection: true,
+						child_fieldname: "items",
+						child_columns: ["item_code", "qty", "ordered_qty"]
+					})
+				}, __("Get Items From"));
+		}
 		frappe.breadcrumbs.add("Buying", "Logistics Request");
 		if (frm.doc.workflow_state == "Create Purchase Receipt") {
 			frm.add_custom_button(__('Purchase Receipt'), function () {
@@ -107,6 +129,7 @@ frappe.ui.form.on('Logistics Request', {
 		// if (frm.doc.grand_total) {
 		// 	frm.set_value('custom_duty', frm.doc.grand_total * 0.45)
 		// }
+		frm.call('update_gross_net')
 		frm.call('compare_po_items').then(r => {
 			if (r.message) {
 				frappe.msgprint(r.message)

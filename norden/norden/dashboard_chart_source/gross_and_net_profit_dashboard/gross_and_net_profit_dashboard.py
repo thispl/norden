@@ -24,13 +24,14 @@ def get_data(chart_name=None, chart=None, no_cache=None, filters=None,
 		filters = frappe.parse_json(filters)
 		fiscal_year = filters.get("fiscal_year")
 		company = filters.get("company")
-		gross = gross_profit(fiscal_year, filters.get("company"))
-		net = net_proft(fiscal_year, filters.get("company"))
+		gross = round(gross_profit(fiscal_year, filters.get("company")),2)
+		net = round(net_proft(fiscal_year, filters.get("company")),2)
+		net_profit = round((gross - net),2)
 		return {
 			"labels": [company],
 			"datasets": [
 				{"name": _("Gross Profit"), "values": [gross]},
-				{"name": _("Net Profit"), "values": [gross - net]},
+				{"name": _("Net Profit"), "values": [net_profit]},
 			],
 		}
 

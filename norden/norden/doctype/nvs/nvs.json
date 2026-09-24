@@ -56,26 +56,35 @@
   "rear_pannal_mm",
   "rear_pb",
   "software_instructions",
+  "software_instructions_mm",
   "software_pb",
   "appearance",
+  "appearance_image1_mm",
   "appearance_pb",
   "appearance_image_2",
+  "appearance_image2_mm",
   "appearance_img_pb",
   "connection_diagram",
+  "connection_diagram_mm",
   "connection_pb",
   "column_break_15",
   "input_connection",
+  "input_connection_mm",
   "ip_conn_pb",
   "output_connection",
+  "output_connection_mm",
   "op_conn_pb",
   "is_single_image",
   "freq_response_distortion",
+  "freq_responsedistortion_mm",
   "freq_pb",
   "is_double_image",
   "freq_response",
   "freq_response_image",
+  "freq_response_image_mm",
   "distortion",
   "distortion_image",
+  "distortion_image_mm",
   "installation",
   "installation_pb",
   "section_break_14",
@@ -88,6 +97,8 @@
   "page_break",
   "packing_information_section",
   "ds_packing",
+  "accessories_information_section",
+  "accessories_information",
   "amended_from"
  ],
  "fields": [
@@ -545,11 +556,69 @@
    "fieldname": "specification_pb",
    "fieldtype": "Check",
    "label": "Page Break"
+  },
+  {
+   "fieldname": "accessories_information_section",
+   "fieldtype": "Section Break",
+   "label": "Accessories Information"
+  },
+  {
+   "fieldname": "accessories_information",
+   "fieldtype": "Table",
+   "options": "Accessories Information"
+  },
+  {
+   "fieldname": "software_instructions_mm",
+   "fieldtype": "Int",
+   "label": "Software Instructions MM"
+  },
+  {
+   "fieldname": "appearance_image1_mm",
+   "fieldtype": "Int",
+   "label": "Appearance Image1 MM"
+  },
+  {
+   "fieldname": "appearance_image2_mm",
+   "fieldtype": "Int",
+   "label": "Appearance Image2 MM"
+  },
+  {
+   "fieldname": "connection_diagram_mm",
+   "fieldtype": "Int",
+   "label": "Connection Diagram MM"
+  },
+  {
+   "fieldname": "input_connection_mm",
+   "fieldtype": "Int",
+   "label": "Input Connection MM"
+  },
+  {
+   "fieldname": "output_connection_mm",
+   "fieldtype": "Int",
+   "label": "Output Connection MM"
+  },
+  {
+   "depends_on": "eval:doc.is_single_image",
+   "fieldname": "freq_responsedistortion_mm",
+   "fieldtype": "Int",
+   "label": "Freq. Response/Distortion MM"
+  },
+  {
+   "depends_on": "eval:doc.is_double_image",
+   "fieldname": "freq_response_image_mm",
+   "fieldtype": "Int",
+   "label": "Freq. Response Image MM"
+  },
+  {
+   "depends_on": "eval:doc.is_double_image",
+   "fieldname": "distortion_image_mm",
+   "fieldtype": "Int",
+   "label": "Distortion Image MM"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2023-09-25 11:13:08.966411",
+ "modified": "2025-06-26 16:14:18.899187",
  "modified_by": "Administrator",
  "module": "Norden",
  "name": "NVS",

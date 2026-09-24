@@ -43,5 +43,4 @@ def get_data(filters):
 		for i in sa:
 			row=[i.name,i.posting_date,i.supplier,i.bill_no,"AED",i.grand_total,i.base_total_taxes_and_charges,i.base_grand_total]
 			data.append(row)
-			frappe.errprint(row)
 	return data

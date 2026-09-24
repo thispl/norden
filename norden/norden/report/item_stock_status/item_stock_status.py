@@ -45,7 +45,7 @@ def get_data(filters):
         row = [i.name,i.description,i.stock_uom]
         for c in country:
             query = """
-                select sum(b.actual_qty) as qty from `tabBin` b 
+                select (sum(`tabBin`.actual_qty) - sum(b.reserved_stock)) as qty from `tabBin` b 
                 join `tabWarehouse` wh on wh.name = b.warehouse
                 join `tabCompany` c on c.name = wh.company
                 where c.country = '%s' and b.item_code = '%s'
@@ -61,7 +61,7 @@ def get_data(filters):
             if not bins['qty']:
                 bins['qty'] = 0
             st_value = pr*bins['qty']
-            frappe.errprint(st_value)
+            
             row += [st_value]
             
         # for c in country:

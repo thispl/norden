@@ -3,6 +3,7 @@ import frappe
 from hrms.hr.doctype.leave_application.leave_application import LeaveApplication
 from hrms.hr.doctype.expense_claim.expense_claim import ExpenseClaim
 from hrms.hr.doctype.attendance_request.attendance_request import AttendanceRequest
+from hrms.payroll.doctype.salary_slip.salary_slip import SalarySlip
 from frappe import _
 import frappe
 
@@ -34,3 +35,23 @@ class CustomAttendanceRequest(AttendanceRequest):
 		else:
 			message = ('Employee Work From Home Request is Approved')
 			frappe.log_error('Attendance Request',message)
+
+class CustomSalarySlip(SalarySlip):
+	def after_insert(self):
+		assignment = frappe.get_value(
+			"Salary Structure Assignment",
+			filters={
+				"employee": self.employee,
+				"docstatus": 1 
+			},
+			fieldname="base",
+			order_by="creation DESC",
+		)
+		if assignment:
+			total_working_days = self.total_working_days
+			payment_days = self.payment_days
+			loss_of_pay = (assignment / total_working_days) * (total_working_days - payment_days)
+			
+			self.loss_of_pay=round(loss_of_pay,2)
+		else:
+			self.loss_of_pay=0.0

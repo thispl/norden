@@ -43,7 +43,7 @@ def get_data(filters):
     for i in item:
         
         company_stock_ns = frappe.db.sql("""
-            select sum(b.actual_qty) as qty from `tabBin` b 
+            select (sum(`tabBin`.actual_qty) - sum(b.reserved_stock)) as qty from `tabBin` b 
             join `tabWarehouse` wh on wh.name = b.warehouse
             join `tabCompany` c on c.name = wh.company
             where item_code = '%s' and wh.company = 'Norden Singapore PTE LTD'
@@ -54,7 +54,7 @@ def get_data(filters):
             frappe.errprint('-')
         # ns.append(cs.qty)
         company_stock_me = frappe.db.sql("""
-            select sum(b.actual_qty) as qty from `tabBin` b 
+            select (sum(`tabBin`.actual_qty) - sum(b.reserved_stock)) as qty from `tabBin` b 
             join `tabWarehouse` wh on wh.name = b.warehouse
             join `tabCompany` c on c.name = wh.company
             where item_code = '%s' and wh.company = 'Norden Communication Middle East FZE'
@@ -64,7 +64,7 @@ def get_data(filters):
             frappe.errprint('-')
         # me.append(c.qty)
         ompany_stock_tn = frappe.db.sql("""
-            select sum(b.actual_qty) as qty from `tabBin` b 
+            select (sum(`tabBin`.actual_qty) - sum(b.reserved_stock)) as qty from `tabBin` b 
             join `tabWarehouse` wh on wh.name = b.warehouse
             join `tabCompany` c on c.name = wh.company
             where item_code = '%s' and wh.company = 'Test Norden Company'
@@ -74,7 +74,7 @@ def get_data(filters):
             frappe.errprint('-')
         # tnc.append(tn.qty)
         ompany_stock_nc = frappe.db.sql("""
-            select sum(b.actual_qty) as qty from `tabBin` b 
+            select (sum(`tabBin`.actual_qty) - sum(b.reserved_stock)) as qty from `tabBin` b 
             join `tabWarehouse` wh on wh.name = b.warehouse
             join `tabCompany` c on c.name = wh.company
             where item_code = '%s' and wh.company = 'Norden Communication Pvt Ltd'
@@ -84,7 +84,7 @@ def get_data(filters):
             frappe.errprint('-')
         # nc.append(n.qty)
         ompany_stock_uk = frappe.db.sql("""
-            select sum(b.actual_qty) as qty from `tabBin` b 
+            select (sum(`tabBin`.actual_qty) - sum(b.reserved_stock)) as qty from `tabBin` b 
             join `tabWarehouse` wh on wh.name = b.warehouse
             join `tabCompany` c on c.name = wh.company
             where item_code = '%s' and wh.company = 'Norden Communication UK Limited'
@@ -94,7 +94,7 @@ def get_data(filters):
             frappe.errprint('-')
         # uk.append(k.qty)
         ompany_stock_sn = frappe.db.sql("""
-            select sum(b.actual_qty) as qty from `tabBin` b 
+            select (sum(`tabBin`.actual_qty) - sum(b.reserved_stock)) as qty from `tabBin` b 
             join `tabWarehouse` wh on wh.name = b.warehouse
             join `tabCompany` c on c.name = wh.company
             where item_code = '%s' and wh.company = 'Sparcom Ningbo Telecom Ltd'
@@ -104,7 +104,7 @@ def get_data(filters):
             frappe.errprint('-')
         # sn.append(s.qty)
         company_stock_nsi = frappe.db.sql("""
-            select sum(b.actual_qty) as qty from `tabBin` b 
+            select (sum(`tabBin`.actual_qty) - sum(b.reserved_stock)) as qty from `tabBin` b 
             join `tabWarehouse` wh on wh.name = b.warehouse
             join `tabCompany` c on c.name = wh.company
             where item_code = '%s' and wh.company = 'Norden Research and Innovation Centre (OPC) Pvt. Ltd'
@@ -114,7 +114,7 @@ def get_data(filters):
             frappe.errprint('-')
         # nsi.append(si.qty)
         company_stock_na = frappe.db.sql("""
-            select sum(b.actual_qty) as qty from `tabBin` b 
+            select (sum(`tabBin`.actual_qty) - sum(b.reserved_stock)) as qty from `tabBin` b 
             join `tabWarehouse` wh on wh.name = b.warehouse
             join `tabCompany` c on c.name = wh.company
             where item_code = '%s' and wh.company = 'Norden Africa'
@@ -124,7 +124,7 @@ def get_data(filters):
             frappe.errprint('-')
         # na.append(a.qty)
         company_stock_nci = frappe.db.sql("""
-            select sum(b.actual_qty) as qty from `tabBin` b 
+            select (sum(`tabBin`.actual_qty) - sum(b.reserved_stock)) as qty from `tabBin` b 
             join `tabWarehouse` wh on wh.name = b.warehouse
             join `tabCompany` c on c.name = wh.company
             where item_code = '%s' and wh.company = 'Norden Communication India'
@@ -134,7 +134,7 @@ def get_data(filters):
             frappe.errprint('-')
         # nci.append(ci.qty)
         company_stock_ncpl = frappe.db.sql("""
-        select sum(b.actual_qty) as qty from `tabBin` b 
+        select (sum(`tabBin`.actual_qty) - sum(b.reserved_stock)) as qty from `tabBin` b 
         join `tabWarehouse` wh on wh.name = b.warehouse
         join `tabCompany` c on c.name = wh.company
         where item_code = '%s' and wh.company = 'NCPL -Bangalore'
@@ -144,7 +144,7 @@ def get_data(filters):
             frappe.errprint('-')
         # ncpl.append(pl.qty)
         company_stock_nspl = frappe.db.sql("""
-        select sum(b.actual_qty) as qty from `tabBin` b 
+        select (sum(`tabBin`.actual_qty) - sum(b.reserved_stock)) as qty from `tabBin` b 
         join `tabWarehouse` wh on wh.name = b.warehouse
         join `tabCompany` c on c.name = wh.company
         where item_code = '%s' and wh.company = 'Norden Singapore PTE LTD-SAARC'
@@ -154,7 +154,7 @@ def get_data(filters):
             frappe.errprint('-')
         # nspl.append(saarc.qty)
         company_stock_nctr = frappe.db.sql("""
-        select sum(b.actual_qty) as qty from `tabBin` b 
+        select (sum(`tabBin`.actual_qty) - sum(b.reserved_stock)) as qty from `tabBin` b 
         join `tabWarehouse` wh on wh.name = b.warehouse
         join `tabCompany` c on c.name = wh.company
         where item_code = '%s' and wh.company = 'Northen Communication TR LLC - Sole Proprietorship'

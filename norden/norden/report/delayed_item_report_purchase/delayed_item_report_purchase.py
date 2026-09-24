@@ -95,13 +95,12 @@ class DelayedItemReport(object):
 			if key not in po_data:
 				po_data.setdefault(key, d.schedule_date)
 		
-		frappe.errprint(self.transactions)
+		
 		for row in self.transactions:
 			key = row.purchase_order_no if consolidated else (row.purchase_order_no)
 			schedule_date = frappe.get_value("Purchase Order",{"name":key},["schedule_date"])
 			# date = datetime.strptime(schedule_date, '%Y-%m-%d')
-			# frappe.errprint(type(date))
-			frappe.errprint(type(schedule_date))
+			
 			row.update(
 				{
 					"delivery_date": schedule_date,

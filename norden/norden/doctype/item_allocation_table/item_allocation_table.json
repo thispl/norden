@@ -16,7 +16,8 @@
    "fieldname": "item_name",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Item Name"
+   "label": "Item Name",
+   "length": 200
   },
   {
    "fieldname": "qty",
@@ -41,7 +42,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2023-04-17 18:22:23.699373",
+ "modified": "2024-07-02 21:43:45.052872",
  "modified_by": "Administrator",
  "module": "Norden",
  "name": "Item Allocation Table",

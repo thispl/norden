@@ -1,10 +1,29 @@
 import frappe
+from erpnext.accounts.utils import (
+	unlink_ref_doc_from_payment_entries,
+    remove_ref_doc_link_from_pe
+
+)
 
 def get_spec():
     powers = frappe.db.sql("""select specification from `tabDS General` where title like 'power consumption%'""",as_dict=True)
     for power in powers:
         spec = "".join(power.specification.split())
         print(spec)
+
+@frappe.whitelist()     
+def pe_on_trash(doc,method):
+    ple = frappe.qb.DocType("Payment Ledger Entry")
+    frappe.qb.from_(ple).delete().where(
+        (ple.voucher_type == doc.doctype) & (ple.voucher_no == doc.name)
+    ).run()
+    frappe.db.sql(
+        "delete from `tabGL Entry` where voucher_type=%s and voucher_no=%s", (doc.doctype, doc.name)
+    )
+    frappe.db.sql(
+        "delete from `tabStock Ledger Entry` where voucher_type=%s and voucher_no=%s",
+        (doc.doctype, doc.name),
+    )
 
 @frappe.whitelist()
 def clear_default_warehouse():

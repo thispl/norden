@@ -47,9 +47,9 @@ def format_report_data(filters: Filters, item_details: Dict, to_date: str) -> Li
 
 		average_age = get_average_age(fifo_queue, to_date)
 		earliest_age = date_diff(to_date, fifo_queue[0][1])
-		frappe.errprint(fifo_queue[0][1])
+	
 		latest_age = date_diff(to_date, fifo_queue[-1][1])
-		frappe.errprint(fifo_queue[-1][1])
+		
 		range1, range2, range3,range4,range5, range6, above_range6 = get_range_age(filters, fifo_queue, to_date, item_dict)
 
 		row = [details.name, details.item_name, details.description, details.item_group, details.brand]
@@ -71,7 +71,7 @@ def format_report_data(filters: Filters, item_details: Dict, to_date: str) -> Li
 					val_rate.append(item.vr)
 			if len(val_rate) > 1 :
 				valuation_rate = max(val_rate)
-		frappe.errprint(valuation_rate)
+		
 
 		row.extend(
 			[

@@ -15,10 +15,10 @@ from erpnext.setup.utils import get_exchange_rate
 
 
 @frappe.whitelist()
-def margin(item_details,company,currency,margin_currency,exchange_rate,user,price_list,territory,line_item_addition,line_item_discount,footer_discount):
+def margin(item_details,doctype,company,currency,margin_currency,exchange_rate,user,price_list,territory,line_item_addition,line_item_discount,footer_discount):
 	item_details = json.loads(item_details)
 	data = ''
-	if "Sales Manager" in frappe.get_roles(frappe.session.user) or "CFO" in frappe.get_roles(frappe.session.user) or "COO" in frappe.get_roles(frappe.session.user) or "HOD" in frappe.get_roles(frappe.session.user) or "Accounts User" in frappe.get_roles(frappe.session.user):
+	if "System Manager" in frappe.get_roles(frappe.session.user) or "Sales Manager" in frappe.get_roles(frappe.session.user) or "CFO" in frappe.get_roles(frappe.session.user) or "COO" in frappe.get_roles(frappe.session.user) or "HOD" in frappe.get_roles(frappe.session.user) or "Accounts User" in frappe.get_roles(frappe.session.user):
 		data+= '<br><table ><style>td { text-align:left } table,tr,td { padding:5px;border: 1px solid black; font-size:11px;} </style>'
 		data+='<tr><th  colspan=13 style="padding:1px;font-size:14px;background-color:#e20026;color:white;"><center><b>MARGIN BY VALUE & MARGIN BY PERCENTAGE</b></center></th></tr>'
 		spl = 0
@@ -295,10 +295,13 @@ def margin(item_details,company,currency,margin_currency,exchange_rate,user,pric
 
 			if price_list == "Landing - NCMEF":
 				dubai_l = frappe.get_value("Item Price",{'item_code':i["item_code"],'price_list':"Landing - NCMEF"},['price_list_rate'])
-				if dubai_l:
-					dubai_landing = (dubai_l*i["qty"])
-					dubai_landing = dubai_landing * exc_rate
-					dubai_landing_total += dubai_landing
+				if doctype=="Sales Order":
+					dubai_landing = (i["custom_landing_rate"]*i["qty"])
+				else:
+					if dubai_l:
+						dubai_landing = (dubai_l*i["qty"])
+						dubai_landing = dubai_landing * exc_rate
+				dubai_landing_total += dubai_landing
 				if amount > 0:
 					dubai_landing_margin = round((((amount - dubai_landing)/amount)*100),2)
 				else:
@@ -542,7 +545,7 @@ def margin(item_details,company,currency,margin_currency,exchange_rate,user,pric
 					freight_total = freight + freight_total 
 					freight_total_margin = round(((total_selling_price - freight_total)/total_selling_price*100),2)                
 	   
-		if "Sales Manager" in frappe.get_roles(frappe.session.user) or "CFO" in frappe.get_roles(frappe.session.user) or "COO" in frappe.get_roles(frappe.session.user) or "HOD" in frappe.get_roles(frappe.session.user) or "Accounts User" in frappe.get_roles(frappe.session.user):
+		if "System Manager" in frappe.get_roles(frappe.session.user) or "Sales Manager" in frappe.get_roles(frappe.session.user) or "CFO" in frappe.get_roles(frappe.session.user) or "COO" in frappe.get_roles(frappe.session.user) or "HOD" in frappe.get_roles(frappe.session.user) or "Accounts User" in frappe.get_roles(frappe.session.user):
 			if i["special_cost"] > 0:
 				data+='<tr><td  align = "right" >%s</td><td  align = "right" >%s</td><td  align = "right" >%s</td><td  align = "right" >%s</td><td  align = "right" >%s</td><td  align = "right" >%s</td><td  align = "right" >%s</td><td  align = "right" >%s</td><td  align = "right" >%s</td><td  align = "right" >%s</td><td  align = "right" >%s</td><td  align = "right" >%s</td></tr>'%(i["item_code"],i["description"],'','','','','','','','','','')
 			else:
@@ -625,7 +628,7 @@ def margin(item_details,company,currency,margin_currency,exchange_rate,user,pric
 		sbu_total_margin = round(((total_selling_price - sbu_total)/total_selling_price*100),2)
 	
 	data_1 = ''
-	if "Sales Manager" in frappe.get_roles(frappe.session.user) or "CFO" in frappe.get_roles(frappe.session.user) or "COO" in frappe.get_roles(frappe.session.user) or "HOD" in frappe.get_roles(frappe.session.user) or "Accounts User" in frappe.get_roles(frappe.session.user):
+	if "System Manager" in frappe.get_roles(frappe.session.user) or "Sales Manager" in frappe.get_roles(frappe.session.user) or "CFO" in frappe.get_roles(frappe.session.user) or "COO" in frappe.get_roles(frappe.session.user) or "HOD" in frappe.get_roles(frappe.session.user) or "Accounts User" in frappe.get_roles(frappe.session.user):
 		if spcl == 0:
 			if territory == "India":
 				data += '<tr><th><b>TOTAL MARGIN </b></th><td  align = "right" ><b>%s<b></td><td align = "right"><b>%s</b></td>'%('','')            
@@ -754,7 +757,7 @@ def margin_cost(item_details,company,currency,margin_currency,exchange_rate,user
 		price_list = "Cost Rate - NCMEF"
 	item_details = json.loads(item_details)
 	data = ''
-	if "Sales Manager" in frappe.get_roles(frappe.session.user) or "CFO" in frappe.get_roles(frappe.session.user) or "COO" in frappe.get_roles(frappe.session.user) or "HOD" in frappe.get_roles(frappe.session.user) or "Accounts User" in frappe.get_roles(frappe.session.user):
+	if "System Manager" in frappe.get_roles(frappe.session.user) or "Sales Manager" in frappe.get_roles(frappe.session.user) or "CFO" in frappe.get_roles(frappe.session.user) or "COO" in frappe.get_roles(frappe.session.user) or "HOD" in frappe.get_roles(frappe.session.user) or "Accounts User" in frappe.get_roles(frappe.session.user):
 		data+= '<br><table ><style>td { text-align:left } table,tr,td { padding:5px;border: 1px solid black; font-size:11px;} </style>'
 		data+='<tr><th  colspan=13 style="padding:1px;font-size:14px;background-color:#e20026;color:white;"><center><b>MARGIN BY VALUE & MARGIN BY PERCENTAGE</b></center></th></tr>'
 		spl = 0
@@ -1072,7 +1075,7 @@ def margin_cost(item_details,company,currency,margin_currency,exchange_rate,user
 					freight_total = freight + freight_total 
 					freight_total_margin = round(((total_selling_price - freight_total)/total_selling_price*100),2)                
 	   
-		if "Sales Manager" in frappe.get_roles(frappe.session.user) or "CFO" in frappe.get_roles(frappe.session.user) or "COO" in frappe.get_roles(frappe.session.user) or "HOD" in frappe.get_roles(frappe.session.user) or "Accounts User" in frappe.get_roles(frappe.session.user):
+		if "System Manager" in frappe.get_roles(frappe.session.user) or "Sales Manager" in frappe.get_roles(frappe.session.user) or "CFO" in frappe.get_roles(frappe.session.user) or "COO" in frappe.get_roles(frappe.session.user) or "HOD" in frappe.get_roles(frappe.session.user) or "Accounts User" in frappe.get_roles(frappe.session.user):
 			if i["special_cost"] > 0:
 				data+='<tr><td  align = "right" >%s</td><td  align = "right" >%s</td><td  align = "right" >%s</td><td  align = "right" >%s</td><td  align = "right" >%s</td><td  align = "right" >%s</td><td  align = "right" >%s</td><td  align = "right" >%s</td><td  align = "right" >%s</td><td  align = "right" >%s</td><td  align = "right" >%s</td><td  align = "right" >%s</td></tr>'%(i["item_code"],i["description"],'','','','','')
 			else:
@@ -1091,7 +1094,7 @@ def margin_cost(item_details,company,currency,margin_currency,exchange_rate,user
 	if total_selling_price >0:
 		sbu_total_margin = round(((total_selling_price - sbu_total)/total_selling_price*100),2)
 	data_1 = ''
-	if "Sales Manager" in frappe.get_roles(frappe.session.user) or "CFO" in frappe.get_roles(frappe.session.user) or "COO" in frappe.get_roles(frappe.session.user) or "HOD" in frappe.get_roles(frappe.session.user) or "Accounts User" in frappe.get_roles(frappe.session.user):
+	if "System Manager" in frappe.get_roles(frappe.session.user) or "Sales Manager" in frappe.get_roles(frappe.session.user) or "CFO" in frappe.get_roles(frappe.session.user) or "COO" in frappe.get_roles(frappe.session.user) or "HOD" in frappe.get_roles(frappe.session.user) or "Accounts User" in frappe.get_roles(frappe.session.user):
 		if spcl == 0:
 			if territory == "India":
 				data += '<tr><th><b>TOTAL MARGIN </b></th><td  align = "right" ><b>%s<b></td><td align = "right"><b>%s</b></td>'%('','')            
@@ -1139,3 +1142,4 @@ def margin_tool(item_details):
 		data+='<tr><td  align = "right" >%s</td><td  align = "right" >%s</td><td  align = "right" >%s</td><td  align = "right" >%s</td><td  align = "right" >%s</td><td  align = "right" >%s</td><td  align = "right" >%s</td><td  align = "right" >%s</td><td  align = "right" >%s</td><td  align = "right" >%s</td>'%(i["item_code"],i["item_name"],i["qty"],i["uom"],i["discount"],i["discount_rate"],i["margin_percentage"],i["margin_rate"],i["unit_price_document_currency"],i["amount"])
 	data+='</table>'
 	return data
+

@@ -356,7 +356,7 @@ def get_item_warehouse_map(filters: StockBalanceFilter, sle: List[SLEntry]):
         qty_dict = iwb_map[group_by_key]
         comp_currency = erpnext.get_company_currency(filters.company)
         conversion = get_exchange_rate(comp_currency, filters.presentation_currency)
-        frappe.errprint(conversion)
+        
         for field in inventory_dimensions:
             qty_dict[field] = d.get(field)
 

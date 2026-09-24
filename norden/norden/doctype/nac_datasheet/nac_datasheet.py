@@ -23,10 +23,17 @@ def get_technical_parameter(doc):
     return data
 
 @frappe.whitelist()
+def get_secnor_header(doc):
+	data = '<tr style=border-color:#2596be><td style="background-color:#2596be;" colspan="3"><b style="color:white;font-size:14px">TECHNICAL PARAMETERS</b></td></tr>'
+	data += '<tr style=border-color:#2596be><td style="background-color:#e6e6e6;color:#424242" ><b>Model</b></td><td style="background-color:#e6e6e6;" colspan="3"><b style="font-size:11px;color:#424242;">%s</b></td></tr>'%(doc.model)
+	return data
+
+@frappe.whitelist()
 def datasheet_api(doc):
     doc = json.loads(doc)
     nac_doc = frappe.get_doc('NAC Datasheet', doc['name'])
-    url = "https://www.nordencommunication.com/api/products/save"
+    # Temporarily disabled for outbound traffic investigation - nordencommunication.com
+    # url = "https://www.nordencommunication.com/api/products/save"
     # specs = frappe.get_print(doc['doctype'], doc['name'], doc=nac_doc, print_format='NAC Datasheet Specification HTML').replace('\n',"").replace('\t',"")
     specs = frappe.render_template("norden/norden/doctype/nac_datasheet/nac_ds_specification.html",{"doc": doc})
     ordering_info = frappe.render_template("norden/norden/doctype/nac_datasheet/nac_ds_ordering_information.html",{"doc": doc})
@@ -48,5 +55,6 @@ def datasheet_api(doc):
         'Authorization': 'Bearer qhMbf0bCwdUVysowooeGdQoz8BTI4nv5iZgWj8CM',
         'Content-Type': 'application/x-www-form-urlencoded'
     }
-    response = requests.request("POST", url, data=payload,headers=headers)
-    frappe.errprint(response.content)
+    # Temporarily disabled for outbound traffic investigation - nordencommunication.com
+    # response = requests.request("POST", url, data=payload,headers=headers)
+    # frappe.errprint(response.content)

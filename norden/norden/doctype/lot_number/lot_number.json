@@ -1,5 +1,6 @@
 {
  "actions": [],
+ "autoname": "field:lot_number",
  "creation": "2022-06-25 13:19:25.201737",
  "doctype": "DocType",
  "editable_grid": 1,
@@ -11,15 +12,17 @@
   {
    "fieldname": "lot_number",
    "fieldtype": "Data",
-   "label": "Lot Number"
+   "label": "Lot Number",
+   "unique": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2022-06-25 13:19:25.201737",
+ "modified": "2024-09-05 12:15:49.130246",
  "modified_by": "Administrator",
  "module": "Norden",
  "name": "Lot Number",
+ "naming_rule": "By fieldname",
  "owner": "Administrator",
  "permissions": [
   {
@@ -37,5 +40,6 @@
  ],
  "sort_field": "modified",
  "sort_order": "DESC",
+ "states": [],
  "track_changes": 1
 }

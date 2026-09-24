@@ -1,8 +1,7 @@
 {
  "add_total_row": 1,
  "columns": [],
- "creation": "2022-12-09 17:41:36.301006",
- "disable_prepared_report": 0,
+ "creation": "2026-06-17 09:43:54.449640",
  "disabled": 0,
  "docstatus": 0,
  "doctype": "Report",
@@ -10,32 +9,22 @@
  "idx": 0,
  "is_standard": "Yes",
  "letter_head": "Norden",
- "modified": "2023-05-30 15:30:01.886103",
+ "letterhead": null,
+ "modified": "2026-06-17 09:44:38.916772",
  "modified_by": "Administrator",
  "module": "Norden",
- "name": "Item-wise Sales Report",
+ "name": "Item Wise Sales Report",
+ "owner": "bhuvaneswari.a@groupteampro.com",
  "prepared_report": 0,
- "ref_doctype": "Sales Order",
- "report_name": "Item-wise Sales Report",
+ "ref_doctype": "Sales Invoice",
+ "report_name": "Item Wise Sales Report",
  "report_type": "Script Report",
  "roles": [
   {
-   "role": "Sales User"
-  },
-  {
-   "role": "Sales Manager"
-  },
-  {
-   "role": "Maintenance User"
+   "role": "Accounts Manager"
   },
   {
    "role": "Accounts User"
-  },
-  {
-   "role": "Stock User"
-  },
-  {
-   "role": "Analytics"
   }
  ]
 }
